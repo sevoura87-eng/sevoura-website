@@ -113,10 +113,10 @@ To remove admin rights: `update public.profiles set role = 'customer' where emai
 
 | Variable | Required | Exposed to browser? | Purpose |
 |---|---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | **Yes** | Yes (safe) | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | **Yes** | Yes (safe, RLS-protected) | Public API key. `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` also works |
+| `NEXT_PUBLIC_SEVOURA_SUPABASE_URL` | **Yes** | Yes (safe) | Supabase project URL (falls back to `NEXT_PUBLIC_SUPABASE_URL`) |
+| `NEXT_PUBLIC_SEVOURA_SUPABASE_ANON_KEY` | **Yes** | Yes (safe, RLS-protected) | Public anon / publishable key (falls back to `NEXT_PUBLIC_SUPABASE_ANON_KEY`) |
 | `NEXT_PUBLIC_SITE_URL` | Recommended | Yes | Canonical site URL for SEO metadata |
-| `SUPABASE_SERVICE_ROLE_KEY` | Later (Razorpay) | **No — server only** | Lets payment webhooks record verified payments |
+| `SEVOURA_SUPABASE_SERVICE_ROLE_KEY` | Later (Razorpay) | **No — server only** | Lets payment webhooks record verified payments |
 | `RAZORPAY_KEY_ID` | Later | No | Razorpay API key id |
 | `RAZORPAY_KEY_SECRET` | Later | **No** | Razorpay API secret |
 | `RAZORPAY_WEBHOOK_SECRET` | Later | **No** | Verifies webhook signatures |

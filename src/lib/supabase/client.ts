@@ -15,10 +15,15 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * token expires (configurable in Supabase → Authentication → Sessions).
  */
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+// NEXT_PUBLIC_SEVOURA_* take priority so the store's own project is used even when a
+// Vercel Marketplace Supabase integration injects its generic NEXT_PUBLIC_SUPABASE_* variables.
+// (Each NEXT_PUBLIC_ variable must be referenced literally so Next.js can inline it.)
+const sevouraUrl = process.env.NEXT_PUBLIC_SEVOURA_SUPABASE_URL;
+const sevouraKey = process.env.NEXT_PUBLIC_SEVOURA_SUPABASE_ANON_KEY;
+const url = sevouraUrl ? sevouraUrl : process.env.NEXT_PUBLIC_SUPABASE_URL;
+const anonKey = sevouraUrl
+  ? sevouraKey
+  : (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
 
 let client: SupabaseClient | null = null;
 
