@@ -11,7 +11,7 @@ import {
   Sparkles,
   Orbit,
   Droplets,
-  Infinity,
+  Infinity as InfinityIcon,
   Flower2,
   ShieldCheck,
   Stars,
@@ -44,7 +44,7 @@ const destinations = [
 const brandValues = [
   { title: "Planetary", sub: "Inspired Blends", icon: Orbit },
   { title: "Clean &", sub: "Conscious", icon: Droplets },
-  { title: "Everyday", sub: "Rituals", icon: Infinity },
+  { title: "Everyday", sub: "Rituals", icon: InfinityIcon },
   { title: "Thoughtful", sub: "Choices", icon: Recycle },
 ];
 
@@ -473,7 +473,7 @@ export default function Home() {
               { icon: Sparkles, title: "Distinctive", sub: "Seven inspired identities" },
               { icon: Droplets, title: "Conscious", sub: "Alcohol-free fragrances" },
               { icon: ShieldCheck, title: "Thoughtful", sub: "Designed for everyday rituals" },
-              { icon: Infinity, title: "Personal", sub: "An expression of intention" },
+              { icon: InfinityIcon, title: "Personal", sub: "An expression of intention" },
             ].map((item, i) => {
               const Icon = item.icon;
               return (
