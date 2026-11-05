@@ -17,7 +17,6 @@ import {
   Mail,
   CheckCircle2,
   MoveUpRight,
-  Compass,
   Wind,
   Heart,
   Clock3,
@@ -250,7 +249,7 @@ export default function JournalPage() {
     <>
       <SiteHeader />
 
-      <main className="overflow-hidden bg-[#F8F0E5] text-[#392823]">
+      <main className="overflow-x-clip bg-[#F8F0E5] text-[#392823]">
 
         {/* 01 — CINEMATIC HERO */}
         <section

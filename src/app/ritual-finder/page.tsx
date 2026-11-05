@@ -1,14 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
   Sparkles,
   RotateCcw,
-  Compass,
   Orbit,
   ChevronDown,
   Moon,
@@ -184,7 +182,7 @@ export default function RitualFinderPage() {
     <>
       <SiteHeader />
 
-      <main className="overflow-hidden bg-[#F8F0E5] text-[#392823]">
+      <main className="overflow-x-clip bg-[#F8F0E5] text-[#392823]">
         {/* 01 — RITUAL FINDER HERO — THE SEVEN INSPIRED DESIGN */}
         <section className="relative flex min-h-[760px] items-center justify-center overflow-hidden bg-[#782C49] px-5 py-20 md:min-h-[850px]">
           {/* Burgundy atmosphere and subtle star field */}

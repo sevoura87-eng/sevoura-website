@@ -97,7 +97,7 @@ export default function OurStoryPage() {
     <>
       <SiteHeader />
 
-      <main className="overflow-hidden bg-[#F5EFE5] text-[#382B2A]">
+      <main className="overflow-x-clip bg-[#F5EFE5] text-[#382B2A]">
 
         
         {/* 01 — IMMERSIVE PLANETARY HERO */}

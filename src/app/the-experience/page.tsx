@@ -14,8 +14,6 @@ import {
   ArrowUpRight,
   Sparkles,
   Flower2,
-  Sun,
-  Moon,
   Heart,
   Orbit,
   Wind,
@@ -23,7 +21,6 @@ import {
   Stars,
   Gem,
   Droplets,
-  Clock3,
   Plus,
   Minus,
 } from "lucide-react";
@@ -256,7 +253,7 @@ export default function TheExperiencePage() {
   return (
     <>
       <SiteHeader />
-      <main className="overflow-hidden bg-[#F8F0E5] text-[#392823]">
+      <main className="overflow-x-clip bg-[#F8F0E5] text-[#392823]">
         {/* HERO — burgundy stage, peach typography, original gold planet colours */}
         <section
           ref={heroRef}

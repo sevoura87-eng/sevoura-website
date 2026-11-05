@@ -93,7 +93,7 @@ export default function PrivacyPolicyPage() {
     <>
       <SiteHeader />
 
-      <main className="overflow-hidden bg-[#F5EFE5] text-[#392B2D]">
+      <main className="overflow-x-clip bg-[#F5EFE5] text-[#392B2D]">
 
         {/* HERO */}
         <section className="relative flex min-h-[570px] items-center justify-center overflow-hidden px-6 py-28 text-center md:min-h-[650px]">

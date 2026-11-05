@@ -13,15 +13,15 @@ import {
   Sparkles,
   Plus,
   Minus,
-  Star,
   Package,
   ShieldCheck,
-  Truck,
   Gift,
 } from "lucide-react";
 
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import AddToCartButton from "@/components/shop/AddToCartButton";
+import { LivePrice } from "@/components/shop/ProductPrice";
 
 const blends = [
   {
@@ -179,7 +179,7 @@ export default function ShopPage() {
   const imageY = useTransform(scrollYProgress, [0, 0.35], [0, -65]);
 
   return (
-    <main className="overflow-hidden bg-[#F5EFE4] text-[#481D30]">
+    <main className="overflow-x-clip bg-[#F5EFE4] text-[#481D30]">
       <SiteHeader />
 
       {/* HERO */}
@@ -238,10 +238,10 @@ export default function ShopPage() {
             <motion.div variants={reveal} className="mt-8">
               <div className="flex items-end gap-3">
                 <span className="font-serif text-4xl text-[#762C49]">
-                  ₹1,799
+                  <LivePrice fallback="₹1,799" />
                 </span>
                 <span className="pb-1 text-sm text-[#9C8B7A] line-through">
-                  ₹2,499
+                  <LivePrice fallback="₹2,499" kind="mrp" />
                 </span>
               </div>
               <p className="mt-2 text-[11px] tracking-wide text-[#806D60]">
@@ -251,7 +251,7 @@ export default function ShopPage() {
                 <span className="bg-[#702943] px-3 py-2 text-[10px] font-bold tracking-[0.18em] text-white">
                   FESTIVE OFFER
                 </span>
-                <span className="text-sm font-semibold text-[#702943]">SAVE ₹700</span>
+                <span className="text-sm font-semibold text-[#702943]">SAVE <LivePrice fallback="₹700" kind="saving" /></span>
                 <span className="text-xs text-[#806D60]">Limited-period collection price</span>
               </div>
               <p className="mt-1 text-[10px] tracking-[0.15em] text-[#A57C43]">
@@ -263,16 +263,13 @@ export default function ShopPage() {
               variants={reveal}
               className="mt-8 flex flex-wrap gap-3"
             >
-              <Link
-                href="/cart"
-                className="group inline-flex items-center gap-5 bg-[#702943] px-7 py-4 text-[10px] font-bold tracking-[0.2em] text-[#FFF8EC] transition-all duration-300 hover:bg-[#4D1B30]"
-              >
-                SHOP THE COLLECTION
+              <AddToCartButton className="group inline-flex items-center gap-5 bg-[#702943] px-7 py-4 text-[10px] font-bold tracking-[0.2em] text-[#FFF8EC] transition-all duration-300 hover:bg-[#4D1B30]">
+                ADD TO BAG
                 <ArrowRight
                   size={16}
                   className="transition-transform group-hover:translate-x-1"
                 />
-              </Link>
+              </AddToCartButton>
 
               <Link
                 href="/the-seven"
@@ -622,7 +619,7 @@ export default function ShopPage() {
 
             <motion.div variants={reveal}>
               <span className="font-serif text-5xl text-[#E7C58B]">
-                ₹1,799
+                <LivePrice fallback="₹1,799" />
               </span>
               <p className="mt-2 text-xs tracking-wide text-[#E8D8CC]">
                 PREPAID · FREE SHIPPING
@@ -630,16 +627,13 @@ export default function ShopPage() {
             </motion.div>
 
             <motion.div variants={reveal}>
-              <Link
-                href="/cart"
-                className="group mt-8 inline-flex items-center gap-6 bg-[#F5EBDC] px-8 py-5 text-[10px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white"
-              >
-                SHOP THE COLLECTION
+              <AddToCartButton className="group mt-8 inline-flex items-center gap-6 bg-[#F5EBDC] px-8 py-5 text-[10px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white">
+                ADD TO BAG
                 <ArrowRight
                   size={16}
                   className="transition-transform group-hover:translate-x-2"
                 />
-              </Link>
+              </AddToCartButton>
             </motion.div>
 
             <motion.p
@@ -821,16 +815,13 @@ export default function ShopPage() {
           </motion.p>
 
           <motion.div variants={reveal}>
-            <Link
-              href="/cart"
-              className="group mt-10 inline-flex items-center gap-6 bg-[#F5EBDC] px-9 py-5 text-[10px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white"
-            >
-              EXPLORE THE COLLECTION
+            <AddToCartButton className="group mt-10 inline-flex items-center gap-6 bg-[#F5EBDC] px-9 py-5 text-[10px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white">
+              ADD THE COLLECTION TO BAG
               <ArrowRight
                 size={16}
                 className="transition-transform group-hover:translate-x-2"
               />
-            </Link>
+            </AddToCartButton>
           </motion.div>
         </motion.div>
       </section>

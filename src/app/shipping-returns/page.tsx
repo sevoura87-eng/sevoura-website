@@ -5,16 +5,12 @@ import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import {
-  Search,
-  UserRound,
-  ShoppingCart,
   ArrowUpRight,
   MessageCircle,
   PackageCheck,
   Truck,
   Clock3,
   Mail,
-  Sparkles,
   ShieldCheck,
 } from "lucide-react";
 
@@ -141,7 +137,7 @@ export default function ShippingReturnsPage() {
   const reduce = useReducedMotion();
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#F5F0E7] text-[#542038]">
+    <main className="min-h-screen overflow-x-clip bg-[#F5F0E7] text-[#542038]">
       <SiteHeader />
 
       {/* CINEMATIC HERO */}

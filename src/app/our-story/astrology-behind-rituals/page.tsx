@@ -157,7 +157,7 @@ function PlanetArtwork() {
 
 export default function AstrologyBehindRitualsPage() {
   return (
-    <main className="overflow-hidden bg-[#F7F0E6] text-[#5B2038]">
+    <main className="overflow-x-clip bg-[#F7F0E6] text-[#5B2038]">
       <SiteHeader />
 
       {/* 01 — HERO */}
@@ -317,7 +317,7 @@ export default function AstrologyBehindRitualsPage() {
             <p>
               Introducing{" "}
               <strong className="text-[#5B2038]">
-                SEVOURA's Seven Planetary Blend Collection
+                SEVOURA&apos;s Seven Planetary Blend Collection
               </strong>
               —seven distinctive, alcohol-free fragrances, each inspired by
               the traditional symbolism of its ruling planet.

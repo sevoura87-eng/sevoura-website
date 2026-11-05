@@ -5,9 +5,6 @@ import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 import { useState } from "react";
 import {
-  Search,
-  UserRound,
-  ShoppingCart,
   ArrowUpRight,
   Plus,
   Minus,
@@ -106,7 +103,7 @@ export default function FAQPage() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#F5F0E7] text-[#542038]">
+    <main className="min-h-screen overflow-x-clip bg-[#F5F0E7] text-[#542038]">
       <SiteHeader />
 
       {/* HERO */}
@@ -304,7 +301,7 @@ export default function FAQPage() {
                 We would love to help.
               </h2>
               <p className="mt-5 max-w-[500px] text-sm leading-7 text-[#78656A]">
-                Can't find what you are looking for? Reach out to our team
+                Can&apos;t find what you are looking for? Reach out to our team
                 and we will be happy to assist.
               </p>
             </div>

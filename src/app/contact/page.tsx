@@ -6,8 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail, Phone, Clock, ArrowUpRight, Camera, PlayCircle,
   Send, ShieldCheck, LockKeyhole, Sparkles, Headphones,
-  Package, ShoppingBag, MessageCircle, Heart, ChevronDown,
-  CheckCircle2, Globe, Gift, Star, CircleHelp
+  Package, MessageCircle, Heart, ChevronDown, Gift,
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -126,7 +125,7 @@ export default function ContactPage() {
     <>
       <SiteHeader />
 
-      <main className="overflow-hidden bg-[#F5EFE5] text-[#392B2D]">
+      <main className="overflow-x-clip bg-[#F5EFE5] text-[#392B2D]">
 
         {/* 01 - CINEMATIC HERO */}
         <section className="relative flex min-h-[760px] items-center justify-center overflow-hidden px-6 py-32 md:min-h-[900px]">
@@ -170,14 +169,14 @@ export default function ContactPage() {
               variants={reveal}
               className="mt-10 font-serif text-6xl font-normal leading-[1.05] tracking-[-2px] text-[#782C49] md:text-8xl lg:text-[112px]"
             >
-              Let's Start
+              Let&apos;s Start
               <br />
               <span className="italic text-[#B28B4E]">a Conversation.</span>
             </motion.h1>
 
             <motion.p variants={reveal} className="mx-auto mt-9 max-w-2xl text-sm leading-8 text-[#766866] md:text-base">
-              Whether you're curious about our fragrances, need assistance
-              with an order, or simply want to connect, we'd love to hear
+              Whether you&apos;re curious about our fragrances, need assistance
+              with an order, or simply want to connect, we&apos;d love to hear
               from you. Every meaningful connection begins with a conversation.
             </motion.p>
 
@@ -247,10 +246,10 @@ export default function ContactPage() {
                 CONNECT WITH SEVOURA
               </span>
               <h2 className="mt-6 font-serif text-4xl text-[#782C49] md:text-6xl">
-                We're Here for You
+                We&apos;re Here for You
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-[#766866]">
-                Choose the way you'd like to connect. Our team is always happy to help.
+                Choose the way you&apos;d like to connect. Our team is always happy to help.
               </p>
             </motion.div>
 
@@ -306,7 +305,7 @@ export default function ContactPage() {
                 transition={{ duration: 0.8 }}
               >
                 <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
-                  WE'RE LISTENING
+                  WE&apos;RE LISTENING
                 </span>
                 <h2 className="mt-7 font-serif text-5xl leading-tight text-[#782C49] md:text-7xl">
                   How Can
@@ -322,7 +321,7 @@ export default function ContactPage() {
                     <Heart size={24} strokeWidth={1.2} />
                   </div>
                   <p className="max-w-[220px] text-xs leading-6 text-[#766866]">
-                    Every enquiry matters. We're happy to hear from you.
+                    Every enquiry matters. We&apos;re happy to hear from you.
                   </p>
                 </div>
               </motion.div>
@@ -373,7 +372,7 @@ export default function ContactPage() {
                 A Better Support Experience
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-[#766866]">
-                Connecting with SEVOURA is simple. Here's how our support journey works.
+                Connecting with SEVOURA is simple. Here&apos;s how our support journey works.
               </p>
             </motion.div>
 
@@ -429,7 +428,7 @@ export default function ContactPage() {
               <div className="mt-10 flex items-start gap-4">
                 <ShieldCheck size={30} className="shrink-0 text-[#E9D1A7]" />
                 <div>
-                  <h3 className="font-serif text-2xl">We're listening.</h3>
+                  <h3 className="font-serif text-2xl">We&apos;re listening.</h3>
                   <p className="mt-2 text-sm leading-7 text-[#F5EBDD]/70">
                     We aim to respond to all enquiries within 1–2 business days.
                   </p>
@@ -450,7 +449,7 @@ export default function ContactPage() {
                 <p className="mt-8 text-[10px] uppercase tracking-[0.3em] text-[#E9D1A7]">
                   CUSTOMER SUPPORT HOURS
                 </p>
-                <h3 className="mt-8 font-serif text-4xl md:text-5xl">We're Available</h3>
+                <h3 className="mt-8 font-serif text-4xl md:text-5xl">We&apos;re Available</h3>
                 <p className="mt-5 text-sm text-[#F5EBDD]/70">Monday through Sunday</p>
                 <div className="my-10 h-px bg-[#E9D1A7]/30" />
                 <p className="text-[10px] uppercase tracking-[0.25em] text-[#E9D1A7]">
@@ -671,7 +670,7 @@ export default function ContactPage() {
 
               <p className="mx-auto mt-8 max-w-xl text-sm leading-8 text-[#766866]">
                 Have something on your mind? Reach out to our team.
-                We'd love to be a part of your SEVOURA journey.
+                We&apos;d love to be a part of your SEVOURA journey.
               </p>
 
               <a href="mailto:hello@sevoura.com" className="group mt-12 inline-flex items-center gap-4 bg-[#782C49] px-11 py-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">

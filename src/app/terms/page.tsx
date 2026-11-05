@@ -4,9 +4,6 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 import {
-  Search,
-  UserRound,
-  ShoppingCart,
   ArrowUpRight,
   MessageCircle,
   Mail,
@@ -149,7 +146,7 @@ export default function TermsPage() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#F5F0E7] text-[#542038]">
+    <main className="min-h-screen overflow-x-clip bg-[#F5F0E7] text-[#542038]">
       <SiteHeader />
 
       {/* ANIMATED HERO */}

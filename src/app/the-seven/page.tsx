@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { LivePrice } from "@/components/shop/ProductPrice";
 
 const blends = [
   {
@@ -108,7 +109,7 @@ export default function TheSevenPage() {
   const [activeBlend, setActiveBlend] = useState<number | null>(null);
 
   return (
-    <main className="overflow-hidden bg-[#F5EBDD] text-[#501D32]">
+    <main className="overflow-x-clip bg-[#F5EBDD] text-[#501D32]">
       <SiteHeader />
 
       {/* 01 — HERO */}
@@ -598,7 +599,7 @@ export default function TheSevenPage() {
             </div>
 
             <p className="mt-7 font-serif text-3xl text-[#E8C58D]">
-              ₹1,799
+              <LivePrice fallback="₹1,799" />
             </p>
             <p className="mt-1 text-xs text-[#F0DED2]">
               Prepaid · Free Shipping

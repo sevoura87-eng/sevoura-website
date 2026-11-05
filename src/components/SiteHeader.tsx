@@ -1,8 +1,8 @@
-
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Search,
   UserRound,
@@ -13,6 +13,27 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import BrandLogo from "./BrandLogo";
+import { useCart } from "@/components/providers/CartProvider";
+import { useAuth } from "@/components/providers/AuthProvider";
+
+function CountBadge({ count }: { count: number }) {
+  return (
+    <AnimatePresence>
+      {count > 0 && (
+        <motion.span
+          key={count}
+          initial={{ scale: 0.3, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.3, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 500, damping: 18 }}
+          className="absolute -right-2.5 -top-2 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#792D49] px-1 text-[9px] font-semibold leading-none text-white"
+        >
+          {count}
+        </motion.span>
+      )}
+    </AnimatePresence>
+  );
+}
 
 const navigation = [
   {
@@ -91,6 +112,26 @@ export default function SiteHeader() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const lastY = useRef(0);
+  const { count, openDrawer } = useCart();
+  const { user, profile } = useAuth();
+  const firstName = (profile?.full_name || "").split(" ")[0];
+
+  // Glide away on scroll down, return on scroll up
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      if (y > 160 && y > lastY.current + 4) setHidden(true);
+      else if (y < lastY.current - 4 || y < 160) setHidden(false);
+      lastY.current = y;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const closeAll = () => {
     setActiveMenu(null);
@@ -100,7 +141,13 @@ export default function SiteHeader() {
 
   return (
     <header
-      className="sticky top-0 z-[100] w-full border-b border-[#D8C6AA]/70 bg-[#F7F0E6] text-[#392823] shadow-[0_3px_18px_rgba(50,30,20,0.05)]"
+      className={`sticky top-0 z-[100] w-full border-b border-[#D8C6AA]/70 text-[#392823] transition-[transform,background-color,box-shadow] duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${
+        hidden && !mobileOpen && !activeMenu ? "-translate-y-full" : "translate-y-0"
+      } ${
+        scrolled
+          ? "bg-[#F7F0E6]/92 shadow-[0_8px_30px_rgba(50,30,20,0.08)] backdrop-blur-md"
+          : "bg-[#F7F0E6] shadow-[0_3px_18px_rgba(50,30,20,0.05)]"
+      }`}
       onMouseLeave={() => setActiveMenu(null)}
     >
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">
@@ -212,26 +259,47 @@ export default function SiteHeader() {
               href="/search"
               className="flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
             >
-              <Search size={17} strokeWidth={1.3} />
+              <Search size={17} strokeWidth={1.3} className="transition-transform duration-300 hover:-translate-y-0.5" />
               <span className="text-[9px]">Search</span>
             </Link>
 
             <Link
               href="/account"
-              className="flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
+              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
             >
-              <UserRound size={17} strokeWidth={1.3} />
-              <span className="text-[9px]">Account</span>
+              <span className="relative">
+                <UserRound size={17} strokeWidth={1.3} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+                {user && <span className="absolute -right-1 -top-0.5 h-[7px] w-[7px] rounded-full border border-[#F7F0E6] bg-[#B28B4E]" />}
+              </span>
+              <span className="max-w-[70px] truncate text-[9px]">{user ? firstName || "Account" : "Account"}</span>
             </Link>
 
-            <Link
-              href="/cart"
-              className="flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
+            <button
+              type="button"
+              onClick={openDrawer}
+              aria-label={`Open bag, ${count} items`}
+              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
             >
-              <ShoppingCart size={17} strokeWidth={1.3} />
+              <span className="relative">
+                <ShoppingCart size={17} strokeWidth={1.3} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+                <CountBadge count={count} />
+              </span>
               <span className="text-[9px]">Cart</span>
-            </Link>
+            </button>
           </div>
+
+          {/* MOBILE CART */}
+          <button
+            type="button"
+            onClick={openDrawer}
+            aria-label={`Open bag, ${count} items`}
+            className="relative ml-auto p-2 md:hidden"
+          >
+            <ShoppingCart size={21} strokeWidth={1.4} />
+            <span className="absolute right-1.5 top-1.5">
+              <CountBadge count={count} />
+            </span>
+          </button>
 
           {/* MOBILE TOGGLE */}
           <button
@@ -258,13 +326,18 @@ export default function SiteHeader() {
         }`}
       >
         <nav className="px-6 py-4">
-          {navigation.map((item) => {
+          {navigation.map((item, index) => {
             const expanded = mobileExpanded === item.name;
 
             return (
               <div
                 key={item.name}
-                className="border-b border-[#D9C9B5]/70"
+                className="border-b border-[#D9C9B5]/70 transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)]"
+                style={{
+                  transitionDelay: mobileOpen ? `${80 + index * 55}ms` : "0ms",
+                  opacity: mobileOpen ? 1 : 0,
+                  transform: mobileOpen ? "translateY(0)" : "translateY(-10px)",
+                }}
               >
                 <div className="flex items-center justify-between py-4">
                   <Link
@@ -328,8 +401,8 @@ export default function SiteHeader() {
 
           <div className="flex gap-8 pt-6 text-xs">
             <Link href="/search" onClick={closeAll}>Search</Link>
-            <Link href="/account" onClick={closeAll}>Account</Link>
-            <Link href="/cart" onClick={closeAll}>Cart</Link>
+            <Link href="/account" onClick={closeAll}>{user ? "My Account" : "Sign In"}</Link>
+            <Link href="/cart" onClick={closeAll}>Cart{count > 0 ? ` (${count})` : ""}</Link>
           </div>
         </nav>
       </div>
