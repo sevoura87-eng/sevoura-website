@@ -1,16 +1,10 @@
 import Link from "next/link";
 import BrandLogo from "./BrandLogo";
-
-const socialLinks = [
-  { symbol: "◎", label: "Instagram", href: "https://www.instagram.com/" },
-  { symbol: "f", label: "Facebook", href: "#" },
-  { symbol: "▶", label: "YouTube", href: "#" },
-  { symbol: "in", label: "LinkedIn", href: "#" },
-  { symbol: "𝕏", label: "X", href: "#" },
-  { symbol: "♪", label: "TikTok", href: "#" },
-];
+import SocialIcon from "./SocialIcon";
+import { SITE, activeSocial } from "@/lib/site";
 
 export default function SiteFooter() {
+  const socials = activeSocial();
   return (
     <footer className="bg-[#792D49] text-[#F5EBDD] px-6 md:px-12 pt-12 pb-5">
       <div className="max-w-[1350px] mx-auto">
@@ -53,24 +47,28 @@ export default function SiteFooter() {
               Join us across our social channels for fragrance, rituals and inspiration.
             </p>
 
-            <div className="flex items-center gap-2 flex-wrap mb-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target={social.href.startsWith("http") ? "_blank" : undefined}
-                  rel={social.href.startsWith("http") ? "noreferrer" : undefined}
-                  aria-label={social.label}
-                  className="w-[37px] h-[37px] rounded-full border border-[#D7B5B9]/60 flex items-center justify-center text-[15px] hover:bg-[#F5EBDD] hover:text-[#792D49] transition duration-300"
-                >
-                  {social.symbol}
-                </a>
-              ))}
-            </div>
-
-            <p className="text-[9px] text-[#F0DFD7] leading-5">
-              Instagram&nbsp; | &nbsp;Facebook&nbsp; | &nbsp;YouTube&nbsp; | &nbsp;X&nbsp; | &nbsp;LinkedIn&nbsp; | &nbsp;TikTok
-            </p>
+            {socials.length > 0 ? (
+              <ul className="flex flex-wrap items-center gap-2.5">
+                {socials.map((social) => (
+                  <li key={social.key}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`SEVOURA on ${social.label}`}
+                      title={social.label}
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E9D1A7]/50 text-[#F5EBDD] transition duration-300 hover:-translate-y-0.5 hover:border-[#F5EBDD] hover:bg-[#F5EBDD] hover:text-[#792D49]"
+                    >
+                      <SocialIcon name={social.key} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <a href={`mailto:${SITE.email}`} className="inline-flex items-center gap-2 border-b border-[#E9D1A7]/60 pb-1 text-[11px] text-[#F5EBDD] hover:text-[#E9D1A7]">
+                Write to us · {SITE.email}
+              </a>
+            )}
           </div>
         </div>
 
@@ -81,13 +79,13 @@ export default function SiteFooter() {
             </h3>
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-x-5 gap-y-3 text-[10px]">
-              <a href="mailto:hello@sevoura.com" className="hover:text-[#E9D1A7]">
-                hello@sevoura.com
+              <a href={`mailto:${SITE.email}`} className="hover:text-[#E9D1A7]">
+                {SITE.email}
               </a>
-              <a href="tel:+919211877712" className="hover:text-[#E9D1A7]">
-                +91-9211877712
+              <a href={SITE.phoneHref} className="hover:text-[#E9D1A7]">
+                {SITE.phone}
               </a>
-              <span>Monday–Sunday · 10:00 AM–6:00 PM IST</span>
+              <span>{SITE.hours}</span>
             </div>
 
             <p className="text-[9px] text-[#F0DFD7] lg:text-right">
@@ -98,7 +96,7 @@ export default function SiteFooter() {
 
         <div className="pt-5">
           <p className="text-[9px] text-[#E8D5D5]">
-            © 2026 SEVOURA™. All rights reserved. - Traditional associations are presented for cultural and personal exploration.
+            © 2026 SEVOURA™. All rights reserved. · Traditional associations are presented for cultural and personal exploration.
           </p>
         </div>
       </div>

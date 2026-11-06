@@ -231,7 +231,7 @@ function CheckoutInner() {
           ) : (
             <Notice>
               <strong>Online payment is being set up.</strong> Your order will be recorded with status{" "}
-              <em>Payment Pending</em> — no money is charged now. Our team will contact you on your mobile number to
+              <em>Unpaid</em> — no money is charged now. Our team will contact you on your mobile number to
               complete payment before dispatch.
             </Notice>
           )}

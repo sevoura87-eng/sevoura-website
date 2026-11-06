@@ -32,7 +32,6 @@ export function Showcase() {
     <section ref={ref} className="sev-grain relative overflow-hidden bg-[#46182D] px-6 py-24 text-[#FBF0E4] md:px-12 md:py-36">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_50%,#792D49_0%,#46182D_60%,#2E0F1D_100%)]" />
       <motion.div style={{ rotate: ringRotate }} className="absolute -left-48 top-1/2 h-[760px] w-[760px] -translate-y-1/2 rounded-full border border-[#E5C48B]/15">
-        <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E5C48B] shadow-[0_0_20px_#E5C48B]" />
       </motion.div>
 
       <div className="relative mx-auto grid max-w-[1300px] items-center gap-16 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
@@ -99,48 +98,63 @@ export function Showcase() {
 
 const up = { h: { opacity: 0, y: 30 }, s: { opacity: 1, y: 0, transition: { duration: 0.9, ease } } };
 
-/* ───────────── FOUNDER ───────────── */
+/* ───────────── FOUNDER — Dr. Jasleen Bhatti ───────────── */
 export function Founder() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   return (
-    <section ref={ref} className="bg-[#F0E4D5] px-6 py-24 md:px-12 md:py-36">
-      <div className="mx-auto grid max-w-[1250px] items-stretch gap-8 md:grid-cols-[.85fr_1.4fr]">
-        <motion.div
-          initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
-          whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.4, ease }}
-          className="relative min-h-[460px] overflow-hidden border border-[#C5A16A]"
-        >
-          <motion.div style={{ y }} className="absolute -inset-y-[10%] inset-x-0">
-            <Image src="/images/founder-jasleen.jpg" alt="Dr. Jasleen Bhatti, Founder of SEVOURA" fill sizes="(max-width:768px) 100vw, 40vw" className="object-cover object-center" />
+    <section id="founder" className="bg-[#FBF6EF] px-5 py-24 md:px-10 md:py-32">
+      <div className="mx-auto max-w-[1120px]">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} className="mb-12 text-center">
+          <Eyebrow>THE PERSON BEHIND THE VISION</Eyebrow>
+          <h2 className="mt-5 font-display text-[clamp(2.4rem,5vw,4.2rem)] font-medium leading-none text-[#46182D]">Meet Our Founder</h2>
+        </motion.div>
+        <div className="grid gap-6 md:grid-cols-2 md:items-stretch">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1, ease }}
+            className="group relative min-h-[460px] overflow-hidden border border-[#C9AE84] bg-[#E8DCCB] p-[6px] shadow-[0_25px_55px_rgba(65,43,32,0.12)] md:min-h-[560px]"
+          >
+            <div className="relative h-full min-h-[446px] w-full overflow-hidden md:min-h-[546px]">
+              <Image
+                src="/images/founder-jasleen.jpg"
+                alt="Dr. Jasleen Bhatti, Founder of SEVOURA"
+                fill
+                sizes="(max-width: 768px) 100vw, 560px"
+                className="object-cover object-[50%_25%] transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.03]"
+              />
+            </div>
+            <div className="pointer-events-none absolute inset-[6px] border border-[#C9AE84]/70" />
           </motion.div>
-          <div className="pointer-events-none absolute inset-2 border border-[#E6C991]" />
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.1, ease, delay: 0.15 }}
-          className="relative flex flex-col justify-center overflow-hidden bg-[#792D49] p-9 text-[#FBF0E4] md:p-14"
-        >
-          <div className="pointer-events-none absolute inset-3 border border-[#D9B77D]/70" />
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: "linear" }} className="pointer-events-none absolute -bottom-24 -right-12 h-72 w-72 rounded-full border border-dashed border-[#D9B77D]/30" />
-          <div className="relative z-10">
-            <Eyebrow light>THE STORY BEHIND THE BRAND</Eyebrow>
-            <h2 className="mt-6 font-display text-5xl italic leading-[1.02] md:text-6xl">A Ritual Born from Curiosity.</h2>
-            <p className="mt-5 font-display text-lg">Dr. Jasleen Bhatti <span className="mx-2 text-[#D9B77D]">|</span> Founder, SEVOURA</p>
-            <p className="mt-8 text-sm leading-8 text-[#F0DCD4]">My fascination with fragrance grew into a curiosity about tradition, symbolism and the rituals that make everyday moments meaningful.</p>
-            <p className="mt-5 text-sm leading-8 text-[#F0DCD4]">That curiosity inspired SEVOURA — seven planetary inspirations, expressed through thoughtful fragrance blends for modern rituals.</p>
-            <p className="mt-8 font-display text-3xl italic text-[#E7C276]">Cleanse. Elevate. Radiate.</p>
-            <Link href="/our-story" className="group mt-8 inline-flex items-center gap-3 border-b border-[#D9B77D] pb-2 text-[9px] tracking-[0.22em]">
-              DISCOVER OUR STORY <ArrowUpRight size={14} className="transition-transform group-hover:rotate-45" />
-            </Link>
-          </div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1, ease, delay: 0.1 }}
+            className="relative flex flex-col justify-center bg-[#73263F] p-9 text-[#F5EFE5] shadow-[0_25px_55px_rgba(65,43,32,0.13)] md:p-12"
+          >
+            <div className="pointer-events-none absolute inset-2 border border-[#E9D1A7]/45" />
+            <div className="relative">
+              <h3 className="font-display text-[44px] font-medium leading-none md:text-[52px]">Dr. Jasleen Bhatti</h3>
+              <p className="mt-3 font-display text-sm italic tracking-[0.12em] text-[#E9D1A7]">Founder, Sevoura</p>
+              <div className="my-7 h-px w-14 bg-[#E9D1A7]/80" />
+              <p className="text-[15px] leading-8 text-[#F8EEE7]">
+                My fascination with fragrance grew into a curiosity about tradition, symbolism and the rituals that make everyday moments meaningful.
+              </p>
+              <p className="mt-5 text-[15px] leading-8 text-[#F8EEE7]">
+                During my office days in central Delhi, the evocative aromas around temples and fragrance shops deepened this curiosity. I began to wonder how these age-old inspirations could find a place in contemporary life—not simply as traditions to admire, but as personal experiences to make our own.
+              </p>
+              <p className="mt-5 text-[15px] leading-8 text-[#F8EEE7]">
+                That curiosity inspired a distinctive vision: seven planetary inspirations, expressed through seven thoughtfully composed fragrances.
+              </p>
+              <p className="mt-7 font-display text-xl italic tracking-[0.08em] text-[#E9D1A7]">Cleanse. Elevate. Radiate.</p>
+              <Link href="/our-story" className="group mt-8 inline-flex items-center gap-3 border-b border-[#E9D1A7]/70 pb-1.5 text-[9px] tracking-[0.24em] text-[#F5EFE5]">
+                READ OUR STORY <ArrowUpRight size={14} className="transition-transform group-hover:rotate-45" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -367,9 +381,6 @@ export function Finale() {
     <section ref={ref} className="sev-grain relative overflow-hidden bg-[#2E0F1D] px-6 py-32 text-center text-[#FBF0E4] md:py-48">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#792D49_0%,#46182D_55%,#2E0F1D_100%)]" />
       <motion.div style={{ rotate: ring }} className="absolute left-1/2 top-1/2 h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D9B77D]/20">
-        {[0, 51, 103, 154, 206, 257, 309].map((d) => (
-          <span key={d} className="absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-[#E5C48B]/70" style={{ transform: `rotate(${d}deg) translateY(-360px)` }} />
-        ))}
       </motion.div>
       <motion.p
         aria-hidden

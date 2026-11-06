@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { SEVEN } from "./data";
 
 const ease = [0.76, 0, 0.24, 1] as const;
 
 /** Brand intro — plays once per browser session, ~2s, skipped for reduced motion. */
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const [show, setShow] = useState(true);
-  const [i, setI] = useState(0);
 
   useEffect(() => {
     let seen = false;
@@ -25,13 +23,10 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       return;
     }
     document.documentElement.style.overflow = "hidden";
-    const tick = window.setInterval(() => setI((n) => (n + 1) % 7), 190);
     const end = window.setTimeout(() => {
-      window.clearInterval(tick);
       setShow(false);
-    }, 2100);
+    }, 1800);
     return () => {
-      window.clearInterval(tick);
       window.clearTimeout(end);
       document.documentElement.style.overflow = "";
     };
@@ -80,10 +75,14 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
               transition={{ delay: 0.6, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto mt-6 h-px w-48 origin-left bg-[#E5C48B]"
             />
-            <div className="mt-6 flex items-center justify-center gap-3 text-[10px] tracking-[0.35em] text-[#E5C48B]">
-              <span className="w-6 text-right font-display text-xl tracking-normal">{SEVEN[i].symbol}</span>
-              <span className="w-28 text-left">{SEVEN[i].day.toUpperCase()}</span>
-            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.8 }}
+              className="mt-6 text-[10px] tracking-[0.4em] text-[#E5C48B]"
+            >
+              CLEANSE · ELEVATE · RADIATE
+            </motion.p>
           </div>
         </motion.div>
       )}

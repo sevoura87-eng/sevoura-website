@@ -1,110 +1,137 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight, ShoppingBag } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Droplets, Layers, Truck } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
 import Magnetic from "./Magnetic";
-import AddToCartButton from "@/components/shop/AddToCartButton";
-import { LivePrice } from "@/components/shop/ProductPrice";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
-function OrbitRing({ active }: { active: number }) {
-  const R = 47;
+/* Deterministic particle field (no Math.random → no hydration mismatch) */
+const PARTICLES = Array.from({ length: 26 }, (_, i) => {
+  const angle = (i * 137.508) % 360; // golden-angle spread
+  return { angle, delay: (i * 0.53) % 7, dur: 6 + ((i * 7) % 5), size: 2 + (i % 3) };
+});
+
+/* Hexagon geometry for the vanillin ring */
+const HEX = Array.from({ length: 6 }, (_, i) => {
+  const a = ((-90 + i * 60) * Math.PI) / 180;
+  return { x: 200 + 46 * Math.cos(a), y: 200 + 46 * Math.sin(a) };
+});
+const hexPath = HEX.map((p, i) => `${i ? "L" : "M"}${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ") + " Z";
+const stub = (i: number, len = 30) => {
+  const a = ((-90 + i * 60) * Math.PI) / 180;
+  return { x1: HEX[i].x, y1: HEX[i].y, x2: HEX[i].x + len * Math.cos(a), y2: HEX[i].y + len * Math.sin(a) };
+};
+
+function ScentArchitecture() {
+  const rings = [
+    { r: 172, label: "TOP NOTES", sub: "Green Tea · Neroli · Saffron", at: -38 },
+    { r: 128, label: "HEART NOTES", sub: "Jasmine · Rose · Clove", at: 22 },
+    { r: 88, label: "BASE NOTES", sub: "Sandalwood · Vetiver · Musk", at: 148 },
+  ];
   return (
-    <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full overflow-visible">
+    <svg viewBox="-95 8 590 384" className="h-full w-full overflow-visible" role="img" aria-label="Fragrance structure: top, heart and base notes around a vanillin molecule">
       <defs>
-        <linearGradient id="orbitGold" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="#E5C48B" stopOpacity=".9" />
-          <stop offset=".5" stopColor="#B28B4E" stopOpacity=".35" />
-          <stop offset="1" stopColor="#E5C48B" stopOpacity=".9" />
-        </linearGradient>
+        <radialGradient id="aura" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stopColor="#F3D9B8" stopOpacity=".95" />
+          <stop offset=".55" stopColor="#EED2C8" stopOpacity=".45" />
+          <stop offset="1" stopColor="#F8F1E7" stopOpacity="0" />
+        </radialGradient>
       </defs>
-      <circle cx="50" cy="50" r={R} fill="none" stroke="url(#orbitGold)" strokeWidth=".18" />
-      <circle cx="50" cy="50" r={R - 3.2} fill="none" stroke="#C49A59" strokeOpacity=".3" strokeWidth=".12" strokeDasharray=".6 1.4" />
-      {SEVEN.map((s, i) => {
-        const a = (i / 7) * Math.PI * 2 - Math.PI / 2;
-        const x = 50 + R * Math.cos(a);
-        const y = 50 + R * Math.sin(a);
-        const on = i === active;
+      <circle cx="200" cy="200" r="190" fill="url(#aura)" className="hero-aura" />
+
+      {rings.map((ring, i) => {
+        const a = (ring.at * Math.PI) / 180;
+        const px = 200 + ring.r * Math.cos(a);
+        const py = 200 + ring.r * Math.sin(a);
+        const right = Math.cos(a) >= 0;
+        const lx = px + (right ? 34 : -34);
         return (
-          <g key={s.day} className="sev-counter-rotate" style={{ transformOrigin: `${x}px ${y}px` }}>
-            <circle cx={x} cy={y} r={on ? 4.2 : 3.2} fill={on ? "#792D49" : "#F8F1E7"} stroke="#C49A59" strokeWidth=".2" style={{ transition: "all .6s" }} />
-            <text x={x} y={y + 1.35} textAnchor="middle" fontSize={on ? 4 : 3.2} fill={on ? "#F4D79C" : "#A77B4D"} style={{ transition: "all .6s" }}>
-              {s.symbol}
+          <g key={ring.label} className="hero-ring" style={{ transitionDelay: `${0.35 + i * 0.15}s` }}>
+            <circle cx="200" cy="200" r={ring.r} fill="none" stroke="#B28B4E" strokeOpacity={0.55 - i * 0.08} strokeWidth=".8" strokeDasharray={i === 0 ? "2 5" : undefined} />
+            <circle cx={px} cy={py} r="3.6" fill="#792D49" />
+            <circle cx={px} cy={py} r="8" fill="none" stroke="#792D49" strokeOpacity=".35" className="hero-ping" />
+            <line x1={px} y1={py} x2={lx} y2={py} stroke="#792D49" strokeOpacity=".5" strokeWidth=".8" />
+            <text x={lx + (right ? 5 : -5)} y={py - 3} textAnchor={right ? "start" : "end"} fontSize="9.5" letterSpacing="2" fill="#792D49" fontFamily="var(--font-geist-sans)">
+              {ring.label}
+            </text>
+            <text x={lx + (right ? 5 : -5)} y={py + 9} textAnchor={right ? "start" : "end"} fontSize="10" fill="#806D60" fontFamily="var(--font-geist-sans)">
+              {ring.sub}
             </text>
           </g>
         );
       })}
+
+      {/* Vanillin: 4-hydroxy-3-methoxybenzaldehyde */}
+      <g className="hero-molecule" stroke="#46182D" strokeWidth="1.6" fill="none" strokeLinecap="round">
+        <path d={hexPath} className="hero-draw" pathLength={1} />
+        <circle cx="200" cy="200" r="27" className="hero-draw" pathLength={1} strokeOpacity=".6" />
+        {[0, 2, 3].map((i) => {
+          const s = stub(i);
+          return <line key={i} {...s} className="hero-draw" pathLength={1} />;
+        })}
+      </g>
+      <g fontFamily="var(--font-geist-sans)" fontSize="10.5" fill="#46182D" className="hero-labels">
+        <text x={stub(0).x2} y={stub(0).y2 - 7} textAnchor="middle">CHO</text>
+        <text x={stub(2).x2 + 6} y={stub(2).y2 + 6}>OCH₃</text>
+        <text x={stub(3).x2} y={stub(3).y2 + 15} textAnchor="middle">OH</text>
+      </g>
+      <text x="200" y="388" textAnchor="middle" fontSize="8.5" letterSpacing="2.4" fill="#A77B4D" fontFamily="var(--font-geist-sans)">
+        VANILLIN · C₈H₈O₃ — A MOLECULE OF SCENT
+      </text>
     </svg>
   );
 }
 
 export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLElement>(null);
-  const [todayIdx, setTodayIdx] = useState(0);
-  const [active, setActive] = useState(0);
+  const [today, setToday] = useState(-1);
 
-  // Start the arch on today's ritual, then cycle through the week
   useEffect(() => {
-    const t = todayIndex();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only date
-    setTodayIdx(t);
-    setActive(t);
-    const id = window.setInterval(() => setActive((a) => (a + 1) % 7), 3800);
-    return () => window.clearInterval(id);
+    setToday(todayIndex());
   }, []);
 
-  // Mouse parallax
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 18 });
-  const sy = useSpring(my, { stiffness: 60, damping: 18 });
-  const archX = useTransform(sx, (v) => v * 18);
-  const archY = useTransform(sy, (v) => v * 14);
-  const ringX = useTransform(sx, (v) => v * -26);
-  const ringY = useTransform(sy, (v) => v * -20);
-  const orbX = useTransform(sx, (v) => v * 46);
-  const orbY = useTransform(sy, (v) => v * 36);
+  const sx = useSpring(mx, { stiffness: 50, damping: 18 });
+  const sy = useSpring(my, { stiffness: 50, damping: 18 });
+  const visualX = useTransform(sx, (v) => v * -18);
+  const visualY = useTransform(sy, (v) => v * -14);
 
   useGSAP(
     () => {
       if (!ready) return;
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const split = SplitText.create(".hero-title", { type: "lines,chars", mask: "lines", linesClass: "pb-[0.08em]" });
+        const split = SplitText.create(".hero-title", { type: "lines,words", mask: "lines", linesClass: "pb-[0.06em]" });
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-        tl.from(".hero-eyebrow", { y: 20, autoAlpha: 0, duration: 1 })
-          .from(split.chars, { yPercent: 115, rotate: 6, duration: 1.3, stagger: 0.022 }, "-=0.7")
-          .from(".hero-rule", { scaleX: 0, transformOrigin: "left", duration: 1.2 }, "-=0.9")
-          .from(".hero-copy > *", { y: 26, autoAlpha: 0, duration: 1, stagger: 0.1 }, "-=1")
-          .from(".hero-arch", { clipPath: "inset(100% 0% 0% 0% round 999px 999px 0 0)", duration: 1.6, ease: "expo.inOut" }, 0.1)
-          .from(".hero-arch-img", { scale: 1.5, duration: 2.2 }, 0.1)
-          .from(".hero-ring", { scale: 0.7, autoAlpha: 0, rotate: -60, duration: 2 }, 0.4)
-          .from(".hero-float", { autoAlpha: 0, scale: 0, duration: 1.2, stagger: 0.15, ease: "back.out(2)" }, 1)
-          .from(".hero-scroll", { autoAlpha: 0, y: 10, duration: 1 }, 1.4);
-
+        tl.from(".hero-eyebrow", { y: 16, autoAlpha: 0, duration: 0.9 })
+          .from(split.words, { yPercent: 110, duration: 1.25, stagger: 0.12 }, "-=0.6")
+          .from(".hero-copy > *", { y: 22, autoAlpha: 0, duration: 0.9, stagger: 0.09 }, "-=0.9")
+          .from(".hero-aura", { scale: 0.6, autoAlpha: 0, transformOrigin: "50% 50%", duration: 1.8 }, 0.1)
+          .fromTo(".hero-draw", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, stagger: 0.12, ease: "power2.inOut" }, 0.6)
+          .from(".hero-labels", { autoAlpha: 0, duration: 0.8 }, 1.6)
+          .from(".hero-week > *", { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.05 }, 1.1);
         return () => split.revert();
       });
-      // Desktop only: on phones the hero is taller than the screen, so keep the CTAs fully visible
       mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-        // Scroll: text drifts up and fades, arch deepens
         gsap.to(".hero-copy-wrap", {
-          yPercent: -18,
-          autoAlpha: 0.15,
+          yPercent: -14,
+          autoAlpha: 0.2,
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
         });
         gsap.to(".hero-visual", {
-          yPercent: 12,
-          scale: 0.94,
+          yPercent: 10,
+          rotate: 12,
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
         });
@@ -112,8 +139,6 @@ export default function Hero({ ready }: { ready: boolean }) {
     },
     { scope: root, dependencies: [ready] }
   );
-
-  const s = SEVEN[active];
 
   return (
     <section
@@ -123,113 +148,123 @@ export default function Hero({ ready }: { ready: boolean }) {
         mx.set(e.clientX / window.innerWidth - 0.5);
         my.set(e.clientY / window.innerHeight - 0.5);
       }}
-      className={`sev-grain relative isolate overflow-hidden bg-[#F8F1E7] ${ready ? "" : "[&_.hero-anim]:invisible"}`}
+      className={`relative isolate overflow-hidden bg-[#F8F1E7] ${ready ? "hero-ready" : "[&_.hero-anim]:invisible"}`}
     >
-      {/* atmosphere */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_78%_42%,#F1DCC0_0%,#F8F1E7_52%,#F8F1E7_100%)]" />
-      <div className="absolute -left-40 top-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-[#792D49]/[0.045] blur-3xl" />
+      {/* fine lab-paper grid, faded towards the edges */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 opacity-[0.55] [mask-image:radial-gradient(ellipse_at_70%_45%,black_20%,transparent_70%)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(178,139,78,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(178,139,78,.16) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+      />
+      <div aria-hidden className="absolute -left-48 bottom-0 -z-10 h-[460px] w-[460px] rounded-full bg-[#792D49]/[0.05] blur-3xl" />
 
-      <div className="mx-auto grid min-h-[calc(100svh-78px)] max-w-[1500px] items-center gap-10 px-6 pb-20 pt-12 md:px-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-6 lg:px-16 lg:pb-14 lg:pt-6">
+      <div className="mx-auto grid min-h-[calc(100svh-78px-104px)] max-w-[1440px] items-center gap-6 px-6 pb-6 pt-14 md:px-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-10 lg:px-16 lg:pt-8">
         {/* COPY */}
-        <div className="hero-copy-wrap hero-anim relative z-10 order-2 lg:order-1">
-          <p className="hero-eyebrow flex items-center gap-3 text-[10px] tracking-[0.36em] text-[#A77B4D]">
-            <span className="h-px w-8 bg-[#C49A59]" /> DISCOVER THE WORLD OF SEVOURA
+        <div className="hero-copy-wrap hero-anim relative z-10">
+          <p className="hero-eyebrow flex items-center gap-3 text-[10px] tracking-[0.32em] text-[#A77B4D]">
+            <span className="h-px w-8 bg-[#C49A59]" /> ALCOHOL-FREE FRAGRANCE BLENDS
           </p>
-          <h1 className="hero-title mt-7 font-display text-[clamp(3.4rem,8.4vw,8.6rem)] font-medium leading-[0.9] tracking-[-0.02em] text-[#46182D]">
-            Seven Rituals.
+          <h1 className="hero-title mt-7 font-display text-[clamp(3.6rem,8.8vw,8.4rem)] font-medium leading-[0.92] tracking-[-0.015em] text-[#2F1420]">
+            Cleanse.
             <br />
-            <span className="italic text-[#792D49]">Infinite</span>
+            Elevate.
             <br />
-            Expressions.
+            <span className="italic text-[#792D49]">Radiate.</span>
           </h1>
-          <div className="hero-rule mt-8 h-[2px] w-20 bg-gradient-to-r from-[#C49A59] to-[#E5C48B]" />
           <div className="hero-copy">
-            <p className="mt-7 max-w-[440px] font-display text-[22px] italic leading-snug text-[#6E4A4D] md:text-[26px]">
-              A contemporary fragrance journey that blends traditional wisdom with modern living.
+            <p className="mt-8 max-w-[500px] text-[15px] leading-8 text-[#6B5650] md:text-base">
+              SEVOURA is a collection of seven alcohol-free fragrance blends — one for every day of the week — thoughtfully composed to bring a moment of intention into modern routines.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <Magnetic>
                 <Link
                   href="/shop"
-                  className="sev-shine group inline-flex items-center gap-6 bg-[#792D49] px-9 py-5 text-[10px] tracking-[0.22em] text-[#FFF6E9] shadow-[0_18px_40px_rgba(83,29,51,.25)] transition-colors duration-500 hover:bg-[#501D32]"
+                  className="sev-shine group inline-flex items-center gap-5 rounded-full bg-[#792D49] px-9 py-[18px] text-[11px] font-medium tracking-[0.18em] text-[#FFF6E9] shadow-[0_18px_40px_rgba(83,29,51,.22)] transition-colors duration-500 hover:bg-[#501D32]"
                 >
-                  EXPLORE THE COLLECTION
-                  <ArrowUpRight size={17} className="transition-transform duration-500 group-hover:rotate-45" />
+                  SHOP THE COLLECTION
+                  <ArrowRight size={16} className="transition-transform duration-500 group-hover:translate-x-1" />
                 </Link>
               </Magnetic>
-              <AddToCartButton className="group inline-flex items-center gap-3 border border-[#792D49]/40 px-7 py-5 text-[10px] tracking-[0.22em] text-[#792D49] transition-colors duration-500 hover:border-[#792D49] hover:bg-[#792D49]/[0.06]">
-                <ShoppingBag size={15} /> ADD TO BAG · <LivePrice fallback="₹1,799" />
-              </AddToCartButton>
+              <Link
+                href="/the-seven"
+                className="group inline-flex items-center gap-3 rounded-full border border-[#792D49]/30 px-7 py-[17px] text-[11px] font-medium tracking-[0.18em] text-[#792D49] transition-colors duration-500 hover:border-[#792D49] hover:bg-white/60"
+              >
+                EXPLORE THE BLENDS
+                <ArrowUpRight size={15} className="transition-transform duration-500 group-hover:rotate-45" />
+              </Link>
             </div>
-            <Link
-              href="/the-seven"
-              className="group mt-10 inline-flex items-center gap-4 border-t border-[#DCCAB5] pt-5 text-[11px] text-[#806D60]"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#B28B4E] opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#B28B4E]" />
-              </span>
-              <span>
-                Today&apos;s ritual ·{" "}
-                <strong className="font-medium text-[#792D49]">
-                  {SEVEN[todayIdx].day} — {SEVEN[todayIdx].planet} {SEVEN[todayIdx].symbol} · {SEVEN[todayIdx].fragrance}
-                </strong>
-              </span>
-              <ArrowUpRight size={13} className="text-[#A77B4D] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
+            <ul className="mt-11 grid max-w-[520px] grid-cols-3 gap-3 border-t border-[#DCCAB5] pt-6">
+              {[
+                { icon: Layers, k: "7", v: "Distinct compositions" },
+                { icon: Droplets, k: "0%", v: "Alcohol in every blend" },
+                { icon: Truck, k: "Free", v: "Shipping across India" },
+              ].map((f) => (
+                <li key={f.v} className="flex flex-col gap-1">
+                  <span className="flex items-center gap-2 font-display text-3xl leading-none text-[#46182D]">
+                    <f.icon size={15} strokeWidth={1.5} className="text-[#B28B4E]" /> {f.k}
+                  </span>
+                  <span className="text-[11px] leading-4 text-[#806D60]">{f.v}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* VISUAL */}
-        <div className="hero-visual hero-anim relative order-1 mx-auto aspect-square w-full max-w-[min(560px,74vw)] lg:order-2">
-          <motion.div style={{ x: ringX, y: ringY }} className="hero-ring absolute inset-0">
-            <div className="sev-rotate absolute inset-0">
-              <OrbitRing active={active} />
-            </div>
-          </motion.div>
-
-          <motion.div style={{ x: archX, y: archY }} className="absolute inset-[15%]">
-            <div className="hero-arch relative h-full w-full overflow-hidden rounded-t-full bg-[#E7D5BD] shadow-[0_40px_90px_rgba(70,24,45,.25)]">
-              <AnimatePresence mode="popLayout" initial={false}>
-                <motion.div
-                  key={s.day}
-                  initial={{ opacity: 0, scale: 1.12 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="hero-arch-img absolute inset-0"
-                >
-                  <Image src={s.image} alt={`SEVOURA ${s.day} blend — ${s.fragrance}`} fill priority sizes="(max-width:1024px) 70vw, 400px" className="object-cover object-[50%_35%]" />
-                </motion.div>
-              </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2E0F1D]/90 via-[#2E0F1D]/10 to-transparent" />
-              <div className="pointer-events-none absolute inset-2 rounded-t-full border border-[#F4D79C]/40" />
-              <div className="absolute inset-x-0 bottom-0 p-6 text-center text-[#FBF0E4]">
-                <AnimatePresence mode="wait">
-                  <motion.div key={s.day} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} transition={{ duration: 0.6 }}>
-                    <p className="text-[9px] tracking-[0.35em] text-[#F4D79C]">{s.day.toUpperCase()} · {s.planet.toUpperCase()}</p>
-                    <p className="mt-1 font-display text-3xl italic">{s.fragrance}</p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div style={{ x: orbX, y: orbY }} className="hero-float absolute right-[6%] top-[14%] h-12 w-12 rounded-full bg-[radial-gradient(circle_at_30%_25%,#FFF4D6,#C79550_60%,#79402F)] shadow-[0_0_40px_rgba(223,183,111,.55)]" />
-          <motion.div style={{ x: ringX, y: orbY }} className="hero-float absolute bottom-[10%] left-[4%] h-7 w-7 rounded-full bg-[radial-gradient(circle_at_30%_25%,#FFF1CE,#B98548_65%,#5B2038)] shadow-[0_0_30px_rgba(223,183,111,.45)]" />
-          <motion.div style={{ x: orbX, y: archY }} className="hero-float absolute bottom-[4%] right-[10%] flex h-[92px] w-[92px] items-center justify-center rounded-full border border-[#C5A36B]/60 bg-[#FBF5E9]/90 text-center shadow-xl backdrop-blur">
-            <span className="text-[8px] leading-4 tracking-[0.2em] text-[#792D49]">
-              <span className="block font-display text-2xl tracking-normal">7</span>DAYS
-            </span>
-          </motion.div>
-        </div>
+        {/* VISUAL — the architecture of scent */}
+        <motion.div style={{ x: visualX, y: visualY }} className="hero-visual hero-anim relative mx-auto aspect-[590/384] w-full max-w-[min(720px,96vw)] lg:-mr-6">
+          <div aria-hidden className="absolute inset-0">
+            {PARTICLES.map((p, i) => (
+              <span
+                key={i}
+                className="sev-particle absolute left-1/2 top-1/2 rounded-full bg-[#B28B4E]"
+                style={
+                  {
+                    width: p.size,
+                    height: p.size,
+                    "--a": `${p.angle}deg`,
+                    animationDelay: `${p.delay}s`,
+                    animationDuration: `${p.dur}s`,
+                  } as React.CSSProperties
+                }
+              />
+            ))}
+          </div>
+          <ScentArchitecture />
+        </motion.div>
       </div>
 
-      <div className="hero-scroll hero-anim pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-[8px] tracking-[0.4em] text-[#A77B4D] md:flex">
-        SCROLL
-        <span className="relative h-12 w-px overflow-hidden bg-[#DCCAB5]">
-          <span className="sev-scrollcue absolute inset-x-0 top-0 h-1/2 bg-[#792D49]" />
-        </span>
+      {/* The seven-day ritual — quick navigation */}
+      <div className="hero-anim border-t border-[#E3D3BE] bg-[#FBF6EE]/80 backdrop-blur">
+        <div className="mx-auto flex max-w-[1440px] items-stretch gap-0 overflow-x-auto px-6 [scrollbar-width:none] md:px-12 lg:px-16 [&::-webkit-scrollbar]:hidden">
+          <p className="hidden shrink-0 items-center pr-8 text-[9px] leading-4 tracking-[0.3em] text-[#A77B4D] lg:flex">
+            THE SEVEN-DAY
+            <br />
+            RITUAL
+          </p>
+          <div className="hero-week grid min-w-[760px] flex-1 grid-cols-7">
+            {SEVEN.map((s, i) => (
+              <Link
+                key={s.day}
+                href="/the-seven"
+                className={`group relative flex flex-col gap-1 border-l border-[#E3D3BE] px-4 py-5 transition-colors duration-300 hover:bg-[#F3E6D6] ${
+                  i === today ? "bg-[#792D49] text-white hover:bg-[#6A2640]" : ""
+                }`}
+              >
+                <span className={`text-[9px] tracking-[0.24em] ${i === today ? "text-[#F4D79C]" : "text-[#A77B4D]"}`}>
+                  {s.day.slice(0, 3).toUpperCase()}
+                  {i === today && " · TODAY"}
+                </span>
+                <span className={`font-display text-xl leading-tight ${i === today ? "text-white" : "text-[#46182D]"}`}>{s.fragrance}</span>
+                <span className={`truncate text-[10px] ${i === today ? "text-[#F0DCD4]" : "text-[#9A8777]"}`}>{s.notes}</span>
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#B28B4E] transition-all duration-500 group-hover:w-full" />
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

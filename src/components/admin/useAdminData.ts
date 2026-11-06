@@ -16,10 +16,10 @@ export function useAdminData<T>(fn: (sb: SupabaseClient) => Promise<T>, deps: un
   });
   const key = JSON.stringify(deps);
 
-  const reload = useCallback(async () => {
+  const reload = useCallback(async (opts?: { silent?: boolean }) => {
     const sb = getSupabase();
     if (!sb) return;
-    setLoading(true);
+    if (!opts?.silent) setLoading(true);
     try {
       setData(await fnRef.current(sb));
       setError(null);
@@ -42,4 +42,31 @@ export function useAdminData<T>(fn: (sb: SupabaseClient) => Promise<T>, deps: un
 export function unwrap<T>(res: { data: T | null; error: unknown }): T {
   if (res.error) throw res.error;
   return res.data as T;
+}
+
+/** Calls `onChange` (debounced) whenever an order is created or updated — keeps admin numbers live. */
+export function useOrdersRealtime(onChange: () => void) {
+  const cb = useRef(onChange);
+  useLayoutEffect(() => {
+    cb.current = onChange;
+  });
+  useEffect(() => {
+    const sb = getSupabase();
+    if (!sb) return;
+    let t: number | undefined;
+    const ch = sb
+      .channel(`admin-orders-${Math.random().toString(36).slice(2)}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "orders" }, () => {
+        window.clearTimeout(t);
+        t = window.setTimeout(() => cb.current(), 600);
+      })
+      .subscribe();
+    // fallback refresh every 60s in case realtime is unavailable
+    const poll = window.setInterval(() => cb.current(), 60000);
+    return () => {
+      window.clearTimeout(t);
+      window.clearInterval(poll);
+      sb.removeChannel(ch);
+    };
+  }, []);
 }

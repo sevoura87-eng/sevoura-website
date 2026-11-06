@@ -104,7 +104,7 @@ export default function AdminRevenue() {
               ))}
             </tbody>
           </table>
-          <p className="mt-4 text-[11px] leading-5 text-[#9A8777]">Excludes cancelled orders. Online payments are not live yet, so orders stay “Payment Pending” until Razorpay is connected.</p>
+          <p className="mt-4 text-[11px] leading-5 text-[#9A8777]">Excludes cancelled orders. Online payments are not live yet, so orders stay “Unpaid” until Razorpay is connected.</p>
         </Card>
       </div>
     </>

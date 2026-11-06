@@ -134,3 +134,18 @@ input[type="number"]::-webkit-outer-spin-button {
 .sev-rotate .sev-counter-rotate { animation: sev-counter 90s linear infinite; transform-box: view-box; }
 @keyframes sev-scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
 .sev-scrollcue { animation: sev-scrollcue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+
+/* Hero: scent diffusion particles, breathing aura, note pings */
+@keyframes sev-diffuse {
+  0%   { transform: rotate(var(--a)) translateX(40px) scale(.6); opacity: 0; }
+  15%  { opacity: .75; }
+  100% { transform: rotate(var(--a)) translateX(min(46vw, 290px)) scale(1); opacity: 0; }
+}
+.sev-particle { animation: sev-diffuse 8s cubic-bezier(.2,.6,.4,1) infinite; transform-origin: 0 0; }
+@keyframes sev-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.hero-aura { animation: sev-breathe 7s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes sev-ping { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.2); opacity: 0; } }
+.hero-ping { animation: sev-ping 2.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+.hero-ring { opacity: 0; transform: scale(.86); transform-box: view-box; transform-origin: 200px 200px; transition: opacity 1.2s ease, transform 1.6s cubic-bezier(.22,1,.36,1); }
+.hero-ready .hero-ring { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .hero-ring { opacity: 1; transform: none; } }

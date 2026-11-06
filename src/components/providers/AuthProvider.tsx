@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const { data } = await sb
       .from("profiles")
-      .select("id, full_name, email, phone, role, account_status, created_at, last_login_at")
+      .select("id, full_name, email, phone, role, account_status, created_at, last_login_at, must_change_password")
       .eq("id", userId)
       .maybeSingle();
     setProfile((data as Profile) ?? null);

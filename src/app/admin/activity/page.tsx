@@ -42,7 +42,7 @@ export default function AdminActivity() {
 
   return (
     <>
-      <PageTitle title="Activity log" sub="Registrations, logins, orders, status changes and product edits — newest first." action={<button onClick={reload} className="inline-flex items-center gap-2 border border-[#D6C4AD] bg-white px-4 py-2.5 text-[11px]"><RefreshCw size={13} /> Refresh</button>} />
+      <PageTitle title="Activity log" sub="Registrations, logins, orders, status changes and product edits — newest first." action={<button onClick={() => reload()} className="inline-flex items-center gap-2 border border-[#D6C4AD] bg-white px-4 py-2.5 text-[11px]"><RefreshCw size={13} /> Refresh</button>} />
       <div className="mb-4 flex gap-1 overflow-x-auto">
         {Object.entries(GROUPS).map(([k, g]) => (
           <button key={k} onClick={() => setGroup(k)} className={`shrink-0 border px-3 py-2 text-[11px] ${group === k ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>{g.label}</button>

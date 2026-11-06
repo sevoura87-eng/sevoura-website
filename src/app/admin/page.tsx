@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Users, UserPlus, ShoppingBag, IndianRupee, Clock, CheckCircle2, XCircle, Wallet, ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarDays, CheckCircle2, Clock, IndianRupee, ShoppingBag, Users, Wallet, XCircle } from "lucide-react";
 import { Card, PageTitle, StatTile, ErrorBox, Skeleton, Empty } from "@/components/admin/ui";
 import BarChart from "@/components/admin/BarChart";
 import { OrderStatusBadge, PaymentStatusBadge } from "@/components/shop/StatusBadge";
-import { useAdminData, unwrap } from "@/components/admin/useAdminData";
+import { useAdminData, unwrap, useOrdersRealtime } from "@/components/admin/useAdminData";
 import { formatDate, formatINR, timeAgo } from "@/lib/format";
 import type { Order } from "@/lib/types";
 import type { Stats } from "@/components/admin/types";
@@ -14,7 +14,7 @@ import type { Stats } from "@/components/admin/types";
 interface ActivityRow { id: number; event_type: string; summary: string; created_at: string }
 
 export default function AdminOverview() {
-  const { data, error, loading } = useAdminData(async (sb) => {
+  const { data, error, loading, reload } = useAdminData(async (sb) => {
     const [stats, daily, orders, activity] = await Promise.all([
       sb.rpc("admin_dashboard_stats"),
       sb.rpc("admin_sales_daily", { p_days: 14 }),
@@ -29,6 +29,8 @@ export default function AdminOverview() {
     };
   });
 
+  useOrdersRealtime(() => reload({ silent: true }));
+
   if (error) return <ErrorBox message={error} />;
 
   const s = data?.stats;
@@ -40,14 +42,14 @@ export default function AdminOverview() {
       ) : (
         <>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            <StatTile index={0} tone="accent" label="Booked revenue" value={s.booked_revenue_paise} format={formatINR} icon={IndianRupee} hint="All non-cancelled orders" />
-            <StatTile index={1} label="Collected (paid)" value={s.collected_revenue_paise} format={formatINR} icon={Wallet} hint="Verified payments only" />
-            <StatTile index={2} label="Total orders" value={s.total_orders} icon={ShoppingBag} hint={`Avg. ${formatINR(s.avg_order_paise)}`} />
-            <StatTile index={3} label="Registered users" value={s.registered_users} icon={UserPlus} hint={`+${s.new_users_7d} this week`} />
-            <StatTile index={4} label="Customers" value={s.customers} icon={Users} hint="Placed at least one order" />
-            <StatTile index={5} label="Pending orders" value={s.pending_orders} icon={Clock} hint="Not yet delivered" />
-            <StatTile index={6} label="Completed" value={s.completed_orders} icon={CheckCircle2} hint="Delivered" />
-            <StatTile index={7} label="Cancelled" value={s.cancelled_orders} icon={XCircle} />
+            <StatTile index={0} tone="accent" label="Revenue (paid)" value={s.collected_revenue_paise} format={formatINR} icon={Wallet} hint="Confirmed paid orders only" />
+            <StatTile index={1} label="Total orders" value={s.total_orders} icon={ShoppingBag} hint={`Order value ${formatINR(s.booked_revenue_paise)}`} />
+            <StatTile index={2} label="Today's orders" value={s.today_orders} icon={CalendarDays} hint={`${formatINR(s.today_revenue_paise)} today (IST)`} />
+            <StatTile index={3} label="Total customers" value={s.registered_users} icon={Users} hint={`${s.customers} have ordered · +${s.new_users_7d} this week`} />
+            <StatTile index={4} label="Pending orders" value={s.pending_orders} icon={Clock} hint="Not yet delivered or cancelled" />
+            <StatTile index={5} label="Paid orders" value={s.paid_orders} icon={CheckCircle2} hint="Verified payment received" />
+            <StatTile index={6} label="Unpaid orders" value={s.unpaid_orders} icon={IndianRupee} hint={`${s.payment_pending_orders} payment pending · ${s.failed_payments} failed`} />
+            <StatTile index={7} label="Cancelled orders" value={s.cancelled_orders} icon={XCircle} />
           </div>
 
           <div className="mt-6 grid gap-6 xl:grid-cols-[1.6fr_1fr]">

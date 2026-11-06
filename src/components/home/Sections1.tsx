@@ -8,13 +8,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
-import { Orbit, Droplets, Infinity as InfinityIcon, Recycle, ArrowUpRight, ArrowRight } from "lucide-react";
+import { Layers, Droplets, Infinity as InfinityIcon, Recycle, ArrowUpRight, ArrowRight } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 /* ───────────── MARQUEE + VALUES ───────────── */
-const WORDS = ["Cleanse", "Elevate", "Radiate", "Seven Days", "Seven Rituals", "Alcohol-free", "Planetary Inspired"];
+const WORDS = ["Cleanse", "Elevate", "Radiate", "Seven Days", "Seven Blends", "Alcohol-free", "Thoughtfully Composed"];
 
 export function Marquee() {
   const { scrollY } = useScroll();
@@ -40,7 +40,7 @@ export function Marquee() {
 }
 
 const VALUES = [
-  { title: "Planetary", sub: "Inspired Blends", icon: Orbit },
+  { title: "Seven", sub: "Distinct Blends", icon: Layers },
   { title: "Clean &", sub: "Conscious", icon: Droplets },
   { title: "Everyday", sub: "Rituals", icon: InfinityIcon },
   { title: "Thoughtful", sub: "Choices", icon: Recycle },
@@ -139,15 +139,15 @@ function SevenCard({ s, i, today }: { s: (typeof SEVEN)[number]; i: number; toda
         <motion.div style={{ left: glareX }} className="pointer-events-none absolute -top-1/4 h-[150%] w-24 -translate-x-1/2 rotate-12 bg-white/20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
         <span className="absolute left-1/2 top-6 -translate-x-1/2 bg-[#702943] px-3 py-1.5 text-[9px] font-semibold tracking-[0.22em] text-white">{s.day.toUpperCase()}</span>
         {today && <span className="absolute right-5 top-[22%] rounded-full bg-[#E5C48B] px-2.5 py-1 text-[8px] font-bold tracking-[0.2em] text-[#46182D]">TODAY</span>}
-        <span className="absolute bottom-4 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-[#F4D79C]/70 bg-[#2E0F1D]/40 font-display text-3xl text-[#F4D79C] backdrop-blur transition-transform duration-700 group-hover:rotate-[20deg]">
-          {s.symbol}
+        <span className="absolute bottom-4 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-[#F4D79C]/70 bg-[#2E0F1D]/40 font-display text-2xl text-[#F4D79C] backdrop-blur transition-transform duration-700 group-hover:scale-110">
+          0{i + 1}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">
           <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">BLEND 0{i + 1}</p>
           <span className="h-px flex-1 bg-[#D8C5A7]" />
-          <span className="text-[10px] text-[#9A8777]">{s.planet}</span>
+          <span className="text-[10px] text-[#9A8777]">{s.quality}</span>
         </div>
         <h3 className="mt-3 font-display text-4xl font-medium text-[#481D30]">{s.fragrance}</h3>
         <p className="mt-1 text-xs text-[#806D60]">{s.notes}</p>

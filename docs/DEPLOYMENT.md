@@ -80,6 +80,11 @@ From now on, every push to `main` deploys automatically; pull requests get previ
 
 ## 4. Create your first admin account
 
+> The first admin (`sevoura87@gmail.com`) has already been created with a temporary password and
+> `must_change_password = true` — the dashboard forces a new password on first sign-in.
+> Run `supabase/migrations/0002_admin_upgrades.sql` after `0001` on any new project.
+
+
 1. On the live site open **/signup** and register with the email you want to use as admin.
    Confirm the email if confirmation is on.
 2. In Supabase → **SQL Editor**, run (with your email):

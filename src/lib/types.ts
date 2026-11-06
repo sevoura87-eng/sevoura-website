@@ -34,6 +34,7 @@ export interface Profile {
   account_status: "active" | "suspended";
   created_at: string;
   last_login_at: string | null;
+  must_change_password?: boolean;
 }
 
 export interface Address {

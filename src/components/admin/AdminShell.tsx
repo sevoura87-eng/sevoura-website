@@ -61,8 +61,47 @@ function AdminLogin() {
   );
 }
 
+function ForcePasswordChange({ onDone }: { onDone: () => Promise<void> }) {
+  const [pw, setPw] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    if (pw.length < 12 || !/[A-Za-z]/.test(pw) || !/\d/.test(pw)) return setError("Use at least 12 characters with letters and numbers.");
+    if (pw !== confirm) return setError("Passwords don't match.");
+    const sb = getSupabase()!;
+    setBusy(true);
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if (error) {
+      setBusy(false);
+      return setError(friendlyError(error));
+    }
+    await sb.rpc("clear_password_change_flag");
+    await onDone();
+    setBusy(false);
+  }
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#2A0E1A] px-5">
+      <form onSubmit={onSubmit} noValidate className="relative w-full max-w-[440px] bg-[#F8F1E7] p-8 text-[#481D30] shadow-2xl sm:p-10">
+        <div className="pointer-events-none absolute inset-2 border border-[#D9B77D]/60" />
+        <p className="text-[9px] tracking-[0.34em] text-[#A77B4D]">SEVOURA · ADMIN SECURITY</p>
+        <h1 className="mt-3 font-serif text-3xl">Set your own password</h1>
+        <p className="mt-3 text-[13px] leading-6 text-[#806D60]">You signed in with a temporary password. Choose a new one to continue — the temporary password stops working immediately.</p>
+        <div className="relative mt-6 space-y-4">
+          {error && <Notice tone="error">{error}</Notice>}
+          <Field label="New password (12+ characters)" type="password" autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} />
+          <Field label="Confirm new password" type="password" autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+          <Button type="submit" loading={busy} className="w-full">SAVE PASSWORD &amp; CONTINUE</Button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 export default function AdminShell({ children }: { children: ReactNode }) {
-  const { user, loading, isAdmin, profile, signOut, configured } = useAuth();
+  const { user, loading, isAdmin, profile, signOut, configured, refreshProfile } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -92,6 +131,8 @@ export default function AdminShell({ children }: { children: ReactNode }) {
       </div>
     );
   }
+
+  if (profile?.must_change_password) return <ForcePasswordChange onDone={refreshProfile} />;
 
   const isActive = (href: string) => (href === "/admin" ? pathname === "/admin" : pathname.startsWith(href));
 
