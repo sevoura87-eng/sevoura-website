@@ -127,9 +127,9 @@ To remove admin rights: `update public.profiles set role = 'customer' where emai
 | `RAZORPAY_WEBHOOK_SECRET` | Payments | **No** | Verifies webhook signatures |
 | `RAZORPAY_ALLOW_LIVE` | Only for live | No | Must be `true` before a `rzp_live_…` key is accepted |
 
-Online payment switches on automatically when the server variables are present
-(`GET /api/payments/status` shows `enabled: true` and the mode). Until then checkout records
-orders as *Unpaid*.
+Online payment switches on only when the key pair, webhook secret and service key are all present
+(and, for live keys, `RAZORPAY_ALLOW_LIVE=true`). Until then checkout records orders as *Unpaid*.
+`GET /api/payments/status?verify=1` reports pass/fail for each piece of configuration (never a value).
 
 ---
 
@@ -145,15 +145,16 @@ How it works:
    Razorpay whether the payment is captured for the exact amount — only then is the order **Paid**.
 4. A failed attempt (`/failed`, confirmed with Razorpay) marks it **Failed**; the customer can retry
    from *My Account → order → Retry payment* or cancel.
-5. `POST /api/payments/razorpay/webhook` (signature-verified, idempotent) is the safety net if the
-   customer closes the browser after paying.
+5. `POST /api/payments/razorpay/webhook` (signature-verified; each `X-Razorpay-Event-Id` processed once)
+   is the safety net if the customer closes the browser after paying. A full refund issued in the
+   Razorpay Dashboard marks the order *Refunded* and removes it from revenue.
 
 Setup (test mode):
 
 1. Razorpay Dashboard → switch to **Test Mode** → Account & Settings → API Keys → *Generate Test Key*.
 2. Razorpay → Webhooks (test mode) → *Add New Webhook*: URL
    `https://www.sevoura.com/api/payments/razorpay/webhook`, a secret of your choice,
-   events `payment.captured`, `payment.failed`, `payment.authorized`, `order.paid`.
+   events `payment.captured`, `payment.failed`, `payment.authorized`, `order.paid`, `refund.processed`.
 3. Vercel → Project → Settings → Environment Variables (Production): add the variables from §6.
 4. Redeploy. Test with Razorpay test card `4100 2800 0000 1007` (any future expiry, any CVV) or UPI
    `success@razorpay` / `failure@razorpay`.

@@ -10,7 +10,7 @@ import { errorCode, json, ownedPayment, paymentContext } from "@/lib/payments/se
  *   3. Razorpay itself confirms the payment is captured for this exact order and amount.
  */
 export async function POST(req: Request) {
-  const ctx = await paymentContext(req);
+  const ctx = await paymentContext(req, { gate: false });
   if (!ctx.ok) return ctx.res;
   const { sb, user } = ctx;
 

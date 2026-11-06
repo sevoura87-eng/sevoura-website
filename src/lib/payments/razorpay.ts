@@ -7,8 +7,9 @@ import crypto from "node:crypto";
  * (never NEXT_PUBLIC_, never in git):
  *   RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET
  *
- * Live-mode guard: a live key (rzp_live_…) is refused unless RAZORPAY_ALLOW_LIVE=true
- * is also set, so the store cannot accept real money until the owner approves it.
+ * Live-mode launch gate: with a live key (rzp_live_…) payments are available ONLY to the
+ * accounts listed in RAZORPAY_LIVE_TEST_EMAILS (comma-separated) until RAZORPAY_ALLOW_LIVE=true
+ * opens them to every customer. This lets the owner make a real test payment first.
  * Nothing here marks an order as paid without a verified signature + amount check.
  */
 
@@ -23,12 +24,30 @@ export function razorpayMode(): RazorpayMode | null {
   return null;
 }
 
-/** Why payments are unavailable, or null when ready. */
-export function razorpayUnavailableReason(): string | null {
+export function liveOpenToAll() {
+  return process.env.RAZORPAY_ALLOW_LIVE === "true";
+}
+
+export function liveTesterEmails() {
+  return (process.env.RAZORPAY_LIVE_TEST_EMAILS ?? "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+/**
+ * Why payments are unavailable for this visitor, or null when ready.
+ * `email` = the signed-in customer's email (null for guests).
+ */
+export function razorpayUnavailableReason(email?: string | null): string | null {
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) return "payments_not_configured";
   const mode = razorpayMode();
   if (!mode) return "payments_not_configured";
-  if (mode === "live" && process.env.RAZORPAY_ALLOW_LIVE !== "true") return "live_mode_not_approved";
+  if (!process.env.RAZORPAY_WEBHOOK_SECRET) return "webhook_not_configured";
+  if (mode === "live" && !liveOpenToAll()) {
+    if (email && liveTesterEmails().includes(email.toLowerCase())) return null;
+    return "live_mode_not_approved";
+  }
   return null;
 }
 
@@ -55,6 +74,7 @@ export type RazorpayPayment = {
   amount: number;
   currency: string;
   status: "created" | "authorized" | "captured" | "refunded" | "failed";
+  amount_refunded?: number;
   method?: string;
   error_description?: string | null;
 };

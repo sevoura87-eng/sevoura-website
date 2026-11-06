@@ -7,7 +7,7 @@ import { errorCode, json, ownedPayment, paymentContext } from "@/lib/payments/se
  * the payment really failed. A failed attempt never overrides a successful payment.
  */
 export async function POST(req: Request) {
-  const ctx = await paymentContext(req);
+  const ctx = await paymentContext(req, { gate: false });
   if (!ctx.ok) return ctx.res;
   const { sb, user } = ctx;
 

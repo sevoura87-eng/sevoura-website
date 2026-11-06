@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AlertTriangle, ArrowRight, CalendarDays, CheckCircle2, IndianRupee, ShoppingBag, Users, Wallet, XCircle } from "lucide-react";
 import { Card, PageTitle, StatTile, ErrorBox, Skeleton, Empty } from "@/components/admin/ui";
 import BarChart from "@/components/admin/BarChart";
+import PaymentsSetupCard from "@/components/admin/PaymentsSetupCard";
 import { OrderStatusBadge, PaymentStatusBadge } from "@/components/shop/StatusBadge";
 import { useAdminData, unwrap, useOrdersRealtime } from "@/components/admin/useAdminData";
 import { formatDate, formatINR, timeAgo } from "@/lib/format";
@@ -117,6 +118,7 @@ export default function AdminOverview() {
               </div>
             )}
           </Card>
+          <PaymentsSetupCard />
         </>
       )}
     </>

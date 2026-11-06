@@ -11,17 +11,27 @@ export const json = (body: unknown, status = 200) =>
 /** Common guard: Razorpay configured, server DB access available, caller signed in. */
 export async function paymentContext(
   req: Request,
+  opts: { gate?: boolean } = { gate: true },
 ): Promise<{ ok: true; sb: SupabaseClient; user: User } | { ok: false; res: NextResponse }> {
-  const reason = razorpayUnavailableReason();
-  if (reason) return { ok: false, res: json({ error: reason }, 503) };
+  if (razorpayUnavailableReason("__probe__") === "payments_not_configured") {
+    return { ok: false, res: json({ error: "payments_not_configured" }, 503) };
+  }
   const sb = getServiceSupabase();
   if (!sb) return { ok: false, res: json({ error: "server_not_configured" }, 503) };
 
+  const user = await userFromRequest(sb, req);
+  if (!user) return { ok: false, res: json({ error: "not_authenticated" }, 401) };
+  // Starting a payment is gated; recording the result of one that already happened never is.
+  const reason = opts.gate === false ? null : razorpayUnavailableReason(user.email);
+  if (reason) return { ok: false, res: json({ error: reason }, 503) };
+  return { ok: true, sb, user };
+}
+
+export async function userFromRequest(sb: SupabaseClient, req: Request): Promise<User | null> {
   const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
-  if (!token) return { ok: false, res: json({ error: "not_authenticated" }, 401) };
+  if (!token) return null;
   const { data, error } = await sb.auth.getUser(token);
-  if (error || !data.user) return { ok: false, res: json({ error: "not_authenticated" }, 401) };
-  return { ok: true, sb, user: data.user };
+  return error || !data.user ? null : data.user;
 }
 
 /** The SEVOURA order behind a Razorpay order id, only if it belongs to this user. */

@@ -121,3 +121,35 @@ grant execute on function public.rzp_existing_order(uuid) to service_role;
 grant execute on function public.rzp_mark_paid(text, text, integer, text, text, jsonb) to service_role;
 grant execute on function public.rzp_mark_authorized(text, text) to service_role;
 grant execute on function public.rzp_mark_failed(text, text, text, jsonb) to service_role;
+
+-- ---------------------------------------------------------------------
+-- Webhook de-duplication: Razorpay may deliver the same event more than once.
+-- Each x-razorpay-event-id is recorded after it has been processed and skipped if seen again.
+-- ---------------------------------------------------------------------
+create table if not exists public.payment_webhook_events (
+  event_id        text primary key,
+  event           text not null,
+  rzp_order_id    text,
+  rzp_payment_id  text,
+  received_at     timestamptz not null default now()
+);
+alter table public.payment_webhook_events enable row level security;
+drop policy if exists pwe_admin_select on public.payment_webhook_events;
+create policy pwe_admin_select on public.payment_webhook_events for select to authenticated using ((select public.is_admin()));
+revoke all on public.payment_webhook_events from anon, authenticated;
+grant select on public.payment_webhook_events to authenticated;
+grant all on public.payment_webhook_events to service_role;
+
+create or replace function public.rzp_event_seen(p_event_id text)
+returns boolean language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.payment_webhook_events where event_id = p_event_id);
+$$;
+create or replace function public.rzp_record_event(p_event_id text, p_event text, p_order text, p_payment text)
+returns void language sql security definer set search_path = public as $$
+  insert into public.payment_webhook_events (event_id, event, rzp_order_id, rzp_payment_id)
+  values (p_event_id, p_event, p_order, p_payment) on conflict (event_id) do nothing;
+$$;
+revoke execute on function public.rzp_event_seen(text) from public, anon, authenticated;
+revoke execute on function public.rzp_record_event(text, text, text, text) from public, anon, authenticated;
+grant execute on function public.rzp_event_seen(text) to service_role;
+grant execute on function public.rzp_record_event(text, text, text, text) to service_role;

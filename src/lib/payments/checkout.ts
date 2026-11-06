@@ -23,13 +23,20 @@ export type PaymentOutcome =
   | { status: "dismissed" }
   | { status: "error"; message: string };
 
-let statusCache: Promise<{ enabled: boolean; mode: "test" | "live" | null }> | null = null;
+let statusCache: { token: string | null; p: Promise<{ enabled: boolean; mode: "test" | "live" | null }> } | null = null;
 
-export function getPaymentStatus() {
-  statusCache ??= fetch("/api/payments/status", { cache: "no-store" })
-    .then((r) => r.json())
-    .catch(() => ({ enabled: false, mode: null }));
-  return statusCache;
+export async function getPaymentStatus() {
+  const sb = getSupabase();
+  const token = (await sb?.auth.getSession())?.data.session?.access_token ?? null;
+  if (!statusCache || statusCache.token !== token) {
+    statusCache = {
+      token,
+      p: fetch("/api/payments/status", { cache: "no-store", headers: token ? { Authorization: `Bearer ${token}` } : {} })
+        .then((r) => r.json())
+        .catch(() => ({ enabled: false, mode: null })),
+    };
+  }
+  return statusCache.p;
 }
 
 let scriptPromise: Promise<boolean> | null = null;
@@ -68,6 +75,7 @@ const INIT_ERRORS: Record<string, string> = {
   payment_processing: "A payment for this order is already being processed. Please refresh in a minute.",
   order_not_payable: "This order was cancelled and can't be paid.",
   order_not_found: "We couldn't find that order.",
+  live_mode_not_approved: "Online payment isn't open yet. Your order is saved as Unpaid.",
   not_authenticated: "Please sign in again to pay.",
 };
 
