@@ -16,7 +16,7 @@ and Supabase (Postgres, Auth, Storage, Realtime). Deployed on Vercel from GitHub
 | Bag & checkout | slide-in bag, `/cart`, `/checkout` | Bag lives in the browser; **prices & totals are computed in the database** |
 | Accounts | `/signup`, `/login`, `/forgot-password`, `/reset-password`, `/account`, `/account/orders/[id]` | Persistent sessions, order history, address book, live order status |
 | Admin | `/admin` (+ `/orders`, `/customers`, `/products`, `/revenue`, `/activity`) | Only accounts with `role = 'admin'`; every admin action is verified in the database |
-| Payments (dormant) | `/api/payments/razorpay/order`, `/api/payments/razorpay/webhook` | Ready for Razorpay; returns 503 until keys are configured |
+| Payments (Razorpay) | `/api/payments/status`, `/api/payments/razorpay/{order,verify,failed,webhook}` | Server-created orders, HMAC-verified signatures + webhooks, retries without double charge; off until keys are set; live keys blocked unless `RAZORPAY_ALLOW_LIVE=true` |
 
 ## Architecture
 
@@ -74,7 +74,7 @@ Money is stored as integer **paise** (₹1 = 100).
 src/
   app/                    routes (each folder = a URL)
     admin/                admin dashboard (layout gates access)
-    api/payments/         Razorpay route handlers (dormant)
+    api/payments/         Razorpay route handlers
     template.tsx          page-enter transition for every route
   components/
     home/                 homepage sections (Hero, Seven journey, Showcase, …)

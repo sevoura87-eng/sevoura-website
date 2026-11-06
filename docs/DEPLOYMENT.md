@@ -80,9 +80,9 @@ From now on, every push to `main` deploys automatically; pull requests get previ
 
 ## 4. Create your first admin account
 
-> The first admin (`sevoura87@gmail.com`) has already been created with a temporary password and
+> The first admin (`sevoura87@gmail.com`) exists with a temporary password and
 > `must_change_password = true` — the dashboard forces a new password on first sign-in.
-> Run `supabase/migrations/0002_admin_upgrades.sql` after `0001` on any new project.
+> Run `0002_admin_upgrades.sql` and `0003_razorpay.sql` after `0001` on any new project.
 
 
 1. On the live site open **/signup** and register with the email you want to use as admin.
@@ -118,32 +118,48 @@ To remove admin rights: `update public.profiles set role = 'customer' where emai
 
 | Variable | Required | Exposed to browser? | Purpose |
 |---|---|---|---|
-| `NEXT_PUBLIC_SEVOURA_SUPABASE_URL` | **Yes** | Yes (safe) | Supabase project URL (falls back to `NEXT_PUBLIC_SUPABASE_URL`) |
-| `NEXT_PUBLIC_SEVOURA_SUPABASE_ANON_KEY` | **Yes** | Yes (safe, RLS-protected) | Public anon / publishable key (falls back to `NEXT_PUBLIC_SUPABASE_ANON_KEY`) |
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Yes | Canonical site URL for SEO metadata |
-| `SEVOURA_SUPABASE_SERVICE_ROLE_KEY` | Later (Razorpay) | **No — server only** | Lets payment webhooks record verified payments |
-| `RAZORPAY_KEY_ID` | Later | No | Razorpay API key id |
-| `RAZORPAY_KEY_SECRET` | Later | **No** | Razorpay API secret |
-| `RAZORPAY_WEBHOOK_SECRET` | Later | **No** | Verifies webhook signatures |
-| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Later | Yes | Key id for the Razorpay checkout widget |
-| `NEXT_PUBLIC_PAYMENTS_ENABLED` | Later | Yes | Set `true` only once Razorpay is live |
+| `NEXT_PUBLIC_SEVOURA_SUPABASE_URL` | **Yes** | Yes (safe) | Supabase project URL |
+| `NEXT_PUBLIC_SEVOURA_SUPABASE_ANON_KEY` | **Yes** | Yes (safe, RLS-protected) | Public anon / publishable key |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Yes | Canonical site URL (`https://www.sevoura.com`) |
+| `SEVOURA_SUPABASE_SERVICE_ROLE_KEY` | Payments | **No — server only** | Lets the payment routes record verified payments |
+| `RAZORPAY_KEY_ID` | Payments | key id is shown to Razorpay's checkout | `rzp_test_…` while testing |
+| `RAZORPAY_KEY_SECRET` | Payments | **No** | Creates orders, verifies checkout signatures |
+| `RAZORPAY_WEBHOOK_SECRET` | Payments | **No** | Verifies webhook signatures |
+| `RAZORPAY_ALLOW_LIVE` | Only for live | No | Must be `true` before a `rzp_live_…` key is accepted |
+
+Online payment switches on automatically when the server variables are present
+(`GET /api/payments/status` shows `enabled: true` and the mode). Until then checkout records
+orders as *Unpaid*.
 
 ---
 
-## 7. Adding Razorpay later
+## 7. Razorpay
 
-The database and server routes are ready:
+How it works:
 
-- `payments` table (order ↔ payment, provider ids, signature, amount, status, raw payload).
-- `POST /api/payments/razorpay/order` — creates a Razorpay order for an existing SEVOURA order;
-  the amount is read from the database.
-- `POST /api/payments/razorpay/webhook` — verifies the `X-Razorpay-Signature` HMAC and only then
-  marks `payment_status = 'paid'` (and only if the captured amount equals the order total).
+1. Customer places the order → `place_order()` computes the price in the database (status *Unpaid*).
+2. `POST /api/payments/razorpay/order` creates **one** Razorpay order for that SEVOURA order using the
+   database total. Retries reuse it, so an order can never be charged twice.
+3. Razorpay Checkout opens. On success the browser sends Razorpay's response to
+   `POST /api/payments/razorpay/verify`, which checks the HMAC signature, the order owner and asks
+   Razorpay whether the payment is captured for the exact amount — only then is the order **Paid**.
+4. A failed attempt (`/failed`, confirmed with Razorpay) marks it **Failed**; the customer can retry
+   from *My Account → order → Retry payment* or cancel.
+5. `POST /api/payments/razorpay/webhook` (signature-verified, idempotent) is the safety net if the
+   customer closes the browser after paying.
 
-To go live: add the Razorpay + service-role variables above, set the webhook URL
-`https://<your-site>/api/payments/razorpay/webhook` in the Razorpay dashboard (events
-`payment.captured`, `payment.failed`), add the Razorpay Checkout script to the checkout page's
-payment step, then set `NEXT_PUBLIC_PAYMENTS_ENABLED=true`. Test in Razorpay **test mode** first.
+Setup (test mode):
+
+1. Razorpay Dashboard → switch to **Test Mode** → Account & Settings → API Keys → *Generate Test Key*.
+2. Razorpay → Webhooks (test mode) → *Add New Webhook*: URL
+   `https://www.sevoura.com/api/payments/razorpay/webhook`, a secret of your choice,
+   events `payment.captured`, `payment.failed`, `payment.authorized`, `order.paid`.
+3. Vercel → Project → Settings → Environment Variables (Production): add the variables from §6.
+4. Redeploy. Test with Razorpay test card `4100 2800 0000 1007` (any future expiry, any CVV) or UPI
+   `success@razorpay` / `failure@razorpay`.
+
+Going live (only with the owner's approval): replace the key id/secret with the live pair, create the
+same webhook in live mode, set `RAZORPAY_ALLOW_LIVE=true`, redeploy.
 
 ---
 

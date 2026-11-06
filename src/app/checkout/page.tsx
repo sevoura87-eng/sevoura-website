@@ -19,7 +19,7 @@ import { formatINR } from "@/lib/format";
 import { friendlyError } from "@/lib/errors";
 import { INDIAN_STATES, emptyAddress, normalizePhone, validateAddress, type AddressInput } from "@/lib/validation";
 import type { Address } from "@/lib/types";
-import { PAYMENTS_ENABLED } from "@/lib/payments/config";
+import { getPaymentStatus, payForOrder } from "@/lib/payments/checkout";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -55,6 +55,12 @@ function CheckoutInner() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [placing, setPlacing] = useState(false);
+  const [payments, setPayments] = useState<{ enabled: boolean; mode: "test" | "live" | null } | null>(null);
+  const [stage, setStage] = useState<"idle" | "saving" | "paying" | "verifying">("idle");
+
+  useEffect(() => {
+    getPaymentStatus().then(setPayments);
+  }, []);
 
   useEffect(() => {
     const sb = getSupabase();
@@ -110,6 +116,7 @@ function CheckoutInner() {
     if (!sb) return setError("The store is not connected yet.");
     setBusy(true);
     setPlacing(true);
+    setStage("saving");
     const { data, error } = await sb.rpc("place_order", {
       p_items: lines.map((l) => ({ product_id: l.productId, quantity: l.quantity })),
       p_address: payload,
@@ -119,14 +126,29 @@ function CheckoutInner() {
     if (error) {
       setBusy(false);
       setPlacing(false);
+      setStage("idle");
       setError(friendlyError(error));
       refreshProducts();
       return;
     }
     const result = data as { order_id: string };
+    // The order now exists (status Unpaid). Clearing the bag prevents a second order on retry —
+    // a failed or abandoned payment is retried from the order page against the SAME order.
     clear();
     refreshProducts();
-    router.replace(`/account/orders/${result.order_id}?placed=1`);
+    if (!payments?.enabled) {
+      router.replace(`/account/orders/${result.order_id}?placed=1`);
+      return;
+    }
+    setStage("paying");
+    const outcome = await payForOrder(result.order_id);
+    setStage("verifying");
+    const q =
+      outcome.status === "paid" ? "paid=1" :
+      outcome.status === "authorized" ? "payment=processing" :
+      outcome.status === "failed" ? "payment=failed" :
+      outcome.status === "dismissed" ? "payment=cancelled" : "payment=error";
+    router.replace(`/account/orders/${result.order_id}?${q}`);
   }
 
   if (productsLoading) return <div className="mx-auto mt-20 h-64 max-w-5xl animate-pulse bg-[#EFE3D3]" />;
@@ -226,8 +248,20 @@ function CheckoutInner() {
         </div>
 
         <Step n="3" title="Payment" icon={CreditCard}>
-          {PAYMENTS_ENABLED ? (
-            <Notice>You&apos;ll be redirected to our secure payment partner after placing the order.</Notice>
+          {payments === null ? (
+            <div className="h-14 animate-pulse bg-[#EFE3D3]" />
+          ) : payments.enabled ? (
+            <div className="space-y-3">
+              <Notice>
+                Pay securely with UPI, cards, net banking or wallets through <strong>Razorpay</strong>. The payment
+                window opens after you click <em>Place order &amp; pay</em>.
+              </Notice>
+              {payments.mode === "test" && (
+                <Notice tone="error">
+                  <strong>Test mode:</strong> payments are simulated by Razorpay and no real money is charged.
+                </Notice>
+              )}
+            </div>
           ) : (
             <Notice>
               <strong>Online payment is being set up.</strong> Your order will be recorded with status{" "}
@@ -271,7 +305,8 @@ function CheckoutInner() {
         </div>
         {error && <div className="mt-5"><Notice tone="error">{error}</Notice></div>}
         <Button type="submit" loading={busy} className="mt-6 w-full py-5">
-          <Lock size={14} /> PLACE ORDER
+          <Lock size={14} />{" "}
+          {stage === "saving" ? "SAVING ORDER…" : stage === "paying" ? "COMPLETE PAYMENT IN THE WINDOW…" : stage === "verifying" ? "CONFIRMING…" : payments?.enabled ? `PLACE ORDER & PAY ${formatINR(subtotal)}` : "PLACE ORDER"}
         </Button>
         <p className="mt-4 text-center text-[10px] leading-5 text-[#9A8777]">
           The final amount is calculated securely on our server. By placing the order you agree to our{" "}

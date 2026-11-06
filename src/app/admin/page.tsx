@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CalendarDays, CheckCircle2, Clock, IndianRupee, ShoppingBag, Users, Wallet, XCircle } from "lucide-react";
+import { AlertTriangle, ArrowRight, CalendarDays, CheckCircle2, IndianRupee, ShoppingBag, Users, Wallet, XCircle } from "lucide-react";
 import { Card, PageTitle, StatTile, ErrorBox, Skeleton, Empty } from "@/components/admin/ui";
 import BarChart from "@/components/admin/BarChart";
 import { OrderStatusBadge, PaymentStatusBadge } from "@/components/shop/StatusBadge";
@@ -42,13 +42,13 @@ export default function AdminOverview() {
       ) : (
         <>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            <StatTile index={0} tone="accent" label="Revenue (paid)" value={s.collected_revenue_paise} format={formatINR} icon={Wallet} hint="Confirmed paid orders only" />
-            <StatTile index={1} label="Total orders" value={s.total_orders} icon={ShoppingBag} hint={`Order value ${formatINR(s.booked_revenue_paise)}`} />
+            <StatTile index={0} tone="accent" label="Total revenue (paid)" value={s.collected_revenue_paise} format={formatINR} icon={Wallet} hint="Confirmed paid orders only" />
+            <StatTile index={1} label="Total orders" value={s.total_orders} icon={ShoppingBag} hint={`${s.pending_orders} in progress · value ${formatINR(s.booked_revenue_paise)}`} />
             <StatTile index={2} label="Today's orders" value={s.today_orders} icon={CalendarDays} hint={`${formatINR(s.today_revenue_paise)} today (IST)`} />
             <StatTile index={3} label="Total customers" value={s.registered_users} icon={Users} hint={`${s.customers} have ordered · +${s.new_users_7d} this week`} />
-            <StatTile index={4} label="Pending orders" value={s.pending_orders} icon={Clock} hint="Not yet delivered or cancelled" />
+            <StatTile index={4} label="Failed payments" value={s.failed_payments} icon={AlertTriangle} hint="Customer can retry from their order page" />
             <StatTile index={5} label="Paid orders" value={s.paid_orders} icon={CheckCircle2} hint="Verified payment received" />
-            <StatTile index={6} label="Unpaid orders" value={s.unpaid_orders} icon={IndianRupee} hint={`${s.payment_pending_orders} payment pending · ${s.failed_payments} failed`} />
+            <StatTile index={6} label="Unpaid orders" value={s.unpaid_orders} icon={IndianRupee} hint={`Not paid yet · ${s.payment_pending_orders} processing`} />
             <StatTile index={7} label="Cancelled orders" value={s.cancelled_orders} icon={XCircle} />
           </div>
 
@@ -93,7 +93,7 @@ export default function AdminOverview() {
 
           <Card className="mt-6">
             <div className="flex items-center justify-between px-5 py-4 sm:px-6">
-              <p className="font-serif text-2xl">Latest orders</p>
+              <p className="font-serif text-2xl">Recent orders</p>
               <Link href="/admin/orders" className="inline-flex items-center gap-1 text-[11px] text-[#792D49] hover:underline">All orders <ArrowRight size={12} /></Link>
             </div>
             {(data?.orders ?? []).length === 0 ? (

@@ -17,12 +17,25 @@ import { getSupabase } from "@/lib/supabase/client";
 import { formatDate, formatINR } from "@/lib/format";
 import { friendlyError } from "@/lib/errors";
 import type { Order, StatusHistory } from "@/lib/types";
+import { getPaymentStatus, payForOrder } from "@/lib/payments/checkout";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function OrderDetail() {
   const { id } = useParams<{ id: string }>();
-  const placed = useSearchParams().get("placed") === "1";
+  const params = useSearchParams();
+  const placed = params.get("placed") === "1";
+  const [paidNow, setPaidNow] = useState(params.get("paid") === "1");
+  const [payMsg, setPayMsg] = useState<{ tone: "error" | "info" | "success"; text: string } | null>(() => {
+    const p = params.get("payment");
+    if (p === "failed") return { tone: "error", text: "Your payment didn't go through and no money was taken. Your order is saved — you can try again below." };
+    if (p === "cancelled") return { tone: "info", text: "Payment was not completed. Your order is saved as Unpaid — you can pay below whenever you're ready." };
+    if (p === "processing") return { tone: "info", text: "Your payment is being processed. This page will update automatically once it is confirmed." };
+    if (p === "error") return { tone: "error", text: "We couldn't confirm the payment yet. If money was deducted, it will be confirmed automatically within a few minutes — please don't pay twice." };
+    return null;
+  });
+  const [paymentsEnabled, setPaymentsEnabled] = useState(false);
+  const [paying, setPaying] = useState(false);
   const [order, setOrder] = useState<Order | null | undefined>(undefined);
   const [history, setHistory] = useState<StatusHistory[]>([]);
   const [busy, setBusy] = useState(false);
@@ -37,6 +50,22 @@ function OrderDetail() {
     setOrder((o as Order) ?? null);
     setHistory((h as StatusHistory[]) ?? []);
   }, [id]);
+
+  useEffect(() => {
+    getPaymentStatus().then((s) => setPaymentsEnabled(s.enabled));
+  }, []);
+
+  async function pay() {
+    setPaying(true);
+    setPayMsg(null);
+    const r = await payForOrder(id);
+    setPaying(false);
+    if (r.status === "paid") setPaidNow(true);
+    else if (r.status === "authorized") setPayMsg({ tone: "info", text: "Your payment is being processed. This page will update automatically." });
+    else if (r.status === "failed") setPayMsg({ tone: "error", text: r.message + " You can try again." });
+    else if (r.status === "error") setPayMsg({ tone: "error", text: r.message });
+    load();
+  }
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- initial load
@@ -72,7 +101,27 @@ function OrderDetail() {
 
   return (
     <div>
-      {placed && (
+      {paidNow && order.payment_status === "paid" && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease }}
+          className="relative mb-10 overflow-hidden bg-[#792D49] p-8 text-[#FBF0E4] md:p-12"
+        >
+          <div className="pointer-events-none absolute inset-3 border border-[#D9B77D]/50" />
+          <Sparkles className="text-[#E5C48B]" size={30} />
+          <p className="relative mt-5 text-[9px] tracking-[0.34em] text-[#E5C48B]">PAYMENT RECEIVED</p>
+          <h1 className="relative mt-3 font-serif text-4xl md:text-5xl">Thank you — your ritual begins.</h1>
+          <p className="relative mt-4 max-w-2xl text-sm leading-7 text-[#F0DCD4]">
+            We&apos;ve received {formatINR(order.total_paise)} for order <strong className="font-mono">{order.order_number}</strong>.
+            We&apos;ll keep you updated here as it&apos;s packed and shipped.
+          </p>
+        </motion.div>
+      )}
+      {payMsg && order.payment_status !== "paid" && (
+        <div className="mb-8"><Notice tone={payMsg.tone}>{payMsg.text}</Notice></div>
+      )}
+      {placed && !paidNow && (
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -144,7 +193,12 @@ function OrderDetail() {
             {order.notes && <p className="mt-3 border-t border-[#E6D8C6] pt-3 text-[#806D60]">Note: {order.notes}</p>}
           </div>
           {error && <Notice tone="error">{error}</Notice>}
-          {order.status === "order_placed" && order.payment_status === "pending" && (
+          {paymentsEnabled && order.status !== "cancelled" && (order.payment_status === "pending" || order.payment_status === "failed") && (
+            <Button loading={paying} onClick={pay} className="w-full py-5">
+              {order.payment_status === "failed" ? "RETRY PAYMENT" : "PAY NOW"} · {formatINR(order.total_paise)}
+            </Button>
+          )}
+          {order.status === "order_placed" && (order.payment_status === "pending" || order.payment_status === "failed") && (
             <Button variant="outline" loading={busy} onClick={cancel} className="w-full">CANCEL ORDER</Button>
           )}
           <p className="text-[11px] leading-5 text-[#9A8777]">
