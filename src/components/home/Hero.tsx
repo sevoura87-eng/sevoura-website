@@ -58,11 +58,11 @@ function ScentArchitecture() {
             <circle cx="200" cy="200" r={ring.r} fill="none" stroke="#B28B4E" strokeOpacity={0.55 - i * 0.08} strokeWidth=".8" strokeDasharray={i === 0 ? "2 5" : undefined} />
             <circle cx={px} cy={py} r="3.6" fill="#792D49" />
             <circle cx={px} cy={py} r="8" fill="none" stroke="#792D49" strokeOpacity=".35" className="hero-ping" />
-            <line x1={px} y1={py} x2={lx} y2={py} stroke="#792D49" strokeOpacity=".5" strokeWidth=".8" />
-            <text x={lx + (right ? 5 : -5)} y={py - 3} textAnchor={right ? "start" : "end"} fontSize="9.5" letterSpacing="2" fill="#792D49" fontFamily="var(--font-geist-sans)">
+            <line className="hero-note-label" x1={px} y1={py} x2={lx} y2={py} stroke="#792D49" strokeOpacity=".5" strokeWidth=".8" />
+            <text className="hero-note-label" x={lx + (right ? 5 : -5)} y={py - 3} textAnchor={right ? "start" : "end"} fontSize="9.5" letterSpacing="2" fill="#792D49" fontFamily="var(--font-geist-sans)">
               {ring.label}
             </text>
-            <text x={lx + (right ? 5 : -5)} y={py + 9} textAnchor={right ? "start" : "end"} fontSize="10" fill="#806D60" fontFamily="var(--font-geist-sans)">
+            <text className="hero-note-label" x={lx + (right ? 5 : -5)} y={py + 9} textAnchor={right ? "start" : "end"} fontSize="10" fill="#806D60" fontFamily="var(--font-geist-sans)">
               {ring.sub}
             </text>
           </g>
@@ -83,7 +83,7 @@ function ScentArchitecture() {
         <text x={stub(2).x2 + 6} y={stub(2).y2 + 6}>OCH₃</text>
         <text x={stub(3).x2} y={stub(3).y2 + 15} textAnchor="middle">OH</text>
       </g>
-      <text x="200" y="388" textAnchor="middle" fontSize="8.5" letterSpacing="2.4" fill="#A77B4D" fontFamily="var(--font-geist-sans)">
+      <text className="hero-note-label" x="200" y="388" textAnchor="middle" fontSize="8.5" letterSpacing="2.4" fill="#A77B4D" fontFamily="var(--font-geist-sans)">
         VANILLIN · C₈H₈O₃ — A MOLECULE OF SCENT
       </text>
     </svg>
