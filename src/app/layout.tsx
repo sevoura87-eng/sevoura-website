@@ -18,7 +18,7 @@ const display = localFont({
   ],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sevoura.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.sevoura.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
