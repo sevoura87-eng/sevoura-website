@@ -203,11 +203,23 @@ export function SevenJourney() {
     <section ref={root} className="relative overflow-hidden bg-[#F2E6D6] lg:h-screen">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,#F8EEDF,transparent_60%)]" />
       <div className="relative flex h-full flex-col justify-center py-20 lg:py-0">
+          <div className="mb-10 px-6 md:px-12 lg:hidden">
+            <p className="text-[10px] tracking-[0.36em] text-[#A77B4D]">THE IDEA BEHIND THE COLLECTION</p>
+            <h2 className="mt-6 font-display text-[clamp(3rem,6vw,5.6rem)] font-medium leading-[0.95] text-[#46182D]">
+              Seven Days.
+              <br />
+              <span className="italic text-[#792D49]">Seven Inspirations.</span>
+            </h2>
+            <p className="mt-6 max-w-sm text-sm leading-8 text-[#806D60]">
+              An ancient planetary cycle, reimagined as a contemporary fragrance story. Every day brings a different symbolic identity and a new opportunity for personal expression.
+            </p>
+            <p className="mt-6 text-[10px] tracking-[0.3em] text-[#A77B4D]">SWIPE TO EXPLORE →</p>
+          </div>
         <div
           ref={track}
-          className="flex snap-x snap-mandatory items-center gap-6 overflow-x-auto px-6 pb-6 [scrollbar-width:none] md:px-12 lg:snap-none lg:overflow-visible lg:px-16 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+          className="flex snap-x snap-mandatory scroll-px-6 items-center gap-5 overflow-x-auto px-6 pb-6 [scrollbar-width:none] md:scroll-px-12 md:px-12 lg:snap-none lg:gap-6 lg:overflow-visible lg:px-16 lg:pb-0 [&::-webkit-scrollbar]:hidden"
         >
-          <div className="w-[82vw] shrink-0 snap-start pr-4 sm:w-[420px] lg:w-[460px]">
+          <div className="hidden shrink-0 pr-4 lg:block lg:w-[460px]">
             <p className="text-[10px] tracking-[0.36em] text-[#A77B4D]">THE IDEA BEHIND THE COLLECTION</p>
             <h2 className="mt-6 font-display text-[clamp(3rem,6vw,5.6rem)] font-medium leading-[0.95] text-[#46182D]">
               Seven Days.
@@ -220,12 +232,11 @@ export function SevenJourney() {
             <p className="mt-8 hidden items-center gap-3 text-[10px] tracking-[0.3em] text-[#A77B4D] lg:flex">
               SCROLL TO JOURNEY <ArrowRight size={14} />
             </p>
-            <p className="mt-6 text-[10px] tracking-[0.3em] text-[#A77B4D] lg:hidden">SWIPE →</p>
           </div>
           {SEVEN.map((s, i) => (
             <SevenCard key={s.day} s={s} i={i} today={i === today} />
           ))}
-          <div className="flex w-[70vw] shrink-0 snap-center flex-col items-start justify-center gap-6 sm:w-[340px]">
+          <div className="hidden w-[340px] shrink-0 flex-col items-start justify-center gap-6 lg:flex">
             <p className="font-display text-4xl italic leading-tight text-[#46182D]">The stars inspire.<br />Your intention defines.</p>
             <Link href="/the-seven" className="sev-shine inline-flex items-center gap-4 bg-[#792D49] px-8 py-4 text-[10px] tracking-[0.2em] text-white transition hover:bg-[#501D32]">
               EXPLORE THE SEVEN <ArrowUpRight size={15} />
@@ -233,6 +244,13 @@ export function SevenJourney() {
             <Link href="/ritual-finder" className="text-[10px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">FIND YOUR RITUAL</Link>
           </div>
         </div>
+          <div className="mt-10 flex flex-col items-start gap-6 px-6 md:px-12 lg:hidden">
+            <p className="font-display text-4xl italic leading-tight text-[#46182D]">The stars inspire.<br />Your intention defines.</p>
+            <Link href="/the-seven" className="sev-shine inline-flex items-center gap-4 bg-[#792D49] px-8 py-4 text-[10px] tracking-[0.2em] text-white transition hover:bg-[#501D32]">
+              EXPLORE THE SEVEN <ArrowUpRight size={15} />
+            </Link>
+            <Link href="/ritual-finder" className="text-[10px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">FIND YOUR RITUAL</Link>
+          </div>
         <div className="mx-auto mt-6 hidden h-px w-[min(600px,60vw)] bg-[#DCCAB5] lg:block">
           <div className="seven-progress h-full origin-left scale-x-0 bg-[#792D49]" />
         </div>

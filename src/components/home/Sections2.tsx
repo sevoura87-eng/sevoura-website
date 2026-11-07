@@ -124,6 +124,13 @@ export function Founder() {
                 sizes="(max-width: 768px) 100vw, 560px"
                 className="object-cover object-[50%_25%] transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.03]"
               />
+              {/* name plate */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2E0F1D]/85 via-[#2E0F1D]/45 to-transparent px-6 pb-6 pt-20 md:px-8 md:pb-8">
+                <p className="font-display text-[28px] leading-none text-[#FBF0E4] md:text-[34px]">Dr. Jasleen Bhatti</p>
+                <p className="mt-2 flex items-center gap-3 text-[9px] tracking-[0.3em] text-[#E5C48B] md:text-[10px]">
+                  <span className="h-px w-6 bg-[#E5C48B]" /> FOUNDER, SEVOURA
+                </p>
+              </div>
             </div>
             <div className="pointer-events-none absolute inset-[6px] border border-[#C9AE84]/70" />
           </motion.div>
