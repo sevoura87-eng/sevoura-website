@@ -135,7 +135,22 @@ input[type="number"]::-webkit-outer-spin-button {
 @keyframes sev-scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
 .sev-scrollcue { animation: sev-scrollcue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
 
-/* Hero: slowly turning seal */
-@keyframes sev-spin { to { transform: rotate(360deg); } }
-.hero-seal { animation: sev-spin 28s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .hero-seal { animation: none; } }
+/* Hero: celestial artwork */
+@keyframes cx-rot { to { transform: rotate(360deg); } }
+@keyframes cx-tw { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+@keyframes cx-pl { 0%,100% { opacity: .75; } 50% { opacity: 1; } }
+@keyframes cx-fl { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(-3deg); } }
+.celestial .cx-spin { transform-box: view-box; transform-origin: 340px 340px; animation: cx-rot 90s linear infinite; }
+.celestial .cx-fast { animation-duration: 60s; }
+.celestial .cx-med { animation-duration: 120s; }
+.celestial .cx-slow { animation-duration: 240s; }
+.celestial .cx-slower { animation-duration: 180s; }
+.celestial .cx-star { animation-duration: 75s; }
+.celestial .cx-rev { animation-direction: reverse; }
+.cx-twinkle { animation: cx-tw 4.5s ease-in-out infinite; }
+.celestial .cx-pulse { animation: cx-pl 6s ease-in-out infinite; }
+.celestial .cx-float { transform-box: fill-box; transform-origin: center; animation: cx-fl 9s ease-in-out infinite; }
+.celestial .cx-float-alt { animation-duration: 7s; animation-delay: -3s; }
+@media (prefers-reduced-motion: reduce) {
+  .celestial .cx-spin, .cx-twinkle, .celestial .cx-pulse, .celestial .cx-float { animation: none; }
+}
