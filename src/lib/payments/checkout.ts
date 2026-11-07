@@ -76,6 +76,7 @@ const INIT_ERRORS: Record<string, string> = {
   order_not_payable: "This order was cancelled and can't be paid.",
   order_not_found: "We couldn't find that order.",
   live_mode_not_approved: "Online payment isn't open yet. Your order is saved as Unpaid.",
+  payments_paused: "Online payment is paused for a moment. Your order is saved as Unpaid — please try again shortly.",
   not_authenticated: "Please sign in again to pay.",
 };
 

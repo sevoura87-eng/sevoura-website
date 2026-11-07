@@ -14,8 +14,6 @@ type Checks = {
   service_role_key: boolean;
   supabase_project: string | null;
   live_open_to_all: boolean | null;
-  live_testers: number;
-  you_are_live_tester: boolean;
 };
 
 const EXPECTED_PROJECT = "igvkiplyqcookmgjqnus";
@@ -94,11 +92,11 @@ export default function PaymentsSetupCard() {
           {c.mode === "live" && (
             <Row
               ok={null}
-              label={c.live_open_to_all ? "Live payments: OPEN to all customers" : "Live payments: owner testing only"}
+              label={c.live_open_to_all ? "Live payments: OPEN to all customers" : "Live payments: PAUSED"}
               detail={
                 c.live_open_to_all
-                  ? "RAZORPAY_ALLOW_LIVE=true"
-                  : `${c.live_testers} test account(s)${c.you_are_live_tester ? ", including you" : " — you are not one of them"}. Customers still see “Unpaid” checkout.`
+                  ? "Every customer can pay with UPI, cards, net banking and wallets"
+                  : "RAZORPAY_LIVE_PAUSED=true is set in Vercel — remove it and redeploy to resume"
               }
             />
           )}

@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { getServiceSupabase } from "@/lib/supabase/admin";
 import { json, userFromRequest } from "@/lib/payments/server";
-import { liveOpenToAll, liveTesterEmails, razorpayMode } from "@/lib/payments/razorpay";
+import { liveOpenToAll, razorpayMode } from "@/lib/payments/razorpay";
 
 /**
  * GET /api/payments/health — ADMIN ONLY. Checks the payment configuration without revealing any
@@ -35,7 +35,6 @@ export async function GET(req: Request) {
   const { error: srvErr } = await sb.rpc("rzp_event_seen", { p_event_id: "__health__" });
   const { count: webhookEvents } = await sb.from("payment_webhook_events").select("event_id", { count: "exact", head: true });
 
-  const testers = liveTesterEmails();
   return json({
     checks: {
       mode, // "live" | "test" | null
@@ -46,8 +45,6 @@ export async function GET(req: Request) {
       service_role_key: !srvErr,
       supabase_project: project,
       live_open_to_all: mode === "live" ? liveOpenToAll() : null,
-      live_testers: testers.length,
-      you_are_live_tester: testers.includes((user.email ?? "").toLowerCase()),
     },
   });
 }

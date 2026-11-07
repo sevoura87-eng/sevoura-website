@@ -7,9 +7,9 @@ import crypto from "node:crypto";
  * (never NEXT_PUBLIC_, never in git):
  *   RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET
  *
- * Live-mode launch gate: with a live key (rzp_live_…) payments are available ONLY to the
- * accounts listed in RAZORPAY_LIVE_TEST_EMAILS (comma-separated) until RAZORPAY_ALLOW_LIVE=true
- * opens them to every customer. This lets the owner make a real test payment first.
+ * Live payments are open to every customer whenever live keys are configured (approved by the
+ * owner on 2026-11-07). Emergency switch: RAZORPAY_LIVE_PAUSED=true stops NEW payments from
+ * starting; payments already made are still verified and recorded.
  * Nothing here marks an order as paid without a verified signature + amount check.
  */
 
@@ -25,29 +25,20 @@ export function razorpayMode(): RazorpayMode | null {
 }
 
 export function liveOpenToAll() {
-  return process.env.RAZORPAY_ALLOW_LIVE === "true";
-}
-
-export function liveTesterEmails() {
-  return (process.env.RAZORPAY_LIVE_TEST_EMAILS ?? "")
-    .split(",")
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean);
+  return process.env.RAZORPAY_LIVE_PAUSED !== "true";
 }
 
 /**
  * Why payments are unavailable for this visitor, or null when ready.
  * `email` = the signed-in customer's email (null for guests).
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for call-site compatibility
 export function razorpayUnavailableReason(email?: string | null): string | null {
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) return "payments_not_configured";
   const mode = razorpayMode();
   if (!mode) return "payments_not_configured";
   if (!process.env.RAZORPAY_WEBHOOK_SECRET) return "webhook_not_configured";
-  if (mode === "live" && !liveOpenToAll()) {
-    if (email && liveTesterEmails().includes(email.toLowerCase())) return null;
-    return "live_mode_not_approved";
-  }
+  if (mode === "live" && !liveOpenToAll()) return "payments_paused";
   return null;
 }
 

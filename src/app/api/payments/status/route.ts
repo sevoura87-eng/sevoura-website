@@ -1,5 +1,5 @@
 import { connection } from "next/server";
-import { razorpayMode, razorpayUnavailableReason } from "@/lib/payments/razorpay";
+import { liveOpenToAll, razorpayMode, razorpayUnavailableReason } from "@/lib/payments/razorpay";
 import { getServiceSupabase } from "@/lib/supabase/admin";
 import { json, userFromRequest } from "@/lib/payments/server";
 
@@ -50,7 +50,7 @@ async function runChecks(): Promise<Checks> {
     razorpay_webhook_secret_set: Boolean(process.env.RAZORPAY_WEBHOOK_SECRET),
     supabase_service_key_valid: supabaseOk,
     supabase_project: projectRef(),
-    live_mode_approved: process.env.RAZORPAY_ALLOW_LIVE === "true",
+    live_mode_approved: liveOpenToAll(),
   };
   cache = { at: Date.now(), checks };
   return checks;
