@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { razorpayMode, razorpayUnavailableReason } from "@/lib/payments/razorpay";
 import { getServiceSupabase } from "@/lib/supabase/admin";
-import { json } from "@/lib/payments/server";
+import { json, userFromRequest } from "@/lib/payments/server";
 
 /**
  * GET /api/payments/status            → { enabled, mode, reason }   (used by the checkout)
@@ -58,7 +58,10 @@ async function runChecks(): Promise<Checks> {
 
 export async function GET(req: Request) {
   await connection();
-  const reason = razorpayUnavailableReason() ?? (getServiceSupabase() ? null : "server_not_configured");
+  const sb = getServiceSupabase();
+  // A signed-in visitor may be on the live-test list, so judge availability for them specifically.
+  const user = sb && req.headers.get("authorization") ? await userFromRequest(sb, req) : null;
+  const reason = razorpayUnavailableReason(user?.email) ?? (sb ? null : "server_not_configured");
   const base = { enabled: reason === null, mode: razorpayMode(), reason };
   if (new URL(req.url).searchParams.get("verify") !== "1") {
     return json({ ...base, mode: reason === null ? base.mode : null });
