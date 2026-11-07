@@ -135,22 +135,26 @@ input[type="number"]::-webkit-outer-spin-button {
 @keyframes sev-scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
 .sev-scrollcue { animation: sev-scrollcue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
 
-/* Hero: celestial artwork */
-@keyframes cx-rot { to { transform: rotate(360deg); } }
-@keyframes cx-tw { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
-@keyframes cx-pl { 0%,100% { opacity: .75; } 50% { opacity: 1; } }
-@keyframes cx-fl { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(-3deg); } }
-.celestial .cx-spin { transform-box: view-box; transform-origin: 340px 340px; animation: cx-rot 90s linear infinite; }
-.celestial .cx-fast { animation-duration: 60s; }
-.celestial .cx-med { animation-duration: 120s; }
-.celestial .cx-slow { animation-duration: 240s; }
-.celestial .cx-slower { animation-duration: 180s; }
-.celestial .cx-star { animation-duration: 75s; }
-.celestial .cx-rev { animation-direction: reverse; }
-.cx-twinkle { animation: cx-tw 4.5s ease-in-out infinite; }
-.celestial .cx-pulse { animation: cx-pl 6s ease-in-out infinite; }
-.celestial .cx-float { transform-box: fill-box; transform-origin: center; animation: cx-fl 9s ease-in-out infinite; }
-.celestial .cx-float-alt { animation-duration: 7s; animation-delay: -3s; }
+/* Hero: seven scent worlds */
+@keyframes sc-fl { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes sc-sw { 0%,100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+@keyframes sc-tb { 0%,100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
+@keyframes sc-sp { to { transform: rotate(360deg); } }
+@keyframes sc-dr { 0%,100% { transform: translate(0,0); } 50% { transform: translate(34px,-14px); } }
+@keyframes sc-ri { 0% { transform: translateY(20px); opacity: 0; } 25% { opacity: .9; } 100% { transform: translateY(-90px); opacity: 0; } }
+@keyframes sc-tw { 0%,100% { opacity: .2; } 50% { opacity: .9; } }
+.scent .sc-float { animation: sc-fl 10s ease-in-out infinite; }
+.scent .sc-float-slow { animation-duration: 14s; }
+.scent .sc-sway { transform-box: view-box; transform-origin: 0 0; animation: sc-sw 12s ease-in-out infinite; }
+.scent .sc-tumble { transform-box: view-box; transform-origin: 0 0; animation: sc-tb 16s ease-in-out infinite; }
+.scent .sc-spin { transform-box: view-box; transform-origin: 0 0; animation: sc-sp 36s linear infinite; }
+.scent .sc-drift { animation: sc-dr 24s ease-in-out infinite; }
+.scent .sc-drift-b { animation-duration: 30s; animation-delay: -9s; animation-direction: reverse; }
+.scent .sc-drift-c { animation-duration: 36s; animation-delay: -17s; }
+.scent .sc-rise { animation: sc-ri 8s linear infinite; }
+.scent stop { transition: stop-color 1.4s ease; }
+.cx-twinkle { animation: sc-tw 4.5s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .celestial .cx-spin, .cx-twinkle, .celestial .cx-pulse, .celestial .cx-float { animation: none; }
+  .scent .sc-float, .scent .sc-sway, .scent .sc-tumble, .scent .sc-spin, .scent .sc-drift, .scent .sc-rise, .cx-twinkle { animation: none; }
 }
+

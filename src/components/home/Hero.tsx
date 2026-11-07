@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -10,12 +10,12 @@ import { useGSAP } from "@gsap/react";
 import { ArrowRight, ArrowUpRight, Droplets, Layers, Truck } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
 import Magnetic from "./Magnetic";
-import CelestialArt from "./CelestialArt";
+import ScentArt from "./ScentArt";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
-/* faint star dust across the whole hero so both halves read as one sky */
-const DUST = Array.from({ length: 36 }, (_, i) => ({
+/* faint golden particles across the whole hero so both halves read as one composition */
+const DUST = Array.from({ length: 22 }, (_, i) => ({
   x: (i * 61.8) % 100,
   y: (i * 37.3 + (i % 5) * 11) % 100,
   s: 1 + (i % 3) * 0.6,
@@ -51,6 +51,11 @@ export default function Hero({ ready }: { ready: boolean }) {
   const silk = useRef<SVGSVGElement>(null);
   const reduce = useReducedMotion();
   const [today, setToday] = useState(-1);
+  const [active, setActive] = useState(0);
+  const [hover, setHover] = useState<number | null>(null);
+  const [locked, setLocked] = useState(false);
+  const shown = hover ?? active;
+  const blend = SEVEN[shown];
 
   useEffect(() => {
     if (reduce) silk.current?.pauseAnimations();
@@ -58,9 +63,18 @@ export default function Hero({ ready }: { ready: boolean }) {
   }, [reduce]);
 
   useEffect(() => {
+    const t = todayIndex();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only date
-    setToday(todayIndex());
+    setToday(t);
+    setActive(t);
   }, []);
+
+  /* the seven worlds turn slowly on their own until a visitor chooses one */
+  useEffect(() => {
+    if (!ready || locked || reduce || hover !== null) return;
+    const id = setInterval(() => setActive((v) => (v + 1) % SEVEN.length), 7000);
+    return () => clearInterval(id);
+  }, [ready, locked, reduce, hover]);
 
   /* pointer parallax: three depths */
   const mx = useMotionValue(0);
@@ -84,7 +98,8 @@ export default function Hero({ ready }: { ready: boolean }) {
         tl.from(".hero-eyebrow", { y: 16, autoAlpha: 0, duration: 0.9 })
           .from(split.words, { yPercent: 110, duration: 1.25, stagger: 0.12 }, "-=0.6")
           .from(".hero-copy > *", { y: 22, autoAlpha: 0, duration: 0.9, stagger: 0.09 }, "-=0.9")
-          .from(".hero-art", { scale: 0.86, autoAlpha: 0, rotate: -8, duration: 2.2 }, 0.1)
+          .from(".hero-art", { scale: 0.9, autoAlpha: 0, y: 40, duration: 2.2 }, 0.1)
+          .from(".hero-card", { y: 24, autoAlpha: 0, duration: 1.1 }, 1.2)
           .from(".hero-silk", { yPercent: 40, autoAlpha: 0, duration: 1.8 }, 0.3)
           .from(".hero-week > *", { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.05 }, 1.1);
         return () => split.revert();
@@ -98,7 +113,6 @@ export default function Hero({ ready }: { ready: boolean }) {
         });
         gsap.to(".hero-visual", {
           yPercent: 8,
-          rotate: 6,
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
         });
@@ -118,7 +132,7 @@ export default function Hero({ ready }: { ready: boolean }) {
       className={`relative isolate overflow-hidden bg-[#26000D] ${ready ? "hero-ready" : "[&_.hero-anim]:invisible"}`}
     >
       {/* one continuous sky: deep burgundy with light gathering behind the artwork */}
-      <div aria-hidden className="absolute inset-0 -z-20 bg-[radial-gradient(120%_95%_at_72%_42%,#5C0C2C_0%,#390014_42%,#26000D_100%)]" />
+      <div aria-hidden className="absolute inset-0 -z-20 bg-[radial-gradient(120%_95%_at_70%_45%,#70243F_0%,#390014_45%,#26000D_100%)]" />
       <div aria-hidden className="absolute right-[2%] top-[8%] -z-10 h-[70%] w-[55%] rounded-full bg-[#D6A64F]/[0.07] blur-[110px]" />
       <div aria-hidden className="absolute -left-40 top-1/3 -z-10 h-[420px] w-[420px] rounded-full bg-[#7A1636]/30 blur-[120px]" />
       <div aria-hidden className="absolute inset-0 -z-10">
@@ -167,12 +181,12 @@ export default function Hero({ ready }: { ready: boolean }) {
           <p className="hero-eyebrow flex items-center gap-3 text-[10px] tracking-[0.32em] text-[#D6A64F]">
             <span className="h-px w-8 bg-[#D6A64F]" /> ALCOHOL-FREE FRAGRANCE BLENDS
           </p>
-          <h1 className="hero-title mt-7 font-display text-[clamp(3.8rem,9.2vw,9rem)] font-medium leading-[0.9] tracking-[-0.015em] text-[#F6E6C4]">
+          <h1 className="hero-title mt-7 font-display text-[clamp(3.8rem,9.2vw,9rem)] font-medium leading-[0.9] tracking-[-0.015em] text-[#F7F0E6]">
             Cleanse.
             <br />
             Elevate.
             <br />
-            <span className="italic text-[#E2B45E]">Radiate.</span>
+            <span className="italic text-[#D6A64F]">Radiate.</span>
           </h1>
           <div className="hero-copy">
             <p className="mt-8 max-w-[500px] text-[15px] leading-8 text-[#E8D3C3]/85 md:text-base">
@@ -213,40 +227,66 @@ export default function Hero({ ready }: { ready: boolean }) {
           </div>
         </div>
 
-        {/* VISUAL — the celestial artwork */}
-        <div className="hero-visual hero-anim pointer-events-none absolute right-[-46%] top-8 -z-[1] w-[125vw] max-w-[760px] opacity-[0.42] sm:right-[-30%] sm:w-[95vw] md:opacity-50 lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:z-auto lg:mx-auto lg:-mr-10 lg:w-full lg:max-w-[min(52vw,760px)] lg:opacity-100">
+        {/* VISUAL — seven scent worlds */}
+        <div className="hero-visual hero-anim pointer-events-none absolute right-[-48%] top-6 -z-[1] w-[128vw] max-w-[780px] opacity-[0.4] sm:right-[-30%] sm:w-[96vw] md:opacity-55 lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:z-auto lg:mx-auto lg:-mr-10 lg:w-full lg:max-w-[min(52vw,780px)] lg:opacity-100">
           <div className="hero-art aspect-square w-full">
-            <CelestialArt back={{ x: backX, y: backY }} mid={{ x: midX, y: midY }} front={{ x: frontX, y: frontY }} />
+            <ScentArt day={blend.day} fragrance={blend.fragrance} notes={blend.notes} back={{ x: backX, y: backY }} mid={{ x: midX, y: midY }} front={{ x: frontX, y: frontY }} />
+          </div>
+          {/* the selected blend */}
+          <div className="hero-card absolute bottom-[3%] left-[-4%] hidden w-[250px] border border-[#D6A64F]/35 bg-[#26000D]/55 p-5 shadow-[0_24px_60px_-24px_rgba(0,0,0,.6)] backdrop-blur-md lg:block">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div key={blend.day} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.45, ease: "easeOut" }}>
+                <p className="text-[9px] tracking-[0.3em] text-[#D6A64F]">
+                  {blend.day.toUpperCase()}
+                  {shown === today && " · TODAY"}
+                </p>
+                <p className="mt-2 font-display text-[34px] leading-none text-[#F7F0E6]">{blend.fragrance}</p>
+                <p className="mt-2 text-[11px] tracking-[0.04em] text-[#E2CBB8]">{blend.notes}</p>
+              </motion.div>
+            </AnimatePresence>
+            <Link href="/the-seven" className="group mt-4 inline-flex items-center gap-2 text-[9px] tracking-[0.26em] text-[#F0D69A] transition-colors hover:text-[#F7F0E6]">
+              DISCOVER THE BLEND <ArrowUpRight size={12} className="transition-transform duration-300 group-hover:rotate-45" />
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* The seven-day ritual — quick navigation */}
-      <div className="hero-anim relative border-t border-[#D6A64F]/20 bg-[#26000D]/55 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1440px] items-stretch gap-0 overflow-x-auto px-6 [scrollbar-width:none] md:px-12 lg:px-16 [&::-webkit-scrollbar]:hidden">
+      {/* Seven scent worlds — choose a day */}
+      <div className="hero-anim relative border-t border-[#D6A64F]/20 bg-[#26000D]/60 backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1440px] items-stretch overflow-x-auto px-6 [scrollbar-width:none] md:px-12 lg:px-16 [&::-webkit-scrollbar]:hidden">
           <p className="hidden shrink-0 items-center pr-8 text-[9px] leading-4 tracking-[0.3em] text-[#D6A64F] lg:flex">
-            THE SEVEN-DAY
+            SEVEN
             <br />
-            RITUAL
+            SCENT WORLDS
           </p>
-          <div className="hero-week grid min-w-[760px] flex-1 grid-cols-7">
-            {SEVEN.map((s, i) => (
-              <Link
-                key={s.day}
-                href="/the-seven"
-                className={`group relative flex flex-col gap-1 border-l border-[#D6A64F]/15 px-4 py-5 transition-colors duration-300 hover:bg-[#F0D69A]/[0.06] ${
-                  i === today ? "bg-[#D6A64F]/15 hover:bg-[#D6A64F]/20" : ""
-                }`}
-              >
-                <span className={`text-[9px] tracking-[0.24em] ${i === today ? "text-[#F0D69A]" : "text-[#C9A15C]"}`}>
-                  {s.day.slice(0, 3).toUpperCase()}
-                  {i === today && " · TODAY"}
-                </span>
-                <span className="font-display text-xl leading-tight text-[#F6E6C4]">{s.fragrance}</span>
-                <span className="truncate text-[10px] text-[#BFA295]">{s.notes}</span>
-                <span className={`absolute bottom-0 left-0 h-[2px] bg-[#D6A64F] transition-all duration-500 group-hover:w-full ${i === today ? "w-full" : "w-0"}`} />
-              </Link>
-            ))}
+          <div className="hero-week grid min-w-[840px] flex-1 grid-cols-7" role="tablist" aria-label="Choose a day to explore its blend" onMouseLeave={() => setHover(null)}>
+            {SEVEN.map((s, i) => {
+              const on = i === shown;
+              return (
+                <button
+                  key={s.day}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === active}
+                  onMouseEnter={() => setHover(i)}
+                  onFocus={() => setHover(i)}
+                  onBlur={() => setHover(null)}
+                  onClick={() => {
+                    setActive(i);
+                    setLocked(true);
+                  }}
+                  className={`group relative flex flex-col items-start gap-1 border-l border-[#D6A64F]/15 px-4 py-5 text-left transition-colors duration-500 ${on ? "bg-[#F0D69A]/[0.09]" : "hover:bg-[#F0D69A]/[0.05]"}`}
+                >
+                  <span className={`text-[9px] tracking-[0.26em] transition-colors duration-500 ${on ? "text-[#F0D69A]" : "text-[#B9925A]"}`}>
+                    {s.day.toUpperCase()}
+                    {i === today && <span className="text-[#D6A64F]"> · TODAY</span>}
+                  </span>
+                  <span className={`font-display text-xl leading-tight transition-colors duration-500 ${on ? "text-[#F7F0E6]" : "text-[#E2CBB8]/80"}`}>{s.fragrance}</span>
+                  <span className="max-w-full truncate text-[10px] text-[#BFA295]">{s.notes}</span>
+                  <span className={`absolute inset-x-0 bottom-0 h-[2px] origin-left bg-[#D6A64F] transition-transform duration-700 ${on ? "scale-x-100" : "scale-x-0"}`} />
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
