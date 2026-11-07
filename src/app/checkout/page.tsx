@@ -23,7 +23,7 @@ import { getPaymentStatus, payForOrder } from "@/lib/payments/checkout";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function Step({ n, title, icon: Icon, children }: { n: string; title: string; icon: typeof MapPin; children: React.ReactNode }) {
+function Step({ title, icon: Icon, children }: { title: string; icon: typeof MapPin; children: React.ReactNode }) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 26 }}
@@ -33,9 +33,8 @@ function Step({ n, title, icon: Icon, children }: { n: string; title: string; ic
       className="border border-[#DCCAB5] bg-[#FCF7EF] p-6 sm:p-8"
     >
       <div className="mb-6 flex items-center gap-4">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#C49A59] font-serif text-sm text-[#A77B4D]">{n}</span>
+        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#C49A59] text-[#A77B4D]"><Icon size={16} strokeWidth={1.4} /></span>
         <h2 className="font-serif text-2xl sm:text-3xl">{title}</h2>
-        <Icon size={18} strokeWidth={1.4} className="ml-auto text-[#A77B4D]" />
       </div>
       {children}
     </motion.section>
@@ -167,7 +166,7 @@ function CheckoutInner() {
   return (
     <form onSubmit={placeOrder} noValidate className="grid gap-8 lg:grid-cols-[1.45fr_1fr]">
       <div className="space-y-6">
-        <Step n="1" title="Contact" icon={Check}>
+        <Step title="Contact" icon={Check}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="border border-[#E3D5C3] bg-[#F8F1E7] px-4 py-3">
               <p className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]">Signed in as</p>
@@ -181,7 +180,7 @@ function CheckoutInner() {
         </Step>
 
         <div id="delivery" className="scroll-mt-28">
-          <Step n="2" title="Delivery address" icon={MapPin}>
+          <Step title="Delivery address" icon={MapPin}>
             {addresses.length > 0 && (
               <div className="mb-6 grid gap-3 sm:grid-cols-2">
                 {addresses.map((a) => (
@@ -247,7 +246,7 @@ function CheckoutInner() {
           </Step>
         </div>
 
-        <Step n="3" title="Payment" icon={CreditCard}>
+        <Step title="Payment" icon={CreditCard}>
           {payments === null ? (
             <div className="h-14 animate-pulse bg-[#EFE3D3]" />
           ) : payments.enabled ? (

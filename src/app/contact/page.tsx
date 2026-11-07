@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import Ornament from "@/components/ui/Ornament";
 
 const faqs = [
   {
@@ -272,7 +273,7 @@ export default function ContactPage() {
                     <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-[#E9DCCB]/50 transition-transform duration-700 group-hover:scale-150" />
 
                     <div className="relative flex items-center justify-between">
-                      <span className="font-serif text-5xl text-[#B28B4E]/60">{card.number}</span>
+                      <span className="text-[#B28B4E]/70"><Ornament size={22} /></span>
                       <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#D9C9B5] text-[#782C49] transition-all duration-500 group-hover:bg-[#782C49] group-hover:text-white">
                         <Icon size={25} strokeWidth={1.3} />
                       </div>
@@ -389,7 +390,7 @@ export default function ContactPage() {
                   className="relative text-center"
                 >
                   <div className="relative z-10 mx-auto flex h-[74px] w-[74px] items-center justify-center rounded-full border border-[#B28B4E] bg-[#F5EFE5] font-serif text-2xl text-[#782C49] shadow-[0_0_0_10px_#F5EFE5]">
-                    {step.number}
+                    <Ornament size={22} />
                   </div>
                   <h3 className="mt-10 font-serif text-3xl text-[#782C49]">{step.title}</h3>
                   <p className="mx-auto mt-5 max-w-xs text-sm leading-8 text-[#766866]">{step.text}</p>

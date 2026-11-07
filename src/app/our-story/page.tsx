@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import Ornament from "@/components/ui/Ornament";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 45 },
@@ -414,7 +415,7 @@ export default function OurStoryPage() {
                 whileHover={{ y: -6 }}
                 className="border border-[#D9C9B5] bg-[#FBF7F0] px-6 py-9 text-center shadow-[0_8px_25px_rgba(65,43,32,0.04)] md:px-8"
               >
-                <span className="font-serif text-[10px] italic text-[#B28B4E]">{item.number}</span>
+                <span className="flex justify-center text-[#B28B4E]"><Ornament size={14} /></span>
                 <h3 className="mt-4 font-serif text-xl text-[#76563D]">{item.title}</h3>
                 <p className="mt-3 text-xs leading-6 text-[#766866]">{item.description}</p>
               </motion.div>

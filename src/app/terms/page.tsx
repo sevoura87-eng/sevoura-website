@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import Ornament from "@/components/ui/Ornament";
 
 const sections = [
   {
@@ -291,9 +292,9 @@ export default function TermsPage() {
               >
                 <motion.span
                   whileHover={reduceMotion ? undefined : { scale: 1.15, x: 5 }}
-                  className="font-serif text-2xl text-[#B17B42]"
+                  className="inline-block pt-1.5 text-[#B17B42]"
                 >
-                  {section.number}
+                  <Ornament size={16} />
                 </motion.span>
 
                 <h3 className="font-serif text-2xl leading-snug text-[#542038] transition-transform duration-500 group-hover:translate-x-1">

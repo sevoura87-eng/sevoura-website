@@ -11,6 +11,7 @@ import {
   Mail,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Ornament from "@/components/ui/Ornament";
 
 const faqs = [
   {
@@ -243,8 +244,8 @@ export default function FAQPage() {
                     className="group flex w-full items-center justify-between gap-6 py-7 text-left md:py-8"
                   >
                     <span className="flex items-start gap-5 md:gap-8">
-                      <span className="pt-1 font-serif text-lg text-[#B17B42]">
-                        {String(index + 1).padStart(2, "0")}
+                      <span className="pt-2 text-[#B17B42]">
+                        <Ornament size={14} />
                       </span>
                       <span className="font-serif text-xl leading-snug text-[#542038] transition-colors group-hover:text-[#A66C35] md:text-2xl">
                         {faq.question}

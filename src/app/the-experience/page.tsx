@@ -27,6 +27,7 @@ import {
 
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import Ornament from "@/components/ui/Ornament";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -199,7 +200,7 @@ function NumberedMoment({
     >
       <div className="flex items-start justify-between gap-5">
         <div>
-          <span className="font-serif text-sm italic text-[#A47A40]">{number}</span>
+          <span className="inline-block text-[#A47A40]"><Ornament size={14} /></span>
           <h3 className="mt-5 font-serif text-3xl text-[#782C49] md:text-4xl">{title}</h3>
         </div>
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#B28B4E]/45 text-[#A47A40] transition-all duration-500 group-hover:rotate-12 group-hover:bg-[#782C49] group-hover:text-[#F8EBDD]">
@@ -230,7 +231,7 @@ function ExperiencePillar({
     >
       <div className="absolute -right-12 -top-12 h-36 w-36 rounded-full border border-[#F8EBDD]/10 transition-transform duration-700 group-hover:scale-125" />
       <div className="relative flex items-center justify-between">
-        <span className="font-serif text-3xl italic text-[#E8C99A]/75">{number}</span>
+        <span className="text-[#E8C99A]/75"><Ornament size={20} /></span>
         <Icon size={25} strokeWidth={1} className="text-[#E8C99A]" />
       </div>
       <h3 className="relative mt-12 font-serif text-3xl text-[#F8EBDD]">{title}</h3>
@@ -561,7 +562,7 @@ export default function TheExperiencePage() {
                     className="group relative flex items-center gap-6 border-b border-[#DCCBB3] py-5 md:gap-9 md:py-6"
                   >
                     <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#B28B4E] bg-[#F8F0E5] text-[10px] text-[#A47A40] transition-all duration-500 group-hover:bg-[#782C49] group-hover:text-[#F8EBDD] md:h-14 md:w-14">
-                      {String(index + 1).padStart(2, "0")}
+                      <Ornament size={12} />
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-[8px] uppercase tracking-[0.3em] text-[#A47A40]">{day} · {planet}</p>

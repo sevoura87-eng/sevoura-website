@@ -1,17 +1,7 @@
 -- =====================================================================
 -- SEVOURA — Razorpay live hardening
---  * webhook event log: each x-razorpay-event-id is processed once
 --  * refunds: a full refund marks the order Refunded (excluded from revenue)
 -- =====================================================================
-
-create table if not exists public.razorpay_webhook_events (
-  event_id     text primary key,
-  event        text not null,
-  received_at  timestamptz not null default now()
-);
-alter table public.razorpay_webhook_events enable row level security;
--- no policies: only the server (service_role) can read or write it
-revoke all on public.razorpay_webhook_events from anon, authenticated;
 
 create or replace function public.rzp_mark_refunded(
   p_rzp_payment_id text, p_amount_refunded integer, p_full boolean, p_raw jsonb default null

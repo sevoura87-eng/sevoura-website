@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import Ornament from "@/components/ui/Ornament";
 
 const days = [
   {
@@ -400,7 +401,7 @@ export default function AstrologyBehindRitualsPage() {
                 whileHover={{ y: -9 }}
                 className="border border-[#A77E68]/45 bg-[#792D49] px-7 py-10 text-center transition-colors duration-500 hover:bg-[#93445F]"
               >
-                <p className="font-serif text-xl text-[#D7B98E]">{item.n}</p>
+                <span className="flex justify-center text-[#D7B98E]"><Ornament size={18} /></span>
                 <h3 className="mt-5 font-serif text-2xl">{item.title}</h3>
                 <p className="mt-4 text-[10px] font-semibold text-[#E7CBA8]">
                   {item.sub}
@@ -596,7 +597,7 @@ export default function AstrologyBehindRitualsPage() {
                 transition={{ delay: i * 0.15 }}
                 className="border-t border-[#B99B76]/40 px-4 pt-7"
               >
-                <p className="font-serif text-lg text-[#D8B88A]">{number}</p>
+                <span className="block text-[#D8B88A]"><Ornament size={16} /></span>
                 <h3 className="mt-3 text-xs tracking-[0.25em]">{title}</h3>
                 <p className="mt-3 text-xs leading-6 text-[#DCC9BB]">{text}</p>
               </motion.div>

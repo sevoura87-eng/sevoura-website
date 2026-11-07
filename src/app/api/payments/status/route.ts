@@ -40,8 +40,8 @@ async function runChecks(): Promise<Checks> {
   let supabaseOk = false;
   const sb = getServiceSupabase();
   if (sb) {
-    // reading the server-only webhook table proves the key is a valid service key for THIS project
-    const { error } = await sb.from("razorpay_webhook_events").select("event_id", { head: true, count: "exact" });
+    // calling a server-only function proves the key is a valid service key for THIS project
+    const { error } = await sb.rpc("rzp_event_seen", { p_event_id: "__status_check__" });
     supabaseOk = !error;
   }
 

@@ -13,6 +13,7 @@ import {
   Mail,
   ShieldCheck,
 } from "lucide-react";
+import Ornament from "@/components/ui/Ornament";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -38,19 +39,19 @@ const shippingDetails = [
     icon: Clock3,
     title: "Order Processing",
     text: "Orders are dispatched within 1–2 business days of confirmation.",
-    detail: "01 / PREPARATION",
+    detail: "PREPARATION",
   },
   {
     icon: Truck,
     title: "Delivery",
     text: "Orders are typically delivered within 3–7 business days, depending on the destination.",
-    detail: "02 / DELIVERY",
+    detail: "DELIVERY",
   },
   {
     icon: PackageCheck,
     title: "Shipping Charges",
     text: "Free shipping on all prepaid orders. For Cash on Delivery orders, applicable shipping and handling charges will be clearly displayed at checkout before you place your order.",
-    detail: "03 / SHIPPING",
+    detail: "SHIPPING",
   },
 ];
 
@@ -372,8 +373,8 @@ export default function ShippingReturnsPage() {
                 className="group grid gap-5 border-b border-[#D9C9B8] py-10 md:grid-cols-[90px_0.8fr_1.2fr] md:gap-10"
               >
                 <div className="relative">
-                  <span className="font-serif text-3xl text-[#B17B42] transition-colors duration-500 group-hover:text-[#542038]">
-                    {section.number}
+                  <span className="inline-block pt-2 text-[#B17B42] transition-colors duration-500 group-hover:text-[#542038]">
+                    <Ornament size={18} />
                   </span>
                   <motion.span
                     initial={{ height: 0 }}

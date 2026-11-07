@@ -10,6 +10,7 @@ import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { Layers, Droplets, Infinity as InfinityIcon, Recycle, ArrowUpRight, ArrowRight } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
+import Ornament from "@/components/ui/Ornament";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -140,12 +141,12 @@ function SevenCard({ s, i, today }: { s: (typeof SEVEN)[number]; i: number; toda
         <span className="absolute left-1/2 top-6 -translate-x-1/2 bg-[#702943] px-3 py-1.5 text-[9px] font-semibold tracking-[0.22em] text-white">{s.day.toUpperCase()}</span>
         {today && <span className="absolute right-5 top-[22%] rounded-full bg-[#E5C48B] px-2.5 py-1 text-[8px] font-bold tracking-[0.2em] text-[#46182D]">TODAY</span>}
         <span className="absolute bottom-4 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-[#F4D79C]/70 bg-[#2E0F1D]/40 font-display text-2xl text-[#F4D79C] backdrop-blur transition-transform duration-700 group-hover:scale-110">
-          0{i + 1}
+          <Ornament size={18} />
         </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">
-          <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">BLEND 0{i + 1}</p>
+          <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">{s.day.toUpperCase()} BLEND</p>
           <span className="h-px flex-1 bg-[#D8C5A7]" />
           <span className="text-[10px] text-[#9A8777]">{s.quality}</span>
         </div>

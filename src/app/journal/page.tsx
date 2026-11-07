@@ -498,9 +498,6 @@ export default function JournalPage() {
                         className="absolute h-36 w-36 rounded-full border border-dashed border-white/50"
                       />
 
-                      <div className="absolute right-5 top-4 font-serif text-6xl text-white/35">
-                        {category.number}
-                      </div>
 
                       <motion.div
                         whileHover={{ scale: 1.13, rotate: 8 }}

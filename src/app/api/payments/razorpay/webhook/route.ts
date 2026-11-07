@@ -35,11 +35,20 @@ export async function POST(req: Request) {
   const eventId = req.headers.get("x-razorpay-event-id");
 
   if (eventId) {
-    const { data: seen } = await sb.from("razorpay_webhook_events").select("event_id").eq("event_id", eventId).maybeSingle();
-    if (seen) return json({ ok: true, duplicate: true });
+    const { data: seen } = await sb.rpc("rzp_event_seen", { p_event_id: eventId });
+    if (seen === true) return json({ ok: true, duplicate: true });
   }
 
   const p = event.payload?.payment?.entity;
+  const record = () =>
+    eventId
+      ? sb.rpc("rzp_record_event", {
+          p_event_id: eventId,
+          p_event: eventName,
+          p_order: p?.order_id ?? null,
+          p_payment: p?.id ?? event.payload?.refund?.entity?.payment_id ?? null,
+        })
+      : Promise.resolve();
   const summary = p ? { id: p.id, status: p.status, method: p.method ?? null, amount: p.amount, event: eventName } : { event: eventName };
 
   try {
@@ -85,14 +94,14 @@ export async function POST(req: Request) {
         break;
       }
     }
-    if (eventId) await sb.from("razorpay_webhook_events").insert({ event_id: eventId, event: eventName });
+    await record();
     return json({ ok: true });
   } catch (e) {
     const code = errorCode(e);
     console.error("[razorpay/webhook]", eventName, code);
     // amount mismatches are written to the admin activity log by the database; retrying won't help
     if (/amount_mismatch/.test(code)) {
-      if (eventId) await sb.from("razorpay_webhook_events").insert({ event_id: eventId, event: eventName });
+      await record();
       return json({ ok: false, error: "amount_mismatch" });
     }
     return json({ error: "processing_failed" }, 500);

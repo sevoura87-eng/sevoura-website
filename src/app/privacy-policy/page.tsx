@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   Mail
 } from "lucide-react";
+import Ornament from "@/components/ui/Ornament";
 
 const sections = [
   {
@@ -234,8 +235,8 @@ export default function PrivacyPolicyPage() {
 
                     <div className="relative z-10">
                       <div className="flex items-center justify-between">
-                        <span className="font-serif text-4xl text-[#B28B4E]/60">
-                          {section.number}
+                        <span className="text-[#B28B4E]/70">
+                          <Ornament size={18} />
                         </span>
                         <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#D9C9B5] text-[#782C49] transition-all duration-500 group-hover:border-[#782C49] group-hover:bg-[#782C49] group-hover:text-[#F5EFE5]">
                           <Icon size={20} strokeWidth={1.3} />

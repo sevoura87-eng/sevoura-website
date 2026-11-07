@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import Image from "next/image";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -13,80 +14,116 @@ import Magnetic from "./Magnetic";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
-/* Deterministic particle field (no Math.random → no hydration mismatch) */
-const PARTICLES = Array.from({ length: 26 }, (_, i) => {
-  const angle = (i * 137.508) % 360; // golden-angle spread
-  return { angle, delay: (i * 0.53) % 7, dur: 6 + ((i * 7) % 5), size: 2 + (i % 3) };
-});
+/* Product showcase: the real bottles, one per day, in an arched frame.
+   (thursday.jpg currently shows the Sunday bottle, so Thursday is left out until a correct photo exists.) */
+const SHOWCASE = SEVEN.map((s, i) => ({ ...s, i })).filter((s) => s.day !== "Thursday");
+const SEAL_TEXT = "ALCOHOL-FREE · SEVEN BLENDS · ONE RITUAL · ";
 
-/* Hexagon geometry for the vanillin ring */
-const HEX = Array.from({ length: 6 }, (_, i) => {
-  const a = ((-90 + i * 60) * Math.PI) / 180;
-  return { x: 200 + 46 * Math.cos(a), y: 200 + 46 * Math.sin(a) };
-});
-const hexPath = HEX.map((p, i) => `${i ? "L" : "M"}${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ") + " Z";
-const stub = (i: number, len = 30) => {
-  const a = ((-90 + i * 60) * Math.PI) / 180;
-  return { x1: HEX[i].x, y1: HEX[i].y, x2: HEX[i].x + len * Math.cos(a), y2: HEX[i].y + len * Math.sin(a) };
-};
+function RitualShowcase({ today, ready }: { today: number; ready: boolean }) {
+  const reduce = useReducedMotion();
+  const startAt = Math.max(0, SHOWCASE.findIndex((s) => s.i === today));
+  const [idx, setIdx] = useState(0);
+  const [touched, setTouched] = useState(false);
 
-function ScentArchitecture() {
-  const rings = [
-    { r: 172, label: "TOP NOTES", sub: "Green Tea · Neroli · Saffron", at: -38 },
-    { r: 128, label: "HEART NOTES", sub: "Jasmine · Rose · Clove", at: 22 },
-    { r: 88, label: "BASE NOTES", sub: "Sandalwood · Vetiver · Musk", at: 148 },
-  ];
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- start on today's blend once the client date is known
+    if (!touched) setIdx(startAt);
+  }, [startAt, touched]);
+
+  useEffect(() => {
+    if (!ready || reduce) return;
+    const t = setInterval(() => setIdx((v) => (v + 1) % SHOWCASE.length), 4200);
+    return () => clearInterval(t);
+  }, [ready, reduce, idx]);
+
+  const cur = SHOWCASE[idx];
+  const isToday = cur.i === today;
+
   return (
-    <svg viewBox="-95 8 590 384" className="h-full w-full overflow-visible" role="img" aria-label="Fragrance structure: top, heart and base notes around a vanillin molecule">
-      <defs>
-        <radialGradient id="aura" cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="#F3D9B8" stopOpacity=".95" />
-          <stop offset=".55" stopColor="#EED2C8" stopOpacity=".45" />
-          <stop offset="1" stopColor="#F8F1E7" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <circle cx="200" cy="200" r="190" fill="url(#aura)" className="hero-aura" />
+    <div className="relative mx-auto w-[min(78vw,360px)] lg:w-[min(32vw,420px)]">
+      {/* glow */}
+      <div aria-hidden className="absolute -inset-[18%] -z-10 rounded-full bg-[radial-gradient(circle,rgba(229,196,139,.45),rgba(121,45,73,.10)_45%,transparent_70%)] blur-2xl" />
+      {/* offset gold arch */}
+      <div aria-hidden className="hero-frame-line absolute inset-0 translate-x-4 translate-y-4 rounded-t-full border border-[#C49A59]/70 md:translate-x-6 md:translate-y-6" />
 
-      {rings.map((ring, i) => {
-        const a = (ring.at * Math.PI) / 180;
-        const px = 200 + ring.r * Math.cos(a);
-        const py = 200 + ring.r * Math.sin(a);
-        const right = Math.cos(a) >= 0;
-        const lx = px + (right ? 34 : -34);
-        return (
-          <g key={ring.label} className="hero-ring" style={{ transitionDelay: `${0.35 + i * 0.15}s` }}>
-            <circle cx="200" cy="200" r={ring.r} fill="none" stroke="#B28B4E" strokeOpacity={0.55 - i * 0.08} strokeWidth=".8" strokeDasharray={i === 0 ? "2 5" : undefined} />
-            <circle cx={px} cy={py} r="3.6" fill="#792D49" />
-            <circle cx={px} cy={py} r="8" fill="none" stroke="#792D49" strokeOpacity=".35" className="hero-ping" />
-            <line className="hero-note-label" x1={px} y1={py} x2={lx} y2={py} stroke="#792D49" strokeOpacity=".5" strokeWidth=".8" />
-            <text className="hero-note-label" x={lx + (right ? 5 : -5)} y={py - 3} textAnchor={right ? "start" : "end"} fontSize="9.5" letterSpacing="2" fill="#792D49" fontFamily="var(--font-geist-sans)">
-              {ring.label}
-            </text>
-            <text className="hero-note-label" x={lx + (right ? 5 : -5)} y={py + 9} textAnchor={right ? "start" : "end"} fontSize="10" fill="#806D60" fontFamily="var(--font-geist-sans)">
-              {ring.sub}
-            </text>
-          </g>
-        );
-      })}
+      {/* the photograph */}
+      <div className="hero-frame relative aspect-[3/4] overflow-hidden rounded-t-full bg-[#EADCC8] shadow-[0_40px_80px_-30px_rgba(70,24,45,.45)]">
+        <AnimatePresence initial={false} mode="sync">
+          <motion.div
+            key={cur.image}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.12 }}
+            animate={{ opacity: 1, scale: 1.02 }}
+            exit={{ opacity: 0 }}
+            transition={{ opacity: { duration: 1.1, ease: "easeInOut" }, scale: { duration: 5.5, ease: "easeOut" } }}
+          >
+            <Image
+              src={cur.image}
+              alt={`SEVOURA ${cur.day} blend — ${cur.fragrance}`}
+              fill
+              priority={cur.i === SHOWCASE[startAt].i}
+              sizes="(max-width:1024px) 78vw, 420px"
+              className="object-cover object-[50%_42%]"
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#2E0F1D]/35 via-transparent to-transparent" />
+      </div>
 
-      {/* Vanillin: 4-hydroxy-3-methoxybenzaldehyde */}
-      <g className="hero-molecule" stroke="#46182D" strokeWidth="1.6" fill="none" strokeLinecap="round">
-        <path d={hexPath} className="hero-draw" pathLength={1} />
-        <circle cx="200" cy="200" r="27" className="hero-draw" pathLength={1} strokeOpacity=".6" />
-        {[0, 2, 3].map((i) => {
-          const s = stub(i);
-          return <line key={i} {...s} className="hero-draw" pathLength={1} />;
-        })}
-      </g>
-      <g fontFamily="var(--font-geist-sans)" fontSize="10.5" fill="#46182D" className="hero-labels">
-        <text x={stub(0).x2} y={stub(0).y2 - 7} textAnchor="middle">CHO</text>
-        <text x={stub(2).x2 + 6} y={stub(2).y2 + 6}>OCH₃</text>
-        <text x={stub(3).x2} y={stub(3).y2 + 15} textAnchor="middle">OH</text>
-      </g>
-      <text className="hero-note-label" x="200" y="388" textAnchor="middle" fontSize="8.5" letterSpacing="2.4" fill="#A77B4D" fontFamily="var(--font-geist-sans)">
-        VANILLIN · C₈H₈O₃ — A MOLECULE OF SCENT
-      </text>
-    </svg>
+      {/* rotating seal */}
+      <div aria-hidden className="absolute -right-6 -top-4 h-24 w-24 md:-right-10 md:h-28 md:w-28">
+        <svg viewBox="0 0 100 100" className="hero-seal h-full w-full">
+          <defs>
+            <path id="seal-circle" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" />
+          </defs>
+          <circle cx="50" cy="50" r="49" fill="#FBF6EE" stroke="#C49A59" strokeWidth=".6" />
+          <text fontSize="7.4" fill="#792D49" fontFamily="var(--font-geist-sans)">
+            <textPath href="#seal-circle" textLength="236" lengthAdjust="spacing">{SEAL_TEXT}</textPath>
+          </text>
+        </svg>
+        <span className="absolute inset-0 flex items-center justify-center text-[#B28B4E]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 5.6 3.4 9.4 12 12-8.6 2.6-11.4 6.4-12 12-.6-5.6-3.4-9.4-12-12C8.6 9.4 11.4 5.6 12 0Z" /></svg>
+        </span>
+      </div>
+
+      {/* floating blend card */}
+      <div className="absolute -bottom-10 -left-4 w-[200px] border border-[#E3D3BE] bg-[#FBF6EE]/90 p-4 shadow-[0_20px_45px_-20px_rgba(70,24,45,.35)] backdrop-blur md:-left-14 md:w-[230px] md:p-5">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={cur.day}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+          >
+            <p className="text-[9px] tracking-[0.28em] text-[#A77B4D]">
+              {cur.day.toUpperCase()}
+              {isToday && <span className="text-[#792D49]"> · TODAY</span>}
+            </p>
+            <p className="mt-1.5 font-display text-[26px] leading-none text-[#792D49]">{cur.fragrance}</p>
+            <p className="mt-2 truncate text-[11px] text-[#806D60]">{cur.notes}</p>
+          </motion.div>
+        </AnimatePresence>
+        <div className="mt-4 flex gap-1.5" role="tablist" aria-label="Choose a blend">
+          {SHOWCASE.map((s, k) => (
+            <button
+              key={s.day}
+              type="button"
+              role="tab"
+              aria-selected={k === idx}
+              aria-label={`${s.day}: ${s.fragrance}`}
+              onClick={() => {
+                setTouched(true);
+                setIdx(k);
+              }}
+              className="group flex h-4 flex-1 items-center"
+            >
+              <span className={`h-[2px] w-full transition-colors duration-500 ${k === idx ? "bg-[#792D49]" : "bg-[#DCCAB5] group-hover:bg-[#C49A59]"}`} />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -103,8 +140,8 @@ export default function Hero({ ready }: { ready: boolean }) {
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 50, damping: 18 });
   const sy = useSpring(my, { stiffness: 50, damping: 18 });
-  const visualX = useTransform(sx, (v) => v * -18);
-  const visualY = useTransform(sy, (v) => v * -14);
+  const visualX = useTransform(sx, (v) => v * -12);
+  const visualY = useTransform(sy, (v) => v * -10);
 
   useGSAP(
     () => {
@@ -116,9 +153,8 @@ export default function Hero({ ready }: { ready: boolean }) {
         tl.from(".hero-eyebrow", { y: 16, autoAlpha: 0, duration: 0.9 })
           .from(split.words, { yPercent: 110, duration: 1.25, stagger: 0.12 }, "-=0.6")
           .from(".hero-copy > *", { y: 22, autoAlpha: 0, duration: 0.9, stagger: 0.09 }, "-=0.9")
-          .from(".hero-aura", { scale: 0.6, autoAlpha: 0, transformOrigin: "50% 50%", duration: 1.8 }, 0.1)
-          .fromTo(".hero-draw", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, stagger: 0.12, ease: "power2.inOut" }, 0.6)
-          .from(".hero-labels", { autoAlpha: 0, duration: 0.8 }, 1.6)
+          .fromTo(".hero-frame", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.6, ease: "expo.inOut" }, 0.15)
+          .from(".hero-frame-line", { autoAlpha: 0, x: -10, y: -10, duration: 1.2 }, 0.9)
           .from(".hero-week > *", { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.05 }, 1.1);
         return () => split.revert();
       });
@@ -130,8 +166,7 @@ export default function Hero({ ready }: { ready: boolean }) {
           scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
         });
         gsap.to(".hero-visual", {
-          yPercent: 10,
-          rotate: 12,
+          yPercent: 8,
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
         });
@@ -150,16 +185,8 @@ export default function Hero({ ready }: { ready: boolean }) {
       }}
       className={`relative isolate overflow-hidden bg-[#F8F1E7] ${ready ? "hero-ready" : "[&_.hero-anim]:invisible"}`}
     >
-      {/* fine lab-paper grid, faded towards the edges */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.55] [mask-image:radial-gradient(ellipse_at_70%_45%,black_20%,transparent_70%)]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(178,139,78,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(178,139,78,.16) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-      />
+      {/* soft light, no grid */}
+      <div aria-hidden className="absolute right-[-10%] top-[-10%] -z-10 h-[620px] w-[620px] rounded-full bg-[#E9D3B8]/50 blur-3xl" />
       <div aria-hidden className="absolute -left-48 bottom-0 -z-10 h-[460px] w-[460px] rounded-full bg-[#792D49]/[0.05] blur-3xl" />
 
       <div className="mx-auto grid min-h-[calc(100svh-78px-104px)] max-w-[1440px] items-center gap-6 px-6 pb-6 pt-14 md:px-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-10 lg:px-16 lg:pt-8">
@@ -168,12 +195,12 @@ export default function Hero({ ready }: { ready: boolean }) {
           <p className="hero-eyebrow flex items-center gap-3 text-[10px] tracking-[0.32em] text-[#A77B4D]">
             <span className="h-px w-8 bg-[#C49A59]" /> ALCOHOL-FREE FRAGRANCE BLENDS
           </p>
-          <h1 className="hero-title mt-7 font-display text-[clamp(3.6rem,8.8vw,8.4rem)] font-medium leading-[0.92] tracking-[-0.015em] text-[#2F1420]">
+          <h1 className="hero-title mt-7 font-display text-[clamp(3.6rem,8.8vw,8.4rem)] font-medium leading-[0.92] tracking-[-0.015em] text-[#792D49]">
             Cleanse.
             <br />
             Elevate.
             <br />
-            <span className="italic text-[#792D49]">Radiate.</span>
+            <span className="italic text-[#5C1F38]">Radiate.</span>
           </h1>
           <div className="hero-copy">
             <p className="mt-8 max-w-[500px] text-[15px] leading-8 text-[#6B5650] md:text-base">
@@ -214,26 +241,9 @@ export default function Hero({ ready }: { ready: boolean }) {
           </div>
         </div>
 
-        {/* VISUAL — the architecture of scent */}
-        <motion.div style={{ x: visualX, y: visualY }} className="hero-visual hero-anim relative mx-auto aspect-[590/384] w-full max-w-[min(720px,96vw)] lg:-mr-6">
-          <div aria-hidden className="absolute inset-0">
-            {PARTICLES.map((p, i) => (
-              <span
-                key={i}
-                className="sev-particle absolute left-1/2 top-1/2 rounded-full bg-[#B28B4E]"
-                style={
-                  {
-                    width: p.size,
-                    height: p.size,
-                    "--a": `${p.angle}deg`,
-                    animationDelay: `${p.delay}s`,
-                    animationDuration: `${p.dur}s`,
-                  } as React.CSSProperties
-                }
-              />
-            ))}
-          </div>
-          <ScentArchitecture />
+        {/* VISUAL — the seven blends, photographed */}
+        <motion.div style={{ x: visualX, y: visualY }} className="hero-visual hero-anim relative flex justify-center pb-16 pt-6 lg:py-0">
+          <RitualShowcase today={today} ready={ready} />
         </motion.div>
       </div>
 

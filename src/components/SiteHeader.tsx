@@ -174,13 +174,13 @@ export default function SiteHeader() {
                       onFocus={() => setActiveMenu(item.name)}
                       className={`relative py-3 text-[10px] font-medium tracking-[1.3px] transition-colors duration-300 2xl:text-[11px] ${
                         isOpen
-                          ? "text-[#A77A3E]"
-                          : "text-[#392823] hover:text-[#A77A3E]"
+                          ? "text-[#792D49]"
+                          : "text-[#392823] hover:text-[#792D49]"
                       }`}
                     >
                       {item.name}
                       <span
-                        className={`absolute bottom-0 left-0 h-px bg-[#A77A3E] transition-all duration-300 ${
+                        className={`absolute bottom-0 left-0 h-px bg-[#792D49] transition-all duration-300 ${
                           isOpen ? "w-full" : "w-0"
                         }`}
                       />
@@ -188,8 +188,8 @@ export default function SiteHeader() {
 
                     <ChevronDown
                       size={11}
-                      className={`text-[#A77A3E] transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
+                      className={`transition-all duration-300 ${
+                        isOpen ? "rotate-180 text-[#792D49]" : "text-[#A77A3E]"
                       }`}
                     />
                   </div>
@@ -219,20 +219,20 @@ export default function SiteHeader() {
                             href={page.href}
                             prefetch
                             onClick={() => setActiveMenu(null)}
-                            className="group flex items-center justify-between gap-3 border-b border-[#D9C9B5]/70 px-2 py-4 last:border-0 hover:bg-[#EFE1D0]/70"
+                            className="group flex items-center justify-between gap-3 border-b border-[#D9C9B5]/70 px-3 py-4 transition-colors duration-300 last:border-0 hover:bg-[#792D49]"
                           >
                             <div>
-                              <h3 className="font-serif text-[19px] leading-tight text-[#782C49] transition-colors duration-300 group-hover:text-[#A47A40]">
+                              <h3 className="font-serif text-[19px] leading-tight text-[#782C49] transition-colors duration-300 group-hover:text-[#FFF6E9]">
                                 {page.title}
                               </h3>
-                              <p className="mt-1.5 text-[10px] leading-5 text-[#806D5D]">
+                              <p className="mt-1.5 text-[10px] leading-5 text-[#806D5D] transition-colors duration-300 group-hover:text-[#F0DCD4]">
                                 {page.description}
                               </p>
                             </div>
 
                             <ArrowUpRight
                               size={15}
-                              className="shrink-0 text-[#A47A40] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+                              className="shrink-0 text-[#A47A40] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#E5C48B]"
                             />
                           </Link>
                         ))}
@@ -257,7 +257,7 @@ export default function SiteHeader() {
           <div className="hidden shrink-0 items-center gap-5 md:flex">
             <Link
               href="/search"
-              className="flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
+              className="flex flex-col items-center gap-1 transition-colors hover:text-[#792D49]"
             >
               <Search size={17} strokeWidth={1.3} className="transition-transform duration-300 hover:-translate-y-0.5" />
               <span className="text-[9px]">Search</span>
@@ -265,7 +265,7 @@ export default function SiteHeader() {
 
             <Link
               href="/account"
-              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
+              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#792D49]"
             >
               <span className="relative">
                 <UserRound size={17} strokeWidth={1.3} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
@@ -278,7 +278,7 @@ export default function SiteHeader() {
               type="button"
               onClick={openDrawer}
               aria-label={`Open bag, ${count} items`}
-              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#A47A40]"
+              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#792D49]"
             >
               <span className="relative">
                 <ShoppingCart size={17} strokeWidth={1.3} className="transition-transform duration-300 group-hover:-translate-y-0.5" />

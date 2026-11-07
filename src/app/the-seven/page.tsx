@@ -15,6 +15,7 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { LivePrice } from "@/components/shop/ProductPrice";
+import Ornament from "@/components/ui/Ornament";
 
 const blends = [
   {
@@ -339,14 +340,11 @@ export default function TheSevenPage() {
                       </motion.div>
                     </div>
 
-                    <span className="absolute bottom-3 right-4 text-[9px] tracking-[0.3em] text-white/90">
-                      0{index + 1} / 07
-                    </span>
                   </div>
 
                   <div className="p-6">
                     <p className="text-[9px] font-semibold tracking-[0.22em] text-[#A77B43]">
-                      {String(index + 1).padStart(2, "0")} · {blend.day}
+                      {blend.day}
                     </p>
 
                     <h3 className="mt-2 font-serif text-3xl">
@@ -501,8 +499,8 @@ export default function TheSevenPage() {
                       key={step}
                       className="bg-[#F0E1CE] px-2 py-4 text-center"
                     >
-                      <span className="block font-serif text-xl text-[#B68A4E]">
-                        0{index + 1}
+                      <span className="flex justify-center text-[#B68A4E]">
+                        <Ornament size={16} />
                       </span>
                       <p className="mt-2 text-[10px] font-semibold">{step}</p>
                     </div>

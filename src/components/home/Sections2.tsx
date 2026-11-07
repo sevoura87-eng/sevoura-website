@@ -12,6 +12,7 @@ import { DESTINATIONS } from "./data";
 import Magnetic from "./Magnetic";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
+import Ornament from "@/components/ui/Ornament";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -198,7 +199,7 @@ export function Philosophy() {
           <div key={p.n} className="ph-card sticky mb-8 origin-top" style={{ top: `calc(110px + ${i * 26}px)` }}>
             <div className="relative grid min-h-[320px] overflow-hidden border border-[#C9A66C]/50 p-9 shadow-[0_30px_70px_rgba(70,24,45,.14)] md:grid-cols-[.6fr_1fr] md:p-14" style={{ background: p.bg, color: p.fg }}>
               <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full border" style={{ borderColor: `${p.accent}55` }} />
-              <p className="font-display text-[110px] leading-none md:text-[160px]" style={{ color: p.accent }}>{p.n}</p>
+              <span className="block" style={{ color: p.accent }}><Ornament size={56} className="md:h-[72px] md:w-[72px]" /></span>
               <div className="relative self-end">
                 <h3 className="font-display text-5xl italic md:text-7xl">{p.title}</h3>
                 <p className="mt-5 max-w-md text-[15px] leading-8 opacity-80">{p.text}</p>
@@ -245,7 +246,7 @@ export function Steps() {
               className="group relative text-center"
             >
               <span className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-[#E5C48B] bg-[#2E0F1D] font-display text-2xl text-[#E5C48B] transition-all duration-500 group-hover:scale-110 group-hover:bg-[#E5C48B] group-hover:text-[#2E0F1D]">
-                {s.n}
+                <Ornament size={20} />
               </span>
               <h3 className="mt-8 font-display text-3xl">{s.title}</h3>
               <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-[#EBD9D4]">{s.text}</p>
@@ -295,7 +296,7 @@ export function Destinations() {
                 className="group relative flex items-center gap-5 border-b border-[#D8C5A7] py-7 md:gap-10 md:py-9"
               >
                 <span className="absolute inset-0 origin-bottom scale-y-0 bg-[#792D49] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-y-100" />
-                <span className="relative w-10 font-display text-lg text-[#A77B4D] transition-colors group-hover:text-[#E5C48B] md:pl-4">{d.no}</span>
+                <span className="relative pl-1 text-[#A77B4D] transition-colors group-hover:text-[#E5C48B] md:pl-4"><Ornament size={12} /></span>
                 <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full md:hidden">
                   <Image src={d.image} alt="" fill sizes="56px" className="object-cover" />
                 </div>

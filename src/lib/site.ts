@@ -12,12 +12,9 @@ export const SITE = {
 export type SocialKey = "instagram" | "facebook" | "youtube" | "x" | "linkedin" | "pinterest" | "whatsapp" | "threads" | "tiktok";
 
 export const SOCIAL: { key: SocialKey; label: string; href: string }[] = [
+  // Paste the real profile links here (must start with https://). WhatsApp: https://wa.me/91XXXXXXXXXX
   { key: "instagram", label: "Instagram", href: "" },
   { key: "facebook", label: "Facebook", href: "" },
-  { key: "youtube", label: "YouTube", href: "" },
-  { key: "x", label: "X (Twitter)", href: "" },
-  { key: "linkedin", label: "LinkedIn", href: "" },
-  { key: "pinterest", label: "Pinterest", href: "" },
   { key: "whatsapp", label: "WhatsApp", href: "" },
 ];
 

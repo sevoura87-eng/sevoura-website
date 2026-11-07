@@ -22,6 +22,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
+import Ornament from "@/components/ui/Ornament";
 
 const blends = [
   {
@@ -506,7 +507,7 @@ export default function ShopPage() {
                 </div>
                 <div className="p-7">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">BLEND {blend.number}</p>
+                    <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">{blend.day.toUpperCase()} BLEND</p>
                     <span className="h-px flex-1 bg-[#D8C5A7]" />
                     <span className="text-[10px] text-[#9A8777]">{blend.planet}</span>
                   </div>
@@ -523,7 +524,7 @@ export default function ShopPage() {
                       <p className="mt-1 font-serif text-lg text-[#762C49]">7-Day Collection</p>
                     </div>
                     <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#CDB994] font-serif text-sm text-[#762C49] transition-all duration-300 group-hover:bg-[#702943] group-hover:text-white">
-                      {blend.number}
+                      <Ornament size={13} />
                     </span>
                   </div>
                 </div>
@@ -696,8 +697,8 @@ export default function ShopPage() {
                 key={number}
                 className="flex gap-6 border-b border-[#D8C5A7] py-6"
               >
-                <span className="font-serif text-3xl text-[#B58A4D]">
-                  {number}
+                <span className="pt-2 text-[#B58A4D]">
+                  <Ornament size={18} />
                 </span>
                 <div>
                   <h3 className="font-serif text-2xl">{title}</h3>
