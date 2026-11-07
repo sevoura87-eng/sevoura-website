@@ -62,7 +62,7 @@ export default function AdminOrderDetail() {
           <p className="font-mono text-3xl text-[#792D49]">{o.order_number}</p>
           <p className="mt-1 text-[12px] text-[#806D60]">Placed {formatDate(o.created_at, true)} · Updated {formatDate(o.updated_at, true)}</p>
         </div>
-        <div className="flex gap-2"><OrderStatusBadge status={o.status} /><PaymentStatusBadge status={o.payment_status} /></div>
+        <div className="flex gap-2"><OrderStatusBadge status={o.status} payment={o.payment_status} /><PaymentStatusBadge status={o.payment_status} /></div>
       </div>
 
       <Card className="p-5 sm:p-6"><OrderTimeline status={o.status} history={data.history} /></Card>

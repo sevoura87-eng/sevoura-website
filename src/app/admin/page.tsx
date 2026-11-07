@@ -44,8 +44,8 @@ export default function AdminOverview() {
         <>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             <StatTile index={0} tone="accent" label="Total revenue (paid)" value={s.collected_revenue_paise} format={formatINR} icon={Wallet} hint="Confirmed paid orders only" />
-            <StatTile index={1} label="Total orders" value={s.total_orders} icon={ShoppingBag} hint={`${s.pending_orders} in progress · value ${formatINR(s.booked_revenue_paise)}`} />
-            <StatTile index={2} label="Today's orders" value={s.today_orders} icon={CalendarDays} hint={`${formatINR(s.today_revenue_paise)} today (IST)`} />
+            <StatTile index={1} label="Total orders (paid)" value={s.confirmed_orders ?? s.paid_orders} icon={ShoppingBag} hint={`${s.unpaid_orders} awaiting payment · ${s.total_orders} started`} />
+            <StatTile index={2} label="Today's orders (paid)" value={s.today_paid_orders ?? s.today_orders} icon={CalendarDays} hint={`${formatINR(s.today_paid_revenue_paise ?? s.today_revenue_paise)} received today (IST)`} />
             <StatTile index={3} label="Total customers" value={s.registered_users} icon={Users} hint={`${s.customers} have ordered · +${s.new_users_7d} this week`} />
             <StatTile index={4} label="Failed payments" value={s.failed_payments} icon={AlertTriangle} hint="Customer can retry from their order page" />
             <StatTile index={5} label="Paid orders" value={s.paid_orders} icon={CheckCircle2} hint="Verified payment received" />
@@ -108,7 +108,7 @@ export default function AdminOverview() {
                         <td className="px-5 py-3 sm:px-6"><Link href={`/admin/orders/${o.id}`} className="font-mono text-[12px] text-[#792D49] hover:underline">{o.order_number}</Link></td>
                         <td className="px-3 py-3">{o.customer_name}</td>
                         <td className="px-3 py-3 text-[#9A8777]">{timeAgo(o.created_at)}</td>
-                        <td className="px-3 py-3"><OrderStatusBadge status={o.status} /></td>
+                        <td className="px-3 py-3"><OrderStatusBadge status={o.status} payment={o.payment_status} /></td>
                         <td className="px-3 py-3"><PaymentStatusBadge status={o.payment_status} /></td>
                         <td className="px-5 py-3 text-right tabular-nums sm:px-6">{formatINR(o.total_paise)}</td>
                       </tr>

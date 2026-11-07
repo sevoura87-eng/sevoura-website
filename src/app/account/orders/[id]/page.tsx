@@ -149,7 +149,7 @@ function OrderDetail() {
           <p className="mt-1 text-xs text-[#806D60]">Placed {formatDate(order.created_at, true)}</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <OrderStatusBadge status={order.status} />
+          <OrderStatusBadge status={order.status} payment={order.payment_status} />
           <PaymentStatusBadge status={order.payment_status} />
         </div>
       </div>

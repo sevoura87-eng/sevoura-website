@@ -4,6 +4,10 @@ export interface Stats {
   new_users_7d: number;
   active_users_7d: number;
   total_orders: number;
+  confirmed_orders?: number;
+  today_paid_orders?: number;
+  today_paid_revenue_paise?: number;
+  paying_customers?: number;
   today_orders: number;
   today_revenue_paise: number;
   paid_orders: number;

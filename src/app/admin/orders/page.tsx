@@ -161,7 +161,7 @@ export default function AdminOrders() {
                         {o.ship_landmark ? `, near ${o.ship_landmark}` : ""}, {o.ship_city}, {o.ship_state} – <strong>{o.ship_pincode}</strong>
                       </td>
                       <td className="px-3 py-3"><PaymentStatusBadge status={o.payment_status} /></td>
-                      <td className="px-3 py-3"><OrderStatusBadge status={o.status} /></td>
+                      <td className="px-3 py-3"><OrderStatusBadge status={o.status} payment={o.payment_status} /></td>
                       <td className="px-5 py-3 text-right tabular-nums">{formatINR(o.total_paise)}</td>
                     </tr>
                   ))}

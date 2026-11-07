@@ -284,7 +284,7 @@ export default function ShopPage() {
               variants={reveal}
               className="mt-6 text-[9px] leading-5 text-[#9A8777]"
             >
-              Limited introductory pricing · Secure payment through Razorpay
+              Limited introductory pricing · Secure online payment
             </motion.p>
           </motion.div>
 

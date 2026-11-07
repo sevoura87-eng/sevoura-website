@@ -12,10 +12,9 @@ export const SITE = {
 export type SocialKey = "instagram" | "facebook" | "youtube" | "x" | "linkedin" | "pinterest" | "whatsapp" | "threads" | "tiktok";
 
 export const SOCIAL: { key: SocialKey; label: string; href: string }[] = [
-  // Paste the real profile links here (must start with https://). WhatsApp: https://wa.me/91XXXXXXXXXX
-  { key: "instagram", label: "Instagram", href: "" },
-  { key: "facebook", label: "Facebook", href: "" },
-  { key: "whatsapp", label: "WhatsApp", href: "" },
+  { key: "instagram", label: "Instagram", href: "https://www.instagram.com/sevoura_official?vrfl=MXVkbnhhM21iM25kYg%3D%3D&utm_source=qr" },
+  { key: "facebook", label: "Facebook", href: "https://www.facebook.com/share/19kXWSaDZS/?mibextid=wwXIfr" },
+  { key: "youtube", label: "YouTube", href: "https://youtube.com/@sevoura_official?si=M3WjW8SJWvnNdQAN" },
 ];
 
 export const activeSocial = () => SOCIAL.filter((s) => /^https:\/\//.test(s.href));

@@ -113,6 +113,8 @@ function CheckoutInner() {
 
     const sb = getSupabase();
     if (!sb) return setError("The store is not connected yet.");
+    // Online payment only — never create an order that cannot be paid immediately.
+    if (!payments?.enabled) return setError("Online payment is temporarily unavailable, so orders can't be placed right now. Please try again shortly.");
     setBusy(true);
     setPlacing(true);
     setStage("saving");
@@ -136,7 +138,8 @@ function CheckoutInner() {
     clear();
     refreshProducts();
     if (!payments?.enabled) {
-      router.replace(`/account/orders/${result.order_id}?placed=1`);
+      // Online payment only: should not happen (the button is disabled), but never treat this as placed.
+      router.replace(`/account/orders/${result.order_id}?payment=error`);
       return;
     }
     setStage("paying");
@@ -252,20 +255,20 @@ function CheckoutInner() {
           ) : payments.enabled ? (
             <div className="space-y-3">
               <Notice>
-                Pay securely with UPI, cards, net banking or wallets through <strong>Razorpay</strong>. The payment
-                window opens after you click <em>Place order &amp; pay</em>.
+                Pay securely online with UPI, debit or credit cards, net banking or wallets. The secure payment
+                window opens after you click <em>Place order &amp; pay</em>. SEVOURA accepts prepaid orders only —
+                Cash on Delivery is not available.
               </Notice>
               {payments.mode === "test" && (
                 <Notice tone="error">
-                  <strong>Test mode:</strong> payments are simulated by Razorpay and no real money is charged.
+                  <strong>Test mode:</strong> payments are simulated and no real money is charged.
                 </Notice>
               )}
             </div>
           ) : (
-            <Notice>
-              <strong>Online payment is being set up.</strong> Your order will be recorded with status{" "}
-              <em>Unpaid</em> — no money is charged now. Our team will contact you on your mobile number to
-              complete payment before dispatch.
+            <Notice tone="error">
+              <strong>Online payment is temporarily unavailable.</strong> SEVOURA accepts prepaid orders only, so
+              orders can&apos;t be placed right now. Please try again in a little while.
             </Notice>
           )}
         </Step>
@@ -303,9 +306,9 @@ function CheckoutInner() {
           <span className="font-serif text-4xl tabular-nums text-[#792D49]">{formatINR(subtotal)}</span>
         </div>
         {error && <div className="mt-5"><Notice tone="error">{error}</Notice></div>}
-        <Button type="submit" loading={busy} className="mt-6 w-full py-5">
+        <Button type="submit" loading={busy} disabled={!payments?.enabled} className="mt-6 w-full py-5">
           <Lock size={14} />{" "}
-          {stage === "saving" ? "SAVING ORDER…" : stage === "paying" ? "COMPLETE PAYMENT IN THE WINDOW…" : stage === "verifying" ? "CONFIRMING…" : payments?.enabled ? `PLACE ORDER & PAY ${formatINR(subtotal)}` : "PLACE ORDER"}
+          {stage === "saving" ? "SAVING ORDER…" : stage === "paying" ? "COMPLETE PAYMENT IN THE WINDOW…" : stage === "verifying" ? "CONFIRMING…" : payments?.enabled ? `PLACE ORDER & PAY ${formatINR(subtotal)}` : payments === null ? "LOADING…" : "ONLINE PAYMENT UNAVAILABLE"}
         </Button>
         <p className="mt-4 text-center text-[10px] leading-5 text-[#9A8777]">
           The final amount is calculated securely on our server. By placing the order you agree to our{" "}

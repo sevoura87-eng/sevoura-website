@@ -50,7 +50,7 @@ const shippingDetails = [
   {
     icon: PackageCheck,
     title: "Shipping Charges",
-    text: "Free shipping on all prepaid orders. For Cash on Delivery orders, applicable shipping and handling charges will be clearly displayed at checkout before you place your order.",
+    text: "Free shipping on all orders. SEVOURA accepts prepaid online payments only (UPI, cards, net banking and wallets) — Cash on Delivery is not available.",
     detail: "SHIPPING",
   },
 ];

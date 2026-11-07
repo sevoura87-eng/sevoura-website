@@ -54,7 +54,7 @@ function Orders() {
               <p className="mt-1 text-[11px] text-[#9A8777]">Placed {formatDate(o.created_at, true)}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <OrderStatusBadge status={o.status} />
+              <OrderStatusBadge status={o.status} payment={o.payment_status} />
               <PaymentStatusBadge status={o.payment_status} />
             </div>
             <p className="font-serif text-2xl tabular-nums sm:w-28 sm:text-right">{formatINR(o.total_paise)}</p>

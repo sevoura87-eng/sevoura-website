@@ -87,7 +87,7 @@ export default function AdminCustomerDetail() {
                     <tr key={o.id} className="border-t border-[#EEE5D9]">
                       <td className="px-5 py-3"><Link href={`/admin/orders/${o.id}`} className="font-mono text-[12px] text-[#792D49] hover:underline">{o.order_number}</Link></td>
                       <td className="px-3 py-3 text-[#806D60]">{formatDate(o.created_at)}</td>
-                      <td className="px-3 py-3"><OrderStatusBadge status={o.status} /></td>
+                      <td className="px-3 py-3"><OrderStatusBadge status={o.status} payment={o.payment_status} /></td>
                       <td className="px-3 py-3"><PaymentStatusBadge status={o.payment_status} /></td>
                       <td className="px-5 py-3 text-right">{formatINR(o.total_paise)}</td>
                     </tr>
