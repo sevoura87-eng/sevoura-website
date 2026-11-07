@@ -9,6 +9,7 @@ import SmoothScroll from "@/components/motion/SmoothScroll";
 import ScrollProgress from "@/components/motion/ScrollProgress";
 import RouteProgress from "@/components/motion/RouteProgress";
 import ConfigNotice from "@/components/ui/ConfigNotice";
+import LoginPrompt from "@/components/ui/LoginPrompt";
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
@@ -24,6 +25,9 @@ export default function Providers({ children }: { children: ReactNode }) {
           <Suspense fallback={null}>{children}</Suspense>
           <CartDrawer />
           <ConfigNotice />
+          <Suspense fallback={null}>
+            <LoginPrompt />
+          </Suspense>
         </CartProvider>
       </AuthProvider>
     </MotionConfig>
