@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
       title="Reset your"
       italic="password."
       intro="Enter the email you registered with and we'll send you a secure link to choose a new password."
-      image="/images/products/saturday.jpg"
+      image="/images/hero-window.jpg"
     >
       {sent ? (
         <div className="space-y-5">

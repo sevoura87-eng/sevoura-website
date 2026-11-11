@@ -5,8 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   motion,
-  useScroll,
-  useTransform,
 } from "framer-motion";
 import {
   ArrowRight,
@@ -21,6 +19,7 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ProductPhoto from "@/components/ProductPhoto";
+import PageHero from "@/components/ui/PageHero";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
 import Ornament from "@/components/ui/Ornament";
@@ -64,7 +63,7 @@ const blends = [
   },
   {
     day: "THURSDAY",
-    image: "/images/products/thursday-vanilla.jpg",
+    image: "/images/products/thursday-vanilla-studio.jpg",
     planet: "Jupiter",
     fragrance: "Vanilla",
     notes: "Cocoa · Amber",
@@ -177,160 +176,47 @@ const stagger = {
 
 export default function ShopPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const { scrollYProgress } = useScroll();
-  const imageY = useTransform(scrollYProgress, [0, 0.35], [0, -65]);
 
   return (
     <main className="overflow-x-clip bg-[#F5EFE4] text-[#481D30]">
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="relative min-h-[760px] overflow-hidden bg-[#F5EFE4]">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -right-40 -top-40 h-[650px] w-[650px] rounded-full border border-[#C9A66C]/25" />
-          <div className="absolute -right-20 -top-20 h-[500px] w-[500px] rounded-full border border-[#C9A66C]/20" />
-          <div className="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-[#F5EFE4] to-transparent" />
+      {/* HERO — the colonnade: an architectural introduction, no product photography */}
+      <PageHero
+        layout="panorama"
+        tone="light"
+        art="/images/hero-colonnade-v2.jpg"
+        artPosition="100% 50%"
+        eyebrow="SEVOURA · THE COMPLETE COLLECTION"
+        title="Seven days."
+        accent="One complete ritual."
+        intro={<>Seven planetary inspirations, seven alcohol-free fragrance expressions — gathered into one collection for every day of the week.</>}
+      >
+        <div className="mt-10 border-t border-[#A77B4D]/30 pt-8">
+          <div className="flex flex-wrap items-end gap-x-5 gap-y-2">
+            <span className="font-display text-[44px] leading-none text-[#481D30]">
+              <LivePrice fallback="₹1,799" />
+            </span>
+            <span className="pb-1 text-[16px] text-[#9C8B7A] line-through">
+              <LivePrice fallback="₹2,499" kind="mrp" />
+            </span>
+            <span className="pb-1.5 text-[12px] font-semibold tracking-[0.2em] text-[#792D49]">
+              FESTIVE OFFER · SAVE <LivePrice fallback="₹700" kind="saving" />
+            </span>
+          </div>
+          <p className="mt-3 text-[14px] tracking-wide text-[#6B5650]">7 × 4 ml alcohol-free fragrance blends · Prepaid · Free shipping across India</p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <AddToCartButton className="group inline-flex items-center gap-4 bg-[#481D30] px-8 py-[18px] text-[12px] font-semibold tracking-[0.22em] text-[#FFF6E9] transition-colors duration-500 hover:bg-[#792D49]">
+              ADD TO BAG
+              <ArrowRight size={16} className="transition-transform duration-500 group-hover:translate-x-1" />
+            </AddToCartButton>
+            <Link href="#meet-your-seven" className="inline-flex items-center gap-3 border border-[#481D30]/40 px-7 py-[17px] text-[12px] font-medium tracking-[0.22em] text-[#481D30] transition-colors duration-500 hover:border-[#481D30] hover:bg-[#481D30]/5">
+              MEET THE SEVEN
+            </Link>
+          </div>
+          <p className="mt-5 text-[12px] tracking-[0.04em] text-[#9A8777]">Limited introductory pricing · Secure online payment</p>
         </div>
-
-        <div className="relative mx-auto grid min-h-[760px] max-w-[1450px] items-center gap-12 px-6 py-20 lg:grid-cols-[0.92fr_1.08fr] lg:px-16">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="relative z-10 max-w-[620px]"
-          >
-            <motion.p
-              variants={reveal}
-              className="mb-8 text-[12px] font-semibold tracking-[0.32em] text-[#A57C43]"
-            >
-              SEVOURA · THE COMPLETE COLLECTION
-            </motion.p>
-
-            <motion.h1
-              variants={reveal}
-              className="font-serif text-[clamp(3.5rem,6vw,6.5rem)] leading-[0.98] tracking-[-0.045em]"
-            >
-              Seven Days.
-              <br />
-              <span className="italic text-[#762C49]">
-                One Complete
-              </span>
-              <br />
-              Ritual.
-            </motion.h1>
-
-            <motion.p
-              variants={reveal}
-              className="mt-8 max-w-[470px] font-serif text-xl leading-relaxed text-[#6B4D4C]"
-            >
-              Seven planetary inspirations. Seven fragrance expressions.
-              One complete collection.
-            </motion.p>
-
-            <motion.p
-              variants={reveal}
-              className="mt-5 max-w-[450px] text-[15px] leading-7 text-[#806D60]"
-            >
-              Discover the SEVOURA 7-Day Planetary Blend Collection —
-              a thoughtful interpretation of traditional planetary
-              symbolism through distinctive fragrance blends and
-              personal intention.
-            </motion.p>
-
-            <motion.div variants={reveal} className="mt-8">
-              <div className="flex items-end gap-3">
-                <span className="font-serif text-4xl text-[#762C49]">
-                  <LivePrice fallback="₹1,799" />
-                </span>
-                <span className="pb-1 text-[15px] text-[#9C8B7A] line-through">
-                  <LivePrice fallback="₹2,499" kind="mrp" />
-                </span>
-              </div>
-              <p className="mt-2 text-[13px] tracking-wide text-[#806D60]">
-                7 × 4 ml alcohol-free fragrance blends
-              </p>
-              <div className="mt-5 inline-flex flex-wrap items-center gap-3 border border-[#B98A4B]/60 bg-[#F0E1CD] px-4 py-3">
-                <span className="bg-[#702943] px-3 py-2 text-[12px] font-bold tracking-[0.18em] text-white">
-                  FESTIVE OFFER
-                </span>
-                <span className="text-[15px] font-semibold text-[#702943]">SAVE <LivePrice fallback="₹700" kind="saving" /></span>
-                <span className="text-[13px] text-[#806D60]">Limited-period collection price</span>
-              </div>
-              <p className="mt-1 text-[12px] tracking-[0.15em] text-[#A57C43]">
-                PREPAID · FREE SHIPPING
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={reveal}
-              className="mt-8 flex flex-wrap gap-3"
-            >
-              <AddToCartButton className="group inline-flex items-center gap-5 bg-[#702943] px-7 py-4 text-[12px] font-bold tracking-[0.2em] text-[#FFF8EC] transition-all duration-300 hover:bg-[#4D1B30]">
-                ADD TO BAG
-                <ArrowRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </AddToCartButton>
-
-              <Link
-                href="/the-seven"
-                className="inline-flex items-center gap-4 border border-[#702943]/50 px-7 py-4 text-[12px] font-bold tracking-[0.2em] transition-all duration-300 hover:bg-[#702943] hover:text-white"
-              >
-                DISCOVER THE SEVEN
-              </Link>
-            </motion.div>
-
-            <motion.p
-              variants={reveal}
-              className="mt-6 text-[11px] leading-5 text-[#9A8777]"
-            >
-              Limited introductory pricing · Secure online payment
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            style={{ y: imageY }}
-            initial={{ opacity: 0, scale: 0.88, x: 55 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{
-              duration: 1.25,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="relative mx-auto w-full max-w-[690px]"
-          >
-            <div className="absolute -inset-5 border border-[#C7A36C]/40" />
-
-            <motion.div
-              whileHover={{ scale: 1.025 }}
-              transition={{ duration: 0.7 }}
-              className="relative overflow-hidden bg-[#E7D5BD] p-3 shadow-[0_35px_90px_rgba(67,32,35,0.18)]"
-            >
-              <Image
-                src="/sevoura-bottle.jpeg"
-                alt="SEVOURA complete seven-day planetary fragrance collection"
-                width={544}
-                height={404}
-                priority
-                className="h-[340px] w-full object-contain sm:h-[440px] lg:h-[510px]"
-              />
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-8 -left-7 flex h-24 w-24 items-center justify-center rounded-full border border-[#C5A36B]/50 bg-[#FBF5E9] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
-            >
-              <div className="text-center">
-                <Sparkles className="mx-auto text-[#A77B42]" size={23} />
-                <p className="mt-1 text-[10px] tracking-[0.15em]">SEVEN DAYS</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 h-px w-full bg-[#C8AC82]/50" />
-      </section>
+      </PageHero>
 
       {/* INTRODUCTION */}
       <section className="relative bg-[#F9F3E9] px-6 py-28 lg:px-16">
@@ -450,7 +336,7 @@ export default function ShopPage() {
       </section>
 
       {/* SEVEN BLENDS */}
-      <section className="bg-[#F5EFE4] px-6 py-28 lg:px-16">
+      <section id="meet-your-seven" className="scroll-mt-20 bg-[#F5EFE4] px-6 py-28 lg:px-16">
         <div className="mx-auto max-w-[1300px]">
           <motion.div
             variants={reveal}

@@ -86,6 +86,8 @@ export default function OurStoryPage() {
           intro={<>One personal discovery. Seven planetary inspirations. A new expression of fragrance.</>}
           primary={{ label: "EXPLORE THE SEVEN BLENDS", href: "/the-seven" }}
           footnote="SEVEN INSPIRATIONS · ONE PERSONAL JOURNEY"
+          art="/images/sevoura-orbit-ivory.jpg"
+          reverse
         />
 
         {/* 02 — FOUNDER */}

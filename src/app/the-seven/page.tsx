@@ -3,7 +3,6 @@
 
 import { useState } from "react";
 import PageHero from "@/components/ui/PageHero";
-import ProductTrio from "@/components/ui/ProductTrio";
 import ProductPhoto from "@/components/ProductPhoto";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -125,7 +124,8 @@ export default function TheSevenPage() {
         primary={{ label: "EXPLORE THE SEVEN", href: "#seven-blends" }}
         secondary={{ label: "SHOP THE COLLECTION", href: "/shop" }}
         footnote="DISCOVER · EXPERIENCE · EMBODY"
-        artNode={<ProductTrio days={["Wednesday", "Sunday", "Friday"]} />}
+        art="/images/hero-astrolabe.jpg"
+        index="VII"
       />
 
       {/* 02 — THE IDEA */}

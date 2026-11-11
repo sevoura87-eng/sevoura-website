@@ -13,7 +13,7 @@ export default function AuthShell({
   title,
   italic,
   intro,
-  image = "/images/products/friday.jpg",
+  image = "/images/hero-colonnade_dusk.jpg",
   children,
 }: {
   eyebrow: string;

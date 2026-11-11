@@ -172,7 +172,7 @@ SCENES = {
                    motif="arch", motif_op=0.0, light=(0.3, 0.08), warm=0.08, accent="sun", seed=66),
     # Thursday — Vanilla · Cocoa · Amber: warm champagne plaster, honey travertine, soft amber light through an arched window
     "thursday": dict(wall=("#F1E2C8", "#CFAE82"), surface="travertine", sc=("#F2E5CF", "#D9C29E"), face=("#DCC6A2", "#B89A70"),
-                     motif="arch", motif_op=0.13, light=(0.32, 0.12), warm=0.05, accent=None, seed=77, enlarge=True),
+                     motif="arch", motif_op=0.13, light=(0.32, 0.12), warm=0.05, accent=None, seed=77),
 }
 
 HORIZON, FRONT = int(H * 0.70), int(H * 0.84)

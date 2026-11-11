@@ -128,7 +128,7 @@ export default function SignupPage() {
       title="Begin"
       italic="your ritual."
       intro="Create an account to place orders, track deliveries and keep your details for next time."
-      image="/images/products/monday.jpg"
+      image="/images/sevoura-orbit-moon.jpg"
     >
       <Suspense fallback={null}>
         {isSupabaseConfigured ? <SignupForm /> : <StoreClosed compact />}

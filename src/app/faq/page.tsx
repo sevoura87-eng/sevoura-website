@@ -1,6 +1,7 @@
 'use client';
 
 import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 import { useState } from "react";
@@ -108,76 +109,15 @@ export default function FAQPage() {
       <SiteHeader />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#481B30] text-[#F8F0E5]">
-        <motion.div
-          aria-hidden="true"
-          animate={reduceMotion ? undefined : { rotate: 360 }}
-          transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-          className="pointer-events-none absolute -right-24 -top-28 h-[540px] w-[540px] rounded-full border border-[#8b5368]/30"
-        >
-          <div className="absolute inset-16 rounded-full border border-[#8b5368]/30">
-            <div className="absolute inset-16 rounded-full border border-[#8b5368]/30" />
-          </div>
-        </motion.div>
-
-        <motion.div
-          animate={reduceMotion ? undefined : { y: [0, -15, 0], opacity: [0.15, 0.3, 0.15] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-[#A66C6C]/20 blur-3xl"
-        />
-
-        <div className="relative mx-auto max-w-[1250px] px-6 py-24 md:px-12 md:py-32">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="mb-12 flex items-center gap-3 text-[12px] tracking-[0.25em] text-[#E5C38B]"
-          >
-            <Link href="/" className="hover:text-white">HOME</Link>
-            <span>›</span>
-            <span>SUPPORT</span>
-          </motion.div>
-
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="mb-7 text-[13px] tracking-[0.35em] text-[#D9B77C]"
-          >
-            A LITTLE MORE CLARITY
-          </motion.p>
-
-          <motion.h1
-            initial={reduceMotion ? false : { opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.9 }}
-            className="font-serif text-5xl leading-[1.08] md:text-7xl"
-          >
-            Frequently<br />Asked Questions
-          </motion.h1>
-
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-9 max-w-[590px] text-base leading-8 text-[#F0DFE2] md:text-lg"
-          >
-            Everything you would like to know about our fragrances,
-            the seven-day ritual and the SEVOURA experience.
-          </motion.p>
-
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.7, duration: 1 }}
-            className="mt-12 h-px w-full origin-left bg-[#A77A72]/60"
-          />
-
-          <p className="mt-6 text-[12px] tracking-[0.25em] text-[#E5C38B]">
-            DISCOVER THE SEVEN-DAY RITUAL.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        layout="band"
+        eyebrow="SUPPORT · A LITTLE MORE CLARITY"
+        title="Frequently"
+        accent="asked questions."
+        intro={<>Everything you would like to know about our fragrances, the seven-day ritual and the SEVOURA experience.</>}
+        art="/images/hero-astrolabe.jpg"
+        artPosition="50% 46%"
+      />
 
       {/* INTRO */}
       <section className="mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-24">

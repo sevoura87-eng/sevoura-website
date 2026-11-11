@@ -3,7 +3,6 @@
 
 import { useState } from "react";
 import PageHero from "@/components/ui/PageHero";
-import ProductPhoto from "@/components/ProductPhoto";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail, Phone, Clock, ArrowUpRight, Camera, PlayCircle,
@@ -132,7 +131,6 @@ export default function ContactPage() {
 
         {/* 01 - CINEMATIC HERO */}
         <PageHero
-          tone="light"
           eyebrow="THE ART OF CONNECTION"
           title="Let's start"
           accent="a conversation."
@@ -140,11 +138,9 @@ export default function ContactPage() {
           primary={{ label: "EMAIL US", href: "mailto:hello@sevoura.com" }}
           secondary={{ label: "CALL +91 92118 77712", href: "tel:+919211877712" }}
           footnote="MONDAY – SUNDAY · 10:00 AM – 6:00 PM IST"
-          artNode={
-            <div className="mx-auto w-[78%] rounded-t-[999px] border border-[#A77B4D]/45 p-2.5">
-              <ProductPhoto day="Monday" fragrance="Jasmine" priority sizes="440px" className="aspect-[3/4] rounded-t-[999px]" />
-            </div>
-          }
+          art="/images/hero-colonnade_dusk.jpg"
+          artPosition="78% 50%"
+          reverse
         />
 
         {/* 02 - BRAND INTRODUCTION */}

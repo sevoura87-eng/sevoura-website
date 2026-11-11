@@ -1,6 +1,7 @@
 'use client';
 
 import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
@@ -142,99 +143,17 @@ export default function ShippingReturnsPage() {
       <SiteHeader />
 
       {/* CINEMATIC HERO */}
-      <section className="relative isolate overflow-hidden bg-[#481B30] text-[#F8F0E5]">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.12]">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,#d4a77b,transparent_45%)]" />
-        </div>
-
-        <motion.div
-          aria-hidden="true"
-          animate={reduce ? {} : { rotate: 360 }}
-          transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
-          className="pointer-events-none absolute -right-52 -top-48 h-[760px] w-[760px] rounded-full border border-[#d7b17c]/30"
-        >
-          <div className="absolute inset-16 rounded-full border border-[#d7b17c]/25" />
-          <div className="absolute inset-32 rounded-full border border-[#d7b17c]/20" />
-          <div className="absolute left-1/2 top-0 h-3 w-3 rounded-full bg-[#D8B77D] shadow-[0_0_30px_#D8B77D]" />
-        </motion.div>
-
-        <motion.div
-          aria-hidden="true"
-          animate={reduce ? {} : { y: [0, -18, 0], rotate: [0, 8, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="pointer-events-none absolute right-[16%] top-[30%] hidden h-28 w-28 rounded-full border border-[#d7b17c]/25 lg:block"
-        />
-
-        <div className="relative mx-auto max-w-[1250px] px-6 py-24 md:px-12 md:py-36">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
-            className="mb-12 flex items-center gap-3 text-[12px] tracking-[0.25em] text-[#E5C38B]"
-          >
-            <Link href="/" className="transition hover:text-white">HOME</Link>
-            <span>›</span>
-            <span>CUSTOMER CARE</span>
-          </motion.div>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, letterSpacing: "0.1em" }}
-            animate={{ opacity: 1, letterSpacing: "0.35em" }}
-            transition={{ duration: 1.1, delay: 0.2 }}
-            className="mb-7 text-[12px] text-[#D9B77C] md:text-[13px]"
-          >
-            A THOUGHTFUL JOURNEY, FROM US TO YOU
-          </motion.p>
-
-          <motion.h1
-            initial={reduce ? false : { opacity: 0, y: 60, filter: "blur(12px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1.25, delay: 0.3, ease }}
-            className="max-w-[850px] font-serif text-6xl leading-[1.02] md:text-8xl lg:text-[104px]"
-          >
-            Shipping
-            <br />
-            <span className="text-[#D9B77C]">&amp; Returns</span>
-          </motion.h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.7, ease }}
-            className="mt-9 max-w-[610px] text-base leading-8 text-[#F0DFE2] md:text-lg"
-          >
-            Every SEVOURA order is carefully prepared and thoughtfully
-            packed. Here is everything you need to know about delivery,
-            cancellations and returns.
-          </motion.p>
-
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.3, delay: 0.9, ease }}
-            style={{ transformOrigin: "left" }}
-            className="mt-12 h-px max-w-[780px] bg-gradient-to-r from-[#D9B77C] via-[#A77A72] to-transparent"
-          />
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.25 }}
-            className="mt-6 text-[12px] tracking-[0.25em] text-[#E5C38B]"
-          >
-            CAREFULLY PACKED. THOUGHTFULLY DELIVERED.
-          </motion.p>
-
-          <motion.div
-            animate={reduce ? {} : { y: [0, 9, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="mt-14 flex items-center gap-3 text-[11px] tracking-[0.25em] text-[#D9B77C]/80"
-          >
-            <span className="h-9 w-px bg-[#D9B77C]" />
-            SCROLL TO EXPLORE
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        layout="band"
+        tone="light"
+        eyebrow="CUSTOMER CARE"
+        title="Shipping"
+        accent="& returns."
+        intro={<>Every SEVOURA order is carefully prepared and thoughtfully packed. Here is everything you need to know about delivery, cancellations and returns.</>}
+        art="/images/ritual-cleanse.jpg"
+        artPosition="50% 42%"
+        footnote="CAREFULLY PACKED · THOUGHTFULLY DELIVERED"
+      />
 
       {/* INTRO */}
       <section className="mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-28">

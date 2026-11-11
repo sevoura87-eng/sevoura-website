@@ -2,6 +2,7 @@
 "use client";
 
 import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import { motion } from "framer-motion";
 import {
@@ -97,63 +98,17 @@ export default function PrivacyPolicyPage() {
       <main className="overflow-x-clip bg-[#F5EFE5] text-[#392B2D]">
 
         {/* HERO */}
-        <section className="relative flex min-h-[570px] items-center justify-center overflow-hidden px-6 py-28 text-center md:min-h-[650px]">
-
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#E9D8C4_0%,_#F5EFE5_68%)]" />
-
-          <div className="absolute left-[-100px] top-20 h-72 w-72 rounded-full border border-[#B28B4E]/20" />
-          <div className="absolute left-[-65px] top-28 h-56 w-56 rounded-full border border-[#B28B4E]/20" />
-          <div className="absolute bottom-[-130px] right-[-80px] h-96 w-96 rounded-full border border-[#B28B4E]/20" />
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.18 } }
-            }}
-            className="relative z-10 mx-auto max-w-4xl"
-          >
-            <motion.div variants={fadeUp} transition={{ duration: 0.8 }}>
-              <span className="inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
-                <span className="h-px w-8 bg-[#B28B4E]" />
-                THE SEVOURA PROMISE
-                <span className="h-px w-8 bg-[#B28B4E]" />
-              </span>
-            </motion.div>
-
-            <motion.h1
-              variants={fadeUp}
-              transition={{ duration: 0.9 }}
-              className="mt-9 font-serif text-6xl font-normal leading-[1.05] tracking-[-2px] text-[#782C49] md:text-8xl lg:text-[104px]"
-            >
-              Privacy
-              <br />
-              <span className="italic text-[#B28B4E]">Policy.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              transition={{ duration: 0.8 }}
-              className="mx-auto mt-9 max-w-xl text-[15px] leading-8 text-[#766866] md:text-base"
-            >
-              Your trust is an essential part of our journey.
-              Discover how we respect, protect and handle
-              the information you share with SEVOURA.
-            </motion.p>
-
-            <motion.div
-              variants={fadeUp}
-              transition={{ duration: 0.8 }}
-              className="mt-12 flex flex-col items-center gap-5"
-            >
-              <div className="h-12 w-px bg-[#B28B4E]" />
-              <span className="text-[11px] uppercase tracking-[0.35em] text-[#987D6B]">
-                YOUR PRIVACY · OUR RESPONSIBILITY
-              </span>
-            </motion.div>
-          </motion.div>
-        </section>
+        <PageHero
+          layout="band"
+          tone="light"
+          eyebrow="THE SEVOURA PROMISE"
+          title="Privacy"
+          accent="policy."
+          intro={<>Your trust is an essential part of our journey. Discover how we respect, protect and handle the information you share with SEVOURA.</>}
+          art="/images/hero-folio.jpg"
+          artPosition="70% 40%"
+          footnote="YOUR PRIVACY · OUR RESPONSIBILITY"
+        />
 
         {/* INTRODUCTION STRIP */}
         <section className="bg-[#782C49] px-6 py-16 text-[#F5EFE5] md:py-20">

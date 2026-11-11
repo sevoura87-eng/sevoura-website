@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import PageHero from "@/components/ui/PageHero";
-import ProductTrio from "@/components/ui/ProductTrio";
 import ProductPhoto from "@/components/ProductPhoto";
 import Link from "next/link";
 import {
@@ -216,7 +215,9 @@ export default function TheExperiencePage() {
           primary={{ label: "DISCOVER THE EXPERIENCE", href: "#the-ritual" }}
           secondary={{ label: "FIND YOUR RITUAL", href: "/ritual-finder" }}
           footnote="SENSE · FEEL · REMEMBER"
-          artNode={<ProductTrio days={["Tuesday", "Monday", "Saturday"]} />}
+          art="/images/hero-window.jpg"
+          layout="panorama"
+          artPosition="70% 50%"
         />
 
         {/* INTRO — asymmetric editorial layout */}

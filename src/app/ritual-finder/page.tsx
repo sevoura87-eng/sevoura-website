@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import PageHero from "@/components/ui/PageHero";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -184,97 +185,17 @@ export default function RitualFinderPage() {
 
       <main className="overflow-x-clip bg-[#F8F0E5] text-[#392823]">
         {/* 01 — RITUAL FINDER HERO — THE SEVEN INSPIRED DESIGN */}
-        <section className="relative flex min-h-[760px] items-center justify-center overflow-hidden bg-[#782C49] px-5 py-20 md:min-h-[850px]">
-          {/* Burgundy atmosphere and subtle star field */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#9A4965_0%,_#782C49_52%,_#4B1B32_100%)]" />
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.22]"
-            style={{ backgroundImage: "radial-gradient(#F8EBDD 0.8px, transparent 0.8px)", backgroundSize: "34px 34px" }}
-          />
-
-          {/* Animated orbital rings */}
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[650px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E9D1A7]/25 md:h-[900px] md:w-[900px]"
-          />
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[480px] w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#E9D1A7]/25 md:h-[700px] md:w-[700px]"
-          />
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 48, repeat: Infinity, ease: "linear" }}
-            className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[1050px] w-[1050px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E9D1A7]/15 md:block"
-          />
-
-          {/* Floating golden planets — same gold palette as the reference */}
-          <motion.div
-            animate={{ y: [0, -13, 0], rotate: [0, 7, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="pointer-events-none absolute left-[5%] top-[24%] h-24 w-24 rounded-full md:left-[8%] md:top-[25%] md:h-36 md:w-36"
-            style={{ background: "radial-gradient(circle at 30% 28%, #FFF4D7 0%, #D9B477 42%, #80603F 100%)", boxShadow: "inset -12px -14px 24px rgba(55,30,20,.24), 0 18px 45px rgba(25,8,18,.24)" }}
-          />
-          <motion.div
-            animate={{ y: [0, 15, 0], rotate: [0, -6, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="pointer-events-none absolute bottom-[17%] right-[5%] h-28 w-28 rounded-full md:bottom-[15%] md:right-[8%] md:h-40 md:w-40"
-            style={{ background: "radial-gradient(circle at 30% 28%, #FFF4D7 0%, #D9B477 42%, #80603F 100%)", boxShadow: "inset -12px -14px 24px rgba(55,30,20,.24), 0 18px 45px rgba(25,8,18,.24)" }}
-          />
-          <motion.div
-            animate={{ y: [0, -8, 0], opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="pointer-events-none absolute right-[17%] top-[58%] h-3 w-3 rounded-full bg-[#E9C477] shadow-[0_0_18px_#E9C477]"
-          />
-
-          {/* Central peach circular panel */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.88, y: 25 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 flex min-h-[570px] w-full max-w-[760px] flex-col items-center justify-center rounded-[48%] border border-[#E9D1A7]/70 bg-[#F8EBDD] px-7 py-16 text-center shadow-[0_25px_90px_rgba(30,8,18,0.22)] md:min-h-[690px] md:px-20"
-          >
-            <div className="absolute inset-3 rounded-[48%] border border-[#B28B4E]/20" />
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              className="relative mb-8 flex h-14 w-14 items-center justify-center rounded-full border border-[#B28B4E]/50 text-[#A47A40] md:h-16 md:w-16"
-            >
-              <Orbit size={27} strokeWidth={1} />
-            </motion.div>
-
-            <div className="relative z-10 mb-7 flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.34em] text-[#98754D] md:text-[11px]">
-              <span className="h-px w-7 bg-[#B28B4E]" />
-              THE SEVOURA RITUAL FINDER
-              <span className="h-px w-7 bg-[#B28B4E]" />
-            </div>
-
-            <h1 className="relative z-10 max-w-[620px] font-serif text-5xl leading-[1.04] tracking-[-1px] text-[#392823] sm:text-6xl md:text-7xl">
-              Discover the ritual
-              <br />
-              <span className="italic text-[#782C49]">that feels like you.</span>
-            </h1>
-
-            <p className="relative z-10 mx-auto mt-7 max-w-[490px] text-[15px] leading-7 text-[#756253] md:text-base md:leading-8">
-              Every day carries a different energy. Explore seven distinctive fragrance identities inspired by traditional planetary associations and discover the SEVOURA blend that resonates with you.
-            </p>
-
-            <Link
-              href="#find-your-ritual"
-              className="group relative z-10 mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] md:px-10 md:py-5"
-            >
-              FIND YOUR RITUAL
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
-            </Link>
-
-            <div className="relative z-10 mt-9 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.28em] text-[#98754D]">
-              <span className="h-px w-7 bg-[#B28B4E]" />
-              SEVEN DAYS · SEVEN EXPRESSIONS
-              <span className="h-px w-7 bg-[#B28B4E]" />
-            </div>
-          </motion.div>
-        </section>
+        <PageHero
+          tone="light"
+          eyebrow="THE SEVOURA RITUAL FINDER"
+          title="Discover the ritual"
+          accent="that feels like you."
+          intro={<>Every day carries a different energy. Explore seven fragrance identities inspired by traditional planetary associations and find the SEVOURA blend that resonates with you.</>}
+          primary={{ label: "FIND YOUR RITUAL", href: "#find-your-ritual" }}
+          footnote="SEVEN DAYS · SEVEN EXPRESSIONS"
+          art="/images/ritual-elevate.jpg"
+          artPosition="50% 40%"
+        />
 
         {/* 02 — INTRODUCTION */}
         <section className="px-6 py-20 md:py-28">

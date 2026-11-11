@@ -4,13 +4,13 @@ import Image from "next/image";
  * The studio photograph of one SEVOURA blend.
  * Files in /public/images/products are the ORIGINAL product photographs with the bottle cut out
  * and placed on a fragrance-specific studio set (see scripts/product-photos). The bottle itself is untouched.
- * Thursday's only genuine photograph is the bottle inside the gift-box shot; it is enlarged with plain resampling (no AI).
+ * Thursday uses the original Thursday Vanilla photograph supplied by the brand (public/images/thursday.jpg).
  */
 export const PRODUCT_PHOTO: Record<string, string> = {
   monday: "/images/products/monday.jpg",
   tuesday: "/images/products/tuesday.jpg",
   wednesday: "/images/products/wednesday.jpg",
-  thursday: "/images/products/thursday-vanilla.jpg",
+  thursday: "/images/products/thursday-vanilla-studio.jpg",
   friday: "/images/products/friday.jpg",
   saturday: "/images/products/saturday.jpg",
   sunday: "/images/products/sunday.jpg",

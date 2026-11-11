@@ -1,6 +1,7 @@
 'use client';
 
 import SiteHeader from "@/components/SiteHeader";
+import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 import {
@@ -151,84 +152,15 @@ export default function TermsPage() {
       <SiteHeader />
 
       {/* ANIMATED HERO */}
-      <section className="relative overflow-hidden bg-[#481B30] text-[#F8F0E5]">
-        <motion.div
-          aria-hidden="true"
-          animate={reduceMotion ? undefined : { rotate: 360 }}
-          transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-          className="pointer-events-none absolute -right-24 -top-28 h-[540px] w-[540px] rounded-full border border-[#8b5368]/30"
-        >
-          <div className="absolute inset-16 rounded-full border border-[#8b5368]/30">
-            <div className="absolute inset-16 rounded-full border border-[#8b5368]/30" />
-          </div>
-        </motion.div>
-
-        <motion.div
-          aria-hidden="true"
-          animate={reduceMotion ? undefined : { y: [0, -18, 0], opacity: [0.15, 0.35, 0.15] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[#A66C6C]/20 blur-3xl"
-        />
-
-        <div className="relative mx-auto max-w-[1250px] px-6 py-24 md:px-12 md:py-32">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, x: -25 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-12 flex items-center gap-3 text-[12px] tracking-[0.25em] text-[#E5C38B]"
-          >
-            <Link href="/" className="transition hover:text-white">HOME</Link>
-            <span>›</span>
-            <span>LEGAL</span>
-          </motion.div>
-
-          <div className="max-w-[780px]">
-            <motion.p
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.8 }}
-              className="mb-7 text-[13px] tracking-[0.35em] text-[#D9B77C]"
-            >
-              THE DETAILS THAT MATTER
-            </motion.p>
-
-            <motion.h1
-              initial={reduceMotion ? false : { opacity: 0, y: 35 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 1 }}
-              className="font-serif text-5xl leading-[1.08] md:text-7xl"
-            >
-              Terms &<br /> Conditions
-            </motion.h1>
-
-            <motion.p
-              initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-9 max-w-[610px] text-base leading-8 text-[#F0DFE2] md:text-lg"
-            >
-              A little clarity goes a long way. Please take a moment to
-              understand the terms that guide your experience with SEVOURA.
-            </motion.p>
-
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.7, duration: 1.1 }}
-              className="mt-12 h-px w-full origin-left bg-[#A77A72]/60"
-            />
-
-            <motion.p
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="mt-6 text-[12px] tracking-[0.25em] text-[#E5C38B]"
-            >
-              YOUR EXPERIENCE. OUR COMMITMENT.
-            </motion.p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        layout="band"
+        eyebrow="LEGAL · THE DETAILS THAT MATTER"
+        title="Terms &"
+        accent="conditions."
+        intro={<>A little clarity goes a long way. Please take a moment to understand the terms that guide your experience with SEVOURA.</>}
+        art="/images/hero-colonnade_dusk.jpg"
+        artPosition="82% 45%"
+      />
 
       {/* INTRO */}
       <section className="mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-28">

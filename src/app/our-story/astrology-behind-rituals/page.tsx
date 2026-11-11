@@ -143,6 +143,7 @@ export default function AstrologyBehindRitualsPage() {
         primary={{ label: "DISCOVER THE STORY", href: "#ancient-connection" }}
         secondary={{ label: "MEET THE SEVEN", href: "/the-seven" }}
         art="/images/sevoura-orbit-moon.jpg"
+        reverse
       />
 
       {/* 02 — ANCIENT CONNECTION */}
