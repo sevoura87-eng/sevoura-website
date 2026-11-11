@@ -9,8 +9,11 @@ and the hero art (`public/images/sevoura-orbit*.jpg`).
    The bottle is only scaled down uniformly; its pixels, colours and label are never altered.
 3. `hero.py [orbit|ivory|moon]` — renders the bottle-free campaign art.
 
-Thursday: there is no genuine Thursday photograph yet (`public/images/thursday.jpg` shows the Sunday bottle),
-so the site shows the Thursday set with typography. To add it: save the photo as `public/images/thursday.jpg`,
-run `cut.py`/`compose.py thursday`, and set `thursday` in `src/components/ProductPhoto.tsx`.
+Thursday: there is no standalone Thursday photograph (`public/images/thursday.jpg` is a copy of the Sunday photo).
+`thu.py` cuts the genuine Thursday bottle out of the gift-box photo (`public/sevoura-bottle.jpeg`) and enlarges it
+with plain Lanczos resampling (no AI); `compose.py thursday` places it on its set. Because the source is small,
+this bottle is softer than the others — replace it with a dedicated Thursday photograph when one exists.
+
+`hero.py cleanse|elevate|radiate` renders the three plates used by the "A ritual, rooted in meaning" section.
 
 Requirements: `pip install "rembg[cpu]" opencv-python pillow numpy`.

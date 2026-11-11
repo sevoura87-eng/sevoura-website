@@ -11,6 +11,12 @@ P = {
     "orbit": dict(w0="#5A1630", w1="#26000D", n0="#5E1A30", n1="#300512", edge="#26000D", line=(240, 214, 154), dust=True, out="hero.jpg"),
     "ivory": dict(w0="#F3E9DA", w1="#D9C6AC", n0="#EADBC4", n1="#CDB596", edge="#F3EADD", line=(167, 123, 61), dust=False, out="hero_ivory.jpg", f0="#C9A273", f1="#7A5636"),
     "moon": dict(rim="#F4EEE6", w0="#3A1530", w1="#170511", n0="#43183A", n1="#1E0716", edge="#26000D", line=(226, 220, 210), dust=True, out="hero_moon.jpg", sun="#E9E3DA", planet="#D8CFC2", f0="#7A6E78", f1="#2A1020"),
+    "cleanse": dict(w0="#F5EDE1", w1="#DCCBB2", n0="#EFE3D0", n1="#D3BFA2", edge="#F3EADD", line=(167, 123, 61), dust=False, out="plate_cleanse.jpg",
+                    sun_on=False, orbits_on=False, pearl=True),
+    "elevate": dict(w0="#E9D3AE", w1="#B48A58", n0="#E3C99D", n1="#A87D4B", edge="#E8D9C2", line=(140, 98, 45), dust=True, out="plate_elevate.jpg",
+                    sunr=0.11, orbits_on=False, f0="#B88A55", f1="#6B4526"),
+    "radiate": dict(w0="#6A1B38", w1="#2A0310", n0="#7A2444", n1="#33061A", edge="#2E0F1D", line=(240, 214, 154), dust=True, out="plate_radiate.jpg",
+                    sunr=0.22, orbits_on=False),
 }[VAR]
 W, H = 1500, 1800
 S = 2  # supersampling for line art
@@ -127,18 +133,21 @@ def sphere(cx, cy, r, base, light=(-0.55, -0.6, 0.6), spec=60, rim="#E9B98A"):
     col += (sp * 150)[..., None] * np.array([1, 0.95, 0.85], np.float32)
     img = img * (1 - msk[..., None]) + col * msk[..., None]
 
-sunr = W * 0.17
+sunr = W * P.get("sunr", 0.17)
+SUN = P.get("sun_on", True)
+ORB = P.get("orbits_on", True)
 sun_cx, sun_cy = W * 0.5, H * 0.758 - sunr
-# contact + cast shadow of the sun on the top step
-cs = np.zeros((H, W), np.float32)
-cv2.ellipse(cs, (int(sun_cx + 50), int(H * 0.757)), (int(sunr * 1.05), int(sunr * 0.09)), 0, 0, 360, 1.0, -1)
-img *= (1 - 0.45 * cv2.GaussianBlur(cs, (0, 0), 16))[..., None]
-cs = np.zeros((H, W), np.float32)
-cv2.ellipse(cs, (int(sun_cx), int(sun_cy + sunr - 3)), (int(sunr * 0.42), 7), 0, 0, 360, 1.0, -1)
-img *= (1 - 0.75 * cv2.GaussianBlur(cs, (0, 0), 5))[..., None]
-# soft glow behind the sun
-gr = np.sqrt((X - sun_cx) ** 2 + (Y - sun_cy) ** 2)
-img += (np.exp(-((gr / (sunr * 2.3)) ** 2)) * 38)[..., None] * np.array([1.0, 0.75, 0.45], np.float32)
+if SUN:
+    # contact + cast shadow of the sun on the top step
+    cs = np.zeros((H, W), np.float32)
+    cv2.ellipse(cs, (int(sun_cx + 50), int(H * 0.757)), (int(sunr * 1.05), int(sunr * 0.09)), 0, 0, 360, 1.0, -1)
+    img *= (1 - 0.45 * cv2.GaussianBlur(cs, (0, 0), 16))[..., None]
+    cs = np.zeros((H, W), np.float32)
+    cv2.ellipse(cs, (int(sun_cx), int(sun_cy + sunr - 3)), (int(sunr * 0.42), 7), 0, 0, 360, 1.0, -1)
+    img *= (1 - 0.75 * cv2.GaussianBlur(cs, (0, 0), 5))[..., None]
+    # soft glow behind the sun
+    gr = np.sqrt((X - sun_cx) ** 2 + (Y - sun_cy) ** 2)
+    img += (np.exp(-((gr / (sunr * 2.3)) ** 2)) * 38)[..., None] * np.array([1.0, 0.75, 0.45], np.float32)
 
 # ---- orbits (line art at 2x) — back halves first ----
 ORBITS = [  # (rx, ry, tilt_deg, planet angles)
@@ -185,13 +194,22 @@ def composite(layer):
     al = a[..., 3:4] / 255
     img = img * (1 - al) + a[..., :3] * al
 
-composite(orbit_layer(False))
-for px, py, r in planets(False):
-    sphere(px, py, r * 0.85, P.get("planet", "#C9974E"), spec=40)
-sphere(sun_cx, sun_cy, sunr, P.get("sun", "#E6B866"), spec=45, rim=P.get("rim", "#E9B98A"))
-composite(orbit_layer(True))
-for px, py, r in planets(True):
-    sphere(px, py, r, P.get("planet", "#E2B464"), spec=40)
+if ORB:
+    composite(orbit_layer(False))
+    for px, py, r in planets(False):
+        sphere(px, py, r * 0.85, P.get("planet", "#C9974E"), spec=40)
+if SUN:
+    sphere(sun_cx, sun_cy, sunr, P.get("sun", "#E6B866"), spec=45, rim=P.get("rim", "#E9B98A"))
+if ORB:
+    composite(orbit_layer(True))
+    for px, py, r in planets(True):
+        sphere(px, py, r, P.get("planet", "#E2B464"), spec=40)
+if P.get("pearl"):
+    pr = W * 0.05
+    cs = np.zeros((H, W), np.float32)
+    cv2.ellipse(cs, (int(W * 0.5 + 20), int(H * 0.756)), (int(pr * 1.3), int(pr * 0.14)), 0, 0, 360, 1.0, -1)
+    img *= (1 - 0.4 * cv2.GaussianBlur(cs, (0, 0), 8))[..., None]
+    sphere(W * 0.5, H * 0.756 - pr, pr, "#EFE7DA", spec=30, rim="#FBF4E8")
 # ---- gold hairline on the arch rim ----
 rim = Image.new("RGBA", (W * S, H * S), (0, 0, 0, 0))
 dr = ImageDraw.Draw(rim)

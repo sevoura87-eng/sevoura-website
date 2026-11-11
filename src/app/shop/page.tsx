@@ -64,7 +64,7 @@ const blends = [
   },
   {
     day: "THURSDAY",
-    image: "/images/products/thursday.jpg",
+    image: "/images/products/thursday-vanilla.jpg",
     planet: "Jupiter",
     fragrance: "Vanilla",
     notes: "Cocoa · Amber",

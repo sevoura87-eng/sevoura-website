@@ -168,59 +168,6 @@ export function Founder() {
   );
 }
 
-/* ───────────── PHILOSOPHY — stacking cards ───────────── */
-const PHILOSOPHY = [
-  { n: "01", title: "Cleanse", text: "Create a moment of pause. Step away from the noise and return to what feels meaningful.", bg: "#F8F1E7", fg: "#46182D", accent: "#B28A56", img: "/images/products/monday.jpg" },
-  { n: "02", title: "Elevate", text: "Bring intention to the everyday. Let your personal rituals become expressions of who you are.", bg: "#E8D3B6", fg: "#46182D", accent: "#792D49", img: "/images/sevoura-orbit-ivory.jpg" },
-  { n: "03", title: "Radiate", text: "Carry your individuality with confidence. Celebrate the qualities that make your expression your own.", bg: "#792D49", fg: "#FBF0E4", accent: "#E5C48B", img: "/images/products/sunday.jpg" },
-];
-
-export function Philosophy() {
-  const root = useRef<HTMLElement>(null);
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const cards = gsap.utils.toArray<HTMLElement>(".ph-card");
-        cards.forEach((card, i) => {
-          if (i === cards.length - 1) return;
-          gsap.to(card, {
-            scale: 0.9 + i * 0.03,
-            opacity: 0.55,
-            ease: "none",
-            scrollTrigger: { trigger: cards[i + 1], start: "top bottom", end: "top 18%", scrub: true },
-          });
-        });
-      });
-    },
-    { scope: root }
-  );
-  return (
-    <section ref={root} className="bg-[#F0E4D5] px-5 py-24 md:px-12 md:py-32">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} className="mx-auto max-w-3xl text-center">
-        <Eyebrow>THE SEVOURA PHILOSOPHY</Eyebrow>
-        <h2 className="mt-5 font-display text-[clamp(2.6rem,5.5vw,5rem)] font-medium leading-none text-[#46182D]">A Ritual, Rooted in Meaning.</h2>
-      </motion.div>
-      <div className="mx-auto mt-16 max-w-5xl">
-        {PHILOSOPHY.map((p, i) => (
-          <div key={p.n} className="ph-card sticky mb-8 origin-top" style={{ top: `calc(110px + ${i * 26}px)` }}>
-            <div className="relative grid min-h-[360px] overflow-hidden border border-[#C9A66C]/50 shadow-[0_30px_70px_-30px_rgba(70,24,45,.3)] md:grid-cols-[.8fr_1fr]" style={{ background: p.bg, color: p.fg }}>
-              <div className="relative min-h-[260px] overflow-hidden md:min-h-0">
-                <Image src={p.img} alt="" fill sizes="(min-width:768px) 420px, 92vw" className="object-cover" />
-              </div>
-              <div className="relative flex flex-col justify-end p-9 md:p-14">
-                <span className="mb-auto block pb-8 text-[12px] font-semibold tracking-[0.3em]" style={{ color: p.accent }}>{p.n}</span>
-                <h3 className="font-display text-5xl italic md:text-7xl">{p.title}</h3>
-                <p className="mt-5 max-w-md text-[16px] leading-8 opacity-80">{p.text}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ───────────── MAKE EVERY DAY YOUR OWN ───────────── */
 export function Steps() {
   const steps = [

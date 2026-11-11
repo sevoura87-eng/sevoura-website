@@ -5,8 +5,9 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import Preloader from "@/components/home/Preloader";
 import Hero from "@/components/home/Hero";
+import RitualStory from "@/components/home/RitualStory";
 import { Marquee, Values, Manifesto, SevenJourney } from "@/components/home/Sections1";
-import { Showcase, Founder, Philosophy, Steps, Destinations, Promise as BrandPromise, Finale } from "@/components/home/Sections2";
+import { Showcase, Founder, Steps, Destinations, Promise as BrandPromise, Finale } from "@/components/home/Sections2";
 
 export default function Home() {
   const [ready, setReady] = useState(false);
@@ -23,7 +24,7 @@ export default function Home() {
       <SevenJourney />
       <Showcase />
       <Founder />
-      <Philosophy />
+      <RitualStory />
       <Steps />
       <Destinations />
       <BrandPromise />

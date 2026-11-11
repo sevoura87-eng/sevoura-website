@@ -170,9 +170,9 @@ SCENES = {
                      motif="grass", motif_op=0.26, light=(0.8, 0.15), warm=0.0, accent=None, seed=55),
     "sunday": dict(wall=("#E8CFA5", "#C99A5E"), surface="walnut", sc=("#6B4329", "#9C6B45"), face=("#4A2C19", "#33200F"),
                    motif="arch", motif_op=0.0, light=(0.3, 0.08), warm=0.08, accent="sun", seed=66),
-    # Thursday: no genuine Thursday photograph exists, so we render the set only (no bottle is invented)
-    "thursday": dict(wall=("#EBDCC4", "#C9A87F"), surface="travertine", sc=("#EFE3CF", "#D6C2A2"), face=("#D7C3A3", "#B59C77"),
-                     motif="arch", motif_op=0.14, light=(0.3, 0.1), warm=0.04, accent=None, seed=77),
+    # Thursday — Vanilla · Cocoa · Amber: warm champagne plaster, honey travertine, soft amber light through an arched window
+    "thursday": dict(wall=("#F1E2C8", "#CFAE82"), surface="travertine", sc=("#F2E5CF", "#D9C29E"), face=("#DCC6A2", "#B89A70"),
+                     motif="arch", motif_op=0.13, light=(0.32, 0.12), warm=0.05, accent=None, seed=77, enlarge=True),
 }
 
 HORIZON, FRONT = int(H * 0.70), int(H * 0.84)
@@ -253,7 +253,9 @@ def render(day, cut_path):
     if cut_path:
         cut = Image.open(cut_path).convert("RGBA")
         cut = cut.crop(cut.getbbox())
-        s = min(1.0, BOTTLE_H / cut.height)  # downscale only — never upscale
+        # downscale only — except Thursday, whose only genuine photograph is the small bottle in the
+        # gift-box shot: it is enlarged with plain Lanczos resampling (no AI detail is invented)
+        s = BOTTLE_H * 0.9 / cut.height if sc.get("enlarge") else min(1.0, BOTTLE_H / cut.height)
         bw, bh = int(cut.width * s), int(cut.height * s)
         cut = cut.resize((bw, bh), Image.LANCZOS)
         base_y = HORIZON + int((FRONT - HORIZON) * 0.55)
@@ -295,7 +297,7 @@ if __name__ == "__main__":
     cut_dir, out_dir = sys.argv[1], sys.argv[2]
     days = sys.argv[3:] or list(SCENES)
     for d in days:
-        p = None if d == "thursday" else f"{cut_dir}/{d}.png"
+        p = f"{cut_dir}/{d}.png"
         im = render(d, p)
         im.save(f"{out_dir}/{d}.jpg", quality=90, optimize=True, progressive=True)
         print("wrote", d)
