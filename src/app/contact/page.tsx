@@ -2,6 +2,8 @@
 "use client";
 
 import { useState } from "react";
+import PageHero from "@/components/ui/PageHero";
+import ProductPhoto from "@/components/ProductPhoto";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail, Phone, Clock, ArrowUpRight, Camera, PlayCircle,
@@ -129,78 +131,21 @@ export default function ContactPage() {
       <main className="overflow-x-clip bg-[#F5EFE5] text-[#392B2D]">
 
         {/* 01 - CINEMATIC HERO */}
-        <section className="relative flex min-h-[760px] items-center justify-center overflow-hidden px-6 py-32 md:min-h-[900px]">
-
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#E8D6C3_0%,_#F5EFE5_65%)]" />
-
-          <div className="absolute left-[-160px] top-20 h-[430px] w-[430px] rounded-full border border-[#B28B4E]/20" />
-          <div className="absolute left-[-110px] top-32 h-[330px] w-[330px] rounded-full border border-[#B28B4E]/20" />
-          <div className="absolute bottom-[-180px] right-[-100px] h-[500px] w-[500px] rounded-full border border-[#B28B4E]/20" />
-
-          <motion.div
-            animate={{ y: [0, -20, 0], rotate: [0, 7, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute right-[9%] top-[17%] hidden h-40 w-40 items-center justify-center rounded-full border border-[#B28B4E]/40 bg-white/10 shadow-2xl backdrop-blur-sm lg:flex"
-          >
-            <Sparkles size={48} strokeWidth={0.8} className="text-[#B28B4E]" />
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 25, 0], rotate: [0, -8, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-[18%] left-[10%] hidden h-24 w-24 rounded-full border border-[#782C49]/20 bg-[#782C49]/5 lg:block"
-          />
-
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.16 } }
-            }}
-            className="relative z-10 mx-auto max-w-5xl text-center"
-          >
-            <motion.p variants={reveal} className="flex items-center justify-center gap-4 text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
-              <span className="h-px w-9 bg-[#B28B4E]" />
-              THE ART OF CONNECTION
-              <span className="h-px w-9 bg-[#B28B4E]" />
-            </motion.p>
-
-            <motion.h1
-              variants={reveal}
-              className="mt-10 font-serif text-6xl font-normal leading-[1.05] tracking-[-2px] text-[#782C49] md:text-8xl lg:text-[112px]"
-            >
-              Let&apos;s Start
-              <br />
-              <span className="italic text-[#B28B4E]">a Conversation.</span>
-            </motion.h1>
-
-            <motion.p variants={reveal} className="mx-auto mt-9 max-w-2xl text-[15px] leading-8 text-[#766866] md:text-base">
-              Whether you&apos;re curious about our fragrances, need assistance
-              with an order, or simply want to connect, we&apos;d love to hear
-              from you. Every meaningful connection begins with a conversation.
-            </motion.p>
-
-            <motion.div variants={reveal} className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
-              <a href="mailto:hello@sevoura.com" className="group inline-flex items-center gap-4 bg-[#782C49] px-10 py-5 text-[12px] font-semibold uppercase tracking-[0.22em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">
-                Get in Touch
-                <ArrowUpRight size={17} />
-              </a>
-
-              <a href="tel:+919211877712" className="inline-flex items-center gap-3 border border-[#B28B4E]/60 px-10 py-5 text-[12px] font-semibold uppercase tracking-[0.22em] text-[#782C49] transition hover:bg-[#E9DCCB]">
-                <Phone size={15} />
-                Call Us
-              </a>
-            </motion.div>
-
-            <motion.div variants={reveal} className="mt-24 flex flex-col items-center gap-4">
-              <span className="h-16 w-px bg-[#B28B4E]" />
-              <span className="text-[11px] uppercase tracking-[0.35em] text-[#987D6B]">
-                WE WOULD LOVE TO HEAR FROM YOU
-              </span>
-            </motion.div>
-          </motion.div>
-        </section>
+        <PageHero
+          tone="light"
+          eyebrow="THE ART OF CONNECTION"
+          title="Let's start"
+          accent="a conversation."
+          intro={<>Whether you&apos;re curious about our fragrances, need help with an order, or simply want to connect — we&apos;d love to hear from you.</>}
+          primary={{ label: "EMAIL US", href: "mailto:hello@sevoura.com" }}
+          secondary={{ label: "CALL +91 92118 77712", href: "tel:+919211877712" }}
+          footnote="MONDAY – SUNDAY · 10:00 AM – 6:00 PM IST"
+          artNode={
+            <div className="mx-auto w-[78%] rounded-t-[999px] border border-[#A77B4D]/45 p-2.5">
+              <ProductPhoto day="Monday" fragrance="Jasmine" priority sizes="440px" className="aspect-[3/4] rounded-t-[999px]" />
+            </div>
+          }
+        />
 
         {/* 02 - BRAND INTRODUCTION */}
         <section className="relative overflow-hidden bg-[#782C49] px-6 py-28 text-[#F5EFE5] md:py-36">
@@ -267,7 +212,7 @@ export default function ContactPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: index * 0.15 }}
                     whileHover={{ y: -12, rotateX: 3, rotateY: -3 }}
-                    className="group relative flex min-h-[390px] flex-col overflow-hidden border border-[#D9C9B5] bg-[#FAF7F1] p-9 shadow-sm transition-shadow duration-500 hover:shadow-2xl md:p-11"
+                    className="group relative flex min-h-[390px] flex-col overflow-hidden border border-[#D9C9B5] bg-[#FAF7F1] p-9 shadow-sm transition-shadow duration-500 hover:shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] md:p-11"
                     style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
                   >
                     <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-[#E9DCCB]/50 transition-transform duration-700 group-hover:scale-150" />
@@ -340,7 +285,7 @@ export default function ContactPage() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.7, delay: index * 0.12 }}
                       whileHover={{ y: -8 }}
-                      className="group border border-[#CDBBA7] bg-[#F5EFE5] p-8 transition-all duration-500 hover:border-[#B28B4E] hover:shadow-xl md:p-9"
+                      className="group border border-[#CDBBA7] bg-[#F5EFE5] p-8 transition-all duration-500 hover:border-[#B28B4E] hover:shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] md:p-9"
                     >
                       <Icon size={27} strokeWidth={1.3} className="text-[#A47A55] transition-transform duration-500 group-hover:scale-110" />
                       <h3 className="mt-9 font-serif text-2xl text-[#782C49]">{item.title}</h3>
@@ -442,7 +387,7 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              className="relative overflow-hidden border border-[#E9D1A7]/30 bg-[#65243D] p-10 shadow-2xl md:p-16"
+              className="relative overflow-hidden border border-[#E9D1A7]/30 bg-[#65243D] p-10 shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] md:p-16"
             >
               <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full border border-[#E9D1A7]/20" />
               <div className="relative">
@@ -674,7 +619,7 @@ export default function ContactPage() {
                 We&apos;d love to be a part of your SEVOURA journey.
               </p>
 
-              <a href="mailto:hello@sevoura.com" className="group mt-12 inline-flex items-center gap-4 bg-[#782C49] px-11 py-6 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">
+              <a href="mailto:hello@sevoura.com" className="group mt-12 inline-flex items-center gap-4 bg-[#782C49] px-11 py-6 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]">
                 hello@sevoura.com
                 <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>

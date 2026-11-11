@@ -20,6 +20,7 @@ import {
 
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import ProductPhoto from "@/components/ProductPhoto";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
 import Ornament from "@/components/ui/Ornament";
@@ -27,7 +28,7 @@ import Ornament from "@/components/ui/Ornament";
 const blends = [
   {
     day: "MONDAY",
-    image: "/images/monday.jpg",
+    image: "/images/products/monday.jpg",
     planet: "Moon",
     fragrance: "Jasmine",
     notes: "Green Tea · White Musk",
@@ -39,7 +40,7 @@ const blends = [
   },
   {
     day: "TUESDAY",
-    image: "/images/tuesday.jpg",
+    image: "/images/products/tuesday.jpg",
     planet: "Mars",
     fragrance: "Clove",
     notes: "Rose · Woods · Spice",
@@ -51,7 +52,7 @@ const blends = [
   },
   {
     day: "WEDNESDAY",
-    image: "/images/wednesday.jpg",
+    image: "/images/products/wednesday.jpg",
     planet: "Mercury",
     fragrance: "Green Tea",
     notes: "Rose · Amber",
@@ -63,7 +64,7 @@ const blends = [
   },
   {
     day: "THURSDAY",
-    image: "/images/thursday.jpg",
+    image: "/images/products/thursday.jpg",
     planet: "Jupiter",
     fragrance: "Vanilla",
     notes: "Cocoa · Amber",
@@ -75,7 +76,7 @@ const blends = [
   },
   {
     day: "FRIDAY",
-    image: "/images/friday.jpg",
+    image: "/images/products/friday.jpg",
     planet: "Venus",
     fragrance: "Rose",
     notes: "Neroli · Musk · Woods",
@@ -87,7 +88,7 @@ const blends = [
   },
   {
     day: "SATURDAY",
-    image: "/images/saturday.jpg",
+    image: "/images/products/saturday.jpg",
     planet: "Saturn",
     fragrance: "Vetiver",
     notes: "Patchouli · Cedarwood · Musk",
@@ -99,7 +100,7 @@ const blends = [
   },
   {
     day: "SUNDAY",
-    image: "/images/sunday.jpg",
+    image: "/images/products/sunday.jpg",
     planet: "Sun",
     fragrance: "Saffron",
     notes: "Sandalwood · Vanilla · Dry Woods",
@@ -318,7 +319,7 @@ export default function ShopPage() {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-8 -left-7 flex h-24 w-24 items-center justify-center rounded-full border border-[#C5A36B]/50 bg-[#FBF5E9] shadow-xl"
+              className="absolute -bottom-8 -left-7 flex h-24 w-24 items-center justify-center rounded-full border border-[#C5A36B]/50 bg-[#FBF5E9] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
             >
               <div className="text-center">
                 <Sparkles className="mx-auto text-[#A77B42]" size={23} />
@@ -475,58 +476,32 @@ export default function ShopPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.08 }}
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             {blends.map((blend) => (
-              <motion.article
-                variants={reveal}
-                key={blend.number}
-                whileHover={{ y: -8 }}
-                className="group overflow-hidden border border-[#D8C5A7] bg-[#FCF7EE] shadow-[0_8px_30px_rgba(71,35,39,0.05)] transition-all duration-500 hover:shadow-[0_24px_55px_rgba(71,35,39,0.15)]"
-              >
-                <div className="relative overflow-hidden bg-[#E9DFD1] p-5">
-                  <div className="absolute left-4 top-4 z-10 bg-[#702943] px-3 py-2 text-[11px] font-bold tracking-[0.2em] text-white">
-                    {blend.day}
-                  </div>
-                  <motion.div
-                    whileHover={{ scale: 1.055 }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
-                    className="relative mx-auto h-[330px] w-full"
-                  >
-                    <Image
-                      src={blend.image}
-                      alt={`SEVOURA ${blend.day} ${blend.fragrance} fragrance bottle`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-contain drop-shadow-[0_18px_18px_rgba(50,30,25,0.16)]"
-                    />
-                  </motion.div>
-                  <div className="pointer-events-none absolute bottom-4 right-4 border border-white/70 bg-[#FBF5E9]/85 px-3 py-2 text-[11px] tracking-[0.18em] text-[#702943]">
-                    4 ML
-                  </div>
+              <motion.article variants={reveal} key={blend.number} className="group flex flex-col bg-[#FCF7EE]">
+                <div className="relative overflow-hidden">
+                  <ProductPhoto
+                    day={blend.day.charAt(0) + blend.day.slice(1).toLowerCase()}
+                    fragrance={blend.fragrance}
+                    notes={blend.notes}
+                    sizes="(max-width:640px) 92vw, (max-width:1024px) 46vw, (max-width:1280px) 31vw, 300px"
+                    className="aspect-[4/5]"
+                    imgClassName="transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.05]"
+                  />
+                  <span className="absolute left-0 top-5 bg-[#481D30] px-3.5 py-2 text-[11px] font-semibold tracking-[0.24em] text-[#F7F0E6]">{blend.day}</span>
+                  <span className="absolute bottom-4 right-4 bg-[#FBF5E9]/85 px-2.5 py-1.5 text-[11px] tracking-[0.18em] text-[#702943] backdrop-blur-sm">4 ML</span>
                 </div>
-                <div className="p-7">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-[11px] font-bold tracking-[0.24em] text-[#A57C43]">{blend.day.toUpperCase()} BLEND</p>
-                    <span className="h-px flex-1 bg-[#D8C5A7]" />
-                    <span className="text-[12px] text-[#9A8777]">{blend.planet}</span>
+                <div className="flex flex-1 flex-col border-x border-b border-[#E2D4C1] px-6 pb-7 pt-6 transition-colors duration-500 group-hover:border-[#C9A574]">
+                  <div className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] text-[#A57C43]">
+                    <span>{blend.planet.toUpperCase()}</span>
+                    <span className="h-px flex-1 bg-[#E2D4C1]" />
+                    <span>N° {blend.number}</span>
                   </div>
-                  <h3 className="mt-4 font-serif text-3xl text-[#481D30]">{blend.fragrance}</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#806D60]">{blend.notes}</p>
-                  <div className="mt-5 border-y border-[#E2D4C1] py-4">
-                    <p className="text-[11px] font-bold tracking-[0.2em] text-[#A57C43]">THE INSPIRATION</p>
-                    <p className="mt-2 text-[15px] font-medium leading-6 text-[#642B40]">{blend.intention}</p>
-                  </div>
-                  <p className="mt-5 text-[15px] leading-7 text-[#806D60]">{blend.description}</p>
-                  <div className="mt-6 flex items-center justify-between border-t border-[#E2D4C1] pt-5">
-                    <div>
-                      <p className="text-[11px] tracking-[0.18em] text-[#9A8777]">PART OF THE SEVEN</p>
-                      <p className="mt-1 font-serif text-lg text-[#762C49]">7-Day Collection</p>
-                    </div>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#CDB994] font-serif text-[15px] text-[#762C49] transition-all duration-300 group-hover:bg-[#702943] group-hover:text-white">
-                      <Ornament size={13} />
-                    </span>
-                  </div>
+                  <h3 className="mt-4 font-display text-[34px] font-medium leading-none text-[#481D30]">{blend.fragrance}</h3>
+                  <p className="mt-2 text-[14px] tracking-[0.04em] text-[#806D60]">{blend.notes}</p>
+                  <p className="mt-5 flex-1 text-[15px] leading-7 text-[#5E4A44]">{blend.description}</p>
+                  <p className="mt-6 border-t border-[#E2D4C1] pt-4 text-[12px] font-semibold tracking-[0.16em] text-[#642B40]">{blend.intention.toUpperCase()}</p>
                 </div>
               </motion.article>
             ))}

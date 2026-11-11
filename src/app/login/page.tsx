@@ -72,7 +72,7 @@ export default function LoginPage() {
       title="Sign in to"
       italic="your ritual."
       intro="Access your orders, saved addresses and a faster checkout."
-      image="/images/friday.jpg"
+      image="/images/products/friday.jpg"
     >
       <Suspense fallback={null}>
         {isSupabaseConfigured ? <LoginForm /> : <StoreClosed compact />}

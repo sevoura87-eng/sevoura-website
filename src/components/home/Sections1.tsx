@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useVelocity, useSpring, useTransform, useMotionValue } from "framer-motion";
@@ -10,7 +9,7 @@ import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { Layers, Droplets, Infinity as InfinityIcon, Recycle, ArrowUpRight, ArrowRight } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
-import Ornament from "@/components/ui/Ornament";
+import ProductPhoto from "@/components/ProductPhoto";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -135,14 +134,10 @@ function SevenCard({ s, i, today }: { s: (typeof SEVEN)[number]; i: number; toda
       className="seven-card group relative flex w-[78vw] shrink-0 snap-center flex-col overflow-hidden border border-[#D8C5A7] bg-[#FCF7EE] shadow-[0_20px_50px_rgba(71,35,39,.08)] sm:w-[340px] lg:w-[360px]"
     >
       <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] bg-[#E9DFD1] m-3 mb-0">
-        <Image src={s.image} alt={`SEVOURA ${s.day} — ${s.fragrance}`} fill sizes="(max-width:640px) 78vw, 360px" className="object-cover object-[50%_35%] transition-transform duration-[1.4s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-110" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2E0F1D]/60 via-transparent to-transparent" />
+        <ProductPhoto day={s.day} fragrance={s.fragrance} notes={s.notes} sizes="(max-width:640px) 78vw, 360px" className="absolute inset-0" imgClassName="transition-transform duration-[1.4s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.06]" />
         <motion.div style={{ left: glareX }} className="pointer-events-none absolute -top-1/4 h-[150%] w-24 -translate-x-1/2 rotate-12 bg-white/20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-        <span className="absolute left-1/2 top-6 -translate-x-1/2 bg-[#702943] px-3 py-1.5 text-[11px] font-semibold tracking-[0.22em] text-white">{s.day.toUpperCase()}</span>
+        <span className="absolute left-1/2 top-5 -translate-x-1/2 bg-[#702943] px-3 py-1.5 text-[11px] font-semibold tracking-[0.22em] text-white">{s.day.toUpperCase()}</span>
         {today && <span className="absolute right-5 top-[22%] bg-[#E5C48B] px-2.5 py-1 text-[10px] font-bold tracking-[0.2em] text-[#46182D]">TODAY</span>}
-        <span className="absolute bottom-4 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-[#F4D79C]/70 bg-[#2E0F1D]/40 font-display text-2xl text-[#F4D79C] backdrop-blur transition-transform duration-700 group-hover:scale-110">
-          <Ornament size={18} />
-        </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">

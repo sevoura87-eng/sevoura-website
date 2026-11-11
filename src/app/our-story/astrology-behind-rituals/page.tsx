@@ -2,6 +2,8 @@
 "use client";
 
 import Link from "next/link";
+import PageHero from "@/components/ui/PageHero";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -120,38 +122,9 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function PlanetArtwork() {
   return (
-    <div className="relative mx-auto flex aspect-square w-full max-w-[410px] items-center justify-center">
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[5%] rounded-full border border-[#B99B76]/50"
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 48, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[13%] rounded-full border border-dashed border-[#B99B76]/60"
-      />
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[22%] rounded-full border border-[#B99B76]/50"
-      />
-      <div className="absolute left-[16%] top-[26%] h-2 w-2 rounded-full bg-[#C8A66F]" />
-      <div className="absolute bottom-[22%] right-[17%] h-3 w-3 rounded-full bg-[#C8A66F]" />
-      <div className="absolute right-[23%] top-[13%] h-1.5 w-1.5 rounded-full bg-[#A77A55]" />
-
-      <motion.div
-        animate={{
-          scale: [1, 1.045, 1],
-          boxShadow: [
-            "0 0 35px rgba(171,128,78,.15)",
-            "0 0 80px rgba(171,128,78,.4)",
-            "0 0 35px rgba(171,128,78,.15)",
-          ],
-        }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative z-10 aspect-square w-[42%] rounded-full bg-[radial-gradient(circle_at_38%_32%,#F5E5C5_0%,#C6A06A_28%,#80513C_65%,#5B2038_100%)]"
-      />
+    <div className="relative aspect-[5/6] w-full overflow-hidden">
+      <Image src="/images/sevoura-orbit-ivory.jpg" alt="" fill sizes="(min-width:768px) 45vw, 92vw" className="object-cover" />
+      <div aria-hidden className="pointer-events-none absolute inset-4 border border-[#A77B4D]/40" />
     </div>
   );
 }
@@ -162,78 +135,15 @@ export default function AstrologyBehindRitualsPage() {
       <SiteHeader />
 
       {/* 01 — HERO */}
-      <section className="relative flex min-h-[650px] items-center justify-center overflow-hidden bg-[#5B2038] px-6 py-32 text-center text-[#F8F0E5] md:min-h-[790px]">
-        <div className="absolute -left-52 -top-52 h-[550px] w-[550px] rounded-full border border-[#C5A17B]/20" />
-        <div className="absolute -left-36 -top-36 h-[400px] w-[400px] rounded-full border border-[#C5A17B]/15" />
-        <div className="absolute -bottom-64 -right-40 h-[580px] w-[580px] rounded-full border border-[#C5A17B]/20" />
-        <div className="absolute bottom-0 left-0 h-64 w-full bg-gradient-to-t from-[#46182D]/40 to-transparent" />
-
-        {Array.from({ length: 16 }).map((_, i) => (
-          <motion.span
-            key={i}
-            className="absolute h-1 w-1 rounded-full bg-[#E5C99B]"
-            style={{
-              left: `${8 + ((i * 19) % 85)}%`,
-              top: `${10 + ((i * 23) % 80)}%`,
-            }}
-            animate={{
-              opacity: [0.15, 0.9, 0.15],
-              scale: [0.7, 1.5, 0.7],
-            }}
-            transition={{
-              duration: 3 + (i % 4),
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          />
-        ))}
-
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.2 } },
-          }}
-          className="relative z-10 mx-auto max-w-5xl"
-        >
-          <motion.div variants={rise}>
-            <SectionLabel>THE MEANING BEHIND THE COLLECTION</SectionLabel>
-          </motion.div>
-
-          <motion.h1
-            variants={rise}
-            className="mt-9 font-serif text-5xl leading-[1.08] tracking-tight sm:text-6xl md:text-[88px]"
-          >
-            Astrology Behind
-            <br />
-            <span className="italic text-[#D8B88A]">the Rituals</span>
-          </motion.h1>
-
-          <motion.p
-            variants={rise}
-            className="mt-9 font-serif text-xl md:text-3xl"
-          >
-            Seven Days. Seven Rituals.
-          </motion.p>
-
-          <motion.p
-            variants={rise}
-            className="mx-auto mt-6 max-w-xl text-[13px] leading-7 text-[#E4D4C7] md:text-[15px]"
-          >
-            An ancient planetary order. Reimagined through the art of fragrance.
-          </motion.p>
-
-          <motion.div variants={rise}>
-            <Link
-              href="#ancient-connection"
-              className="mt-12 inline-flex border border-[#D3B68C]/60 px-9 py-4 text-[11px] tracking-[0.25em] text-[#E9D6B8] transition-all duration-500 hover:bg-[#E9D6B8] hover:text-[#5B2038]"
-            >
-              DISCOVER THE STORY ↓
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
+      <PageHero
+        eyebrow="SEVEN DAYS · SEVEN RITUALS"
+        title="The astrology"
+        accent="behind the rituals."
+        intro={<>An ancient planetary order, reimagined through the art of fragrance.</>}
+        primary={{ label: "DISCOVER THE STORY", href: "#ancient-connection" }}
+        secondary={{ label: "MEET THE SEVEN", href: "/the-seven" }}
+        art="/images/sevoura-orbit-moon.jpg"
+      />
 
       {/* 02 — ANCIENT CONNECTION */}
       <section

@@ -462,7 +462,7 @@ export default function ShippingReturnsPage() {
                 rel="noreferrer"
                 whileHover={reduce ? {} : { scale: 1.055, y: -5 }}
                 whileTap={{ scale: 0.97 }}
-                className="relative inline-flex min-h-[60px] items-center justify-center gap-4 overflow-hidden bg-[#481B30] px-8 text-[12px] font-semibold tracking-[0.15em] text-white shadow-lg transition-shadow duration-500 hover:shadow-[0_15px_40px_rgba(72,27,48,0.35)]"
+                className="relative inline-flex min-h-[60px] items-center justify-center gap-4 overflow-hidden bg-[#481B30] px-8 text-[12px] font-semibold tracking-[0.15em] text-white shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] transition-shadow duration-500 hover:shadow-[0_15px_40px_rgba(72,27,48,0.35)]"
               >
                 <motion.span
                   initial={{ x: "-120%" }}

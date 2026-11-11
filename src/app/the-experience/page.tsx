@@ -1,15 +1,18 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
+import PageHero from "@/components/ui/PageHero";
+import ProductTrio from "@/components/ui/ProductTrio";
+import ProductPhoto from "@/components/ProductPhoto";
 import Link from "next/link";
 import {
   motion,
-  useScroll,
-  useTransform,
+
+
   AnimatePresence,
 } from "framer-motion";
 import {
-  ArrowDown,
+
   ArrowRight,
   ArrowUpRight,
   Sparkles,
@@ -128,55 +131,11 @@ function Eyebrow({
   );
 }
 
-function FloatingOrb({
-  className = "",
-  duration = 8,
-}: {
-  className?: string;
-  duration?: number;
-}) {
-  return (
-    <motion.div
-      animate={{ y: [0, -15, 0], rotate: [0, 7, 0] }}
-      transition={{ duration, repeat: Infinity, ease: "easeInOut" }}
-      className={`pointer-events-none rounded-full ${className}`}
-    />
-  );
-}
-
 function GoldOrbitArtwork() {
   return (
-    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,_#FFF7E9_0%,_#E8D2B3_55%,_#C49A68_100%)] md:aspect-[5/4]">
-      <div className="absolute inset-4 border border-[#A47A40]/35" />
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 72, repeat: Infinity, ease: "linear" }}
-        className="absolute aspect-square h-[86%] rounded-full border border-[#A47A40]/45"
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 48, repeat: Infinity, ease: "linear" }}
-        className="absolute aspect-square h-[64%] rounded-full border border-dashed border-[#A47A40]/45"
-      />
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
-        className="absolute aspect-square h-[43%] rounded-full border border-[#A47A40]/35"
-      />
-      <FloatingOrb className="absolute left-[17%] top-[22%] h-8 w-8 bg-gradient-to-br from-[#FFF8E8] to-[#A47A40] shadow-xl" />
-      <FloatingOrb className="absolute bottom-[22%] right-[17%] h-12 w-12 bg-gradient-to-br from-[#FFF8E8] to-[#A47A40] shadow-xl" duration={10} />
-      <motion.div
-        animate={{ y: [0, -10, 0], scale: [1, 1.035, 1] }}
-        transition={{ duration: 5, repeat: Infinity }}
-        className="relative z-10 flex h-32 w-32 items-center justify-center rounded-full border border-[#B28B4E]/50 bg-[#FFF8EC]/75 text-[#A47A40] shadow-[0_20px_55px_rgba(90,55,25,0.16)] md:h-44 md:w-44"
-      >
-        <div className="absolute inset-3 rounded-full border border-[#B28B4E]/30" />
-        <Flower2 size={54} strokeWidth={0.8} />
-      </motion.div>
-      <div className="absolute bottom-[9%] text-center">
-        <p className="font-serif text-2xl tracking-[0.28em] text-[#782C49] md:text-3xl">SEVOURA</p>
-        <p className="mt-2 text-[10px] uppercase tracking-[0.4em] text-[#98754D]">THE ART OF RITUAL</p>
-      </div>
+    <div className="relative">
+      <ProductPhoto day="Friday" fragrance="Rose" notes="Neroli · Musk · Woods" sizes="(min-width:768px) 45vw, 92vw" className="aspect-[4/5]" />
+      <div aria-hidden className="pointer-events-none absolute inset-4 border border-[#F7F0E6]/50" />
     </div>
   );
 }
@@ -242,95 +201,23 @@ function ExperiencePillar({
 }
 
 export default function TheExperiencePage() {
-  const heroRef = useRef<HTMLElement>(null);
   const [openQuestion, setOpenQuestion] = useState<number | null>(0);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.3]);
 
   return (
     <>
       <SiteHeader />
       <main className="overflow-x-clip bg-[#F8F0E5] text-[#392823]">
         {/* HERO — burgundy stage, peach typography, original gold planet colours */}
-        <section
-          ref={heroRef}
-          className="relative flex min-h-[760px] items-center justify-center overflow-hidden bg-[#782C49] px-6 py-24 md:min-h-[900px]"
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#8D3D5A_0%,_#782C49_52%,_#4B1B32_100%)]" />
-          <div
-            className="absolute inset-0 opacity-[0.13]"
-            style={{
-              backgroundImage: "radial-gradient(#F8EBDD 0.8px, transparent 0.8px)",
-              backgroundSize: "32px 32px",
-            }}
-          />
-          <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-              className="absolute left-1/2 top-1/2 h-[690px] w-[690px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#F8EBDD]/20 md:h-[900px] md:w-[900px]"
-            />
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
-              className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#F8EBDD]/20 md:h-[700px] md:w-[700px]"
-            />
-          </motion.div>
-
-          {/* Keep the two original gold-beige spheres unchanged */}
-          <FloatingOrb className="absolute left-[7%] top-[22%] h-20 w-20 bg-gradient-to-br from-[#FFF8E8] via-[#D8B77F] to-[#765137] shadow-[0_15px_40px_rgba(75,45,20,0.25)] md:h-32 md:w-32" />
-          <FloatingOrb className="absolute bottom-[15%] right-[8%] h-24 w-24 bg-gradient-to-br from-[#FFF8E8] via-[#D8B77F] to-[#765137] shadow-[0_15px_40px_rgba(75,45,20,0.25)] md:h-40 md:w-40" duration={10} />
-
-          <motion.div
-            initial={{ opacity: 0, y: 45, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1.15, ease }}
-            className="relative z-10 mx-auto max-w-5xl text-center"
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#F8EBDD]/45 bg-[#F8EBDD]/10 text-[#F8EBDD]"
-            >
-              <Orbit size={29} strokeWidth={1} />
-            </motion.div>
-            <Eyebrow light>THE SEVOURA EXPERIENCE</Eyebrow>
-            <h1 className="font-serif text-6xl leading-[0.98] tracking-[-1.5px] text-[#F8EBDD] sm:text-7xl md:text-9xl">
-              More than
-              <br />
-              <span className="italic">a fragrance.</span>
-            </h1>
-            <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-8 text-[#F8EBDD]/85 md:text-base">
-              A thoughtful approach to fragrance. Discover the details, rituals
-              and little moments that turn an everyday routine into something
-              truly personal.
-            </p>
-            <Link
-              href="#the-ritual"
-              className="group mt-10 inline-flex items-center gap-5 bg-[#F8EBDD] px-9 py-5 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#782C49] shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#F1DCCB]"
-            >
-              DISCOVER THE EXPERIENCE
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
-            </Link>
-            <div className="mt-12 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[#F8EBDD]/80">
-              <span className="h-px w-8 bg-[#F8EBDD]/70" />
-              SENSE · FEEL · REMEMBER
-              <span className="h-px w-8 bg-[#F8EBDD]/70" />
-            </div>
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 9, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-            className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[#F8EBDD]/80"
-          >
-            <span className="text-[10px] tracking-[0.3em]">SCROLL TO EXPERIENCE</span>
-            <ArrowDown size={15} />
-          </motion.div>
-        </section>
+        <PageHero
+          eyebrow="THE SEVOURA EXPERIENCE"
+          title="More than"
+          accent="a fragrance."
+          intro={<>A thoughtful approach to fragrance — the details, rituals and little moments that turn an everyday routine into something truly personal.</>}
+          primary={{ label: "DISCOVER THE EXPERIENCE", href: "#the-ritual" }}
+          secondary={{ label: "FIND YOUR RITUAL", href: "/ritual-finder" }}
+          footnote="SENSE · FEEL · REMEMBER"
+          artNode={<ProductTrio days={["Tuesday", "Monday", "Saturday"]} />}
+        />
 
         {/* INTRO — asymmetric editorial layout */}
         <section id="the-ritual" className="scroll-mt-20 px-6 py-24 md:py-36">
@@ -660,7 +547,7 @@ export default function TheExperiencePage() {
                   transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
                   className="absolute aspect-square h-[220px] rounded-full border border-dashed border-[#A47A40]/40"
                 />
-                <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border border-[#A47A40]/40 bg-[#FFF8EC]/75 text-[#A47A40] shadow-xl">
+                <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border border-[#A47A40]/40 bg-[#FFF8EC]/75 text-[#A47A40] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]">
                   <Stars size={40} strokeWidth={1} />
                 </div>
                 <p className="relative z-10 mt-8 font-serif text-3xl tracking-[0.2em] text-[#782C49]">SEVOURA</p>
@@ -737,8 +624,6 @@ export default function TheExperiencePage() {
             transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
             className="absolute left-1/2 top-1/2 aspect-square h-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#F8EBDD]/15"
           />
-          <FloatingOrb className="absolute left-[12%] top-[18%] h-16 w-16 bg-gradient-to-br from-[#FFF8E8] via-[#D8B77F] to-[#765137] shadow-xl md:h-24 md:w-24" />
-          <FloatingOrb className="absolute bottom-[12%] right-[12%] h-20 w-20 bg-gradient-to-br from-[#FFF8E8] via-[#D8B77F] to-[#765137] shadow-xl md:h-28 md:w-28" duration={10} />
           <motion.div
             variants={reveal}
             initial="hidden"

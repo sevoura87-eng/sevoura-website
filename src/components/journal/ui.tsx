@@ -329,7 +329,7 @@ export function SignInNudge({ open, onClose, next }: { open: boolean; onClose: (
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.45, ease }}
         >
-          <div className="flex w-full max-w-[560px] flex-wrap items-center justify-between gap-4 border border-[#C9A15C]/60 bg-[#390014] px-6 py-5 text-[#F7F0E6] shadow-2xl">
+          <div className="flex w-full max-w-[560px] flex-wrap items-center justify-between gap-4 border border-[#C9A15C]/60 bg-[#390014] px-6 py-5 text-[#F7F0E6] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]">
             <p className="text-[15px]">Sign in to join the conversation.</p>
             <div className="flex items-center gap-3">
               <Link href={`/login?next=${encodeURIComponent(next)}`} className="bg-[#D6A64F] px-5 py-3 text-[12px] font-semibold tracking-[0.2em] text-[#26000D]">

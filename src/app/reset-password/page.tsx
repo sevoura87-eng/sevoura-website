@@ -63,7 +63,7 @@ export default function ResetPasswordPage() {
       title="Choose a new"
       italic="password."
       intro="Pick something memorable and secure — at least 8 characters with letters and numbers."
-      image="/images/saturday.jpg"
+      image="/images/products/saturday.jpg"
     >
       {done ? (
         <Notice tone="success">Your password has been updated. Taking you to your account…</Notice>

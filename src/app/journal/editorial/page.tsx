@@ -148,11 +148,11 @@ function CelestialArtwork() {
 
       <FloatingOrb
         duration={6}
-        className="absolute left-[18%] top-[22%] h-7 w-7 bg-gradient-to-br from-[#FFF8E9] to-[#A47A40] shadow-lg"
+        className="absolute left-[18%] top-[22%] h-7 w-7 bg-gradient-to-br from-[#FFF8E9] to-[#A47A40] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
       />
       <FloatingOrb
         duration={8}
-        className="absolute right-[18%] bottom-[24%] h-11 w-11 bg-gradient-to-br from-[#FFF8E9] to-[#B28B4E] shadow-lg"
+        className="absolute right-[18%] bottom-[24%] h-11 w-11 bg-gradient-to-br from-[#FFF8E9] to-[#B28B4E] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
       />
 
       <motion.div
@@ -197,12 +197,12 @@ function EditorialArtwork() {
 
       <FloatingOrb
         duration={7}
-        className="absolute left-[15%] top-[20%] h-10 w-10 bg-gradient-to-br from-[#FFF2D5] to-[#B28B4E] shadow-xl"
+        className="absolute left-[15%] top-[20%] h-10 w-10 bg-gradient-to-br from-[#FFF2D5] to-[#B28B4E] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
       />
 
       <FloatingOrb
         duration={9}
-        className="absolute right-[16%] top-[25%] h-16 w-16 bg-gradient-to-br from-[#F9E6C3] to-[#9B7041] shadow-xl"
+        className="absolute right-[16%] top-[25%] h-16 w-16 bg-gradient-to-br from-[#F9E6C3] to-[#9B7041] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
       />
 
       <motion.div
@@ -324,7 +324,7 @@ export default function JournalPage() {
 
             <Link
               href="#featured-story"
-              className="group mt-10 inline-flex items-center gap-5 bg-[#782C49] px-9 py-5 text-[12px] font-semibold uppercase tracking-[0.2em] text-white shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#572036]"
+              className="group mt-10 inline-flex items-center gap-5 bg-[#782C49] px-9 py-5 text-[12px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] transition-all duration-500 hover:-translate-y-1 hover:bg-[#572036]"
             >
               EXPLORE THE JOURNAL
               <ArrowRight

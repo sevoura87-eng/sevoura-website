@@ -52,7 +52,7 @@ export function Showcase() {
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-8 -right-3 flex h-28 w-28 items-center justify-center rounded-full border border-[#E5C48B]/60 bg-[#F8F1E7] text-center text-[#792D49] shadow-2xl sm:-right-8"
+            className="absolute -bottom-8 -right-3 flex h-28 w-28 items-center justify-center rounded-full border border-[#E5C48B]/60 bg-[#F8F1E7] text-center text-[#792D49] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] sm:-right-8"
           >
             <span className="text-[10px] tracking-[0.2em]">SAVE<span className="block font-display text-3xl tracking-normal"><LivePrice fallback="₹700" kind="saving" /></span></span>
           </motion.div>
@@ -170,9 +170,9 @@ export function Founder() {
 
 /* ───────────── PHILOSOPHY — stacking cards ───────────── */
 const PHILOSOPHY = [
-  { n: "01", title: "Cleanse", text: "Create a moment of pause. Step away from the noise and return to what feels meaningful.", bg: "#F8F1E7", fg: "#46182D", accent: "#B28A56" },
-  { n: "02", title: "Elevate", text: "Bring intention to the everyday. Let your personal rituals become expressions of who you are.", bg: "#E8D3B6", fg: "#46182D", accent: "#792D49" },
-  { n: "03", title: "Radiate", text: "Carry your individuality with confidence. Celebrate the qualities that make your expression your own.", bg: "#792D49", fg: "#FBF0E4", accent: "#E5C48B" },
+  { n: "01", title: "Cleanse", text: "Create a moment of pause. Step away from the noise and return to what feels meaningful.", bg: "#F8F1E7", fg: "#46182D", accent: "#B28A56", img: "/images/products/monday.jpg" },
+  { n: "02", title: "Elevate", text: "Bring intention to the everyday. Let your personal rituals become expressions of who you are.", bg: "#E8D3B6", fg: "#46182D", accent: "#792D49", img: "/images/sevoura-orbit-ivory.jpg" },
+  { n: "03", title: "Radiate", text: "Carry your individuality with confidence. Celebrate the qualities that make your expression your own.", bg: "#792D49", fg: "#FBF0E4", accent: "#E5C48B", img: "/images/products/sunday.jpg" },
 ];
 
 export function Philosophy() {
@@ -204,12 +204,14 @@ export function Philosophy() {
       <div className="mx-auto mt-16 max-w-5xl">
         {PHILOSOPHY.map((p, i) => (
           <div key={p.n} className="ph-card sticky mb-8 origin-top" style={{ top: `calc(110px + ${i * 26}px)` }}>
-            <div className="relative grid min-h-[320px] overflow-hidden border border-[#C9A66C]/50 p-9 shadow-[0_30px_70px_rgba(70,24,45,.14)] md:grid-cols-[.6fr_1fr] md:p-14" style={{ background: p.bg, color: p.fg }}>
-              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full border" style={{ borderColor: `${p.accent}55` }} />
-              <span className="block" style={{ color: p.accent }}><Ornament size={56} className="md:h-[72px] md:w-[72px]" /></span>
-              <div className="relative self-end">
+            <div className="relative grid min-h-[360px] overflow-hidden border border-[#C9A66C]/50 shadow-[0_30px_70px_-30px_rgba(70,24,45,.3)] md:grid-cols-[.8fr_1fr]" style={{ background: p.bg, color: p.fg }}>
+              <div className="relative min-h-[260px] overflow-hidden md:min-h-0">
+                <Image src={p.img} alt="" fill sizes="(min-width:768px) 420px, 92vw" className="object-cover" />
+              </div>
+              <div className="relative flex flex-col justify-end p-9 md:p-14">
+                <span className="mb-auto block pb-8 text-[12px] font-semibold tracking-[0.3em]" style={{ color: p.accent }}>{p.n}</span>
                 <h3 className="font-display text-5xl italic md:text-7xl">{p.title}</h3>
-                <p className="mt-5 max-w-md text-[15px] leading-8 opacity-80">{p.text}</p>
+                <p className="mt-5 max-w-md text-[16px] leading-8 opacity-80">{p.text}</p>
               </div>
             </div>
           </div>
@@ -328,7 +330,7 @@ export function Destinations() {
               animate={{ opacity: 1, scale: 1, rotate: -3 }}
               exit={{ opacity: 0, scale: 0.6 }}
               transition={{ duration: 0.4, ease }}
-              className="relative -ml-[130px] -mt-[170px] h-[240px] w-[190px] overflow-hidden rounded-t-full border-4 border-[#F8F1E7] shadow-2xl"
+              className="relative -ml-[130px] -mt-[170px] h-[240px] w-[190px] overflow-hidden rounded-t-full border-4 border-[#F8F1E7] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
             >
               <AnimatePresence initial={false}>
                 <motion.div key={hover} initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "-30%" }} transition={{ duration: 0.55, ease }} className="absolute inset-0">

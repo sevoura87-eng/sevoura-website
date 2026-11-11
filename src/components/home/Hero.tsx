@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -43,8 +43,6 @@ const SILK = [
     dur: 10,
   },
 ];
-/* the real product photographs (thursday.jpg shows the Sunday bottle, so it is left out) */
-const GALLERY = ["monday", "tuesday", "wednesday", "friday", "saturday", "sunday"].map((d) => `/images/${d}.jpg`);
 const closed = (d: string) => `${d} L1440 320 L0 320 Z`;
 const SPLINE = { calcMode: "spline", keyTimes: "0;0.5;1", keySplines: ".45 0 .55 1;.45 0 .55 1" } as const;
 
@@ -57,7 +55,6 @@ export default function Hero({ ready }: { ready: boolean }) {
   const [hover, setHover] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
   const shown = hover ?? active;
-  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     if (reduce) silk.current?.pauseAnimations();
@@ -78,13 +75,6 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => clearInterval(id);
   }, [ready, locked, reduce, hover]);
 
-  /* the product gallery crossfades slowly */
-  useEffect(() => {
-    if (!ready || reduce) return;
-    const id = setInterval(() => setSlide((v) => (v + 1) % GALLERY.length), 6000);
-    return () => clearInterval(id);
-  }, [ready, reduce]);
-
   /* pointer parallax: three depths */
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -92,8 +82,6 @@ export default function Hero({ ready }: { ready: boolean }) {
   const sy = useSpring(my, { stiffness: 40, damping: 18 });
   const backX = useTransform(sx, (v) => v * -6);
   const backY = useTransform(sy, (v) => v * -6);
-  const midX = useTransform(sx, (v) => v * -14);
-  const midY = useTransform(sy, (v) => v * -12);
   const frontX = useTransform(sx, (v) => v * -30);
   const frontY = useTransform(sy, (v) => v * -24);
 
@@ -231,69 +219,26 @@ export default function Hero({ ready }: { ready: boolean }) {
           </div>
         </div>
 
-        {/* VISUAL — an editorial composition of the real SEVOURA bottles */}
-        <div className="hero-visual hero-anim relative mx-auto w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[520px]">
-          <div className="hero-art relative aspect-[4/5] w-full">
-            {/* gold orbit behind the frames */}
-            <motion.svg aria-hidden viewBox="0 0 400 400" style={{ x: backX, y: backY }} className="absolute -left-[14%] top-[2%] w-[128%] text-[#D6A64F]">
-              <circle cx="200" cy="200" r="196" fill="none" stroke="currentColor" strokeOpacity=".22" strokeWidth=".6" />
-              <circle cx="200" cy="200" r="172" fill="none" stroke="currentColor" strokeOpacity=".12" strokeWidth=".6" strokeDasharray="1 5" />
-              <circle cx="200" cy="4" r="2.4" fill="currentColor" fillOpacity=".7" />
+        {/* VISUAL — campaign art: the seven-day orbit (no product) */}
+        <div className="hero-visual hero-anim relative mx-auto w-full max-w-[440px] sm:max-w-[520px] lg:max-w-[600px]">
+          <div className="hero-art relative aspect-[5/6] w-full">
+            <motion.div style={{ x: backX, y: backY }} className="absolute inset-[-3%]">
+              <Image
+                src="/images/sevoura-orbit.jpg"
+                alt=""
+                fill
+                priority
+                sizes="(min-width:1024px) 600px, 90vw"
+                className="object-cover [mask-image:radial-gradient(ellipse_72%_78%_at_50%_48%,#000_62%,transparent_100%)]"
+              />
+            </motion.div>
+            {/* a slow, fine orbit drawn over the art so the scene breathes */}
+            <motion.svg aria-hidden viewBox="0 0 600 720" style={{ x: frontX, y: frontY }} className="absolute inset-0 h-full w-full text-[#F0D69A]">
+              <g className="sev-rotate" style={{ transformOrigin: "300px 410px" }}>
+                <ellipse cx="300" cy="410" rx="286" ry="286" fill="none" stroke="currentColor" strokeOpacity=".16" strokeWidth=".7" strokeDasharray="1 7" />
+                <circle cx="300" cy="124" r="2.6" fill="currentColor" fillOpacity=".75" />
+              </g>
             </motion.svg>
-
-            {/* secondary frame, offset behind */}
-            <motion.div style={{ x: midX, y: midY }} className="absolute right-0 top-0 h-[78%] w-[62%] border border-[#D6A64F]/40 p-2">
-              <div className="relative h-full w-full overflow-hidden bg-[#3A0A1C]">
-                <AnimatePresence initial={false}>
-                  <motion.div key={(slide + 2) % GALLERY.length} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.8, ease: "easeInOut" }} className="absolute inset-0">
-                    <Image src={GALLERY[(slide + 2) % GALLERY.length]} alt="" fill sizes="(min-width:1024px) 320px, 60vw" className="object-cover object-[50%_55%] opacity-70 saturate-[.85]" />
-                  </motion.div>
-                </AnimatePresence>
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(38,0,13,.25),rgba(38,0,13,.75))]" />
-              </div>
-            </motion.div>
-
-            {/* main arched frame */}
-            <motion.div style={{ x: frontX, y: frontY }} className="absolute bottom-0 left-0 h-[86%] w-[68%]">
-              <div className="relative h-full w-full rounded-t-[999px] border border-[#D6A64F]/70 p-2.5 shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)]">
-                <div className="relative h-full w-full overflow-hidden rounded-t-[999px] bg-[#3A0A1C]">
-                  <AnimatePresence initial={false}>
-                    <motion.div
-                      key={slide}
-                      initial={{ opacity: 0, scale: 1.06 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ opacity: { duration: 1.6, ease: "easeInOut" }, scale: { duration: 7, ease: "linear" } }}
-                      className="absolute inset-0"
-                    >
-                      <Image src={GALLERY[slide]} alt="A SEVOURA alcohol-free fragrance blend" fill priority={slide === 0} sizes="(min-width:1024px) 360px, 70vw" className="object-cover object-[50%_58%]" />
-                    </motion.div>
-                  </AnimatePresence>
-                  {/* warm burgundy grade so the photographs sit inside the brand palette */}
-                  <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_45%,transparent_40%,rgba(38,0,13,.55)_100%)]" />
-                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(0deg,rgba(38,0,13,.7),transparent)]" />
-                </div>
-              </div>
-              {/* slide indicator */}
-              <div className="absolute -bottom-8 left-0 flex gap-2" aria-hidden>
-                {GALLERY.map((g, i) => (
-                  <span key={g} className={`h-px transition-all duration-700 ${i === slide ? "w-8 bg-[#F0D69A]" : "w-3 bg-[#D6A64F]/35"}`} />
-                ))}
-              </div>
-            </motion.div>
-
-            {/* small gold seal */}
-            <motion.div style={{ x: midX, y: midY }} aria-hidden className="absolute bottom-[10%] right-[6%] flex h-20 w-20 items-center justify-center rounded-full border border-[#D6A64F]/60 bg-[#26000D]/60 backdrop-blur-sm sm:h-24 sm:w-24">
-              <span className="font-display text-[30px] italic leading-none text-[#F0D69A] sm:text-[36px]">7</span>
-              <svg viewBox="0 0 100 100" className="sev-rotate absolute inset-1.5 text-[#D6A64F]">
-                <defs>
-                  <path id="seal-path" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" />
-                </defs>
-                <text fontSize="8.5" letterSpacing="3.2" fill="currentColor">
-                  <textPath href="#seal-path">SEVEN DAYS · SEVEN BLENDS ·</textPath>
-                </text>
-              </svg>
-            </motion.div>
           </div>
         </div>
       </div>

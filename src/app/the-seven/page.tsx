@@ -2,6 +2,9 @@
 "use client";
 
 import { useState } from "react";
+import PageHero from "@/components/ui/PageHero";
+import ProductTrio from "@/components/ui/ProductTrio";
+import ProductPhoto from "@/components/ProductPhoto";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -114,71 +117,16 @@ export default function TheSevenPage() {
       <SiteHeader />
 
       {/* 01 — HERO */}
-      <section className="relative flex min-h-[690px] items-center justify-center overflow-hidden bg-[#501D32] px-6 py-28 text-center text-[#F8EBDD] md:min-h-[790px]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#78364B_0%,_#501D32_55%,_#351322_100%)]" />
-
-        <div className="absolute left-1/2 top-1/2 h-[780px] w-[780px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D5B47C]/20" />
-        <div className="absolute left-1/2 top-1/2 h-[590px] w-[590px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#D5B47C]/25" />
-        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D5B47C]/20" />
-
-        <motion.div
-          className="absolute left-[8%] top-[23%] h-24 w-24 rounded-full bg-[radial-gradient(circle_at_35%_30%,#FFF0C9,#C59A5A_50%,#68432E)] shadow-[0_0_65px_#D4A75F55]"
-          animate={{ y: [0, -22, 0], rotate: [0, 12, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <motion.div
-          className="absolute bottom-[17%] right-[9%] h-32 w-32 rounded-full bg-[radial-gradient(circle_at_35%_30%,#FFF0C9,#D4A75F_50%,#68432E)] shadow-[0_0_80px_#D4A75F55]"
-          animate={{ y: [0, 24, 0], rotate: [0, -12, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <motion.div
-          className="absolute right-[22%] top-[20%] h-3 w-3 rounded-full bg-[#D6B77F]"
-          animate={{ scale: [1, 1.8, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        />
-
-        <motion.div
-          initial={{ opacity: 0, y: 45 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1 }}
-          className="relative z-10 mx-auto max-w-5xl"
-        >
-          <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#D8B77C]/50 text-[#D8B77C]">
-            <Orbit size={30} strokeWidth={1} />
-          </div>
-
-          <p className="mb-8 text-[12px] tracking-[0.45em] text-[#D9B77C] md:text-[13px]">
-            A SEVEN-DAY FRAGRANCE RITUAL
-          </p>
-
-          <h1 className="font-serif text-6xl leading-[1.05] md:text-8xl lg:text-[112px]">
-            Meet The Seven
-            <br />
-            <i className="text-[#E4C99F]">Seven identities.</i>
-          </h1>
-
-          <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-8 text-[#EAD9D0] md:text-lg">
-            7 DAYS. 7 PLANETS. 7 FRAGRANCES.
-            <br />
-            Discover the planetary character of every day.
-          </p>
-
-          <motion.a
-            href="#seven-blends"
-            whileHover={{ scale: 1.06, y: -4 }}
-            whileTap={{ scale: 0.97 }}
-            className="mt-10 inline-flex items-center gap-5 bg-[#F5EBDD] px-9 py-5 text-[12px] font-semibold tracking-[0.2em] text-[#501D32] shadow-xl"
-          >
-            EXPLORE THE SEVEN <ArrowRight size={16} />
-          </motion.a>
-
-          <p className="mt-10 text-[11px] tracking-[0.35em] text-[#D8B77C]">
-            DISCOVER · EXPERIENCE · EMBODY
-          </p>
-        </motion.div>
-      </section>
+      <PageHero
+        eyebrow="A SEVEN-DAY FRAGRANCE RITUAL"
+        title="Meet the Seven."
+        accent="Seven identities."
+        intro={<>Seven days, seven planets, seven alcohol-free blends. Discover the planetary character of every day of the week.</>}
+        primary={{ label: "EXPLORE THE SEVEN", href: "#seven-blends" }}
+        secondary={{ label: "SHOP THE COLLECTION", href: "/shop" }}
+        footnote="DISCOVER · EXPERIENCE · EMBODY"
+        artNode={<ProductTrio days={["Wednesday", "Sunday", "Friday"]} />}
+      />
 
       {/* 02 — THE IDEA */}
       <section className="relative bg-[#F5EBDD] px-6 py-24 md:px-12 md:py-32">
@@ -242,7 +190,7 @@ export default function TheSevenPage() {
     boxShadow: "0 24px 55px rgba(80,29,50,0.25)",
   }}
   transition={{ duration: 0.4, ease: "easeOut" }}
-  className="group relative overflow-hidden border border-[#8D5265] bg-[#501D32] p-9 text-center text-[#F5EBDD] shadow-lg transition-colors duration-500 hover:bg-[#64263F]"
+  className="group relative overflow-hidden border border-[#8D5265] bg-[#501D32] p-9 text-center text-[#F5EBDD] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] transition-colors duration-500 hover:bg-[#64263F]"
 >
   <motion.div
     className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
@@ -272,7 +220,7 @@ export default function TheSevenPage() {
         id="seven-blends"
         className="bg-[#EFE0CD] px-6 py-24 md:px-12 md:py-32"
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1320px]">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -292,7 +240,7 @@ export default function TheSevenPage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {blends.map((blend, index) => {
               const Icon = blend.icon;
               const isActive = activeBlend === index;
@@ -300,46 +248,28 @@ export default function TheSevenPage() {
               return (
                 <motion.article
                   key={blend.day}
-                  initial={{ opacity: 0, y: 65, rotateX: 8 }}
-                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{
                     duration: 0.8,
                     delay: (index % 3) * 0.12,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  whileHover={{ y: -10 }}
-                  className="group overflow-hidden rounded-lg border border-[#D9C5AA] bg-[#FBF6EE] shadow-[0_12px_35px_#6C493015] transition-shadow duration-500 hover:shadow-[0_25px_50px_#6C493030]"
+                  className="group overflow-hidden border border-[#DCC9AE] bg-[#FBF6EE] transition-[border-color,box-shadow] duration-500 hover:border-[#B28B4E] hover:shadow-[0_30px_60px_-30px_rgba(72,29,48,.35)]"
                 >
-                  <div
-                    className={`relative h-40 overflow-hidden bg-gradient-to-br ${blend.color}`}
-                  >
-                    <div className="absolute inset-0 opacity-50">
-                      <div className="absolute -left-10 top-12 h-40 w-[130%] rotate-[-20deg] border-t border-white/80" />
-                      <div className="absolute -left-10 top-20 h-40 w-[130%] rotate-[-20deg] border-t border-white/60" />
-                      <div className="absolute -left-10 top-28 h-40 w-[130%] rotate-[-20deg] border-t border-white/50" />
-                    </div>
-
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 35 + index * 3,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute -right-7 -top-20 h-64 w-64 rounded-full border border-white/50"
+                  <div className="relative overflow-hidden">
+                    <ProductPhoto
+                      day={blend.day.charAt(0) + blend.day.slice(1).toLowerCase()}
+                      fragrance={blend.fragrance}
+                      notes={blend.notes}
+                      sizes="(max-width:640px) 92vw, (max-width:1024px) 46vw, 300px"
+                      className="aspect-[4/5]"
+                      imgClassName="transition-transform duration-[1.4s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.05]"
                     />
-
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <motion.div
-                        whileHover={{ scale: 1.2, rotate: 12 }}
-                        transition={{ duration: 0.6 }}
-                        className="flex h-16 w-16 items-center justify-center rounded-full border border-white/60 bg-white/20 text-white shadow-lg backdrop-blur-sm"
-                      >
-                        <Icon size={29} strokeWidth={1} />
-                      </motion.div>
-                    </div>
-
+                    <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center border border-white/50 bg-[#26000D]/35 text-[#F7F0E6] backdrop-blur-sm">
+                      <Icon size={18} strokeWidth={1.2} />
+                    </span>
                   </div>
 
                   <div className="p-6">
@@ -359,7 +289,7 @@ export default function TheSevenPage() {
                       {blend.notes}
                     </p>
 
-                    <span className="mt-4 inline-block rounded-full bg-[#F0E0CC] px-3 py-2 text-[11px] font-semibold text-[#67334A]">
+                    <span className="mt-4 inline-block border border-[#E2CDAE] px-3 py-1.5 text-[11px] font-semibold tracking-[0.12em] text-[#67334A]">
                       {blend.intention}
                     </span>
 
@@ -421,7 +351,7 @@ export default function TheSevenPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-lg border border-[#DCC6A8] shadow-lg">
+          <div className="overflow-x-auto rounded-lg border border-[#DCC6A8] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]">
             <table className="w-full min-w-[650px] border-collapse text-left">
               <thead className="bg-[#E8D3B5]">
                 <tr className="text-[12px] tracking-[0.15em] text-[#501D32]">
@@ -545,7 +475,7 @@ export default function TheSevenPage() {
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="group relative mx-auto w-full max-w-[620px] overflow-hidden rounded-lg border border-[#E7C99B]/60 bg-[#EBD9C4] p-2 shadow-2xl"
+            className="group relative mx-auto w-full max-w-[620px] overflow-hidden rounded-lg border border-[#E7C99B]/60 bg-[#EBD9C4] p-2 shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
           >
             <motion.img
               src="/sevoura-bottle.jpeg"
@@ -563,7 +493,7 @@ export default function TheSevenPage() {
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            <div className="absolute bottom-6 left-6 bg-[#501D32]/95 px-5 py-3 text-[#F8EBDD] shadow-lg backdrop-blur-md sm:bottom-7 sm:left-7">
+            <div className="absolute bottom-6 left-6 bg-[#501D32]/95 px-5 py-3 text-[#F8EBDD] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] backdrop-blur-md sm:bottom-7 sm:left-7">
               <p className="text-[11px] tracking-[0.25em]">SEVEN DAY RITUAL</p>
               <p className="mt-1 font-serif text-lg sm:text-xl">Seven fragrances · One collection</p>
             </div>

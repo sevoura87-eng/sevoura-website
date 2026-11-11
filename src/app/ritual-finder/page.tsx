@@ -262,7 +262,7 @@ export default function RitualFinderPage() {
 
             <Link
               href="#find-your-ritual"
-              className="group relative z-10 mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] md:px-10 md:py-5"
+              className="group relative z-10 mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] md:px-10 md:py-5"
             >
               FIND YOUR RITUAL
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
@@ -599,7 +599,7 @@ export default function RitualFinderPage() {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.65, delay: (i % 4) * 0.08 }}
                   whileHover={{ y: -9 }}
-                  className="group relative overflow-hidden border border-[#D8C5A9] bg-[#FFFAF2] p-7 text-center shadow-sm transition-shadow duration-500 hover:shadow-xl"
+                  className="group relative overflow-hidden border border-[#D8C5A9] bg-[#FFFAF2] p-7 text-center shadow-sm transition-shadow duration-500 hover:shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
                 >
                   <div
                     className="absolute inset-x-0 top-0 h-1"
@@ -697,7 +697,7 @@ export default function RitualFinderPage() {
 
             <Link
               href="/shop"
-              className="mt-9 inline-flex items-center gap-4 bg-[#F8F0E5] px-9 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#782C49] shadow-xl transition-all hover:-translate-y-1 hover:bg-white"
+              className="mt-9 inline-flex items-center gap-4 bg-[#F8F0E5] px-9 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#782C49] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] transition-all hover:-translate-y-1 hover:bg-white"
             >
               EXPLORE THE COLLECTION
               <ArrowRight size={16} />

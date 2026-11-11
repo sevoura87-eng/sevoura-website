@@ -9,7 +9,7 @@ export default function ConfigNotice() {
   // Developer-only hint; customers never see it in production
   if (isSupabaseConfigured || dismissed || process.env.NODE_ENV === "production") return null;
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-[500] mx-auto max-w-xl border border-[#C49A59] bg-[#46182D] p-4 text-[14px] leading-5 text-[#F8EDDF] shadow-2xl sm:left-auto">
+    <div className="fixed bottom-4 left-4 right-4 z-[500] mx-auto max-w-xl border border-[#C49A59] bg-[#46182D] p-4 text-[14px] leading-5 text-[#F8EDDF] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] sm:left-auto">
       <p className="font-semibold tracking-wide text-[#E5C48B]">Store backend not connected</p>
       <p className="mt-1">
         Accounts, cart prices and checkout need <code>NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
