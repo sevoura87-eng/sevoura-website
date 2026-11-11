@@ -52,14 +52,14 @@ export default function AdminCustomerDetail() {
 
   return (
     <>
-      <Link href="/admin/customers" className="mb-5 inline-flex items-center gap-2 text-[11px] text-[#806D60] hover:text-[#792D49]"><ArrowLeft size={13} /> All customers</Link>
+      <Link href="/admin/customers" className="mb-5 inline-flex items-center gap-2 text-[13px] text-[#806D60] hover:text-[#792D49]"><ArrowLeft size={13} /> All customers</Link>
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="font-serif text-4xl md:text-5xl">{p.full_name || p.email}</h1>
-          <p className="mt-2 text-[13px] text-[#806D60]">{p.email} · {p.phone ? `+91 ${p.phone}` : "no phone"} · {p.role}</p>
+          <p className="mt-2 text-[15px] text-[#806D60]">{p.email} · {p.phone ? `+91 ${p.phone}` : "no phone"} · {p.role}</p>
         </div>
         {p.id !== user?.id && (
-          <button onClick={toggleStatus} className={`border px-4 py-2.5 text-[11px] ${p.account_status === "active" ? "border-[#8A2E2E] text-[#8A2E2E] hover:bg-[#8A2E2E] hover:text-white" : "border-[#3E5B2E] text-[#3E5B2E] hover:bg-[#3E5B2E] hover:text-white"}`}>
+          <button onClick={toggleStatus} className={`border px-4 py-2.5 text-[13px] ${p.account_status === "active" ? "border-[#8A2E2E] text-[#8A2E2E] hover:bg-[#8A2E2E] hover:text-white" : "border-[#3E5B2E] text-[#3E5B2E] hover:bg-[#3E5B2E] hover:text-white"}`}>
             {p.account_status === "active" ? "Suspend account" : "Reactivate account"}
           </button>
         )}
@@ -72,7 +72,7 @@ export default function AdminCustomerDetail() {
           ["Orders", String(data.orders.length)],
           ["Total spent", formatINR(spent)],
         ].map(([k, v]) => (
-          <Card key={k} className="p-4"><p className="text-[10px] uppercase tracking-[0.16em] text-[#9A8070]">{k}</p><p className="mt-2 font-serif text-xl">{v}</p></Card>
+          <Card key={k} className="p-4"><p className="text-[12px] uppercase tracking-[0.16em] text-[#9A8070]">{k}</p><p className="mt-2 font-serif text-xl">{v}</p></Card>
         ))}
       </div>
 
@@ -81,11 +81,11 @@ export default function AdminCustomerDetail() {
           <p className="px-5 pt-5 font-serif text-2xl">Order history</p>
           {data.orders.length === 0 ? <Empty>No orders yet.</Empty> : (
             <div className="overflow-x-auto">
-              <table className="mt-3 w-full min-w-[520px] text-left text-[13px]">
+              <table className="mt-3 w-full min-w-[520px] text-left text-[15px]">
                 <tbody>
                   {data.orders.map((o) => (
                     <tr key={o.id} className="border-t border-[#EEE5D9]">
-                      <td className="px-5 py-3"><Link href={`/admin/orders/${o.id}`} className="font-mono text-[12px] text-[#792D49] hover:underline">{o.order_number}</Link></td>
+                      <td className="px-5 py-3"><Link href={`/admin/orders/${o.id}`} className="font-mono text-[14px] text-[#792D49] hover:underline">{o.order_number}</Link></td>
                       <td className="px-3 py-3 text-[#806D60]">{formatDate(o.created_at)}</td>
                       <td className="px-3 py-3"><OrderStatusBadge status={o.status} payment={o.payment_status} /></td>
                       <td className="px-3 py-3"><PaymentStatusBadge status={o.payment_status} /></td>
@@ -100,15 +100,15 @@ export default function AdminCustomerDetail() {
         <div className="space-y-6">
           <Card className="p-5">
             <p className="font-serif text-2xl">Saved addresses</p>
-            {data.addresses.length === 0 ? <p className="mt-2 text-[12px] text-[#9A8777]">None saved.</p> : data.addresses.map((a) => (
-              <p key={a.id} className="mt-3 border-t border-[#EEE5D9] pt-3 text-[12px] leading-5 text-[#5E4A44]">
+            {data.addresses.length === 0 ? <p className="mt-2 text-[14px] text-[#9A8777]">None saved.</p> : data.addresses.map((a) => (
+              <p key={a.id} className="mt-3 border-t border-[#EEE5D9] pt-3 text-[14px] leading-5 text-[#5E4A44]">
                 {a.full_name}, {a.house_number}, {a.street_locality}, {a.city}, {a.state} – {a.pincode}{a.landmark ? ` (near ${a.landmark})` : ""} · {a.phone}
               </p>
             ))}
           </Card>
           <Card className="p-5">
             <p className="font-serif text-2xl">Login activity</p>
-            <ul className="mt-3 space-y-2 text-[12px]">
+            <ul className="mt-3 space-y-2 text-[14px]">
               {data.logins.length === 0 && <li className="text-[#9A8777]">No activity.</li>}
               {data.logins.map((l) => (
                 <li key={l.id} className="flex justify-between gap-3">

@@ -42,25 +42,25 @@ export default function AdminActivity() {
 
   return (
     <>
-      <PageTitle title="Activity log" sub="Registrations, logins, orders, status changes and product edits — newest first." action={<button onClick={() => reload()} className="inline-flex items-center gap-2 border border-[#D6C4AD] bg-white px-4 py-2.5 text-[11px]"><RefreshCw size={13} /> Refresh</button>} />
+      <PageTitle title="Activity log" sub="Registrations, logins, orders, status changes and product edits — newest first." action={<button onClick={() => reload()} className="inline-flex items-center gap-2 border border-[#D6C4AD] bg-white px-4 py-2.5 text-[13px]"><RefreshCw size={13} /> Refresh</button>} />
       <div className="mb-4 flex gap-1 overflow-x-auto">
         {Object.entries(GROUPS).map(([k, g]) => (
-          <button key={k} onClick={() => setGroup(k)} className={`shrink-0 border px-3 py-2 text-[11px] ${group === k ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>{g.label}</button>
+          <button key={k} onClick={() => setGroup(k)} className={`shrink-0 border px-3 py-2 text-[13px] ${group === k ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>{g.label}</button>
         ))}
       </div>
       {error ? <ErrorBox message={error} /> : loading ? <Skeleton h={300} /> : byDay.length === 0 ? <Card><Empty>No activity yet.</Empty></Card> : (
         <div className="space-y-6">
           {byDay.map(([day, rows]) => (
             <Card key={day} className="p-5">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-[#9A8070]">{day}</p>
+              <p className="text-[12px] uppercase tracking-[0.16em] text-[#9A8070]">{day}</p>
               <ul className="mt-3 divide-y divide-[#EEE5D9]">
                 {rows.map((r) => {
                   const Icon = ICON[r.event_type] ?? RefreshCw;
                   return (
-                    <li key={r.id} className="flex items-center gap-3 py-2.5 text-[13px]">
+                    <li key={r.id} className="flex items-center gap-3 py-2.5 text-[15px]">
                       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F3E8DA] text-[#792D49]"><Icon size={13} /></span>
                       <span className="flex-1">{r.summary}</span>
-                      <span className="text-[11px] text-[#9A8777]">{new Date(r.created_at).toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", timeZone: "Asia/Kolkata" })}</span>
+                      <span className="text-[13px] text-[#9A8777]">{new Date(r.created_at).toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", timeZone: "Asia/Kolkata" })}</span>
                     </li>
                   );
                 })}

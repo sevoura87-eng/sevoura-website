@@ -86,7 +86,7 @@ function BrandLogo({ footer = false }: { footer?: boolean }) {
       />
       <span
         aria-label="Trademark"
-        className="absolute -right-[9px] top-[1px] text-[9px] font-semibold"
+        className="absolute -right-[9px] top-[1px] text-[11px] font-semibold"
         style={{ color: footer ? "#F8F0E5" : "#542038" }}
       >
         ™
@@ -131,7 +131,7 @@ export default function FAQPage() {
             initial={reduceMotion ? false : { opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="mb-12 flex items-center gap-3 text-[10px] tracking-[0.25em] text-[#E5C38B]"
+            className="mb-12 flex items-center gap-3 text-[12px] tracking-[0.25em] text-[#E5C38B]"
           >
             <Link href="/" className="hover:text-white">HOME</Link>
             <span>›</span>
@@ -142,7 +142,7 @@ export default function FAQPage() {
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="mb-7 text-[11px] tracking-[0.35em] text-[#D9B77C]"
+            className="mb-7 text-[13px] tracking-[0.35em] text-[#D9B77C]"
           >
             A LITTLE MORE CLARITY
           </motion.p>
@@ -173,7 +173,7 @@ export default function FAQPage() {
             className="mt-12 h-px w-full origin-left bg-[#A77A72]/60"
           />
 
-          <p className="mt-6 text-[10px] tracking-[0.25em] text-[#E5C38B]">
+          <p className="mt-6 text-[12px] tracking-[0.25em] text-[#E5C38B]">
             DISCOVER THE SEVEN-DAY RITUAL.
           </p>
         </div>
@@ -189,7 +189,7 @@ export default function FAQPage() {
           className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:gap-20"
         >
           <div>
-            <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+            <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
               THE SEVOURA GUIDE
             </p>
             <h2 className="mt-5 font-serif text-4xl leading-tight md:text-5xl">
@@ -213,13 +213,13 @@ export default function FAQPage() {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+            <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
               GOOD TO KNOW
             </p>
             <h2 className="mt-5 font-serif text-4xl md:text-5xl">
               Frequently asked.
             </h2>
-            <p className="mt-4 text-sm text-[#78656A]">
+            <p className="mt-4 text-[15px] text-[#78656A]">
               Explore all 12 answers about the SEVOURA experience.
             </p>
           </motion.div>
@@ -270,7 +270,7 @@ export default function FAQPage() {
                         transition={{ duration: 0.35, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <p className="max-w-[790px] pb-8 pl-[48px] text-sm leading-8 text-[#74636A] md:pl-[64px] md:text-[15px]">
+                        <p className="max-w-[790px] pb-8 pl-[48px] text-[15px] leading-8 text-[#74636A] md:pl-[64px] md:text-[15px]">
                           {faq.answer}
                         </p>
                       </motion.div>
@@ -295,13 +295,13 @@ export default function FAQPage() {
           <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full border border-[#CBB69C]/60" />
           <div className="relative grid items-center gap-10 md:grid-cols-[1fr_auto]">
             <div>
-              <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+              <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
                 STILL HAVE A QUESTION?
               </p>
               <h2 className="mt-5 font-serif text-4xl leading-tight text-[#542038] md:text-5xl">
                 We would love to help.
               </h2>
-              <p className="mt-5 max-w-[500px] text-sm leading-7 text-[#78656A]">
+              <p className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#78656A]">
                 Can&apos;t find what you are looking for? Reach out to our team
                 and we will be happy to assist.
               </p>
@@ -313,7 +313,7 @@ export default function FAQPage() {
               rel="noreferrer"
               whileHover={reduceMotion ? undefined : { scale: 1.04, y: -4 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex min-h-[58px] items-center justify-center gap-4 bg-[#481B30] px-8 text-[10px] font-semibold tracking-[0.2em] text-white transition hover:bg-[#782C49]"
+              className="inline-flex min-h-[58px] items-center justify-center gap-4 bg-[#481B30] px-8 text-[12px] font-semibold tracking-[0.2em] text-white transition hover:bg-[#782C49]"
             >
               CONTACT US
               <ArrowUpRight size={16} />
@@ -321,7 +321,7 @@ export default function FAQPage() {
           </div>
         </motion.div>
 
-        <div className="mx-auto mt-12 flex max-w-[1150px] flex-col gap-5 border-t border-[#DCCDBB] pt-8 text-sm text-[#6E5860] md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto mt-12 flex max-w-[1150px] flex-col gap-5 border-t border-[#DCCDBB] pt-8 text-[15px] text-[#6E5860] md:flex-row md:items-center md:justify-between">
           <p>Here for your SEVOURA journey.</p>
           <a href="mailto:hello@sevoura.com" className="inline-flex items-center gap-3 hover:text-[#A66C35]">
             <Mail size={16} />

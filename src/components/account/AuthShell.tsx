@@ -60,7 +60,7 @@ export default function AuthShell({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8, ease }}
-                className="text-[9px] tracking-[0.34em] text-[#E5C48B]"
+                className="text-[11px] tracking-[0.34em] text-[#E5C48B]"
               >
                 CLEANSE · ELEVATE · RADIATE
               </motion.p>
@@ -83,14 +83,14 @@ export default function AuthShell({
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } } }}
               className="w-full max-w-[460px]"
             >
-              <motion.p variants={item} className="text-[9px] tracking-[0.34em] text-[#A77B4D]">
+              <motion.p variants={item} className="text-[11px] tracking-[0.34em] text-[#A77B4D]">
                 {eyebrow}
               </motion.p>
               <motion.h1 variants={item} className="mt-4 font-serif text-[42px] leading-[1.05] sm:text-5xl">
                 {title} <span className="italic text-[#792D49]">{italic}</span>
               </motion.h1>
               <motion.div variants={item} className="mt-5 h-[2px] w-14 bg-[#C49A59]" />
-              <motion.p variants={item} className="mt-5 text-sm leading-7 text-[#806D60]">
+              <motion.p variants={item} className="mt-5 text-[15px] leading-7 text-[#806D60]">
                 {intro}
               </motion.p>
               <motion.div variants={item} className="mt-8">

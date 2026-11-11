@@ -113,7 +113,7 @@ export default function AdminProducts() {
       <PageTitle
         title="Products"
         sub="Prices here are the single source of truth — checkout always charges the database price."
-        action={<button onClick={() => open("new")} className="inline-flex items-center gap-2 bg-[#792D49] px-4 py-2.5 text-[11px] text-white"><Plus size={14} /> Add product</button>}
+        action={<button onClick={() => open("new")} className="inline-flex items-center gap-2 bg-[#792D49] px-4 py-2.5 text-[13px] text-white"><Plus size={14} /> Add product</button>}
       />
       {error ? <ErrorBox message={error} /> : loading ? <Skeleton h={300} /> : (data ?? []).length === 0 ? <Card><Empty>No products yet.</Empty></Card> : (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -121,17 +121,17 @@ export default function AdminProducts() {
             <Card key={p.id} className={`overflow-hidden ${p.is_active ? "" : "opacity-60"}`}>
               <div className="relative aspect-[4/3] bg-[#EFE3D3]">
                 {p.image_url && <Image src={p.image_url} alt={p.name} fill sizes="400px" className="object-cover" />}
-                <span className={`absolute left-3 top-3 px-2 py-1 text-[9px] tracking-wider ${p.is_active ? "bg-[#3E5B2E] text-white" : "bg-[#806D60] text-white"}`}>{p.is_active ? "LIVE" : "HIDDEN"}</span>
-                {p.stock <= 5 && <span className="absolute right-3 top-3 bg-[#8A2E2E] px-2 py-1 text-[9px] tracking-wider text-white">{p.stock === 0 ? "OUT OF STOCK" : "LOW STOCK"}</span>}
+                <span className={`absolute left-3 top-3 px-2 py-1 text-[11px] tracking-wider ${p.is_active ? "bg-[#3E5B2E] text-white" : "bg-[#806D60] text-white"}`}>{p.is_active ? "LIVE" : "HIDDEN"}</span>
+                {p.stock <= 5 && <span className="absolute right-3 top-3 bg-[#8A2E2E] px-2 py-1 text-[11px] tracking-wider text-white">{p.stock === 0 ? "OUT OF STOCK" : "LOW STOCK"}</span>}
               </div>
               <div className="p-4">
                 <p className="font-serif text-xl leading-tight">{p.name}</p>
-                <p className="mt-1 text-[11px] text-[#9A8777]">/{p.slug}</p>
+                <p className="mt-1 text-[13px] text-[#9A8777]">/{p.slug}</p>
                 <div className="mt-3 flex items-end justify-between">
-                  <p className="font-serif text-2xl text-[#792D49]">{formatINR(p.price_paise)} {p.mrp_paise && <span className="text-sm text-[#9A8777] line-through">{formatINR(p.mrp_paise)}</span>}</p>
-                  <p className="text-[12px]">Stock: <strong>{p.stock}</strong></p>
+                  <p className="font-serif text-2xl text-[#792D49]">{formatINR(p.price_paise)} {p.mrp_paise && <span className="text-[15px] text-[#9A8777] line-through">{formatINR(p.mrp_paise)}</span>}</p>
+                  <p className="text-[14px]">Stock: <strong>{p.stock}</strong></p>
                 </div>
-                <div className="mt-4 flex gap-2 border-t border-[#EEE5D9] pt-3 text-[11px]">
+                <div className="mt-4 flex gap-2 border-t border-[#EEE5D9] pt-3 text-[13px]">
                   <button onClick={() => open(p)} className="inline-flex items-center gap-1 text-[#792D49] hover:underline"><Pencil size={12} /> Edit</button>
                   <button onClick={() => toggle(p)} className="inline-flex items-center gap-1 text-[#806D60] hover:underline">{p.is_active ? <><EyeOff size={12} /> Hide</> : <><Eye size={12} /> Publish</>}</button>
                   <button onClick={() => remove(p)} className="ml-auto inline-flex items-center gap-1 text-[#8A2E2E] hover:underline"><Trash2 size={12} /> Delete</button>
@@ -169,8 +169,8 @@ export default function AdminProducts() {
                 <Field label="Stock" inputMode="numeric" value={form.stock} onChange={set("stock")} error={errs.stock} />
                 <Field label="Sort order" inputMode="numeric" value={form.sort_order} onChange={set("sort_order")} hint="Lower shows first. The first live product is the featured collection." />
                 <div className="sm:col-span-2">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]">Description</label>
-                  <textarea value={form.description} onChange={set("description")} rows={3} className="mt-1 w-full border border-[#DCCAB5] bg-[#FCF8F1] px-4 py-3 text-sm outline-none focus:border-[#B28B4E]" />
+                  <label className="text-[11px] uppercase tracking-[0.2em] text-[#A77B4D]">Description</label>
+                  <textarea value={form.description} onChange={set("description")} rows={3} className="mt-1 w-full border border-[#DCCAB5] bg-[#FCF8F1] px-4 py-3 text-[15px] outline-none focus:border-[#B28B4E]" />
                 </div>
                 <div className="flex gap-4 sm:col-span-2">
                   <div className="relative h-28 w-28 shrink-0 overflow-hidden border border-[#DCCAB5] bg-[#EFE3D3]">
@@ -178,13 +178,13 @@ export default function AdminProducts() {
                   </div>
                   <div className="flex-1 space-y-2">
                     <Field label="Image URL" value={form.image_url} onChange={set("image_url")} />
-                    <label className="inline-flex cursor-pointer items-center gap-2 border border-[#D6C4AD] bg-white px-3 py-2 text-[11px] hover:border-[#792D49]">
+                    <label className="inline-flex cursor-pointer items-center gap-2 border border-[#D6C4AD] bg-white px-3 py-2 text-[13px] hover:border-[#792D49]">
                       <Upload size={13} /> {uploading ? "Uploading…" : "Upload image"}
                       <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" className="hidden" onChange={(e) => e.target.files?.[0] && upload(e.target.files[0])} />
                     </label>
                   </div>
                 </div>
-                <label className="flex items-center gap-3 text-[13px] sm:col-span-2">
+                <label className="flex items-center gap-3 text-[15px] sm:col-span-2">
                   <input type="checkbox" checked={form.is_active} onChange={(e) => setForm((f) => ({ ...f, is_active: e.target.checked }))} className="h-4 w-4 accent-[#792D49]" />
                   Visible in the store
                 </label>

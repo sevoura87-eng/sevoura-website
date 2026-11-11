@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
             className="relative z-10 mx-auto max-w-4xl"
           >
             <motion.div variants={fadeUp} transition={{ duration: 0.8 }}>
-              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+              <span className="inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
                 <span className="h-px w-8 bg-[#B28B4E]" />
                 THE SEVOURA PROMISE
                 <span className="h-px w-8 bg-[#B28B4E]" />
@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
             <motion.p
               variants={fadeUp}
               transition={{ duration: 0.8 }}
-              className="mx-auto mt-9 max-w-xl text-sm leading-8 text-[#766866] md:text-base"
+              className="mx-auto mt-9 max-w-xl text-[15px] leading-8 text-[#766866] md:text-base"
             >
               Your trust is an essential part of our journey.
               Discover how we respect, protect and handle
@@ -148,7 +148,7 @@ export default function PrivacyPolicyPage() {
               className="mt-12 flex flex-col items-center gap-5"
             >
               <div className="h-12 w-px bg-[#B28B4E]" />
-              <span className="text-[9px] uppercase tracking-[0.35em] text-[#987D6B]">
+              <span className="text-[11px] uppercase tracking-[0.35em] text-[#987D6B]">
                 YOUR PRIVACY · OUR RESPONSIBILITY
               </span>
             </motion.div>
@@ -165,14 +165,14 @@ export default function PrivacyPolicyPage() {
             className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1fr_auto]"
           >
             <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#E9D1A7]">
+              <span className="text-[12px] uppercase tracking-[0.35em] text-[#E9D1A7]">
                 A NOTE ON YOUR PRIVACY
               </span>
               <h2 className="mt-5 max-w-2xl font-serif text-3xl leading-snug md:text-5xl">
                 Your information deserves
                 <span className="italic text-[#E9D1A7]"> thoughtful care.</span>
               </h2>
-              <p className="mt-6 max-w-2xl text-sm leading-8 text-[#F5EBDD]/75">
+              <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#F5EBDD]/75">
                 At SEVOURA, we respect your privacy and are committed to protecting
                 the personal information you share with us. This Privacy Policy
                 explains how we collect, use, store, and protect your information
@@ -199,7 +199,7 @@ export default function PrivacyPolicyPage() {
               className="mb-16 flex flex-col justify-between gap-5 border-b border-[#D9C9B5] pb-8 md:flex-row md:items-end"
             >
               <div>
-                <span className="text-[10px] uppercase tracking-[0.35em] text-[#A47A55]">
+                <span className="text-[12px] uppercase tracking-[0.35em] text-[#A47A55]">
                   THE DETAILS
                 </span>
                 <h2 className="mt-4 font-serif text-4xl text-[#782C49] md:text-5xl">
@@ -207,7 +207,7 @@ export default function PrivacyPolicyPage() {
                 </h2>
               </div>
 
-              <span className="w-fit border border-[#D9C9B5] px-5 py-3 text-[9px] uppercase tracking-[0.2em] text-[#8B7770]">
+              <span className="w-fit border border-[#D9C9B5] px-5 py-3 text-[11px] uppercase tracking-[0.2em] text-[#8B7770]">
                 LAST UPDATED · 23 OCT 2026
               </span>
             </motion.div>
@@ -249,14 +249,14 @@ export default function PrivacyPolicyPage() {
 
                       <div className="mb-6 mt-5 h-px w-12 bg-[#B28B4E] transition-all duration-500 group-hover:w-24" />
 
-                      <p className="text-sm leading-8 text-[#766866]">
+                      <p className="text-[15px] leading-8 text-[#766866]">
                         {section.description}
                       </p>
 
                       {section.points && (
                         <ul className="mt-6 space-y-3">
                           {section.points.map((point) => (
-                            <li key={point} className="flex items-start gap-3 text-sm leading-6 text-[#766866]">
+                            <li key={point} className="flex items-start gap-3 text-[15px] leading-6 text-[#766866]">
                               <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#B28B4E]" />
                               {point}
                             </li>
@@ -265,7 +265,7 @@ export default function PrivacyPolicyPage() {
                       )}
 
                       {section.ending && (
-                        <p className="mt-6 text-sm leading-8 text-[#766866]">
+                        <p className="mt-6 text-[15px] leading-8 text-[#766866]">
                           {section.ending}
                         </p>
                       )}
@@ -273,7 +273,7 @@ export default function PrivacyPolicyPage() {
                       {section.number === "06" && (
                         <a
                           href="mailto:hello@sevoura.com"
-                          className="mt-6 inline-flex items-center gap-3 border-b border-[#B28B4E] pb-2 text-sm text-[#782C49] transition-colors hover:text-[#B28B4E]"
+                          className="mt-6 inline-flex items-center gap-3 border-b border-[#B28B4E] pb-2 text-[15px] text-[#782C49] transition-colors hover:text-[#B28B4E]"
                         >
                           <Mail size={16} />
                           hello@sevoura.com
@@ -308,13 +308,13 @@ export default function PrivacyPolicyPage() {
                 <span className="italic text-[#B28B4E]"> we never take for granted.</span>
               </h2>
 
-              <p className="mx-auto mt-6 max-w-lg text-sm leading-8 text-[#766866]">
+              <p className="mx-auto mt-6 max-w-lg text-[15px] leading-8 text-[#766866]">
                 Have a privacy-related question? Our team would be happy to help.
               </p>
 
               <a
                 href="mailto:hello@sevoura.com"
-                className="mt-9 inline-flex items-center gap-3 bg-[#782C49] px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-300 hover:bg-[#5D2037]"
+                className="mt-9 inline-flex items-center gap-3 bg-[#782C49] px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-300 hover:bg-[#5D2037]"
               >
                 Get In Touch
                 <ArrowUpRight size={15} />

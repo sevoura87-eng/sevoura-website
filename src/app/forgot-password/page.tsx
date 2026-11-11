@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
           <Notice tone="success">
             If an account exists for <strong>{email}</strong>, a reset link is on its way. The link expires in one hour.
           </Notice>
-          <Link href="/login" className="inline-block text-[11px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
+          <Link href="/login" className="inline-block text-[13px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
             BACK TO SIGN IN
           </Link>
         </div>
@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
           <Button type="submit" loading={busy} className="w-full">
             SEND RESET LINK
           </Button>
-          <p className="pt-2 text-center text-[13px] text-[#806D60]">
+          <p className="pt-2 text-center text-[15px] text-[#806D60]">
             Remembered it?{" "}
             <Link href="/login" className="font-medium text-[#792D49] underline underline-offset-4">
               Sign in

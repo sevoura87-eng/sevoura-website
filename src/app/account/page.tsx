@@ -38,7 +38,7 @@ function Orders() {
       <div className="border border-[#DCCAB5] bg-[#FCF7EF] p-10 text-center">
         <Package size={30} strokeWidth={1.2} className="mx-auto text-[#A77B4D]" />
         <p className="mt-4 font-serif text-2xl">No orders yet.</p>
-        <Link href="/shop" className="mt-5 inline-block text-[11px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">DISCOVER THE COLLECTION</Link>
+        <Link href="/shop" className="mt-5 inline-block text-[13px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">DISCOVER THE COLLECTION</Link>
       </div>
     );
   return (
@@ -47,11 +47,11 @@ function Orders() {
         <motion.li key={o.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, ease }}>
           <Link href={`/account/orders/${o.id}`} className="group flex flex-col gap-3 border border-[#DCCAB5] bg-[#FCF7EF] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B28B4E] hover:shadow-[0_14px_40px_rgba(71,35,39,.08)] sm:flex-row sm:items-center">
             <div className="min-w-0 flex-1">
-              <p className="font-mono text-[12px] tracking-wide text-[#792D49]">{o.order_number}</p>
-              <p className="mt-1 truncate text-sm">
+              <p className="font-mono text-[14px] tracking-wide text-[#792D49]">{o.order_number}</p>
+              <p className="mt-1 truncate text-[15px]">
                 {(o.order_items ?? []).map((it) => `${it.product_name} × ${it.quantity}`).join(", ")}
               </p>
-              <p className="mt-1 text-[11px] text-[#9A8777]">Placed {formatDate(o.created_at, true)}</p>
+              <p className="mt-1 text-[13px] text-[#9A8777]">Placed {formatDate(o.created_at, true)}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <OrderStatusBadge status={o.status} payment={o.payment_status} />
@@ -142,14 +142,14 @@ function Addresses() {
     <div>
       <div className="grid gap-4 sm:grid-cols-2">
         {list.map((a) => (
-          <div key={a.id} className="relative border border-[#DCCAB5] bg-[#FCF7EF] p-5 text-[13px] leading-6">
-            {a.is_default && <span className="absolute right-4 top-4 bg-[#792D49] px-2 py-0.5 text-[9px] tracking-[0.15em] text-white">DEFAULT</span>}
+          <div key={a.id} className="relative border border-[#DCCAB5] bg-[#FCF7EF] p-5 text-[15px] leading-6">
+            {a.is_default && <span className="absolute right-4 top-4 bg-[#792D49] px-2 py-0.5 text-[11px] tracking-[0.15em] text-white">DEFAULT</span>}
             <p className="font-medium">{a.full_name}</p>
             <p className="text-[#806D60]">{a.house_number}, {a.street_locality}</p>
             <p className="text-[#806D60]">{a.city}, {a.state} — {a.pincode}</p>
             {a.landmark && <p className="text-[#9A8777]">Landmark: {a.landmark}</p>}
             <p className="text-[#806D60]">+91 {a.phone}</p>
-            <div className="mt-4 flex flex-wrap gap-4 text-[11px] text-[#792D49]">
+            <div className="mt-4 flex flex-wrap gap-4 text-[13px] text-[#792D49]">
               <button onClick={() => startEdit(a)} className="underline-offset-4 hover:underline">Edit</button>
               {!a.is_default && (
                 <button onClick={() => makeDefault(a.id)} className="inline-flex items-center gap-1 underline-offset-4 hover:underline"><Star size={11} /> Make default</button>
@@ -158,7 +158,7 @@ function Addresses() {
             </div>
           </div>
         ))}
-        <button onClick={() => startEdit("new")} className="flex min-h-[150px] items-center justify-center border border-dashed border-[#C9B496] text-[12px] tracking-wide text-[#806D60] transition hover:border-[#792D49] hover:text-[#792D49]">
+        <button onClick={() => startEdit("new")} className="flex min-h-[150px] items-center justify-center border border-dashed border-[#C9B496] text-[14px] tracking-wide text-[#806D60] transition hover:border-[#792D49] hover:text-[#792D49]">
           + Add a new address
         </button>
       </div>
@@ -221,13 +221,13 @@ function Profile() {
       <Field label="Full name" value={name} onChange={(e) => setName(e.target.value)} />
       <Field label="Email address" value={user?.email ?? ""} disabled hint="Contact us to change your login email." />
       <Field label="Mobile number" type="tel" inputMode="numeric" value={phone} onChange={(e) => setPhone(e.target.value)} />
-      <div className="grid grid-cols-2 gap-4 text-[12px] text-[#806D60]">
-        <div className="border border-[#E3D5C3] p-3"><p className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]">Member since</p><p className="mt-1">{formatDate(profile?.created_at)}</p></div>
-        <div className="border border-[#E3D5C3] p-3"><p className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]">Last sign-in</p><p className="mt-1">{formatDate(profile?.last_login_at, true)}</p></div>
+      <div className="grid grid-cols-2 gap-4 text-[14px] text-[#806D60]">
+        <div className="border border-[#E3D5C3] p-3"><p className="text-[11px] uppercase tracking-[0.2em] text-[#A77B4D]">Member since</p><p className="mt-1">{formatDate(profile?.created_at)}</p></div>
+        <div className="border border-[#E3D5C3] p-3"><p className="text-[11px] uppercase tracking-[0.2em] text-[#A77B4D]">Last sign-in</p><p className="mt-1">{formatDate(profile?.last_login_at, true)}</p></div>
       </div>
       <div className="flex flex-wrap items-center gap-4">
         <Button type="submit" loading={busy}>SAVE CHANGES</Button>
-        <Link href="/forgot-password" className="text-[11px] text-[#792D49] underline underline-offset-4">Change password</Link>
+        <Link href="/forgot-password" className="text-[13px] text-[#792D49] underline underline-offset-4">Change password</Link>
       </div>
     </form>
   );
@@ -248,14 +248,14 @@ function AccountInner() {
     <>
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
-          <p className="text-[9px] tracking-[0.34em] text-[#A77B4D]">MY ACCOUNT</p>
+          <p className="text-[11px] tracking-[0.34em] text-[#A77B4D]">MY ACCOUNT</p>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">
             Welcome, <span className="italic text-[#792D49]">{first}.</span>
           </h1>
         </motion.div>
         <div className="flex flex-wrap gap-3">
           {isAdmin && (
-            <Link href="/admin" className="inline-flex items-center gap-2 border border-[#B28B4E] px-5 py-3 text-[10px] tracking-[0.2em] text-[#7A5418] transition hover:bg-[#B28B4E] hover:text-white">
+            <Link href="/admin" className="inline-flex items-center gap-2 border border-[#B28B4E] px-5 py-3 text-[12px] tracking-[0.2em] text-[#7A5418] transition hover:bg-[#B28B4E] hover:text-white">
               <Shield size={13} /> ADMIN DASHBOARD
             </Link>
           )}
@@ -264,7 +264,7 @@ function AccountInner() {
               await signOut();
               router.replace("/");
             }}
-            className="inline-flex items-center gap-2 border border-[#792D49]/50 px-5 py-3 text-[10px] tracking-[0.2em] text-[#792D49] transition hover:bg-[#792D49] hover:text-white"
+            className="inline-flex items-center gap-2 border border-[#792D49]/50 px-5 py-3 text-[12px] tracking-[0.2em] text-[#792D49] transition hover:bg-[#792D49] hover:text-white"
           >
             <LogOut size={13} /> SIGN OUT
           </button>
@@ -276,7 +276,7 @@ function AccountInner() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`relative inline-flex items-center gap-2 px-5 py-4 text-[11px] tracking-[0.18em] transition ${tab === t.id ? "text-[#792D49]" : "text-[#9A8777] hover:text-[#481D30]"}`}
+            className={`relative inline-flex items-center gap-2 px-5 py-4 text-[13px] tracking-[0.18em] transition ${tab === t.id ? "text-[#792D49]" : "text-[#9A8777] hover:text-[#481D30]"}`}
           >
             <t.icon size={14} /> {t.label.toUpperCase()}
             {tab === t.id && <motion.span layoutId="acct-tab" className="absolute inset-x-0 -bottom-px h-[2px] bg-[#792D49]" />}

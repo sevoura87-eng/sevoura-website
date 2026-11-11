@@ -19,8 +19,8 @@ export default function BrandLogo({ footer = false }: { footer?: boolean }) {
         <span
           className={`absolute right-[-3px] top-[58%] font-semibold ${
             footer
-              ? "text-[9px] text-[#E9D1A7]"
-              : "text-[9px] text-[#B28B4E]"
+              ? "text-[11px] text-[#E9D1A7]"
+              : "text-[11px] text-[#B28B4E]"
           }`}
         >
           ™

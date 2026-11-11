@@ -149,7 +149,7 @@ export default function TheSevenPage() {
             <Orbit size={30} strokeWidth={1} />
           </div>
 
-          <p className="mb-8 text-[10px] tracking-[0.45em] text-[#D9B77C] md:text-xs">
+          <p className="mb-8 text-[12px] tracking-[0.45em] text-[#D9B77C] md:text-[13px]">
             A SEVEN-DAY FRAGRANCE RITUAL
           </p>
 
@@ -159,7 +159,7 @@ export default function TheSevenPage() {
             <i className="text-[#E4C99F]">Seven identities.</i>
           </h1>
 
-          <p className="mx-auto mt-8 max-w-2xl text-sm leading-8 text-[#EAD9D0] md:text-lg">
+          <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-8 text-[#EAD9D0] md:text-lg">
             7 DAYS. 7 PLANETS. 7 FRAGRANCES.
             <br />
             Discover the planetary character of every day.
@@ -169,12 +169,12 @@ export default function TheSevenPage() {
             href="#seven-blends"
             whileHover={{ scale: 1.06, y: -4 }}
             whileTap={{ scale: 0.97 }}
-            className="mt-10 inline-flex items-center gap-5 bg-[#F5EBDD] px-9 py-5 text-[10px] font-semibold tracking-[0.2em] text-[#501D32] shadow-xl"
+            className="mt-10 inline-flex items-center gap-5 bg-[#F5EBDD] px-9 py-5 text-[12px] font-semibold tracking-[0.2em] text-[#501D32] shadow-xl"
           >
             EXPLORE THE SEVEN <ArrowRight size={16} />
           </motion.a>
 
-          <p className="mt-10 text-[9px] tracking-[0.35em] text-[#D8B77C]">
+          <p className="mt-10 text-[11px] tracking-[0.35em] text-[#D8B77C]">
             DISCOVER · EXPERIENCE · EMBODY
           </p>
         </motion.div>
@@ -191,7 +191,7 @@ export default function TheSevenPage() {
             className="grid gap-14 md:grid-cols-2 md:gap-20"
           >
             <div className="flex flex-col justify-center">
-              <p className="mb-5 text-[10px] font-semibold tracking-[0.3em]">
+              <p className="mb-5 text-[12px] font-semibold tracking-[0.3em]">
                 THE IDEA
               </p>
               <h2 className="font-serif text-4xl leading-tight md:text-6xl">
@@ -199,7 +199,7 @@ export default function TheSevenPage() {
                 <br />
                 every day.
               </h2>
-              <p className="mt-7 max-w-lg text-sm leading-8 text-[#705B52]">
+              <p className="mt-7 max-w-lg text-[15px] leading-8 text-[#705B52]">
                 In traditional astrology, each day is associated with a ruling
                 planet—each with its own symbolism and character.
               </p>
@@ -209,11 +209,11 @@ export default function TheSevenPage() {
               <h3 className="font-serif text-2xl leading-snug md:text-3xl">
                 SEVOURA translates this rhythm into fragrance blends.
               </h3>
-              <p className="mt-5 text-sm leading-7 text-[#705B52]">
+              <p className="mt-5 text-[15px] leading-7 text-[#705B52]">
                 Seven alcohol-free fragrance blends, each interpreted through
                 distinctive notes, character and intention.
               </p>
-              <p className="mt-5 text-sm leading-7 text-[#705B52]">
+              <p className="mt-5 text-[15px] leading-7 text-[#705B52]">
                 Make fragrance a sensory reminder of the qualities you choose
                 to focus on and embody.
               </p>
@@ -251,11 +251,11 @@ export default function TheSevenPage() {
     transition={{ duration: 0.8 }}
   />
 
-  <p className="relative text-[11px] font-semibold tracking-[0.22em] text-[#E8C58D]">
+  <p className="relative text-[13px] font-semibold tracking-[0.22em] text-[#E8C58D]">
     {item[0]}
   </p>
 
-  <p className="relative mt-4 text-sm leading-7 text-[#F5EBDD]/85">
+  <p className="relative mt-4 text-[15px] leading-7 text-[#F5EBDD]/85">
     {item[1]}
   </p>
 
@@ -280,13 +280,13 @@ export default function TheSevenPage() {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-[10px] font-semibold tracking-[0.35em]">
+            <p className="mb-4 text-[12px] font-semibold tracking-[0.35em]">
               SEVEN EXPRESSIONS
             </p>
             <h2 className="font-serif text-5xl md:text-7xl">
               Find Your Day
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#806B5E]">
+            <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-[#806B5E]">
               Explore each fragrance blend. Open a card to discover its story
               and personal intention.
             </p>
@@ -343,7 +343,7 @@ export default function TheSevenPage() {
                   </div>
 
                   <div className="p-6">
-                    <p className="text-[9px] font-semibold tracking-[0.22em] text-[#A77B43]">
+                    <p className="text-[11px] font-semibold tracking-[0.22em] text-[#A77B43]">
                       {blend.day}
                     </p>
 
@@ -355,11 +355,11 @@ export default function TheSevenPage() {
                       {blend.fragrance}
                     </p>
 
-                    <p className="mt-2 text-xs text-[#806B5E]">
+                    <p className="mt-2 text-[13px] text-[#806B5E]">
                       {blend.notes}
                     </p>
 
-                    <span className="mt-4 inline-block rounded-full bg-[#F0E0CC] px-3 py-2 text-[9px] font-semibold text-[#67334A]">
+                    <span className="mt-4 inline-block rounded-full bg-[#F0E0CC] px-3 py-2 text-[11px] font-semibold text-[#67334A]">
                       {blend.intention}
                     </span>
 
@@ -367,7 +367,7 @@ export default function TheSevenPage() {
                       onClick={() =>
                         setActiveBlend(isActive ? null : index)
                       }
-                      className="mt-5 flex w-full items-center justify-between border-t border-[#E4D3BD] pt-4 text-left text-xs font-semibold"
+                      className="mt-5 flex w-full items-center justify-between border-t border-[#E4D3BD] pt-4 text-left text-[13px] font-semibold"
                     >
                       <span>
                         {isActive ? "Close the story" : "Discover the story"}
@@ -386,7 +386,7 @@ export default function TheSevenPage() {
                           transition={{ duration: 0.4 }}
                           className="overflow-hidden"
                         >
-                          <p className="border-t border-[#E4D3BD] pt-4 text-sm leading-7 text-[#806B5E]">
+                          <p className="border-t border-[#E4D3BD] pt-4 text-[15px] leading-7 text-[#806B5E]">
                             {blend.description}
                           </p>
                         </motion.div>
@@ -410,13 +410,13 @@ export default function TheSevenPage() {
           className="mx-auto max-w-6xl"
         >
           <div className="mb-12 text-center">
-            <p className="mb-3 text-[10px] tracking-[0.3em]">
+            <p className="mb-3 text-[12px] tracking-[0.3em]">
               YOUR QUICK GUIDE
             </p>
             <h2 className="font-serif text-4xl md:text-6xl">
               The Seven at a Glance
             </h2>
-            <p className="mt-4 text-sm text-[#806B5E]">
+            <p className="mt-4 text-[15px] text-[#806B5E]">
               A quick guide to the notes and intentions behind each day.
             </p>
           </div>
@@ -424,7 +424,7 @@ export default function TheSevenPage() {
           <div className="overflow-x-auto rounded-lg border border-[#DCC6A8] shadow-lg">
             <table className="w-full min-w-[650px] border-collapse text-left">
               <thead className="bg-[#E8D3B5]">
-                <tr className="text-[10px] tracking-[0.15em] text-[#501D32]">
+                <tr className="text-[12px] tracking-[0.15em] text-[#501D32]">
                   <th className="px-6 py-5">DAY</th>
                   <th className="px-6 py-5">PLANET</th>
                   <th className="px-6 py-5">SIGNATURE</th>
@@ -439,7 +439,7 @@ export default function TheSevenPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.07 }}
-                    className="border-t border-[#E2D2BD] text-xs transition-colors hover:bg-[#F0E2D0]"
+                    className="border-t border-[#E2D2BD] text-[13px] transition-colors hover:bg-[#F0E2D0]"
                   >
                     <td className="px-6 py-5 font-semibold">{blend.day}</td>
                     <td className="px-6 py-5 font-serif text-base">
@@ -465,13 +465,13 @@ export default function TheSevenPage() {
             viewport={{ once: true }}
             className="mb-14 text-center"
           >
-            <p className="mb-4 text-[10px] tracking-[0.3em]">
+            <p className="mb-4 text-[12px] tracking-[0.3em]">
               MAKE IT YOUR OWN
             </p>
             <h2 className="font-serif text-4xl md:text-6xl">
               A Ritual of Intention
             </h2>
-            <p className="mt-4 text-sm text-[#806B5E]">
+            <p className="mt-4 text-[15px] text-[#806B5E]">
               Planetary symbolism. Personal intention. Fragrance ritual.
             </p>
           </motion.div>
@@ -486,7 +486,7 @@ export default function TheSevenPage() {
             >
               <Sparkles className="mb-7 text-[#B68A4E]" size={30} />
               <h3 className="font-serif text-3xl">Make it meaningful</h3>
-              <p className="mt-5 text-sm leading-7 text-[#705B52]">
+              <p className="mt-5 text-[15px] leading-7 text-[#705B52]">
                 Choose the quality you want to bring into your day. Let a
                 familiar fragrance become a sensory cue to return your
                 attention to that intention.
@@ -502,7 +502,7 @@ export default function TheSevenPage() {
                       <span className="flex justify-center text-[#B68A4E]">
                         <Ornament size={16} />
                       </span>
-                      <p className="mt-2 text-[10px] font-semibold">{step}</p>
+                      <p className="mt-2 text-[12px] font-semibold">{step}</p>
                     </div>
                   )
                 )}
@@ -519,13 +519,13 @@ export default function TheSevenPage() {
             >
               <Orbit className="mb-7 text-[#B68A4E]" size={30} />
               <h3 className="font-serif text-3xl">A thoughtful note</h3>
-              <p className="mt-5 text-sm leading-7 text-[#705B52]">
+              <p className="mt-5 text-[15px] leading-7 text-[#705B52]">
                 SEVOURA&apos;s planetary associations draw from traditional
                 astrological symbolism. The blends are designed as a personal
                 fragrance experience—not as a remedy or a promise of a
                 particular outcome.
               </p>
-              <p className="mt-5 text-sm leading-7 text-[#705B52]">
+              <p className="mt-5 text-[15px] leading-7 text-[#705B52]">
                 Use the ritual as a practice of intention, focus and mindful
                 association.
               </p>
@@ -564,7 +564,7 @@ export default function TheSevenPage() {
             />
 
             <div className="absolute bottom-6 left-6 bg-[#501D32]/95 px-5 py-3 text-[#F8EBDD] shadow-lg backdrop-blur-md sm:bottom-7 sm:left-7">
-              <p className="text-[9px] tracking-[0.25em]">SEVEN DAY RITUAL</p>
+              <p className="text-[11px] tracking-[0.25em]">SEVEN DAY RITUAL</p>
               <p className="mt-1 font-serif text-lg sm:text-xl">Seven fragrances · One collection</p>
             </div>
           </motion.div>
@@ -575,7 +575,7 @@ export default function TheSevenPage() {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <p className="mb-5 text-[10px] font-semibold tracking-[0.3em] text-[#E7C68E]">
+            <p className="mb-5 text-[12px] font-semibold tracking-[0.3em] text-[#E7C68E]">
               THE COMPLETE COLLECTION
             </p>
 
@@ -585,13 +585,13 @@ export default function TheSevenPage() {
               <i>One complete ritual.</i>
             </h2>
 
-            <p className="mt-7 max-w-lg text-sm leading-8 text-[#F0DED2]">
+            <p className="mt-7 max-w-lg text-[15px] leading-8 text-[#F0DED2]">
               Discover the SEVOURA 7-Day Planetary Blend Collection.
             </p>
 
             <div className="mt-8 border-y border-[#E8C58D]/30 py-6">
               <p className="font-serif text-xl">7 × 4 ml fragrance blends</p>
-              <p className="mt-2 text-sm text-[#EBD7C7]">
+              <p className="mt-2 text-[15px] text-[#EBD7C7]">
                 Alcohol-free · Complete seven-day set
               </p>
             </div>
@@ -599,7 +599,7 @@ export default function TheSevenPage() {
             <p className="mt-7 font-serif text-3xl text-[#E8C58D]">
               <LivePrice fallback="₹1,799" />
             </p>
-            <p className="mt-1 text-xs text-[#F0DED2]">
+            <p className="mt-1 text-[13px] text-[#F0DED2]">
               Prepaid · Free Shipping
             </p>
 
@@ -607,12 +607,12 @@ export default function TheSevenPage() {
               href="/shop"
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.96 }}
-              className="mt-8 inline-flex items-center gap-5 border border-[#E8C58D] bg-[#3F1729] px-8 py-5 text-[10px] font-semibold tracking-[0.2em] transition hover:bg-[#E8C58D] hover:text-[#501D32]"
+              className="mt-8 inline-flex items-center gap-5 border border-[#E8C58D] bg-[#3F1729] px-8 py-5 text-[12px] font-semibold tracking-[0.2em] transition hover:bg-[#E8C58D] hover:text-[#501D32]"
             >
               EXPLORE THE COLLECTION <ArrowRight size={16} />
             </motion.a>
 
-            <p className="mt-8 max-w-lg text-[10px] leading-6 text-[#EBD7C7]/75">
+            <p className="mt-8 max-w-lg text-[12px] leading-6 text-[#EBD7C7]/75">
               Planetary associations are inspired by traditional symbolism
               and are intended for personal exploration. They do not predict
               or guarantee outcomes.

@@ -121,7 +121,7 @@ const reveal = {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-5 flex items-center justify-center gap-3 text-[9px] font-medium uppercase tracking-[0.34em] text-[#98754D]">
+    <div className="mb-5 flex items-center justify-center gap-3 text-[11px] font-medium uppercase tracking-[0.34em] text-[#98754D]">
       <span className="h-px w-7 bg-[#B28B4E]" />
       {children}
       <span className="h-px w-7 bg-[#B28B4E]" />
@@ -244,7 +244,7 @@ export default function RitualFinderPage() {
               <Orbit size={27} strokeWidth={1} />
             </motion.div>
 
-            <div className="relative z-10 mb-7 flex items-center justify-center gap-3 text-[8px] font-medium uppercase tracking-[0.34em] text-[#98754D] md:text-[9px]">
+            <div className="relative z-10 mb-7 flex items-center justify-center gap-3 text-[10px] font-medium uppercase tracking-[0.34em] text-[#98754D] md:text-[11px]">
               <span className="h-px w-7 bg-[#B28B4E]" />
               THE SEVOURA RITUAL FINDER
               <span className="h-px w-7 bg-[#B28B4E]" />
@@ -256,19 +256,19 @@ export default function RitualFinderPage() {
               <span className="italic text-[#782C49]">that feels like you.</span>
             </h1>
 
-            <p className="relative z-10 mx-auto mt-7 max-w-[490px] text-sm leading-7 text-[#756253] md:text-base md:leading-8">
+            <p className="relative z-10 mx-auto mt-7 max-w-[490px] text-[15px] leading-7 text-[#756253] md:text-base md:leading-8">
               Every day carries a different energy. Explore seven distinctive fragrance identities inspired by traditional planetary associations and discover the SEVOURA blend that resonates with you.
             </p>
 
             <Link
               href="#find-your-ritual"
-              className="group relative z-10 mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-white shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] md:px-10 md:py-5"
+              className="group relative z-10 mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] md:px-10 md:py-5"
             >
               FIND YOUR RITUAL
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
             </Link>
 
-            <div className="relative z-10 mt-9 flex items-center justify-center gap-3 text-[8px] uppercase tracking-[0.28em] text-[#98754D]">
+            <div className="relative z-10 mt-9 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.28em] text-[#98754D]">
               <span className="h-px w-7 bg-[#B28B4E]" />
               SEVEN DAYS · SEVEN EXPRESSIONS
               <span className="h-px w-7 bg-[#B28B4E]" />
@@ -293,7 +293,7 @@ export default function RitualFinderPage() {
               <span className="italic">Your fragrance.</span>
             </h2>
 
-            <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-[#756253] md:text-base">
+            <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-8 text-[#756253] md:text-base">
               Whether you are drawn to a planet, a particular intention, a
               fragrance note or a day of the week, begin wherever feels natural.
               The Ritual Finder will help you explore the corresponding
@@ -322,12 +322,12 @@ export default function RitualFinderPage() {
                 <span className="italic">that resonates.</span>
               </h2>
 
-              <p className="mt-6 max-w-md text-sm leading-8 text-[#756253]">
+              <p className="mt-6 max-w-md text-[15px] leading-8 text-[#756253]">
                 Choose what draws you in. Select a planet, intention,
                 fragrance note or day to discover your corresponding blend.
               </p>
 
-              <div className="mt-8 flex items-center gap-3 text-[9px] uppercase tracking-[0.2em] text-[#98754D]">
+              <div className="mt-8 flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[#98754D]">
                 <Orbit size={17} />
                 YOUR PERSONAL FRAGRANCE JOURNEY
               </div>
@@ -353,7 +353,7 @@ export default function RitualFinderPage() {
               className="border border-[#D0B998] bg-[#FFFBF4] p-6 shadow-[0_20px_60px_rgba(89,62,39,0.08)] md:p-10"
             >
               <div className="mb-8">
-                <p className="text-[9px] uppercase tracking-[0.25em] text-[#98754D]">
+                <p className="text-[11px] uppercase tracking-[0.25em] text-[#98754D]">
                   PERSONALISE YOUR DISCOVERY
                 </p>
                 <h3 className="mt-2 font-serif text-3xl text-[#782C49]">
@@ -363,7 +363,7 @@ export default function RitualFinderPage() {
 
               <div className="grid gap-6 sm:grid-cols-2">
                 {/* PLANET */}
-                <label className="text-[9px] uppercase tracking-[0.18em] text-[#98754D]">
+                <label className="text-[11px] uppercase tracking-[0.18em] text-[#98754D]">
                   EXPLORE BY PLANET
                   <div className="relative mt-3">
                     <select
@@ -372,7 +372,7 @@ export default function RitualFinderPage() {
                         setPlanet(e.target.value);
                         setShowResult(false);
                       }}
-                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-xs text-[#49362D] outline-none transition focus:border-[#782C49]"
+                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-[13px] text-[#49362D] outline-none transition focus:border-[#782C49]"
                     >
                       <option value="">Select a planet</option>
                       {blends.map((b) => (
@@ -389,7 +389,7 @@ export default function RitualFinderPage() {
                 </label>
 
                 {/* INTENTION */}
-                <label className="text-[9px] uppercase tracking-[0.18em] text-[#98754D]">
+                <label className="text-[11px] uppercase tracking-[0.18em] text-[#98754D]">
                   EXPLORE BY INTENTION
                   <div className="relative mt-3">
                     <select
@@ -398,7 +398,7 @@ export default function RitualFinderPage() {
                         setIntention(e.target.value);
                         setShowResult(false);
                       }}
-                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-xs text-[#49362D] outline-none transition focus:border-[#782C49]"
+                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-[13px] text-[#49362D] outline-none transition focus:border-[#782C49]"
                     >
                       <option value="">Select an intention</option>
                       {blends.map((b) => (
@@ -415,7 +415,7 @@ export default function RitualFinderPage() {
                 </label>
 
                 {/* FRAGRANCE */}
-                <label className="text-[9px] uppercase tracking-[0.18em] text-[#98754D]">
+                <label className="text-[11px] uppercase tracking-[0.18em] text-[#98754D]">
                   EXPLORE BY FRAGRANCE
                   <div className="relative mt-3">
                     <select
@@ -424,7 +424,7 @@ export default function RitualFinderPage() {
                         setFragrance(e.target.value);
                         setShowResult(false);
                       }}
-                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-xs text-[#49362D] outline-none transition focus:border-[#782C49]"
+                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-[13px] text-[#49362D] outline-none transition focus:border-[#782C49]"
                     >
                       <option value="">Select a fragrance note</option>
                       {[
@@ -457,7 +457,7 @@ export default function RitualFinderPage() {
                 </label>
 
                 {/* DAY */}
-                <label className="text-[9px] uppercase tracking-[0.18em] text-[#98754D]">
+                <label className="text-[11px] uppercase tracking-[0.18em] text-[#98754D]">
                   EXPLORE BY DAY
                   <div className="relative mt-3">
                     <select
@@ -466,7 +466,7 @@ export default function RitualFinderPage() {
                         setDay(e.target.value);
                         setShowResult(false);
                       }}
-                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-xs text-[#49362D] outline-none transition focus:border-[#782C49]"
+                      className="w-full appearance-none border border-[#D5C2A7] bg-transparent px-4 py-4 pr-10 text-[13px] text-[#49362D] outline-none transition focus:border-[#782C49]"
                     >
                       <option value="">Select a day</option>
                       {blends.map((b) => (
@@ -486,7 +486,7 @@ export default function RitualFinderPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
                   onClick={() => setShowResult(true)}
-                  className="group inline-flex items-center gap-3 bg-[#782C49] px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#572036]"
+                  className="group inline-flex items-center gap-3 bg-[#782C49] px-7 py-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#572036]"
                 >
                   DISCOVER MY RITUAL
                   <ArrowRight
@@ -497,7 +497,7 @@ export default function RitualFinderPage() {
 
                 <button
                   onClick={resetFinder}
-                  className="border border-[#D5C2A7] px-6 py-4 text-[9px] uppercase tracking-[0.16em] text-[#782C49] transition hover:bg-[#F3E9DB]"
+                  className="border border-[#D5C2A7] px-6 py-4 text-[11px] uppercase tracking-[0.16em] text-[#782C49] transition hover:bg-[#F3E9DB]"
                 >
                   <RotateCcw size={13} className="mr-2 inline" />
                   RESET
@@ -523,7 +523,7 @@ export default function RitualFinderPage() {
                         />
 
                         <div className="flex-1">
-                          <p className="text-[9px] uppercase tracking-[0.2em] text-[#98754D]">
+                          <p className="text-[11px] uppercase tracking-[0.2em] text-[#98754D]">
                             YOUR SEVOURA DISCOVERY
                           </p>
 
@@ -531,19 +531,19 @@ export default function RitualFinderPage() {
                             {result.name}
                           </h3>
 
-                          <p className="mt-1 text-xs text-[#49362D]">
+                          <p className="mt-1 text-[13px] text-[#49362D]">
                             {result.quality}
                           </p>
 
-                          <p className="mt-3 text-xs leading-6 text-[#756253]">
+                          <p className="mt-3 text-[13px] leading-6 text-[#756253]">
                             {result.description}
                           </p>
 
-                          <p className="mt-3 text-[10px] leading-5 text-[#98754D]">
+                          <p className="mt-3 text-[12px] leading-5 text-[#98754D]">
                             FRAGRANCE NOTES: {result.notes}
                           </p>
 
-                          <p className="mt-2 text-[9px] tracking-[0.15em] text-[#98754D]">
+                          <p className="mt-2 text-[11px] tracking-[0.15em] text-[#98754D]">
                             {result.day} · {result.planet}
                           </p>
                         </div>
@@ -553,7 +553,7 @@ export default function RitualFinderPage() {
                         <p className="font-serif text-2xl text-[#782C49]">
                           Explore another combination
                         </p>
-                        <p className="mt-2 text-xs leading-6 text-[#756253]">
+                        <p className="mt-2 text-[13px] leading-6 text-[#756253]">
                           Your selected filters do not match one blend.
                           Try removing a selection or resetting the finder.
                         </p>
@@ -584,7 +584,7 @@ export default function RitualFinderPage() {
                 <span className="italic">fragrance identities.</span>
               </h2>
 
-              <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#756253]">
+              <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-[#756253]">
                 Explore the traditional associations behind each day and its
                 corresponding SEVOURA fragrance identity.
               </p>
@@ -606,7 +606,7 @@ export default function RitualFinderPage() {
                     style={{ background: blend.color }}
                   />
 
-                  <p className="text-[8px] tracking-[0.25em] text-[#98754D]">
+                  <p className="text-[10px] tracking-[0.25em] text-[#98754D]">
                     {blend.day}
                   </p>
 
@@ -625,7 +625,7 @@ export default function RitualFinderPage() {
 
                   <p className="text-2xl text-[#98754D]">{blend.symbol}</p>
 
-                  <p className="mt-3 text-[8px] tracking-[0.25em] text-[#98754D]">
+                  <p className="mt-3 text-[10px] tracking-[0.25em] text-[#98754D]">
                     {blend.planet}
                   </p>
 
@@ -633,13 +633,13 @@ export default function RitualFinderPage() {
                     {blend.name}
                   </h3>
 
-                  <p className="mt-3 min-h-[38px] text-xs leading-5 text-[#49362D]">
+                  <p className="mt-3 min-h-[38px] text-[13px] leading-5 text-[#49362D]">
                     {blend.quality}
                   </p>
 
                   <div className="mx-auto my-5 h-px w-12 bg-[#C8AD87]" />
 
-                  <p className="text-[10px] leading-5 text-[#756253]">
+                  <p className="text-[12px] leading-5 text-[#756253]">
                     {blend.notes}
                   </p>
 
@@ -655,7 +655,7 @@ export default function RitualFinderPage() {
                         .getElementById("find-your-ritual")
                         ?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="mt-7 inline-flex items-center gap-2 border-b border-[#B28B4E] pb-2 text-[9px] uppercase tracking-[0.16em] text-[#782C49] transition-all hover:gap-4"
+                    className="mt-7 inline-flex items-center gap-2 border-b border-[#B28B4E] pb-2 text-[11px] uppercase tracking-[0.16em] text-[#782C49] transition-all hover:gap-4"
                   >
                     EXPLORE THIS BLEND
                     <ArrowRight size={13} />
@@ -689,7 +689,7 @@ export default function RitualFinderPage() {
               <span className="italic text-[#E9D1A7]">uniquely yours.</span>
             </h2>
 
-            <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-[#F8F0E5]/80">
+            <p className="mx-auto mt-6 max-w-xl text-[15px] leading-8 text-[#F8F0E5]/80">
               Seven distinctive fragrance identities. One collection.
               Discover the blend that speaks to your day, your intention
               and your own sense of self.
@@ -697,13 +697,13 @@ export default function RitualFinderPage() {
 
             <Link
               href="/shop"
-              className="mt-9 inline-flex items-center gap-4 bg-[#F8F0E5] px-9 py-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#782C49] shadow-xl transition-all hover:-translate-y-1 hover:bg-white"
+              className="mt-9 inline-flex items-center gap-4 bg-[#F8F0E5] px-9 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#782C49] shadow-xl transition-all hover:-translate-y-1 hover:bg-white"
             >
               EXPLORE THE COLLECTION
               <ArrowRight size={16} />
             </Link>
 
-            <p className="mt-7 font-serif text-sm italic text-[#E9D1A7]">
+            <p className="mt-7 font-serif text-[15px] italic text-[#E9D1A7]">
               Cleanse. Elevate. Radiate.
             </p>
           </motion.div>

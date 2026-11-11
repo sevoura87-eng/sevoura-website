@@ -45,7 +45,7 @@ export default function AdminRevenue() {
           <p className="font-serif text-2xl">Daily sales</p>
           <div className="flex gap-1">
             {[7, 30, 90].map((d) => (
-              <button key={d} onClick={() => setDays(d)} className={`border px-3 py-1.5 text-[11px] ${days === d ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>{d} days</button>
+              <button key={d} onClick={() => setDays(d)} className={`border px-3 py-1.5 text-[13px] ${days === d ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>{d} days</button>
             ))}
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function AdminRevenue() {
             {(Object.keys(ORDER_STATUS_LABEL) as OrderStatus[]).map((k) => {
               const n = s.orders_by_status[k] ?? 0;
               return (
-                <li key={k} className="text-[12px]">
+                <li key={k} className="text-[14px]">
                   <div className="flex justify-between"><span>{ORDER_STATUS_LABEL[k]}</span><span className="tabular-nums">{n}</span></div>
                   <div className="mt-1 h-2 bg-[#F0E7DB]"><div className="h-full rounded-r-[4px] bg-[#792D49] transition-all duration-700" style={{ width: `${(n / totalStatus) * 100}%` }} /></div>
                 </li>
@@ -92,8 +92,8 @@ export default function AdminRevenue() {
         </Card>
         <Card className="p-5 sm:p-6">
           <p className="font-serif text-2xl">Payment statistics</p>
-          <table className="mt-4 w-full text-left text-[13px]">
-            <thead className="text-[10px] uppercase tracking-[0.14em] text-[#9A8070]"><tr><th className="py-2 font-medium">Status</th><th className="py-2 font-medium">Orders</th><th className="py-2 text-right font-medium">Amount</th></tr></thead>
+          <table className="mt-4 w-full text-left text-[15px]">
+            <thead className="text-[12px] uppercase tracking-[0.14em] text-[#9A8070]"><tr><th className="py-2 font-medium">Status</th><th className="py-2 font-medium">Orders</th><th className="py-2 text-right font-medium">Amount</th></tr></thead>
             <tbody>
               {(Object.keys(PAYMENT_STATUS_LABEL) as PaymentStatus[]).map((k) => (
                 <tr key={k} className="border-t border-[#EEE5D9]">
@@ -104,7 +104,7 @@ export default function AdminRevenue() {
               ))}
             </tbody>
           </table>
-          <p className="mt-4 text-[11px] leading-5 text-[#9A8777]">Excludes cancelled orders. Online payments are not live yet, so orders stay “Unpaid” until Razorpay is connected.</p>
+          <p className="mt-4 text-[13px] leading-5 text-[#9A8777]">Excludes cancelled orders. Online payments are not live yet, so orders stay “Unpaid” until Razorpay is connected.</p>
         </Card>
       </div>
     </>

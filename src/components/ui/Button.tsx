@@ -20,7 +20,7 @@ export default function Button({ loading, variant = "primary", className = "", c
   return (
     <button
       disabled={disabled || loading}
-      className={`sev-shine inline-flex items-center justify-center gap-3 px-7 py-4 text-[10px] font-semibold tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60 ${variants[variant]} ${className}`}
+      className={`sev-shine inline-flex items-center justify-center gap-3 px-7 py-4 text-[12px] font-semibold tracking-[0.22em] transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60 ${variants[variant]} ${className}`}
       {...rest}
     >
       {loading && <Loader2 size={15} className="animate-spin" />}

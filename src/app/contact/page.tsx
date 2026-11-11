@@ -160,7 +160,7 @@ export default function ContactPage() {
             }}
             className="relative z-10 mx-auto max-w-5xl text-center"
           >
-            <motion.p variants={reveal} className="flex items-center justify-center gap-4 text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+            <motion.p variants={reveal} className="flex items-center justify-center gap-4 text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
               <span className="h-px w-9 bg-[#B28B4E]" />
               THE ART OF CONNECTION
               <span className="h-px w-9 bg-[#B28B4E]" />
@@ -175,19 +175,19 @@ export default function ContactPage() {
               <span className="italic text-[#B28B4E]">a Conversation.</span>
             </motion.h1>
 
-            <motion.p variants={reveal} className="mx-auto mt-9 max-w-2xl text-sm leading-8 text-[#766866] md:text-base">
+            <motion.p variants={reveal} className="mx-auto mt-9 max-w-2xl text-[15px] leading-8 text-[#766866] md:text-base">
               Whether you&apos;re curious about our fragrances, need assistance
               with an order, or simply want to connect, we&apos;d love to hear
               from you. Every meaningful connection begins with a conversation.
             </motion.p>
 
             <motion.div variants={reveal} className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
-              <a href="mailto:hello@sevoura.com" className="group inline-flex items-center gap-4 bg-[#782C49] px-10 py-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">
+              <a href="mailto:hello@sevoura.com" className="group inline-flex items-center gap-4 bg-[#782C49] px-10 py-5 text-[12px] font-semibold uppercase tracking-[0.22em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">
                 Get in Touch
                 <ArrowUpRight size={17} />
               </a>
 
-              <a href="tel:+919211877712" className="inline-flex items-center gap-3 border border-[#B28B4E]/60 px-10 py-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#782C49] transition hover:bg-[#E9DCCB]">
+              <a href="tel:+919211877712" className="inline-flex items-center gap-3 border border-[#B28B4E]/60 px-10 py-5 text-[12px] font-semibold uppercase tracking-[0.22em] text-[#782C49] transition hover:bg-[#E9DCCB]">
                 <Phone size={15} />
                 Call Us
               </a>
@@ -195,7 +195,7 @@ export default function ContactPage() {
 
             <motion.div variants={reveal} className="mt-24 flex flex-col items-center gap-4">
               <span className="h-16 w-px bg-[#B28B4E]" />
-              <span className="text-[9px] uppercase tracking-[0.35em] text-[#987D6B]">
+              <span className="text-[11px] uppercase tracking-[0.35em] text-[#987D6B]">
                 WE WOULD LOVE TO HEAR FROM YOU
               </span>
             </motion.div>
@@ -215,7 +215,7 @@ export default function ContactPage() {
             transition={{ duration: 0.9 }}
             className="relative mx-auto max-w-5xl text-center"
           >
-            <span className="text-[10px] uppercase tracking-[0.4em] text-[#E9D1A7]">
+            <span className="text-[12px] uppercase tracking-[0.4em] text-[#E9D1A7]">
               A PERSONAL TOUCH
             </span>
 
@@ -225,7 +225,7 @@ export default function ContactPage() {
               <span className="italic text-[#E9D1A7]">A connection that matters.</span>
             </h2>
 
-            <p className="mx-auto mt-9 max-w-2xl text-sm leading-8 text-[#F5EBDD]/75 md:text-base">
+            <p className="mx-auto mt-9 max-w-2xl text-[15px] leading-8 text-[#F5EBDD]/75 md:text-base">
               At SEVOURA, we believe every detail matters. From discovering
               your favourite fragrance to receiving your order, our team is
               here to make your experience thoughtful and memorable.
@@ -243,13 +243,13 @@ export default function ContactPage() {
               variants={reveal}
               className="mb-20 text-center"
             >
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
                 CONNECT WITH SEVOURA
               </span>
               <h2 className="mt-6 font-serif text-4xl text-[#782C49] md:text-6xl">
                 We&apos;re Here for You
               </h2>
-              <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-[#766866]">
+              <p className="mx-auto mt-6 max-w-xl text-[15px] leading-8 text-[#766866]">
                 Choose the way you&apos;d like to connect. Our team is always happy to help.
               </p>
             </motion.div>
@@ -279,12 +279,12 @@ export default function ContactPage() {
                       </div>
                     </div>
 
-                    <p className="relative mt-12 text-[9px] font-semibold tracking-[0.25em] text-[#A47A55]">{card.subtitle}</p>
+                    <p className="relative mt-12 text-[11px] font-semibold tracking-[0.25em] text-[#A47A55]">{card.subtitle}</p>
                     <h3 className="relative mt-4 font-serif text-3xl text-[#782C49]">{card.title}</h3>
-                    <p className="relative mt-6 text-sm leading-8 text-[#766866]">{card.detail}</p>
+                    <p className="relative mt-6 text-[15px] leading-8 text-[#766866]">{card.detail}</p>
 
                     <div className="relative mt-auto flex items-center justify-between border-t border-[#D9C9B5] pt-7">
-                      <span className="break-all text-sm text-[#782C49]">{card.value}</span>
+                      <span className="break-all text-[15px] text-[#782C49]">{card.value}</span>
                       <ArrowUpRight size={20} className="shrink-0 text-[#B28B4E] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                     </div>
                   </motion.a>
@@ -305,7 +305,7 @@ export default function ContactPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+                <span className="text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
                   WE&apos;RE LISTENING
                 </span>
                 <h2 className="mt-7 font-serif text-5xl leading-tight text-[#782C49] md:text-7xl">
@@ -313,7 +313,7 @@ export default function ContactPage() {
                   <br />
                   We <span className="italic text-[#B28B4E]">Help You?</span>
                 </h2>
-                <p className="mt-8 max-w-md text-sm leading-8 text-[#766866]">
+                <p className="mt-8 max-w-md text-[15px] leading-8 text-[#766866]">
                   Whatever brings you here, we want to make sure you find
                   the right assistance. Explore the different ways we can help.
                 </p>
@@ -321,7 +321,7 @@ export default function ContactPage() {
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#782C49] text-[#F5EFE5]">
                     <Heart size={24} strokeWidth={1.2} />
                   </div>
-                  <p className="max-w-[220px] text-xs leading-6 text-[#766866]">
+                  <p className="max-w-[220px] text-[13px] leading-6 text-[#766866]">
                     Every enquiry matters. We&apos;re happy to hear from you.
                   </p>
                 </div>
@@ -344,8 +344,8 @@ export default function ContactPage() {
                     >
                       <Icon size={27} strokeWidth={1.3} className="text-[#A47A55] transition-transform duration-500 group-hover:scale-110" />
                       <h3 className="mt-9 font-serif text-2xl text-[#782C49]">{item.title}</h3>
-                      <p className="mt-4 text-sm leading-7 text-[#766866]">{item.text}</p>
-                      <div className="mt-8 flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#782C49]">
+                      <p className="mt-4 text-[15px] leading-7 text-[#766866]">{item.text}</p>
+                      <div className="mt-8 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#782C49]">
                         MAKE AN ENQUIRY <ArrowUpRight size={15} />
                       </div>
                     </motion.a>
@@ -366,13 +366,13 @@ export default function ContactPage() {
               variants={reveal}
               className="text-center"
             >
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
                 SIMPLE AND THOUGHTFUL
               </span>
               <h2 className="mt-6 font-serif text-4xl text-[#782C49] md:text-6xl">
                 A Better Support Experience
               </h2>
-              <p className="mx-auto mt-6 max-w-xl text-sm leading-8 text-[#766866]">
+              <p className="mx-auto mt-6 max-w-xl text-[15px] leading-8 text-[#766866]">
                 Connecting with SEVOURA is simple. Here&apos;s how our support journey works.
               </p>
             </motion.div>
@@ -393,7 +393,7 @@ export default function ContactPage() {
                     <Ornament size={22} />
                   </div>
                   <h3 className="mt-10 font-serif text-3xl text-[#782C49]">{step.title}</h3>
-                  <p className="mx-auto mt-5 max-w-xs text-sm leading-8 text-[#766866]">{step.text}</p>
+                  <p className="mx-auto mt-5 max-w-xs text-[15px] leading-8 text-[#766866]">{step.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -410,7 +410,7 @@ export default function ContactPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#E9D1A7]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.4em] text-[#E9D1A7]">
                 CUSTOMER CARE
               </span>
 
@@ -420,7 +420,7 @@ export default function ContactPage() {
                 <span className="italic text-[#E9D1A7]">every day.</span>
               </h2>
 
-              <p className="mt-9 max-w-lg text-sm leading-8 text-[#F5EBDD]/75">
+              <p className="mt-9 max-w-lg text-[15px] leading-8 text-[#F5EBDD]/75">
                 Have a question about your order or need help discovering
                 your SEVOURA ritual? Our customer support team is here to
                 make things easier.
@@ -430,7 +430,7 @@ export default function ContactPage() {
                 <ShieldCheck size={30} className="shrink-0 text-[#E9D1A7]" />
                 <div>
                   <h3 className="font-serif text-2xl">We&apos;re listening.</h3>
-                  <p className="mt-2 text-sm leading-7 text-[#F5EBDD]/70">
+                  <p className="mt-2 text-[15px] leading-7 text-[#F5EBDD]/70">
                     We aim to respond to all enquiries within 1–2 business days.
                   </p>
                 </div>
@@ -447,18 +447,18 @@ export default function ContactPage() {
               <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full border border-[#E9D1A7]/20" />
               <div className="relative">
                 <Clock size={28} className="text-[#E9D1A7]" />
-                <p className="mt-8 text-[10px] uppercase tracking-[0.3em] text-[#E9D1A7]">
+                <p className="mt-8 text-[12px] uppercase tracking-[0.3em] text-[#E9D1A7]">
                   CUSTOMER SUPPORT HOURS
                 </p>
                 <h3 className="mt-8 font-serif text-4xl md:text-5xl">We&apos;re Available</h3>
-                <p className="mt-5 text-sm text-[#F5EBDD]/70">Monday through Sunday</p>
+                <p className="mt-5 text-[15px] text-[#F5EBDD]/70">Monday through Sunday</p>
                 <div className="my-10 h-px bg-[#E9D1A7]/30" />
-                <p className="text-[10px] uppercase tracking-[0.25em] text-[#E9D1A7]">
+                <p className="text-[12px] uppercase tracking-[0.25em] text-[#E9D1A7]">
                   OUR WORKING HOURS
                 </p>
                 <p className="mt-5 font-serif text-3xl md:text-4xl">10:00 AM – 6:00 PM</p>
-                <p className="mt-4 text-xs tracking-[0.2em] text-[#E9D1A7]">INDIAN STANDARD TIME · IST</p>
-                <a href="mailto:hello@sevoura.com" className="mt-12 inline-flex items-center gap-3 border-b border-[#E9D1A7] pb-3 text-[10px] uppercase tracking-[0.2em]">
+                <p className="mt-4 text-[13px] tracking-[0.2em] text-[#E9D1A7]">INDIAN STANDARD TIME · IST</p>
+                <a href="mailto:hello@sevoura.com" className="mt-12 inline-flex items-center gap-3 border-b border-[#E9D1A7] pb-3 text-[12px] uppercase tracking-[0.2em]">
                   EMAIL OUR TEAM <ArrowUpRight size={16} />
                 </a>
               </div>
@@ -475,7 +475,7 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
                 NEED A LITTLE HELP?
               </span>
               <h2 className="mt-7 font-serif text-5xl leading-tight text-[#782C49] md:text-7xl">
@@ -483,11 +483,11 @@ export default function ContactPage() {
                 <br />
                 Asked <span className="italic text-[#B28B4E]">Questions.</span>
               </h2>
-              <p className="mt-8 max-w-sm text-sm leading-8 text-[#766866]">
+              <p className="mt-8 max-w-sm text-[15px] leading-8 text-[#766866]">
                 Find answers to some common questions about reaching
                 our team and getting assistance.
               </p>
-              <a href="mailto:hello@sevoura.com" className="mt-10 inline-flex items-center gap-3 border-b border-[#B28B4E] pb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#782C49]">
+              <a href="mailto:hello@sevoura.com" className="mt-10 inline-flex items-center gap-3 border-b border-[#B28B4E] pb-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#782C49]">
                 STILL HAVE QUESTIONS? <ArrowUpRight size={16} />
               </a>
             </motion.div>
@@ -527,7 +527,7 @@ export default function ContactPage() {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <p className="max-w-2xl pb-7 pr-12 text-sm leading-8 text-[#766866]">
+                        <p className="max-w-2xl pb-7 pr-12 text-[15px] leading-8 text-[#766866]">
                           {faq.a}
                         </p>
                       </motion.div>
@@ -549,13 +549,13 @@ export default function ContactPage() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.4em] text-[#A47A55]">
                 BE PART OF OUR WORLD
               </span>
               <h2 className="mt-7 font-serif text-5xl text-[#782C49] md:text-7xl">
                 Beyond the Fragrance
               </h2>
-              <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-[#766866]">
+              <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-8 text-[#766866]">
                 Discover the stories, rituals and inspiration behind SEVOURA.
                 Follow our journey and explore a different perspective on fragrance.
               </p>
@@ -572,14 +572,14 @@ export default function ContactPage() {
                 <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full border border-[#B28B4E]/30" />
                 <div className="relative">
                   <Camera size={38} strokeWidth={1.2} className="text-[#782C49]" />
-                  <p className="mt-12 text-[10px] uppercase tracking-[0.3em] text-[#A47A55]">FOLLOW OUR JOURNEY</p>
+                  <p className="mt-12 text-[12px] uppercase tracking-[0.3em] text-[#A47A55]">FOLLOW OUR JOURNEY</p>
                   <h3 className="mt-5 font-serif text-5xl text-[#782C49]">Instagram</h3>
-                  <p className="mt-7 max-w-sm text-sm leading-8 text-[#766866]">
+                  <p className="mt-7 max-w-sm text-[15px] leading-8 text-[#766866]">
                     New launches, collection stories, fragrance rituals,
                     behind-the-scenes moments, styling, gifting and community stories.
                   </p>
                   <p className="mt-10 font-serif text-2xl text-[#782C49]">@SEVOURA</p>
-                  <a href="mailto:hello@sevoura.com?subject=Instagram%20Enquiry" className="mt-10 inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#782C49]">
+                  <a href="mailto:hello@sevoura.com?subject=Instagram%20Enquiry" className="mt-10 inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#782C49]">
                     CONNECT WITH US <ArrowUpRight size={17} />
                   </a>
                 </div>
@@ -595,15 +595,15 @@ export default function ContactPage() {
                 <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full border border-[#E9D1A7]/20" />
                 <div className="relative">
                   <PlayCircle size={42} strokeWidth={1.2} className="text-[#E9D1A7]" />
-                  <p className="mt-12 text-[10px] uppercase tracking-[0.3em] text-[#E9D1A7]">EXPLORE OUR STORIES</p>
+                  <p className="mt-12 text-[12px] uppercase tracking-[0.3em] text-[#E9D1A7]">EXPLORE OUR STORIES</p>
                   <h3 className="mt-5 font-serif text-5xl">YouTube</h3>
-                  <p className="mt-7 max-w-sm text-sm leading-8 text-[#F5EBDD]/75">
+                  <p className="mt-7 max-w-sm text-[15px] leading-8 text-[#F5EBDD]/75">
                     Step into the world of SEVOURA. Explore our Seven-Day
                     Planetary Blend Collection, fragrance rituals,
                     inspiration and philosophy.
                   </p>
                   <p className="mt-10 font-serif text-2xl text-[#E9D1A7]">SEVOURA</p>
-                  <a href="mailto:hello@sevoura.com?subject=YouTube%20Enquiry" className="mt-10 inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E9D1A7]">
+                  <a href="mailto:hello@sevoura.com?subject=YouTube%20Enquiry" className="mt-10 inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#E9D1A7]">
                     DISCOVER SEVOURA <ArrowUpRight size={17} />
                   </a>
                 </div>
@@ -627,18 +627,18 @@ export default function ContactPage() {
 
             <div className="relative z-10">
               <LockKeyhole size={38} strokeWidth={1} className="mx-auto text-[#E9D1A7]" />
-              <p className="mt-9 text-[10px] uppercase tracking-[0.4em] text-[#E9D1A7]">
+              <p className="mt-9 text-[12px] uppercase tracking-[0.4em] text-[#E9D1A7]">
                 YOUR TRUST MATTERS
               </p>
               <h2 className="mx-auto mt-7 max-w-3xl font-serif text-4xl leading-tight md:text-6xl">
                 Every connection deserves
                 <span className="italic text-[#E9D1A7]"> care and attention.</span>
               </h2>
-              <p className="mx-auto mt-8 max-w-xl text-sm leading-8 text-[#F5EBDD]/75">
+              <p className="mx-auto mt-8 max-w-xl text-[15px] leading-8 text-[#F5EBDD]/75">
                 We are committed to making every interaction with SEVOURA
                 thoughtful, respectful and helpful.
               </p>
-              <a href="/privacy-policy" className="mt-10 inline-flex items-center gap-3 border border-[#E9D1A7]/60 px-9 py-4 text-[10px] uppercase tracking-[0.2em] text-[#E9D1A7] transition hover:bg-[#E9D1A7] hover:text-[#782C49]">
+              <a href="/privacy-policy" className="mt-10 inline-flex items-center gap-3 border border-[#E9D1A7]/60 px-9 py-4 text-[12px] uppercase tracking-[0.2em] text-[#E9D1A7] transition hover:bg-[#E9D1A7] hover:text-[#782C49]">
                 READ OUR PRIVACY POLICY <ArrowUpRight size={15} />
               </a>
             </div>
@@ -659,7 +659,7 @@ export default function ContactPage() {
             <div className="relative z-10">
               <Send size={34} strokeWidth={1} className="mx-auto text-[#A47A55]" />
 
-              <p className="mt-9 text-[10px] uppercase tracking-[0.4em] text-[#A47A55]">
+              <p className="mt-9 text-[12px] uppercase tracking-[0.4em] text-[#A47A55]">
                 EVERY CONVERSATION MATTERS
               </p>
 
@@ -669,12 +669,12 @@ export default function ContactPage() {
                 <span className="italic text-[#B28B4E]">hearing from you.</span>
               </h2>
 
-              <p className="mx-auto mt-8 max-w-xl text-sm leading-8 text-[#766866]">
+              <p className="mx-auto mt-8 max-w-xl text-[15px] leading-8 text-[#766866]">
                 Have something on your mind? Reach out to our team.
                 We&apos;d love to be a part of your SEVOURA journey.
               </p>
 
-              <a href="mailto:hello@sevoura.com" className="group mt-12 inline-flex items-center gap-4 bg-[#782C49] px-11 py-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">
+              <a href="mailto:hello@sevoura.com" className="group mt-12 inline-flex items-center gap-4 bg-[#782C49] px-11 py-6 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE5] transition-all duration-500 hover:bg-[#5D2037] hover:shadow-xl">
                 hello@sevoura.com
                 <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>

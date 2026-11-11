@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
@@ -10,7 +11,6 @@ import { useGSAP } from "@gsap/react";
 import { ArrowRight, ArrowUpRight, Droplets, Layers, Truck } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
 import Magnetic from "./Magnetic";
-import ScentArt from "./ScentArt";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -43,6 +43,8 @@ const SILK = [
     dur: 10,
   },
 ];
+/* the real product photographs (thursday.jpg shows the Sunday bottle, so it is left out) */
+const GALLERY = ["monday", "tuesday", "wednesday", "friday", "saturday", "sunday"].map((d) => `/images/${d}.jpg`);
 const closed = (d: string) => `${d} L1440 320 L0 320 Z`;
 const SPLINE = { calcMode: "spline", keyTimes: "0;0.5;1", keySplines: ".45 0 .55 1;.45 0 .55 1" } as const;
 
@@ -55,7 +57,7 @@ export default function Hero({ ready }: { ready: boolean }) {
   const [hover, setHover] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
   const shown = hover ?? active;
-  const blend = SEVEN[shown];
+  const [slide, setSlide] = useState(0);
 
   useEffect(() => {
     if (reduce) silk.current?.pauseAnimations();
@@ -76,6 +78,13 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => clearInterval(id);
   }, [ready, locked, reduce, hover]);
 
+  /* the product gallery crossfades slowly */
+  useEffect(() => {
+    if (!ready || reduce) return;
+    const id = setInterval(() => setSlide((v) => (v + 1) % GALLERY.length), 6000);
+    return () => clearInterval(id);
+  }, [ready, reduce]);
+
   /* pointer parallax: three depths */
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -95,11 +104,9 @@ export default function Hero({ ready }: { ready: boolean }) {
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const split = SplitText.create(".hero-title", { type: "lines,words", mask: "lines", linesClass: "pb-[0.06em]" });
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-        tl.from(".hero-eyebrow", { y: 16, autoAlpha: 0, duration: 0.9 })
-          .from(split.words, { yPercent: 110, duration: 1.25, stagger: 0.12 }, "-=0.6")
+        tl.from(split.words, { yPercent: 110, duration: 1.25, stagger: 0.12 }, 0.1)
           .from(".hero-copy > *", { y: 22, autoAlpha: 0, duration: 0.9, stagger: 0.09 }, "-=0.9")
-          .from(".hero-art", { scale: 0.9, autoAlpha: 0, y: 40, duration: 2.2 }, 0.1)
-          .from(".hero-card", { y: 24, autoAlpha: 0, duration: 1.1 }, 1.2)
+          .from(".hero-art", { autoAlpha: 0, y: 40, duration: 2.2 }, 0.1)
           .from(".hero-silk", { yPercent: 40, autoAlpha: 0, duration: 1.8 }, 0.3)
           .from(".hero-week > *", { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.05 }, 1.1);
         return () => split.revert();
@@ -175,13 +182,10 @@ export default function Hero({ ready }: { ready: boolean }) {
         ))}
       </svg>
 
-      <div className="mx-auto grid min-h-[calc(100svh-78px-104px)] max-w-[1440px] items-center gap-4 px-6 pb-10 pt-14 md:px-12 lg:grid-cols-[1fr_1.05fr] lg:gap-6 lg:px-16 lg:pb-6 lg:pt-8">
+      <div className="mx-auto grid min-h-[calc(100svh-78px-104px)] max-w-[1440px] items-center gap-14 px-6 pb-20 pt-14 md:px-12 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:px-16 lg:pb-16 lg:pt-12">
         {/* COPY */}
         <div className="hero-copy-wrap hero-anim relative z-10">
-          <p className="hero-eyebrow flex items-center gap-3 text-[10px] tracking-[0.32em] text-[#D6A64F]">
-            <span className="h-px w-8 bg-[#D6A64F]" /> ALCOHOL-FREE FRAGRANCE BLENDS
-          </p>
-          <h1 className="hero-title mt-7 font-display text-[clamp(3.8rem,9.2vw,9rem)] font-medium leading-[0.9] tracking-[-0.015em] text-[#F7F0E6]">
+          <h1 className="hero-title font-display text-[clamp(3.8rem,9.2vw,9rem)] font-medium leading-[0.9] tracking-[-0.015em] text-[#F7F0E6]">
             Cleanse.
             <br />
             Elevate.
@@ -196,7 +200,7 @@ export default function Hero({ ready }: { ready: boolean }) {
               <Magnetic>
                 <Link
                   href="/shop"
-                  className="sev-shine group inline-flex items-center gap-5 rounded-full bg-[#D6A64F] px-9 py-[18px] text-[11px] font-semibold tracking-[0.18em] text-[#26000D] shadow-[0_18px_44px_rgba(214,166,79,.28)] transition-colors duration-500 hover:bg-[#F0D69A]"
+                  className="sev-shine group inline-flex items-center gap-5 bg-[#D6A64F] px-9 py-[18px] text-[13px] font-semibold tracking-[0.18em] text-[#26000D] shadow-[0_18px_44px_rgba(214,166,79,.28)] transition-colors duration-500 hover:bg-[#F0D69A]"
                 >
                   SHOP THE COLLECTION
                   <ArrowRight size={16} className="transition-transform duration-500 group-hover:translate-x-1" />
@@ -204,7 +208,7 @@ export default function Hero({ ready }: { ready: boolean }) {
               </Magnetic>
               <Link
                 href="/the-seven"
-                className="group inline-flex items-center gap-3 rounded-full border border-[#D6A64F]/45 px-7 py-[17px] text-[11px] font-medium tracking-[0.18em] text-[#F0D69A] transition-colors duration-500 hover:border-[#F0D69A] hover:bg-[#F0D69A]/10"
+                className="group inline-flex items-center gap-3 border border-[#D6A64F]/45 px-7 py-[17px] text-[13px] font-medium tracking-[0.18em] text-[#F0D69A] transition-colors duration-500 hover:border-[#F0D69A] hover:bg-[#F0D69A]/10"
               >
                 EXPLORE THE BLENDS
                 <ArrowUpRight size={15} className="transition-transform duration-500 group-hover:rotate-45" />
@@ -220,33 +224,76 @@ export default function Hero({ ready }: { ready: boolean }) {
                   <span className="flex items-center gap-2 font-display text-3xl leading-none text-[#F6E6C4]">
                     <f.icon size={15} strokeWidth={1.5} className="text-[#D6A64F]" /> {f.k}
                   </span>
-                  <span className="text-[11px] leading-4 text-[#CDB3A6]">{f.v}</span>
+                  <span className="text-[13px] leading-4 text-[#CDB3A6]">{f.v}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* VISUAL — seven scent worlds */}
-        <div className="hero-visual hero-anim pointer-events-none absolute right-[-48%] top-6 -z-[1] w-[128vw] max-w-[780px] opacity-[0.4] sm:right-[-30%] sm:w-[96vw] md:opacity-55 lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:z-auto lg:mx-auto lg:-mr-10 lg:w-full lg:max-w-[min(52vw,780px)] lg:opacity-100">
-          <div className="hero-art aspect-square w-full">
-            <ScentArt day={blend.day} fragrance={blend.fragrance} notes={blend.notes} back={{ x: backX, y: backY }} mid={{ x: midX, y: midY }} front={{ x: frontX, y: frontY }} />
-          </div>
-          {/* the selected blend */}
-          <div className="hero-card absolute bottom-[3%] left-[-4%] hidden w-[250px] border border-[#D6A64F]/35 bg-[#26000D]/55 p-5 shadow-[0_24px_60px_-24px_rgba(0,0,0,.6)] backdrop-blur-md lg:block">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={blend.day} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.45, ease: "easeOut" }}>
-                <p className="text-[9px] tracking-[0.3em] text-[#D6A64F]">
-                  {blend.day.toUpperCase()}
-                  {shown === today && " · TODAY"}
-                </p>
-                <p className="mt-2 font-display text-[34px] leading-none text-[#F7F0E6]">{blend.fragrance}</p>
-                <p className="mt-2 text-[11px] tracking-[0.04em] text-[#E2CBB8]">{blend.notes}</p>
-              </motion.div>
-            </AnimatePresence>
-            <Link href="/the-seven" className="group mt-4 inline-flex items-center gap-2 text-[9px] tracking-[0.26em] text-[#F0D69A] transition-colors hover:text-[#F7F0E6]">
-              DISCOVER THE BLEND <ArrowUpRight size={12} className="transition-transform duration-300 group-hover:rotate-45" />
-            </Link>
+        {/* VISUAL — an editorial composition of the real SEVOURA bottles */}
+        <div className="hero-visual hero-anim relative mx-auto w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[520px]">
+          <div className="hero-art relative aspect-[4/5] w-full">
+            {/* gold orbit behind the frames */}
+            <motion.svg aria-hidden viewBox="0 0 400 400" style={{ x: backX, y: backY }} className="absolute -left-[14%] top-[2%] w-[128%] text-[#D6A64F]">
+              <circle cx="200" cy="200" r="196" fill="none" stroke="currentColor" strokeOpacity=".22" strokeWidth=".6" />
+              <circle cx="200" cy="200" r="172" fill="none" stroke="currentColor" strokeOpacity=".12" strokeWidth=".6" strokeDasharray="1 5" />
+              <circle cx="200" cy="4" r="2.4" fill="currentColor" fillOpacity=".7" />
+            </motion.svg>
+
+            {/* secondary frame, offset behind */}
+            <motion.div style={{ x: midX, y: midY }} className="absolute right-0 top-0 h-[78%] w-[62%] border border-[#D6A64F]/40 p-2">
+              <div className="relative h-full w-full overflow-hidden bg-[#3A0A1C]">
+                <AnimatePresence initial={false}>
+                  <motion.div key={(slide + 2) % GALLERY.length} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.8, ease: "easeInOut" }} className="absolute inset-0">
+                    <Image src={GALLERY[(slide + 2) % GALLERY.length]} alt="" fill sizes="(min-width:1024px) 320px, 60vw" className="object-cover object-[50%_55%] opacity-70 saturate-[.85]" />
+                  </motion.div>
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(38,0,13,.25),rgba(38,0,13,.75))]" />
+              </div>
+            </motion.div>
+
+            {/* main arched frame */}
+            <motion.div style={{ x: frontX, y: frontY }} className="absolute bottom-0 left-0 h-[86%] w-[68%]">
+              <div className="relative h-full w-full rounded-t-[999px] border border-[#D6A64F]/70 p-2.5 shadow-[0_40px_90px_-30px_rgba(0,0,0,.75)]">
+                <div className="relative h-full w-full overflow-hidden rounded-t-[999px] bg-[#3A0A1C]">
+                  <AnimatePresence initial={false}>
+                    <motion.div
+                      key={slide}
+                      initial={{ opacity: 0, scale: 1.06 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ opacity: { duration: 1.6, ease: "easeInOut" }, scale: { duration: 7, ease: "linear" } }}
+                      className="absolute inset-0"
+                    >
+                      <Image src={GALLERY[slide]} alt="A SEVOURA alcohol-free fragrance blend" fill priority={slide === 0} sizes="(min-width:1024px) 360px, 70vw" className="object-cover object-[50%_58%]" />
+                    </motion.div>
+                  </AnimatePresence>
+                  {/* warm burgundy grade so the photographs sit inside the brand palette */}
+                  <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_45%,transparent_40%,rgba(38,0,13,.55)_100%)]" />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(0deg,rgba(38,0,13,.7),transparent)]" />
+                </div>
+              </div>
+              {/* slide indicator */}
+              <div className="absolute -bottom-8 left-0 flex gap-2" aria-hidden>
+                {GALLERY.map((g, i) => (
+                  <span key={g} className={`h-px transition-all duration-700 ${i === slide ? "w-8 bg-[#F0D69A]" : "w-3 bg-[#D6A64F]/35"}`} />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* small gold seal */}
+            <motion.div style={{ x: midX, y: midY }} aria-hidden className="absolute bottom-[10%] right-[6%] flex h-20 w-20 items-center justify-center rounded-full border border-[#D6A64F]/60 bg-[#26000D]/60 backdrop-blur-sm sm:h-24 sm:w-24">
+              <span className="font-display text-[30px] italic leading-none text-[#F0D69A] sm:text-[36px]">7</span>
+              <svg viewBox="0 0 100 100" className="sev-rotate absolute inset-1.5 text-[#D6A64F]">
+                <defs>
+                  <path id="seal-path" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" />
+                </defs>
+                <text fontSize="8.5" letterSpacing="3.2" fill="currentColor">
+                  <textPath href="#seal-path">SEVEN DAYS · SEVEN BLENDS ·</textPath>
+                </text>
+              </svg>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -254,7 +301,7 @@ export default function Hero({ ready }: { ready: boolean }) {
       {/* Seven scent worlds — choose a day */}
       <div className="hero-anim relative border-t border-[#D6A64F]/20 bg-[#26000D]/60 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1440px] items-stretch overflow-x-auto px-6 [scrollbar-width:none] md:px-12 lg:px-16 [&::-webkit-scrollbar]:hidden">
-          <p className="hidden shrink-0 items-center pr-8 text-[9px] leading-4 tracking-[0.3em] text-[#D6A64F] lg:flex">
+          <p className="hidden shrink-0 items-center pr-8 text-[11px] leading-4 tracking-[0.3em] text-[#D6A64F] lg:flex">
             SEVEN
             <br />
             SCENT WORLDS
@@ -277,12 +324,12 @@ export default function Hero({ ready }: { ready: boolean }) {
                   }}
                   className={`group relative flex flex-col items-start gap-1 border-l border-[#D6A64F]/15 px-4 py-5 text-left transition-colors duration-500 ${on ? "bg-[#F0D69A]/[0.09]" : "hover:bg-[#F0D69A]/[0.05]"}`}
                 >
-                  <span className={`text-[9px] tracking-[0.26em] transition-colors duration-500 ${on ? "text-[#F0D69A]" : "text-[#B9925A]"}`}>
+                  <span className={`text-[11px] tracking-[0.26em] transition-colors duration-500 ${on ? "text-[#F0D69A]" : "text-[#B9925A]"}`}>
                     {s.day.toUpperCase()}
                     {i === today && <span className="text-[#D6A64F]"> · TODAY</span>}
                   </span>
                   <span className={`font-display text-xl leading-tight transition-colors duration-500 ${on ? "text-[#F7F0E6]" : "text-[#E2CBB8]/80"}`}>{s.fragrance}</span>
-                  <span className="max-w-full truncate text-[10px] text-[#BFA295]">{s.notes}</span>
+                  <span className="max-w-full truncate text-[12px] text-[#BFA295]">{s.notes}</span>
                   <span className={`absolute inset-x-0 bottom-0 h-[2px] origin-left bg-[#D6A64F] transition-transform duration-700 ${on ? "scale-x-100" : "scale-x-0"}`} />
                 </button>
               );

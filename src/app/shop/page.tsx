@@ -200,7 +200,7 @@ export default function ShopPage() {
           >
             <motion.p
               variants={reveal}
-              className="mb-8 text-[10px] font-semibold tracking-[0.32em] text-[#A57C43]"
+              className="mb-8 text-[12px] font-semibold tracking-[0.32em] text-[#A57C43]"
             >
               SEVOURA · THE COMPLETE COLLECTION
             </motion.p>
@@ -228,7 +228,7 @@ export default function ShopPage() {
 
             <motion.p
               variants={reveal}
-              className="mt-5 max-w-[450px] text-sm leading-7 text-[#806D60]"
+              className="mt-5 max-w-[450px] text-[15px] leading-7 text-[#806D60]"
             >
               Discover the SEVOURA 7-Day Planetary Blend Collection —
               a thoughtful interpretation of traditional planetary
@@ -241,21 +241,21 @@ export default function ShopPage() {
                 <span className="font-serif text-4xl text-[#762C49]">
                   <LivePrice fallback="₹1,799" />
                 </span>
-                <span className="pb-1 text-sm text-[#9C8B7A] line-through">
+                <span className="pb-1 text-[15px] text-[#9C8B7A] line-through">
                   <LivePrice fallback="₹2,499" kind="mrp" />
                 </span>
               </div>
-              <p className="mt-2 text-[11px] tracking-wide text-[#806D60]">
+              <p className="mt-2 text-[13px] tracking-wide text-[#806D60]">
                 7 × 4 ml alcohol-free fragrance blends
               </p>
               <div className="mt-5 inline-flex flex-wrap items-center gap-3 border border-[#B98A4B]/60 bg-[#F0E1CD] px-4 py-3">
-                <span className="bg-[#702943] px-3 py-2 text-[10px] font-bold tracking-[0.18em] text-white">
+                <span className="bg-[#702943] px-3 py-2 text-[12px] font-bold tracking-[0.18em] text-white">
                   FESTIVE OFFER
                 </span>
-                <span className="text-sm font-semibold text-[#702943]">SAVE <LivePrice fallback="₹700" kind="saving" /></span>
-                <span className="text-xs text-[#806D60]">Limited-period collection price</span>
+                <span className="text-[15px] font-semibold text-[#702943]">SAVE <LivePrice fallback="₹700" kind="saving" /></span>
+                <span className="text-[13px] text-[#806D60]">Limited-period collection price</span>
               </div>
-              <p className="mt-1 text-[10px] tracking-[0.15em] text-[#A57C43]">
+              <p className="mt-1 text-[12px] tracking-[0.15em] text-[#A57C43]">
                 PREPAID · FREE SHIPPING
               </p>
             </motion.div>
@@ -264,7 +264,7 @@ export default function ShopPage() {
               variants={reveal}
               className="mt-8 flex flex-wrap gap-3"
             >
-              <AddToCartButton className="group inline-flex items-center gap-5 bg-[#702943] px-7 py-4 text-[10px] font-bold tracking-[0.2em] text-[#FFF8EC] transition-all duration-300 hover:bg-[#4D1B30]">
+              <AddToCartButton className="group inline-flex items-center gap-5 bg-[#702943] px-7 py-4 text-[12px] font-bold tracking-[0.2em] text-[#FFF8EC] transition-all duration-300 hover:bg-[#4D1B30]">
                 ADD TO BAG
                 <ArrowRight
                   size={16}
@@ -274,7 +274,7 @@ export default function ShopPage() {
 
               <Link
                 href="/the-seven"
-                className="inline-flex items-center gap-4 border border-[#702943]/50 px-7 py-4 text-[10px] font-bold tracking-[0.2em] transition-all duration-300 hover:bg-[#702943] hover:text-white"
+                className="inline-flex items-center gap-4 border border-[#702943]/50 px-7 py-4 text-[12px] font-bold tracking-[0.2em] transition-all duration-300 hover:bg-[#702943] hover:text-white"
               >
                 DISCOVER THE SEVEN
               </Link>
@@ -282,7 +282,7 @@ export default function ShopPage() {
 
             <motion.p
               variants={reveal}
-              className="mt-6 text-[9px] leading-5 text-[#9A8777]"
+              className="mt-6 text-[11px] leading-5 text-[#9A8777]"
             >
               Limited introductory pricing · Secure online payment
             </motion.p>
@@ -322,7 +322,7 @@ export default function ShopPage() {
             >
               <div className="text-center">
                 <Sparkles className="mx-auto text-[#A77B42]" size={23} />
-                <p className="mt-1 text-[8px] tracking-[0.15em]">SEVEN DAYS</p>
+                <p className="mt-1 text-[10px] tracking-[0.15em]">SEVEN DAYS</p>
               </div>
             </motion.div>
           </motion.div>
@@ -342,7 +342,7 @@ export default function ShopPage() {
             className="grid gap-12 lg:grid-cols-2 lg:gap-24"
           >
             <div>
-              <p className="mb-5 text-[10px] font-semibold tracking-[0.3em] text-[#A57C43]">
+              <p className="mb-5 text-[12px] font-semibold tracking-[0.3em] text-[#A57C43]">
                 INSIDE YOUR COLLECTION
               </p>
               <h2 className="max-w-[570px] font-serif text-5xl leading-[1.1] md:text-6xl">
@@ -360,7 +360,7 @@ export default function ShopPage() {
                 explored as a whole — with a fragrance blend for each
                 day and a story behind every expression.
               </p>
-              <p className="mt-5 text-sm leading-7 text-[#8A7669]">
+              <p className="mt-5 text-[15px] leading-7 text-[#8A7669]">
                 A thoughtful way to make fragrance part of your everyday
                 routine, with seven distinctive compositions to discover.
               </p>
@@ -388,7 +388,7 @@ export default function ShopPage() {
                 <span className="font-serif text-2xl text-[#B38A4C]">
                   ✦
                 </span>
-                <p className="mt-4 text-sm leading-6 text-[#624A46]">
+                <p className="mt-4 text-[15px] leading-6 text-[#624A46]">
                   {item}
                 </p>
               </motion.div>
@@ -407,7 +407,7 @@ export default function ShopPage() {
             viewport={{ once: true }}
             className="mb-16 text-center"
           >
-            <p className="text-[10px] tracking-[0.35em] text-[#D8B77D]">
+            <p className="text-[12px] tracking-[0.35em] text-[#D8B77D]">
               THE SEVOURA DIFFERENCE
             </p>
             <h2 className="mt-5 font-serif text-5xl md:text-6xl">
@@ -438,7 +438,7 @@ export default function ShopPage() {
                   <h3 className="mt-8 font-serif text-2xl">
                     {benefit.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-[#D9C5B6]">
+                  <p className="mt-4 text-[15px] leading-7 text-[#D9C5B6]">
                     {benefit.text}
                   </p>
                 </motion.div>
@@ -458,13 +458,13 @@ export default function ShopPage() {
             viewport={{ once: true }}
             className="mx-auto mb-16 max-w-2xl text-center"
           >
-            <p className="text-[10px] font-semibold tracking-[0.32em] text-[#A57C43]">
+            <p className="text-[12px] font-semibold tracking-[0.32em] text-[#A57C43]">
               SEVEN DAYS · SEVEN EXPRESSIONS
             </p>
             <h2 className="mt-5 font-serif text-5xl md:text-6xl">
               Meet your <span className="italic text-[#762C49]">seven.</span>
             </h2>
-            <p className="mt-5 text-sm leading-7 text-[#806D60]">
+            <p className="mt-5 text-[15px] leading-7 text-[#806D60]">
               Explore the fragrance identity associated with each day.
               Every blend brings its own notes, character and intention.
             </p>
@@ -485,7 +485,7 @@ export default function ShopPage() {
                 className="group overflow-hidden border border-[#D8C5A7] bg-[#FCF7EE] shadow-[0_8px_30px_rgba(71,35,39,0.05)] transition-all duration-500 hover:shadow-[0_24px_55px_rgba(71,35,39,0.15)]"
               >
                 <div className="relative overflow-hidden bg-[#E9DFD1] p-5">
-                  <div className="absolute left-4 top-4 z-10 bg-[#702943] px-3 py-2 text-[9px] font-bold tracking-[0.2em] text-white">
+                  <div className="absolute left-4 top-4 z-10 bg-[#702943] px-3 py-2 text-[11px] font-bold tracking-[0.2em] text-white">
                     {blend.day}
                   </div>
                   <motion.div
@@ -501,29 +501,29 @@ export default function ShopPage() {
                       className="object-contain drop-shadow-[0_18px_18px_rgba(50,30,25,0.16)]"
                     />
                   </motion.div>
-                  <div className="pointer-events-none absolute bottom-4 right-4 rounded-full border border-white/70 bg-[#FBF5E9]/85 px-3 py-2 text-[9px] tracking-[0.18em] text-[#702943]">
+                  <div className="pointer-events-none absolute bottom-4 right-4 border border-white/70 bg-[#FBF5E9]/85 px-3 py-2 text-[11px] tracking-[0.18em] text-[#702943]">
                     4 ML
                   </div>
                 </div>
                 <div className="p-7">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">{blend.day.toUpperCase()} BLEND</p>
+                    <p className="text-[11px] font-bold tracking-[0.24em] text-[#A57C43]">{blend.day.toUpperCase()} BLEND</p>
                     <span className="h-px flex-1 bg-[#D8C5A7]" />
-                    <span className="text-[10px] text-[#9A8777]">{blend.planet}</span>
+                    <span className="text-[12px] text-[#9A8777]">{blend.planet}</span>
                   </div>
                   <h3 className="mt-4 font-serif text-3xl text-[#481D30]">{blend.fragrance}</h3>
-                  <p className="mt-2 text-xs leading-6 text-[#806D60]">{blend.notes}</p>
+                  <p className="mt-2 text-[13px] leading-6 text-[#806D60]">{blend.notes}</p>
                   <div className="mt-5 border-y border-[#E2D4C1] py-4">
-                    <p className="text-[9px] font-bold tracking-[0.2em] text-[#A57C43]">THE INSPIRATION</p>
-                    <p className="mt-2 text-sm font-medium leading-6 text-[#642B40]">{blend.intention}</p>
+                    <p className="text-[11px] font-bold tracking-[0.2em] text-[#A57C43]">THE INSPIRATION</p>
+                    <p className="mt-2 text-[15px] font-medium leading-6 text-[#642B40]">{blend.intention}</p>
                   </div>
-                  <p className="mt-5 text-sm leading-7 text-[#806D60]">{blend.description}</p>
+                  <p className="mt-5 text-[15px] leading-7 text-[#806D60]">{blend.description}</p>
                   <div className="mt-6 flex items-center justify-between border-t border-[#E2D4C1] pt-5">
                     <div>
-                      <p className="text-[9px] tracking-[0.18em] text-[#9A8777]">PART OF THE SEVEN</p>
+                      <p className="text-[11px] tracking-[0.18em] text-[#9A8777]">PART OF THE SEVEN</p>
                       <p className="mt-1 font-serif text-lg text-[#762C49]">7-Day Collection</p>
                     </div>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#CDB994] font-serif text-sm text-[#762C49] transition-all duration-300 group-hover:bg-[#702943] group-hover:text-white">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#CDB994] font-serif text-[15px] text-[#762C49] transition-all duration-300 group-hover:bg-[#702943] group-hover:text-white">
                       <Ornament size={13} />
                     </span>
                   </div>
@@ -535,7 +535,7 @@ export default function ShopPage() {
           <div className="mt-14 text-center">
             <Link
               href="/the-seven"
-              className="group inline-flex items-center gap-4 border-b border-[#762C49] pb-2 text-[10px] font-bold tracking-[0.2em] text-[#762C49]"
+              className="group inline-flex items-center gap-4 border-b border-[#762C49] pb-2 text-[12px] font-bold tracking-[0.2em] text-[#762C49]"
             >
               EXPLORE THE SEVEN IN DETAIL
               <ArrowRight
@@ -584,7 +584,7 @@ export default function ShopPage() {
           >
             <motion.p
               variants={reveal}
-              className="text-[10px] font-bold tracking-[0.3em] text-[#E4C58D]"
+              className="text-[12px] font-bold tracking-[0.3em] text-[#E4C58D]"
             >
               THE COMPLETE SEVEN-DAY EXPERIENCE
             </motion.p>
@@ -602,7 +602,7 @@ export default function ShopPage() {
 
             <motion.p
               variants={reveal}
-              className="mt-7 max-w-lg text-sm leading-7 text-[#E8D8CC]"
+              className="mt-7 max-w-lg text-[15px] leading-7 text-[#E8D8CC]"
             >
               Discover the SEVOURA 7-Day Planetary Blend Collection.
               Seven fragrance expressions, thoughtfully brought together.
@@ -613,7 +613,7 @@ export default function ShopPage() {
               className="my-9 border-y border-[#D7B77E]/40 py-6"
             >
               <p className="font-serif text-2xl">7 × 4 ml fragrance blends</p>
-              <p className="mt-2 text-sm text-[#E8D8CC]">
+              <p className="mt-2 text-[15px] text-[#E8D8CC]">
                 Alcohol-free · Complete seven-day set
               </p>
             </motion.div>
@@ -622,13 +622,13 @@ export default function ShopPage() {
               <span className="font-serif text-5xl text-[#E7C58B]">
                 <LivePrice fallback="₹1,799" />
               </span>
-              <p className="mt-2 text-xs tracking-wide text-[#E8D8CC]">
+              <p className="mt-2 text-[13px] tracking-wide text-[#E8D8CC]">
                 PREPAID · FREE SHIPPING
               </p>
             </motion.div>
 
             <motion.div variants={reveal}>
-              <AddToCartButton className="group mt-8 inline-flex items-center gap-6 bg-[#F5EBDC] px-8 py-5 text-[10px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white">
+              <AddToCartButton className="group mt-8 inline-flex items-center gap-6 bg-[#F5EBDC] px-8 py-5 text-[12px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white">
                 ADD TO BAG
                 <ArrowRight
                   size={16}
@@ -639,7 +639,7 @@ export default function ShopPage() {
 
             <motion.p
               variants={reveal}
-              className="mt-7 max-w-lg text-[10px] leading-6 text-[#D8C2B6]"
+              className="mt-7 max-w-lg text-[12px] leading-6 text-[#D8C2B6]"
             >
               Planetary associations are inspired by traditional symbolism
               and are intended for personal exploration. They do not predict
@@ -658,7 +658,7 @@ export default function ShopPage() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className="text-[10px] font-bold tracking-[0.3em] text-[#A57C43]">
+            <p className="text-[12px] font-bold tracking-[0.3em] text-[#A57C43]">
               YOUR EVERYDAY RITUAL
             </p>
             <h2 className="mt-6 font-serif text-5xl leading-tight">
@@ -666,14 +666,14 @@ export default function ShopPage() {
               <br />
               <span className="italic text-[#762C49]">feel intentional.</span>
             </h2>
-            <p className="mt-6 max-w-lg text-sm leading-8 text-[#806D60]">
+            <p className="mt-6 max-w-lg text-[15px] leading-8 text-[#806D60]">
               Discover the collection at your own pace. Explore the
               fragrance notes, learn about the inspiration behind each
               blend, and choose an expression that feels meaningful to you.
             </p>
             <Link
               href="/ritual-finder"
-              className="group mt-8 inline-flex items-center gap-4 border-b border-[#762C49] pb-2 text-[10px] font-bold tracking-[0.2em]"
+              className="group mt-8 inline-flex items-center gap-4 border-b border-[#762C49] pb-2 text-[12px] font-bold tracking-[0.2em]"
             >
               FIND YOUR RITUAL
               <ArrowRight size={15} className="transition-transform group-hover:translate-x-2" />
@@ -702,7 +702,7 @@ export default function ShopPage() {
                 </span>
                 <div>
                   <h3 className="font-serif text-2xl">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#806D60]">
+                  <p className="mt-2 text-[15px] leading-6 text-[#806D60]">
                     {description}
                   </p>
                 </div>
@@ -721,7 +721,7 @@ export default function ShopPage() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className="text-[10px] font-bold tracking-[0.3em] text-[#A57C43]">
+            <p className="text-[12px] font-bold tracking-[0.3em] text-[#A57C43]">
               A LITTLE MORE TO KNOW
             </p>
             <h2 className="mt-5 font-serif text-5xl leading-tight">
@@ -729,7 +729,7 @@ export default function ShopPage() {
               <br />
               <span className="italic text-[#762C49]">answered.</span>
             </h2>
-            <p className="mt-5 text-sm leading-7 text-[#806D60]">
+            <p className="mt-5 text-[15px] leading-7 text-[#806D60]">
               Everything you may want to know before discovering
               your SEVOURA collection.
             </p>
@@ -763,7 +763,7 @@ export default function ShopPage() {
                   transition={{ duration: 0.35 }}
                   className="overflow-hidden"
                 >
-                  <p className="max-w-2xl pb-7 pr-8 text-sm leading-7 text-[#806D60]">
+                  <p className="max-w-2xl pb-7 pr-8 text-[15px] leading-7 text-[#806D60]">
                     {faq.a}
                   </p>
                 </motion.div>
@@ -791,7 +791,7 @@ export default function ShopPage() {
 
           <motion.p
             variants={reveal}
-            className="mt-7 text-[10px] tracking-[0.35em] text-[#D9B77C]"
+            className="mt-7 text-[12px] tracking-[0.35em] text-[#D9B77C]"
           >
             THE SEVOURA COLLECTION
           </motion.p>
@@ -809,14 +809,14 @@ export default function ShopPage() {
 
           <motion.p
             variants={reveal}
-            className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#E3D0C2]"
+            className="mx-auto mt-7 max-w-xl text-[15px] leading-7 text-[#E3D0C2]"
           >
             Discover seven fragrance expressions and bring a little
             more intention into the everyday.
           </motion.p>
 
           <motion.div variants={reveal}>
-            <AddToCartButton className="group mt-10 inline-flex items-center gap-6 bg-[#F5EBDC] px-9 py-5 text-[10px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white">
+            <AddToCartButton className="group mt-10 inline-flex items-center gap-6 bg-[#F5EBDC] px-9 py-5 text-[12px] font-bold tracking-[0.2em] text-[#552038] transition-all hover:bg-white">
               ADD THE COLLECTION TO BAG
               <ArrowRight
                 size={16}

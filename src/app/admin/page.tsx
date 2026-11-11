@@ -58,9 +58,9 @@ export default function AdminOverview() {
               <div className="mb-5 flex items-center justify-between">
                 <div>
                   <p className="font-serif text-2xl">Sales, last 14 days</p>
-                  <p className="text-[11px] text-[#9A8777]">Order value of non-cancelled orders (IST)</p>
+                  <p className="text-[13px] text-[#9A8777]">Order value of non-cancelled orders (IST)</p>
                 </div>
-                <Link href="/admin/revenue" className="text-[11px] text-[#792D49] hover:underline">Revenue details →</Link>
+                <Link href="/admin/revenue" className="text-[13px] text-[#792D49] hover:underline">Revenue details →</Link>
               </div>
               <BarChart
                 ariaLabel="Daily sales for the last 14 days"
@@ -79,33 +79,33 @@ export default function AdminOverview() {
               <ul className="mt-4 space-y-3">
                 {(data?.activity ?? []).length === 0 && <Empty>No activity yet.</Empty>}
                 {(data?.activity ?? []).map((a) => (
-                  <li key={a.id} className="flex gap-3 text-[12px]">
+                  <li key={a.id} className="flex gap-3 text-[14px]">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#B28B4E]" />
                     <div className="min-w-0 flex-1">
                       <p className="text-[#3B2028]">{a.summary}</p>
-                      <p className="text-[10px] text-[#9A8777]">{timeAgo(a.created_at)}</p>
+                      <p className="text-[12px] text-[#9A8777]">{timeAgo(a.created_at)}</p>
                     </div>
                   </li>
                 ))}
               </ul>
-              <Link href="/admin/activity" className="mt-4 inline-block text-[11px] text-[#792D49] hover:underline">All activity →</Link>
+              <Link href="/admin/activity" className="mt-4 inline-block text-[13px] text-[#792D49] hover:underline">All activity →</Link>
             </Card>
           </div>
 
           <Card className="mt-6">
             <div className="flex items-center justify-between px-5 py-4 sm:px-6">
               <p className="font-serif text-2xl">Recent orders</p>
-              <Link href="/admin/orders" className="inline-flex items-center gap-1 text-[11px] text-[#792D49] hover:underline">All orders <ArrowRight size={12} /></Link>
+              <Link href="/admin/orders" className="inline-flex items-center gap-1 text-[13px] text-[#792D49] hover:underline">All orders <ArrowRight size={12} /></Link>
             </div>
             {(data?.orders ?? []).length === 0 ? (
               <Empty>No orders yet. They will appear here the moment a customer checks out.</Empty>
             ) : (
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[640px] text-left text-[13px]">
+                <table className="w-full min-w-[640px] text-left text-[15px]">
                   <tbody>
                     {data!.orders.map((o) => (
                       <tr key={o.id} className="border-t border-[#EEE5D9] hover:bg-[#FBF7F1]">
-                        <td className="px-5 py-3 sm:px-6"><Link href={`/admin/orders/${o.id}`} className="font-mono text-[12px] text-[#792D49] hover:underline">{o.order_number}</Link></td>
+                        <td className="px-5 py-3 sm:px-6"><Link href={`/admin/orders/${o.id}`} className="font-mono text-[14px] text-[#792D49] hover:underline">{o.order_number}</Link></td>
                         <td className="px-3 py-3">{o.customer_name}</td>
                         <td className="px-3 py-3 text-[#9A8777]">{timeAgo(o.created_at)}</td>
                         <td className="px-3 py-3"><OrderStatusBadge status={o.status} payment={o.payment_status} /></td>

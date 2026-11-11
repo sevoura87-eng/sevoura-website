@@ -79,7 +79,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.8 }}
-              className="mt-6 text-[10px] tracking-[0.4em] text-[#E5C48B]"
+              className="mt-6 text-[12px] tracking-[0.4em] text-[#E5C48B]"
             >
               CLEANSE · ELEVATE · RADIATE
             </motion.p>

@@ -10,7 +10,7 @@ export function OrderStatusBadge({ status, payment }: { status: OrderStatus; pay
   const awaiting = isAwaitingPayment(status, payment);
   return (
     <span
-      className={`inline-flex items-center gap-1.5 border px-2.5 py-1 text-[10px] font-semibold tracking-[0.08em] ${
+      className={`inline-flex items-center gap-1.5 border px-2.5 py-1 text-[12px] font-semibold tracking-[0.08em] ${
         awaiting ? "border-[#E6CF9C] bg-[#FBF1DC] text-[#8A5A12]" : statusTone(status)
       }`}
     >
@@ -22,7 +22,7 @@ export function OrderStatusBadge({ status, payment }: { status: OrderStatus; pay
 
 export function PaymentStatusBadge({ status }: { status: PaymentStatus }) {
   return (
-    <span className={`inline-flex items-center border px-2.5 py-1 text-[10px] font-semibold tracking-[0.08em] ${paymentTone(status)}`}>
+    <span className={`inline-flex items-center border px-2.5 py-1 text-[12px] font-semibold tracking-[0.08em] ${paymentTone(status)}`}>
       {PAYMENT_STATUS_LABEL[status]}
     </span>
   );

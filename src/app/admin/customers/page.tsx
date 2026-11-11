@@ -33,11 +33,11 @@ export default function AdminCustomers() {
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <label className="flex flex-1 items-center gap-2 border border-[#D6C4AD] bg-white px-3">
           <Search size={15} className="text-[#9A8777]" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email or phone…" className="w-full bg-transparent py-2.5 text-[13px] outline-none" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email or phone…" className="w-full bg-transparent py-2.5 text-[15px] outline-none" />
         </label>
         <div className="flex gap-1">
           {(["all", "buyers", "admins"] as const).map((f) => (
-            <button key={f} onClick={() => setFilter(f)} className={`border px-3 py-2 text-[11px] capitalize ${filter === f ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>
+            <button key={f} onClick={() => setFilter(f)} className={`border px-3 py-2 text-[13px] capitalize ${filter === f ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white"}`}>
               {f === "buyers" ? "Have ordered" : f}
             </button>
           ))}
@@ -47,8 +47,8 @@ export default function AdminCustomers() {
         <Card>
           {rows.length === 0 ? <Empty>No customers found.</Empty> : (
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[860px] text-left text-[13px]">
-                <thead className="bg-[#F8F2EA] text-[10px] uppercase tracking-[0.14em] text-[#9A8070]">
+              <table className="w-full min-w-[860px] text-left text-[15px]">
+                <thead className="bg-[#F8F2EA] text-[12px] uppercase tracking-[0.14em] text-[#9A8070]">
                   <tr>
                     <th className="px-5 py-3 font-medium">Name</th>
                     <th className="px-3 py-3 font-medium">Email</th>
@@ -64,8 +64,8 @@ export default function AdminCustomers() {
                     <tr key={c.id} className="border-t border-[#EEE5D9] hover:bg-[#FBF7F1]">
                       <td className="px-5 py-3">
                         <Link href={`/admin/customers/${c.id}`} className="text-[#792D49] hover:underline">{c.full_name || "—"}</Link>
-                        {c.role === "admin" && <span className="ml-2 bg-[#E5C48B] px-1.5 py-0.5 text-[9px] tracking-wider text-[#46182D]">ADMIN</span>}
-                        {c.account_status === "suspended" && <span className="ml-2 bg-[#F4DADA] px-1.5 py-0.5 text-[9px] text-[#8A2E2E]">SUSPENDED</span>}
+                        {c.role === "admin" && <span className="ml-2 bg-[#E5C48B] px-1.5 py-0.5 text-[11px] tracking-wider text-[#46182D]">ADMIN</span>}
+                        {c.account_status === "suspended" && <span className="ml-2 bg-[#F4DADA] px-1.5 py-0.5 text-[11px] text-[#8A2E2E]">SUSPENDED</span>}
                       </td>
                       <td className="px-3 py-3">{c.email}</td>
                       <td className="px-3 py-3">{c.phone ?? "—"}</td>

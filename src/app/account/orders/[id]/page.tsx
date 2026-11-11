@@ -95,7 +95,7 @@ function OrderDetail() {
     return (
       <div className="py-20 text-center">
         <p className="font-serif text-3xl">Order not found.</p>
-        <Link href="/account" className="mt-5 inline-block text-[11px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">BACK TO MY ORDERS</Link>
+        <Link href="/account" className="mt-5 inline-block text-[13px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">BACK TO MY ORDERS</Link>
       </div>
     );
 
@@ -110,9 +110,9 @@ function OrderDetail() {
         >
           <div className="pointer-events-none absolute inset-3 border border-[#D9B77D]/50" />
           <Sparkles className="text-[#E5C48B]" size={30} />
-          <p className="relative mt-5 text-[9px] tracking-[0.34em] text-[#E5C48B]">PAYMENT RECEIVED</p>
+          <p className="relative mt-5 text-[11px] tracking-[0.34em] text-[#E5C48B]">PAYMENT RECEIVED</p>
           <h1 className="relative mt-3 font-serif text-4xl md:text-5xl">Thank you — your ritual begins.</h1>
-          <p className="relative mt-4 max-w-2xl text-sm leading-7 text-[#F0DCD4]">
+          <p className="relative mt-4 max-w-2xl text-[15px] leading-7 text-[#F0DCD4]">
             We&apos;ve received {formatINR(order.total_paise)} for order <strong className="font-mono">{order.order_number}</strong>.
             We&apos;ll keep you updated here as it&apos;s packed and shipped.
           </p>
@@ -133,9 +133,9 @@ function OrderDetail() {
           <motion.div initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring", stiffness: 200 }}>
             <Sparkles className="text-[#E5C48B]" size={30} />
           </motion.div>
-          <p className="relative mt-5 text-[9px] tracking-[0.34em] text-[#E5C48B]">ORDER CONFIRMED</p>
+          <p className="relative mt-5 text-[11px] tracking-[0.34em] text-[#E5C48B]">ORDER CONFIRMED</p>
           <h1 className="relative mt-3 font-serif text-4xl md:text-5xl">Thank you — your ritual begins.</h1>
-          <p className="relative mt-4 max-w-2xl text-sm leading-7 text-[#F0DCD4]">
+          <p className="relative mt-4 max-w-2xl text-[15px] leading-7 text-[#F0DCD4]">
             Your order <strong className="font-mono">{order.order_number}</strong> has been received. Payment is{" "}
             <strong>pending</strong> — nothing has been charged. We&apos;ll contact you on +91 {order.ship_phone} to complete payment before dispatch.
           </p>
@@ -144,9 +144,9 @@ function OrderDetail() {
 
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-[9px] tracking-[0.34em] text-[#A77B4D]">ORDER</p>
+          <p className="text-[11px] tracking-[0.34em] text-[#A77B4D]">ORDER</p>
           <p className="mt-2 font-mono text-2xl text-[#792D49] md:text-3xl">{order.order_number}</p>
-          <p className="mt-1 text-xs text-[#806D60]">Placed {formatDate(order.created_at, true)}</p>
+          <p className="mt-1 text-[13px] text-[#806D60]">Placed {formatDate(order.created_at, true)}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <OrderStatusBadge status={order.status} payment={order.payment_status} />
@@ -156,12 +156,12 @@ function OrderDetail() {
 
       <div className="mt-8 border border-[#DCCAB5] bg-[#FCF7EF] p-6 md:p-8">
         <OrderTimeline status={order.status} history={history} />
-        <p className="mt-6 flex items-center gap-2 text-[11px] text-[#9A8777]"><Clock size={12} /> This page updates automatically when your order status changes.</p>
+        <p className="mt-6 flex items-center gap-2 text-[13px] text-[#9A8777]"><Clock size={12} /> This page updates automatically when your order status changes.</p>
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <div className="border border-[#DCCAB5] bg-[#FCF7EF] p-6">
-          <p className="text-[9px] tracking-[0.3em] text-[#A77B4D]">ITEMS</p>
+          <p className="text-[11px] tracking-[0.3em] text-[#A77B4D]">ITEMS</p>
           <ul className="mt-4 divide-y divide-[#E6D8C6]">
             {(order.order_items ?? []).map((it) => (
               <li key={it.id} className="flex gap-4 py-4">
@@ -170,21 +170,21 @@ function OrderDetail() {
                 </div>
                 <div className="flex-1">
                   <p className="font-serif text-lg leading-tight">{it.product_name}</p>
-                  <p className="text-xs text-[#806D60]">{formatINR(it.unit_price_paise)} × {it.quantity}</p>
+                  <p className="text-[13px] text-[#806D60]">{formatINR(it.unit_price_paise)} × {it.quantity}</p>
                 </div>
                 <p className="tabular-nums">{formatINR(it.line_total_paise)}</p>
               </li>
             ))}
           </ul>
-          <dl className="mt-2 space-y-2 border-t border-[#DCCAB5] pt-4 text-sm">
+          <dl className="mt-2 space-y-2 border-t border-[#DCCAB5] pt-4 text-[15px]">
             <div className="flex justify-between"><dt className="text-[#806D60]">Subtotal</dt><dd>{formatINR(order.subtotal_paise)}</dd></div>
             <div className="flex justify-between"><dt className="text-[#806D60]">Shipping</dt><dd>{order.shipping_paise ? formatINR(order.shipping_paise) : "Free"}</dd></div>
             <div className="flex justify-between pt-2 text-base"><dt>Total</dt><dd className="font-serif text-3xl text-[#792D49]">{formatINR(order.total_paise)}</dd></div>
           </dl>
         </div>
         <div className="space-y-6">
-          <div className="border border-[#DCCAB5] bg-[#FCF7EF] p-6 text-[13px] leading-6">
-            <p className="text-[9px] tracking-[0.3em] text-[#A77B4D]">DELIVERING TO</p>
+          <div className="border border-[#DCCAB5] bg-[#FCF7EF] p-6 text-[15px] leading-6">
+            <p className="text-[11px] tracking-[0.3em] text-[#A77B4D]">DELIVERING TO</p>
             <p className="mt-3 font-medium">{order.ship_full_name}</p>
             <p className="text-[#806D60]">{order.ship_house_number}, {order.ship_street_locality}</p>
             <p className="text-[#806D60]">{order.ship_city}, {order.ship_state} — {order.ship_pincode}</p>
@@ -201,7 +201,7 @@ function OrderDetail() {
           {order.status === "order_placed" && (order.payment_status === "pending" || order.payment_status === "failed") && (
             <Button variant="outline" loading={busy} onClick={cancel} className="w-full">CANCEL ORDER</Button>
           )}
-          <p className="text-[11px] leading-5 text-[#9A8777]">
+          <p className="text-[13px] leading-5 text-[#9A8777]">
             Questions? Write to <a className="underline" href="mailto:hello@sevoura.com">hello@sevoura.com</a> or call +91-9211877712 with your order number.
           </p>
         </div>
@@ -216,7 +216,7 @@ export default function OrderPage() {
       <SiteHeader />
       <main className="min-h-[70vh] overflow-x-clip bg-[#F8F1E7] px-5 py-14 text-[#481D30] md:px-10 md:py-20">
         <div className="mx-auto max-w-[1100px]">
-          <Link href="/account" className="mb-8 inline-flex items-center gap-2 text-[10px] tracking-[0.2em] text-[#806D60] hover:text-[#792D49]">
+          <Link href="/account" className="mb-8 inline-flex items-center gap-2 text-[12px] tracking-[0.2em] text-[#806D60] hover:text-[#792D49]">
             <ArrowLeft size={13} /> MY ORDERS
           </Link>
           <RequireAuth>

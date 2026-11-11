@@ -1,983 +1,350 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import {
-  ArrowRight,
-  ArrowDown,
-  Sparkles,
-  BookOpen,
-  Feather,
-  Flower2,
-  Stars,
-  Moon,
-  Sun,
-  Orbit,
-  Mail,
-  CheckCircle2,
-  MoveUpRight,
-  Wind,
-  Heart,
-  Clock3,
-} from "lucide-react";
-import { useRef } from "react";
-
+import { Suspense, useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowUp, BookOpen, PenLine, Search, Sparkles, X } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { JournalMasthead, QuestionCard, SignInNudge, ease } from "@/components/journal/ui";
+import { community, SORTS, type Category, type Kind, type QuestionCard as Q, type Sort, type Stats, type TopAnswer } from "@/lib/community";
+import { friendlyError } from "@/lib/errors";
 
-const topics = [
-  "FRAGRANCE",
-  "PLANETARY INSPIRATION",
-  "EVERYDAY RITUALS",
-  "MINDFUL LIVING",
-  "SCENT & MEMORY",
-  "THE ART OF SLOW LIVING",
-];
+const PAGE = 12;
 
-const categories = [
-  {
-    number: "01",
-    title: "Stories",
-    subtitle: "PERSONAL PERSPECTIVES",
-    description:
-      "Personal perspectives, meaningful moments, and the stories behind the rituals we cherish.",
-    icon: BookOpen,
-    word: "Stories",
-    background: "from-[#E7D1B5] to-[#C9A77E]",
-  },
-  {
-    number: "02",
-    title: "Blogs",
-    subtitle: "IDEAS & INSIGHTS",
-    description:
-      "Ideas and insights on fragrance, self-care, and the art of living with intention.",
-    icon: Feather,
-    word: "Thoughts",
-    background: "from-[#E4D8D0] to-[#BFA6A0]",
-  },
-  {
-    number: "03",
-    title: "Editorial",
-    subtitle: "A CURATED LENS",
-    description:
-      "A curated lens on the worlds of scent, style, culture, and celestial inspiration.",
-    icon: Flower2,
-    word: "Culture",
-    background: "from-[#D8D9C9] to-[#A7AA91]",
-  },
-];
+function Feed() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const sort = (SORTS.some((s) => s.key === params.get("sort")) ? params.get("sort") : "latest") as Sort;
+  const category = params.get("category");
+  const tag = params.get("tag");
+  const kind = (params.get("kind") === "question" || params.get("kind") === "experience" ? params.get("kind") : null) as Kind | null;
+  const q = params.get("q") ?? "";
 
-const reveal = {
-  hidden: { opacity: 0, y: 55 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.9,
-      ease: [0.22, 1, 0.36, 1] as const,
+  const [items, setItems] = useState<Q[] | null>(null);
+  const [total, setTotal] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [search, setSearch] = useState(q);
+  const [cats, setCats] = useState<Category[]>([]);
+  const [top, setTop] = useState<TopAnswer[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [nudge, setNudge] = useState(false);
+
+  const setParam = useCallback(
+    (next: Record<string, string | null>) => {
+      const sp = new URLSearchParams(params.toString());
+      for (const [k, v] of Object.entries(next)) {
+        if (v) sp.set(k, v);
+        else sp.delete(k);
+      }
+      const qs = sp.toString();
+      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.14,
-    },
-  },
-};
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="mb-6 flex items-center justify-center gap-3 text-[9px] font-medium uppercase tracking-[0.34em] text-[#A17B4B]">
-      <span className="h-px w-8 bg-[#B28B4E]" />
-      {children}
-      <span className="h-px w-8 bg-[#B28B4E]" />
-    </div>
+    [params, pathname, router]
   );
-}
 
-function FloatingOrb({
-  className = "",
-  duration = 7,
-}: {
-  className?: string;
-  duration?: number;
-}) {
-  return (
-    <motion.div
-      animate={{
-        y: [0, -17, 0],
-        rotate: [0, 8, 0],
-      }}
-      transition={{
-        duration,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-      className={`rounded-full ${className}`}
-    />
-  );
-}
+  useEffect(() => {
+    let live = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset while the new query loads
+    setItems(null);
+    setError(null);
+    community
+      .feed({ sort, category, tag, kind, search: q, limit: PAGE })
+      .then((r) => {
+        if (!live) return;
+        setItems(r.items);
+        setTotal(r.total);
+      })
+      .catch((e) => live && setError(friendlyError(e)));
+    return () => {
+      live = false;
+    };
+  }, [sort, category, tag, kind, q]);
 
-function CelestialArtwork() {
-  return (
-    <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[#E8D5BB] via-[#F8ECDD] to-[#D5B58B]">
-      <div className="absolute inset-4 border border-[#A47A40]/35" />
-      <div className="absolute inset-7 border border-[#A47A40]/20" />
+  useEffect(() => {
+    community.categories().then(setCats).catch(() => {});
+    community.topAnswers(4).then(setTop).catch(() => {});
+    community.stats().then(setStats).catch(() => {});
+  }, []);
 
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
-        className="absolute h-[82%] aspect-square rounded-full border border-[#A47A40]/45"
-      />
+  async function more() {
+    if (!items) return;
+    setLoadingMore(true);
+    try {
+      const r = await community.feed({ sort, category, tag, kind, search: q, limit: PAGE, offset: items.length });
+      setItems([...items, ...r.items]);
+      setTotal(r.total);
+    } catch (e) {
+      setError(friendlyError(e));
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 48, repeat: Infinity, ease: "linear" }}
-        className="absolute h-[65%] aspect-square rounded-full border border-dashed border-[#A47A40]/45"
-      />
-
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-        className="absolute h-[44%] aspect-square rounded-full border border-[#A47A40]/35"
-      />
-
-      <FloatingOrb
-        duration={6}
-        className="absolute left-[18%] top-[22%] h-7 w-7 bg-gradient-to-br from-[#FFF8E9] to-[#A47A40] shadow-lg"
-      />
-      <FloatingOrb
-        duration={8}
-        className="absolute right-[18%] bottom-[24%] h-11 w-11 bg-gradient-to-br from-[#FFF8E9] to-[#B28B4E] shadow-lg"
-      />
-
-      <motion.div
-        animate={{ y: [0, -12, 0], scale: [1, 1.04, 1] }}
-        transition={{ duration: 5, repeat: Infinity }}
-        className="relative z-10 flex h-32 w-32 items-center justify-center rounded-full border border-[#B28B4E]/50 bg-[#FFF8EC]/80 text-[#A47A40] shadow-[0_20px_50px_rgba(104,69,34,0.15)] md:h-40 md:w-40"
-      >
-        <div className="absolute inset-3 rounded-full border border-[#B28B4E]/25" />
-        <Sparkles size={48} strokeWidth={0.8} />
-      </motion.div>
-
-      <div className="absolute bottom-[15%] text-center">
-        <p className="font-serif text-2xl tracking-[0.28em] text-[#782C49] md:text-3xl">
-          SEVOURA
-        </p>
-        <p className="mt-2 text-[8px] uppercase tracking-[0.4em] text-[#98754D]">
-          A WORLD OF RITUALS
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function EditorialArtwork() {
-  return (
-    <div className="relative flex min-h-[390px] items-center justify-center overflow-hidden bg-[#782C49] md:min-h-[540px]">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#A65B70_0%,_#782C49_50%,_#48172F_100%)]" />
-
-      {[250, 350, 470, 600].map((size, index) => (
-        <motion.div
-          key={size}
-          animate={{ rotate: index % 2 === 0 ? 360 : -360 }}
-          transition={{
-            duration: 45 + index * 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute rounded-full border border-[#E9D1A7]/20"
-          style={{ width: size, height: size, maxWidth: "95vw", maxHeight: "95vw" }}
-        />
-      ))}
-
-      <FloatingOrb
-        duration={7}
-        className="absolute left-[15%] top-[20%] h-10 w-10 bg-gradient-to-br from-[#FFF2D5] to-[#B28B4E] shadow-xl"
-      />
-
-      <FloatingOrb
-        duration={9}
-        className="absolute right-[16%] top-[25%] h-16 w-16 bg-gradient-to-br from-[#F9E6C3] to-[#9B7041] shadow-xl"
-      />
-
-      <motion.div
-        animate={{ y: [0, -10, 0], rotate: [0, 4, 0] }}
-        transition={{ duration: 6, repeat: Infinity }}
-        className="relative z-10 px-5 text-center"
-      >
-        <Stars className="mx-auto mb-7 text-[#E9D1A7]" size={36} strokeWidth={1} />
-        <p className="font-serif text-5xl italic leading-tight text-[#F9EBDD] md:text-7xl">
-          The art of
-          <br />
-          everyday rituals.
-        </p>
-        <div className="mx-auto mt-8 h-px w-20 bg-[#E9D1A7]/70" />
-        <p className="mt-5 text-[8px] uppercase tracking-[0.4em] text-[#E9D1A7]">
-          THE SEVOURA JOURNAL
-        </p>
-      </motion.div>
-    </div>
-  );
-}
-
-export default function JournalPage() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const heroRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 130]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!email.trim()) return;
-    setSubmitted(true);
-    setEmail("");
+  const activeCategory = useMemo(() => cats.find((c) => c.slug === category), [cats, category]);
+  const onSearch = (e: FormEvent) => {
+    e.preventDefault();
+    setParam({ q: search.trim() || null });
   };
 
   return (
     <>
-      <SiteHeader />
-
-      <main className="overflow-x-clip bg-[#F8F0E5] text-[#392823]">
-
-        {/* 01 — CINEMATIC HERO */}
-        <section
-          ref={heroRef}
-          className="relative flex min-h-[720px] items-center justify-center overflow-hidden bg-[#EEDCC5] px-6 py-24 md:min-h-[850px]"
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#FFF8EC_0%,_#F3E5D2_48%,_#DCC3A3_100%)]" />
-
-          <div
-            className="absolute inset-0 opacity-[0.18]"
-            style={{
-              backgroundImage:
-                "radial-gradient(#A47A40 0.8px, transparent 0.8px)",
-              backgroundSize: "32px 32px",
-            }}
+      <JournalMasthead
+        active="community"
+        eyebrow="THE SEVOURA JOURNAL"
+        title={
+          <>
+            Questions, rituals
+            <br />
+            <span className="italic text-[#E2B45E]">&amp; shared experiences.</span>
+          </>
+        }
+        intro="A considered space for the SEVOURA community — ask about the seven blends, share how a ritual made you feel, and learn from one another."
+      >
+        <form onSubmit={onSearch} className="mt-10 flex max-w-[640px] items-stretch border border-[#D6A64F]/40 bg-[#26000D]/40 backdrop-blur">
+          <Search size={18} className="ml-5 mt-[18px] shrink-0 text-[#D6A64F]" />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search questions, answers and experiences"
+            aria-label="Search the community"
+            className="min-w-0 flex-1 bg-transparent px-4 py-4 text-[16px] text-[#F7F0E6] outline-none placeholder:text-[#C9AFA2]/70"
           />
+          <button type="submit" className="bg-[#D6A64F] px-6 text-[12px] font-semibold tracking-[0.22em] text-[#26000D] transition-colors hover:bg-[#F0D69A]">
+            SEARCH
+          </button>
+        </form>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <Link href="/journal/ask" className="inline-flex items-center gap-3 bg-[#F7F0E6] px-7 py-4 text-[12px] font-semibold tracking-[0.22em] text-[#390014] transition-colors hover:bg-[#F0D69A]">
+            <PenLine size={16} /> ASK A QUESTION
+          </Link>
+          <Link href="/journal/ask?kind=experience" className="inline-flex items-center gap-3 border border-[#D6A64F]/50 px-7 py-4 text-[12px] font-semibold tracking-[0.22em] text-[#F0D69A] transition-colors hover:border-[#F0D69A] hover:bg-white/5">
+            <Sparkles size={16} /> SHARE AN EXPERIENCE
+          </Link>
+        </div>
+      </JournalMasthead>
 
-          <motion.div
-            style={{ y: heroY, opacity: heroOpacity }}
-            className="absolute inset-0"
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-              className="absolute left-1/2 top-1/2 h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#B28B4E]/25 md:h-[900px] md:w-[900px]"
-            />
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
-              className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#B28B4E]/25 md:h-[700px] md:w-[700px]"
-            />
-          </motion.div>
-
-          <FloatingOrb
-            duration={8}
-            className="absolute left-[8%] top-[22%] h-20 w-20 bg-gradient-to-br from-[#FFF8E8] via-[#D8B77F] to-[#765137] shadow-[0_15px_40px_rgba(75,45,20,0.25)] md:h-32 md:w-32"
-          />
-
-          <FloatingOrb
-            duration={10}
-            className="absolute bottom-[17%] right-[8%] h-24 w-24 bg-gradient-to-br from-[#FFF8E8] via-[#D8B77F] to-[#765137] shadow-[0_15px_40px_rgba(75,45,20,0.25)] md:h-40 md:w-40"
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 45 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1 }}
-            className="relative z-10 mx-auto max-w-5xl text-center"
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#B28B4E]/45 bg-[#FFF8EC]/50 text-[#A47A40]"
-            >
-              <Orbit size={29} strokeWidth={1} />
-            </motion.div>
-
-            <SectionLabel>THE SEVOURA JOURNAL</SectionLabel>
-
-            <h1 className="font-serif text-6xl leading-[0.98] tracking-[-1.5px] text-[#782C49] sm:text-7xl md:text-9xl">
-              Stories.
-              <br />
-              <span className="italic text-[#782C49]">
-                Blogs. Editorial.
-              </span>
-            </h1>
-
-            <p className="mx-auto mt-8 max-w-2xl text-sm leading-8 text-[#756253] md:text-base">
-              A considered space for fragrance, rituals, and the little moments
-              that make everyday life feel extraordinary.
-            </p>
-
-            <Link
-              href="#featured-story"
-              className="group mt-10 inline-flex items-center gap-5 bg-[#782C49] px-9 py-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#572036]"
-            >
-              EXPLORE THE JOURNAL
-              <ArrowRight
-                size={16}
-                className="transition-transform group-hover:translate-x-2"
-              />
-            </Link>
-
-            <div className="mt-12 flex items-center justify-center gap-3 text-[8px] uppercase tracking-[0.35em] text-[#98754D]">
-              <span className="h-px w-8 bg-[#B28B4E]" />
-              READ · REFLECT · RECONNECT
-              <span className="h-px w-8 bg-[#B28B4E]" />
+      <section className="mx-auto grid max-w-[1320px] gap-14 px-6 py-14 md:px-12 md:py-20 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-20">
+        {/* FEED */}
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-end justify-between gap-6 border-b border-[#DCCAB5]">
+            <div role="tablist" aria-label="Sort discussions" className="-mb-px flex gap-7 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {SORTS.map((s) => (
+                <button
+                  key={s.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={sort === s.key}
+                  onClick={() => setParam({ sort: s.key === "latest" ? null : s.key })}
+                  className={`shrink-0 border-b-2 pb-4 text-[13px] font-semibold tracking-[0.18em] transition-colors ${
+                    sort === s.key ? "border-[#792D49] text-[#792D49]" : "border-transparent text-[#8A766A] hover:text-[#3A2228]"
+                  }`}
+                >
+                  {s.label.toUpperCase()}
+                </button>
+              ))}
             </div>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 9, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-            className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[#98754D]"
-          >
-            <span className="text-[8px] tracking-[0.3em]">SCROLL TO EXPLORE</span>
-            <ArrowDown size={15} />
-          </motion.div>
-        </section>
-
-        {/* 02 — INTRODUCTION */}
-        <section className="px-6 py-24 md:py-32">
-          <motion.div
-            variants={reveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="mx-auto max-w-4xl text-center"
-          >
-            <SectionLabel>A SPACE FOR INSPIRATION</SectionLabel>
-
-            <h2 className="font-serif text-4xl leading-tight text-[#782C49] md:text-6xl">
-              Some moments deserve
-              <br />
-              <span className="italic">to be remembered.</span>
-            </h2>
-
-            <p className="mx-auto mt-7 max-w-2xl text-sm leading-8 text-[#756253] md:text-base">
-              From the world of fragrance to the meaning behind everyday
-              rituals, the SEVOURA Journal is a considered space for ideas,
-              perspectives and inspiration.
-            </p>
-          </motion.div>
-        </section>
-
-        {/* 03 — FEATURED STORY */}
-        <section
-          id="featured-story"
-          className="scroll-mt-20 bg-[#F0E3D2] px-6 py-20 md:py-28"
-        >
-          <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <motion.div
-              initial={{ opacity: 0, x: -55 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="order-2 lg:order-1"
-            >
-              <SectionLabel>THE FEATURED STORY</SectionLabel>
-
-              <p className="mb-5 text-[9px] uppercase tracking-[0.25em] text-[#98754D]">
-                A SEVOURA PERSPECTIVE
-              </p>
-
-              <h2 className="font-serif text-5xl leading-[1.08] text-[#782C49] md:text-7xl">
-                A world of rituals,
-                <br />
-                <span className="italic">reimagined.</span>
-              </h2>
-
-              <div className="my-8 h-px w-20 bg-[#B28B4E]" />
-
-              <p className="max-w-xl text-sm leading-8 text-[#756253] md:text-base">
-                Discover thoughtful perspectives on fragrance, planetary
-                inspirations, and mindful moments—curated to bring a little
-                more meaning to your everyday.
-              </p>
-
-              <Link
-                href="#journal-categories"
-                className="group mt-9 inline-flex items-center gap-4 border-b border-[#782C49] pb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-[#782C49]"
-              >
-                READ THE STORY
-                <ArrowRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-2"
-                />
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.88, rotate: 2 }}
-              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.1 }}
-              className="order-1 lg:order-2"
-            >
-              <EditorialArtwork />
-            </motion.div>
-          </div>
-        </section>
-
-        {/* 04 — CATEGORY EDITORIAL */}
-        <section
-          id="journal-categories"
-          className="px-6 py-24 md:py-32"
-        >
-          <div className="mx-auto max-w-7xl">
-            <motion.div
-              variants={reveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="mb-16 text-center"
-            >
-              <SectionLabel>EXPLORE THE JOURNAL</SectionLabel>
-
-              <h2 className="font-serif text-4xl leading-tight text-[#782C49] md:text-6xl">
-                Three perspectives.
-                <br />
-                <span className="italic">One thoughtful world.</span>
-              </h2>
-
-              <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-[#756253]">
-                A curated destination for stories, ideas and inspiration.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
-              className="grid gap-5 md:grid-cols-3"
-            >
-              {categories.map((category) => {
-                const Icon = category.icon;
-
-                return (
-                  <motion.article
-                    key={category.title}
-                    variants={reveal}
-                    whileHover={{ y: -12 }}
-                    className="group relative overflow-hidden border border-[#D5C0A2] bg-[#FCF7EF]"
-                  >
-                    <div
-                      className={`relative flex h-64 items-center justify-center overflow-hidden bg-gradient-to-br ${category.background}`}
-                    >
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 55,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        className="absolute h-48 w-48 rounded-full border border-white/45"
-                      />
-
-                      <motion.div
-                        animate={{ rotate: -360 }}
-                        transition={{
-                          duration: 35,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        className="absolute h-36 w-36 rounded-full border border-dashed border-white/50"
-                      />
-
-
-                      <motion.div
-                        whileHover={{ scale: 1.13, rotate: 8 }}
-                        className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border border-white/60 bg-white/25 text-white backdrop-blur-sm"
-                      >
-                        <Icon size={42} strokeWidth={1} />
-                      </motion.div>
-
-                      <motion.p
-                        initial={{ opacity: 0.3 }}
-                        whileHover={{ opacity: 1 }}
-                        className="absolute bottom-5 font-serif text-4xl italic text-white/80"
-                      >
-                        {category.word}
-                      </motion.p>
-                    </div>
-
-                    <div className="p-8">
-                      <p className="text-[8px] tracking-[0.24em] text-[#98754D]">
-                        {category.subtitle}
-                      </p>
-
-                      <h3 className="mt-3 font-serif text-4xl text-[#782C49]">
-                        {category.title}
-                      </h3>
-
-                      <p className="mt-5 min-h-[85px] text-sm leading-7 text-[#756253]">
-                        {category.description}
-                      </p>
-
-                      <div className="mt-7 flex items-center justify-between border-t border-[#D8C5A9] pt-5">
-                        <span className="text-[8px] uppercase tracking-[0.2em] text-[#98754D]">
-                          THE SEVOURA JOURNAL
-                        </span>
-                        <ArrowRight
-                          size={17}
-                          className="text-[#782C49] transition-transform duration-500 group-hover:translate-x-2"
-                        />
-                      </div>
-                    </div>
-                  </motion.article>
-                );
-              })}
-            </motion.div>
-          </div>
-        </section>
-
-        {/* 05 — RUNNING TOPIC STRIP */}
-        <section className="overflow-hidden border-y border-[#D2B995] bg-[#EBDCC9] py-7">
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              duration: 32,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="flex w-max items-center gap-10"
-          >
-            {[...topics, ...topics].map((topic, index) => (
-              <div
-                key={`${topic}-${index}`}
-                className="flex items-center gap-10"
-              >
-                <span className="whitespace-nowrap font-serif text-2xl italic tracking-wide text-[#782C49] md:text-3xl">
-                  {topic}
-                </span>
-                <Sparkles
-                  size={18}
-                  strokeWidth={1}
-                  className="text-[#A47A40]"
-                />
-              </div>
-            ))}
-          </motion.div>
-        </section>
-
-        {/* 06 — PLANETARY INSPIRATION */}
-        <section className="px-6 py-24 md:py-32">
-          <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
-              className="relative"
-            >
-              <CelestialArtwork />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
-            >
-              <SectionLabel>PLANETARY INSPIRATION</SectionLabel>
-
-              <h2 className="font-serif text-5xl leading-tight text-[#782C49] md:text-6xl">
-                Beyond the
-                <br />
-                <span className="italic">ordinary.</span>
-              </h2>
-
-              <p className="mt-7 text-sm leading-8 text-[#756253] md:text-base">
-                Traditional planetary associations offer a fascinating lens
-                through which to explore the days of the week, their symbolism
-                and the intentions they inspire.
-              </p>
-
-              <p className="mt-5 text-sm leading-8 text-[#756253]">
-                SEVOURA brings this inspiration into the world of fragrance
-                through seven distinctive identities—each with its own
-                character and expression.
-              </p>
-
-              <Link
-                href="/the-seven"
-                className="group mt-9 inline-flex items-center gap-4 border-b border-[#782C49] pb-3 text-[10px] uppercase tracking-[0.2em] text-[#782C49]"
-              >
-                EXPLORE THE SEVEN
-                <ArrowRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-2"
-                />
-              </Link>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* 07 — MINDFUL LIVING */}
-        <section className="relative overflow-hidden bg-[#782C49] px-6 py-24 text-[#F8F0E5] md:py-32">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-            className="absolute -right-48 -top-48 h-[650px] w-[650px] rounded-full border border-[#E9D1A7]/15"
-          />
-
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
-            className="absolute -left-48 -bottom-48 h-[550px] w-[550px] rounded-full border border-[#E9D1A7]/15"
-          />
-
-          <div className="relative mx-auto max-w-5xl text-center">
-            <motion.div
-              variants={reveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <SectionLabel>THE ART OF EVERYDAY RITUALS</SectionLabel>
-
-              <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#E9D1A7]/50 text-[#E9D1A7]">
-                <Heart size={27} strokeWidth={1} />
-              </div>
-
-              <h2 className="font-serif text-5xl leading-tight md:text-7xl">
-                Make the everyday
-                <br />
-                <span className="italic text-[#E9D1A7]">
-                  feel extraordinary.
-                </span>
-              </h2>
-
-              <p className="mx-auto mt-8 max-w-2xl text-sm leading-8 text-[#F8F0E5]/80 md:text-base">
-                A moment of stillness. A familiar fragrance. A little time
-                for yourself. Sometimes, the most meaningful experiences
-                are found in the smallest everyday moments.
-              </p>
-
-              <div className="mx-auto mt-12 grid max-w-3xl gap-8 border-t border-[#E9D1A7]/30 pt-10 sm:grid-cols-3">
-                {[
-                  { icon: Wind, title: "PAUSE", text: "Make room for a moment." },
-                  { icon: Sparkles, title: "CONNECT", text: "Reconnect with yourself." },
-                  { icon: Flower2, title: "ELEVATE", text: "Find beauty in the everyday." },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.title}>
-                      <Icon className="mx-auto mb-4 text-[#E9D1A7]" size={25} />
-                      <p className="text-[9px] tracking-[0.24em] text-[#E9D1A7]">
-                        {item.title}
-                      </p>
-                      <p className="mt-3 text-xs text-[#F8F0E5]/75">
-                        {item.text}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* 08 — LATEST FROM THE JOURNAL */}
-        <section
-          id="latest-journal"
-          className="scroll-mt-20 px-6 py-24 md:py-32"
-        >
-          <div className="mx-auto max-w-7xl">
-            <motion.div
-              variants={reveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="mb-14 flex flex-col gap-5 md:flex-row md:items-end md:justify-between"
-            >
-              <div>
-                <SectionLabel>LATEST FROM THE JOURNAL</SectionLabel>
-                <h2 className="font-serif text-4xl text-[#782C49] md:text-6xl">
-                  A journal in the making.
-                </h2>
-              </div>
-
-              <span className="inline-flex w-fit items-center gap-2 border border-[#B28B4E]/50 px-4 py-3 text-[8px] tracking-[0.2em] text-[#98754D]">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#B28B4E]" />
-                COMING SOON
-              </span>
-            </motion.div>
-
-            <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-              <motion.div
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="relative flex min-h-[390px] flex-col justify-between overflow-hidden bg-gradient-to-br from-[#E6D1B4] via-[#D4B68D] to-[#A98561] p-8 md:min-h-[470px] md:p-12"
-              >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 65, repeat: Infinity, ease: "linear" }}
-                  className="absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full border border-white/35"
-                />
-
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                  className="absolute -right-5 top-5 h-[300px] w-[300px] rounded-full border border-dashed border-white/40"
-                />
-
-                <div className="relative z-10">
-                  <p className="text-[9px] tracking-[0.3em] text-[#5E412B]">
-                    THE SEVOURA JOURNAL
-                  </p>
-                  <p className="mt-6 font-serif text-5xl leading-tight text-[#4B3027] md:text-7xl">
-                    New stories.
-                    <br />
-                    <span className="italic">New perspectives.</span>
-                  </p>
-                </div>
-
-                <div className="relative z-10 flex items-end justify-between">
-                  <p className="max-w-xs text-xs leading-6 text-[#593E2D]">
-                    Thoughtful ideas and inspiration are on their way.
-                  </p>
-                  <BookOpen size={36} strokeWidth={1} className="text-[#593E2D]" />
-                </div>
-              </motion.div>
-
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
-                <motion.div
-                  whileHover={{ y: -5 }}
-                  className="flex min-h-[200px] flex-col justify-between border border-[#D8C5A9] bg-[#F0E3D2] p-7"
+            <div className="mb-3 flex gap-1 text-[13px]">
+              {[
+                { k: null, l: "All" },
+                { k: "question", l: "Questions" },
+                { k: "experience", l: "Experiences" },
+              ].map((o) => (
+                <button
+                  key={o.l}
+                  type="button"
+                  onClick={() => setParam({ kind: o.k })}
+                  className={`px-3.5 py-1.5 transition-colors ${kind === o.k ? "bg-[#481D30] text-[#FFF6E9]" : "text-[#6E5A50] hover:text-[#3A2228]"}`}
                 >
-                  <div className="flex items-center justify-between">
-                    <Moon size={26} strokeWidth={1} className="text-[#98754D]" />
-                    <Clock3 size={16} className="text-[#98754D]" />
-                  </div>
-                  <div>
-                    <p className="text-[8px] tracking-[0.25em] text-[#98754D]">
-                      STORIES & PERSPECTIVES
-                    </p>
-                    <h3 className="mt-3 font-serif text-3xl text-[#782C49]">
-                      Coming soon.
-                    </h3>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ y: -5 }}
-                  className="flex min-h-[200px] flex-col justify-between border border-[#D8C5A9] bg-[#E8D9CA] p-7"
-                >
-                  <div className="flex items-center justify-between">
-                    <Sun size={26} strokeWidth={1} className="text-[#98754D]" />
-                    <Sparkles size={16} className="text-[#98754D]" />
-                  </div>
-                  <div>
-                    <p className="text-[8px] tracking-[0.25em] text-[#98754D]">
-                      IDEAS & INSPIRATION
-                    </p>
-                    <h3 className="mt-3 font-serif text-3xl text-[#782C49]">
-                      Stay inspired.
-                    </h3>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-
-            <p className="mt-8 text-center text-xs leading-6 text-[#98754D]">
-              New stories arriving soon. No published articles are available yet.
-            </p>
-          </div>
-        </section>
-
-        {/* 09 — TOPICS */}
-        <section className="bg-[#F0E3D2] px-6 py-24 md:py-28">
-          <div className="mx-auto max-w-6xl text-center">
-            <motion.div
-              variants={reveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <SectionLabel>EXPLORE BY TOPIC</SectionLabel>
-
-              <h2 className="font-serif text-4xl text-[#782C49] md:text-6xl">
-                Follow your curiosity.
-              </h2>
-
-              <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[#756253]">
-                A few of the themes you can look forward to in the SEVOURA Journal.
-              </p>
-            </motion.div>
-
-            <div className="mt-12 flex flex-wrap justify-center gap-3">
-              {topics.slice(0, 4).map((topic, index) => (
-                <motion.div
-                  key={topic}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{
-                    y: -6,
-                    backgroundColor: "#782C49",
-                    color: "#FFFFFF",
-                  }}
-                  className="border border-[#B28B4E]/60 bg-[#FBF5EC] px-6 py-5 text-[9px] tracking-[0.17em] text-[#782C49] transition-colors duration-300 md:px-9"
-                >
-                  {topic}
-                </motion.div>
+                  {o.l}
+                </button>
               ))}
             </div>
           </div>
-        </section>
 
-        {/* 10 — NEWSLETTER */}
-        <section className="relative overflow-hidden px-6 py-24 md:py-32">
-          <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-[#D9B477]/20 blur-[110px]" />
-          <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#782C49]/10 blur-[110px]" />
-
-          <motion.div
-            variants={reveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="relative mx-auto max-w-4xl overflow-hidden border border-[#D2B995] bg-[#FBF5EC] px-6 py-16 text-center shadow-[0_25px_80px_rgba(89,62,39,0.08)] md:px-16 md:py-24"
-          >
-            <div className="absolute inset-3 border border-[#D2B995]/50" />
-
-            <div className="relative z-10">
-              <motion.div
-                animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
-                transition={{ duration: 5, repeat: Infinity }}
-                className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#B28B4E]/50 text-[#98754D]"
-              >
-                <Mail size={27} strokeWidth={1} />
-              </motion.div>
-
-              <SectionLabel>STAY INSPIRED</SectionLabel>
-
-              <h2 className="font-serif text-4xl leading-tight text-[#782C49] md:text-6xl">
-                A little inspiration,
-                <br />
-                <span className="italic">delivered thoughtfully.</span>
-              </h2>
-
-              <p className="mx-auto mt-7 max-w-xl text-sm leading-8 text-[#756253]">
-                Be the first to discover new stories, rituals, and journal
-                updates from SEVOURA.
-              </p>
-
-              <AnimatePresence mode="wait">
-                {!submitted ? (
-                  <motion.form
-                    key="newsletter-form"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    onSubmit={handleSubmit}
-                    className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row"
-                  >
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Your email address"
-                      aria-label="Your email address"
-                      className="min-h-[58px] flex-1 border border-[#D5C2A7] bg-[#FFFDF8] px-5 text-sm text-[#392823] outline-none transition placeholder:text-[#A28E78] focus:border-[#782C49]"
-                    />
-
-                    <button
-                      type="submit"
-                      className="group inline-flex min-h-[58px] items-center justify-center gap-3 bg-[#782C49] px-8 text-[9px] font-semibold uppercase tracking-[0.17em] text-white transition-all hover:bg-[#572036]"
-                    >
-                      SIGN ME UP
-                      <ArrowRight
-                        size={15}
-                        className="transition-transform group-hover:translate-x-1"
-                      />
-                    </button>
-                  </motion.form>
-                ) : (
-                  <motion.div
-                    key="newsletter-success"
-                    initial={{ opacity: 0, y: 15, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="mx-auto mt-10 flex max-w-xl items-center justify-center gap-3 border border-[#B28B4E]/40 bg-[#F0E3D2] px-5 py-6 text-sm text-[#782C49]"
-                  >
-                    <CheckCircle2 size={21} />
-                    <span>
-                      Thank you for joining the SEVOURA Journal. Stay inspired.
-                    </span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <p className="mt-7 text-[8px] uppercase tracking-[0.25em] text-[#98754D]">
-                THOUGHTFULLY CURATED. ALWAYS SEVOURA.
-              </p>
+          {(activeCategory || tag || q) && (
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-[14px] text-[#6E5A50]">
+              <span>Showing</span>
+              {activeCategory && <Chip label={activeCategory.name} onClear={() => setParam({ category: null })} />}
+              {tag && <Chip label={`#${tag}`} onClear={() => setParam({ tag: null })} />}
+              {q && (
+                <Chip
+                  label={`“${q}”`}
+                  onClear={() => {
+                    setSearch("");
+                    setParam({ q: null });
+                  }}
+                />
+              )}
             </div>
-          </motion.div>
-        </section>
+          )}
 
-        {/* 11 — FINAL EDITORIAL STATEMENT */}
-        <section className="relative overflow-hidden bg-[#EBDCC9] px-6 py-28 text-center md:py-36">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            className="absolute left-1/2 top-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#B28B4E]/20"
-          />
+          <div className="mt-4">
+            {error && <p className="py-10 text-[15px] text-[#9A2E3E]">{error}</p>}
+            {!error && items === null && (
+              <div className="space-y-8 py-8">
+                {[0, 1, 2].map((i) => (
+                  <div key={i} className="animate-pulse space-y-4 border-b border-[#E2D4C2] pb-8">
+                    <div className="h-3 w-40 bg-[#E9DCCB]" />
+                    <div className="h-8 w-4/5 bg-[#E9DCCB]" />
+                    <div className="h-4 w-full bg-[#F0E5D6]" />
+                  </div>
+                ))}
+              </div>
+            )}
+            {items && items.length === 0 && <EmptyFeed filtered={!!(category || tag || q || kind || sort === "unanswered")} />}
+            {items?.map((it, i) => <QuestionCard key={it.id} q={it} index={i} onNeedLogin={() => setNudge(true)} />)}
+            {items && items.length < total && (
+              <div className="pt-10 text-center">
+                <button
+                  type="button"
+                  onClick={more}
+                  disabled={loadingMore}
+                  className="border border-[#481D30] px-9 py-4 text-[12px] font-semibold tracking-[0.22em] text-[#481D30] transition-colors hover:bg-[#481D30] hover:text-[#FFF6E9] disabled:opacity-60"
+                >
+                  {loadingMore ? "LOADING…" : `SHOW MORE · ${total - items.length} MORE`}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
 
-          <motion.div
-            variants={reveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="relative z-10 mx-auto max-w-4xl"
-          >
-            <SectionLabel>THE SEVOURA JOURNAL</SectionLabel>
+        {/* SIDEBAR */}
+        <aside className="space-y-12 lg:sticky lg:top-28 lg:self-start">
+          {stats && (
+            <div className="grid grid-cols-3 border-y border-[#DCCAB5] py-6 text-center">
+              {[
+                { n: stats.questions + stats.experiences, l: "Discussions" },
+                { n: stats.answers, l: "Answers" },
+                { n: stats.members, l: "Members" },
+              ].map((s) => (
+                <div key={s.l}>
+                  <p className="font-display text-[34px] leading-none text-[#481D30]">{s.n}</p>
+                  <p className="mt-2 text-[12px] tracking-[0.16em] text-[#8A766A]">{s.l.toUpperCase()}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
-            <p className="font-serif text-4xl leading-tight text-[#782C49] md:text-7xl">
-              A world of fragrance.
-              <br />
-              A world of rituals.
-              <br />
-              <span className="italic">A world of inspiration.</span>
-            </p>
+          <SideBlock title="Categories">
+            <ul className="space-y-1">
+              <li>
+                <button type="button" onClick={() => setParam({ category: null })} className={`flex w-full items-center justify-between py-2.5 text-left text-[16px] transition-colors ${!category ? "text-[#792D49]" : "text-[#3A2228] hover:text-[#792D49]"}`}>
+                  All discussions
+                </button>
+              </li>
+              {cats.map((c) => (
+                <li key={c.slug}>
+                  <button
+                    type="button"
+                    onClick={() => setParam({ category: c.slug === category ? null : c.slug })}
+                    className={`flex w-full items-center justify-between gap-4 py-2.5 text-left text-[16px] transition-colors ${c.slug === category ? "text-[#792D49]" : "text-[#3A2228] hover:text-[#792D49]"}`}
+                  >
+                    <span>{c.name}</span>
+                    <span className="text-[13px] tabular-nums text-[#A08A79]">{c.count}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </SideBlock>
 
-            <div className="mx-auto my-9 h-px w-20 bg-[#B28B4E]" />
+          {top.length > 0 && (
+            <SideBlock title="Most helpful answers">
+              <ul className="space-y-6">
+                {top.map((a) => (
+                  <li key={a.id}>
+                    <Link href={`/journal/q/${a.question_id}`} className="group block">
+                      <p className="font-display text-[20px] leading-snug text-[#2E1A20] transition-colors group-hover:text-[#792D49]">{a.question_title}</p>
+                      <p className="mt-2 line-clamp-2 text-[14px] leading-6 text-[#6E5A50]">{a.excerpt}</p>
+                      <p className="mt-2 flex items-center gap-2 text-[12px] text-[#8A766A]">
+                        <ArrowUp size={12} /> {a.vote_score} · {a.is_official ? "SEVOURA" : a.author.name}
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </SideBlock>
+          )}
 
-            <p className="text-[9px] uppercase tracking-[0.35em] text-[#98754D]">
-              CLEANSE. ELEVATE. RADIATE.
-            </p>
+          {stats && stats.tags.length > 0 && (
+            <SideBlock title="Trending topics">
+              <div className="flex flex-wrap gap-2">
+                {stats.tags.map((t) => (
+                  <button
+                    key={t.tag}
+                    type="button"
+                    onClick={() => setParam({ tag: t.tag === tag ? null : t.tag })}
+                    className={`border px-3 py-1.5 text-[13px] transition-colors ${t.tag === tag ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#DCCAB5] text-[#5A3A44] hover:border-[#792D49]"}`}
+                  >
+                    #{t.tag}
+                  </button>
+                ))}
+              </div>
+            </SideBlock>
+          )}
 
-            <Link
-              href="/shop"
-              className="group mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-1 hover:bg-[#572036]"
-            >
-              DISCOVER SEVOURA
-              <MoveUpRight
-                size={15}
-                className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-              />
-            </Link>
-          </motion.div>
-        </section>
-      </main>
-
-      <SiteFooter />
+          <Link href="/journal/editorial" className="group block bg-[#481D30] p-8 text-[#F7F0E6]">
+            <BookOpen size={20} className="text-[#D6A64F]" />
+            <p className="mt-5 font-display text-[28px] leading-tight">From the editors</p>
+            <p className="mt-3 text-[15px] leading-7 text-[#E2CBB8]">Stories on fragrance, ritual and intention from the SEVOURA team.</p>
+            <span className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold tracking-[0.22em] text-[#F0D69A]">
+              READ THE EDITORIAL <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </aside>
+      </section>
+      <SignInNudge open={nudge} onClose={() => setNudge(false)} next="/journal" />
     </>
+  );
+}
+
+function Chip({ label, onClear }: { label: string; onClear: () => void }) {
+  return (
+    <span className="inline-flex items-center gap-2 border border-[#792D49] px-3 py-1.5 text-[13px] text-[#792D49]">
+      {label}
+      <button type="button" onClick={onClear} aria-label={`Clear ${label}`} className="hover:text-[#3A2228]">
+        <X size={13} />
+      </button>
+    </span>
+  );
+}
+
+function SideBlock({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="mb-5 flex items-center gap-3 text-[12px] font-semibold tracking-[0.28em] text-[#A77B4D]">
+        <span className="h-px w-6 bg-[#C9A15C]" /> {title.toUpperCase()}
+      </p>
+      {children}
+    </div>
+  );
+}
+
+function EmptyFeed({ filtered }: { filtered: boolean }) {
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, ease }} className="py-20 text-center">
+      <p className="font-display text-[36px] leading-tight text-[#2E1A20]">{filtered ? "Nothing here yet." : "Be the first to begin the conversation."}</p>
+      <p className="mx-auto mt-4 max-w-[440px] text-[16px] leading-7 text-[#6E5A50]">
+        {filtered ? "Try another category or search — or ask the question yourself." : "Ask about a blend, a note or a ritual. Our team and community will answer."}
+      </p>
+      <Link href="/journal/ask" className="mt-8 inline-flex items-center gap-3 bg-[#481D30] px-8 py-4 text-[12px] font-semibold tracking-[0.22em] text-[#FFF6E9] transition-colors hover:bg-[#792D49]">
+        <PenLine size={16} /> ASK A QUESTION
+      </Link>
+    </motion.div>
+  );
+}
+
+export default function JournalPage() {
+  return (
+    <main className="min-h-screen bg-[#F7F0E6] text-[#3A2228]">
+      <SiteHeader />
+      <Suspense fallback={<div className="h-[60vh] bg-[#2A0010]" />}>
+        <Feed />
+      </Suspense>
+      <SiteFooter />
+    </main>
   );
 }

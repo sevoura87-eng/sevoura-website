@@ -47,20 +47,20 @@ function LoginForm() {
       <Field label="Email address" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <Field label="Password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <div className="flex justify-end">
-        <Link href="/forgot-password" className="text-[11px] text-[#792D49] underline-offset-4 hover:underline">
+        <Link href="/forgot-password" className="text-[13px] text-[#792D49] underline-offset-4 hover:underline">
           Forgot your password?
         </Link>
       </div>
       <Button type="submit" loading={busy} className="w-full">
         SIGN IN
       </Button>
-      <p className="pt-3 text-center text-[13px] text-[#806D60]">
+      <p className="pt-3 text-center text-[15px] text-[#806D60]">
         New to SEVOURA?{" "}
         <Link href={`/signup${next !== "/account" ? `?next=${encodeURIComponent(next)}` : ""}`} className="font-medium text-[#792D49] underline underline-offset-4">
           Create an account
         </Link>
       </p>
-      <p className="text-center text-[10px] leading-5 text-[#A08A79]">You&apos;ll stay signed in on this device until you sign out.</p>
+      <p className="text-center text-[12px] leading-5 text-[#A08A79]">You&apos;ll stay signed in on this device until you sign out.</p>
     </form>
   );
 }

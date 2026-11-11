@@ -56,11 +56,11 @@ export default function AdminOrderDetail() {
 
   return (
     <>
-      <Link href="/admin/orders" className="mb-5 inline-flex items-center gap-2 text-[11px] text-[#806D60] hover:text-[#792D49]"><ArrowLeft size={13} /> All orders</Link>
+      <Link href="/admin/orders" className="mb-5 inline-flex items-center gap-2 text-[13px] text-[#806D60] hover:text-[#792D49]"><ArrowLeft size={13} /> All orders</Link>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="font-mono text-3xl text-[#792D49]">{o.order_number}</p>
-          <p className="mt-1 text-[12px] text-[#806D60]">Placed {formatDate(o.created_at, true)} · Updated {formatDate(o.updated_at, true)}</p>
+          <p className="mt-1 text-[14px] text-[#806D60]">Placed {formatDate(o.created_at, true)} · Updated {formatDate(o.updated_at, true)}</p>
         </div>
         <div className="flex gap-2"><OrderStatusBadge status={o.status} payment={o.payment_status} /><PaymentStatusBadge status={o.payment_status} /></div>
       </div>
@@ -72,8 +72,8 @@ export default function AdminOrderDetail() {
           <Card>
             <p className="px-5 pt-5 font-serif text-2xl">Products</p>
             <div className="overflow-x-auto">
-              <table className="mt-3 w-full min-w-[480px] text-left text-[13px]">
-                <thead className="text-[10px] uppercase tracking-[0.14em] text-[#9A8070]"><tr><th className="px-5 py-2 font-medium">Product</th><th className="px-3 py-2 font-medium">Unit price</th><th className="px-3 py-2 font-medium">Qty</th><th className="px-5 py-2 text-right font-medium">Line total</th></tr></thead>
+              <table className="mt-3 w-full min-w-[480px] text-left text-[15px]">
+                <thead className="text-[12px] uppercase tracking-[0.14em] text-[#9A8070]"><tr><th className="px-5 py-2 font-medium">Product</th><th className="px-3 py-2 font-medium">Unit price</th><th className="px-3 py-2 font-medium">Qty</th><th className="px-5 py-2 text-right font-medium">Line total</th></tr></thead>
                 <tbody>
                   {(o.order_items ?? []).map((it) => (
                     <tr key={it.id} className="border-t border-[#EEE5D9]">
@@ -84,7 +84,7 @@ export default function AdminOrderDetail() {
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="text-[13px]">
+                <tfoot className="text-[15px]">
                   <tr className="border-t border-[#E2D5C3]"><td colSpan={3} className="px-5 py-2 text-[#806D60]">Subtotal</td><td className="px-5 py-2 text-right">{formatINR(o.subtotal_paise)}</td></tr>
                   <tr><td colSpan={3} className="px-5 py-1 text-[#806D60]">Shipping</td><td className="px-5 py-1 text-right">{o.shipping_paise ? formatINR(o.shipping_paise) : "Free"}</td></tr>
                   <tr><td colSpan={3} className="px-5 py-3 font-medium">Total</td><td className="px-5 py-3 text-right font-serif text-2xl text-[#792D49]">{formatINR(o.total_paise)}</td></tr>
@@ -95,7 +95,7 @@ export default function AdminOrderDetail() {
 
           <Card className="p-5">
             <p className="font-serif text-2xl">Status history</p>
-            <ul className="mt-3 space-y-3 text-[12px]">
+            <ul className="mt-3 space-y-3 text-[14px]">
               {data.history.map((h) => (
                 <li key={h.id} className="flex flex-wrap gap-x-3 border-l-2 border-[#D9C7B4] pl-3">
                   <span className="font-medium">{h.from_status ? `${ORDER_STATUS_LABEL[h.from_status]} → ` : ""}{ORDER_STATUS_LABEL[h.to_status]}</span>
@@ -111,7 +111,7 @@ export default function AdminOrderDetail() {
           <Card className="p-5">
             <p className="font-serif text-2xl">Update status</p>
             {final ? (
-              <p className="mt-3 text-[13px] text-[#806D60]">This order is {ORDER_STATUS_LABEL[o.status].toLowerCase()} — its status is final.</p>
+              <p className="mt-3 text-[15px] text-[#806D60]">This order is {ORDER_STATUS_LABEL[o.status].toLowerCase()} — its status is final.</p>
             ) : (
               <div className="mt-4 space-y-3">
                 {msg && <Notice tone={msg.tone}>{msg.text}</Notice>}
@@ -120,30 +120,30 @@ export default function AdminOrderDetail() {
                     <button
                       key={s}
                       onClick={() => setNext(s)}
-                      className={`border px-3 py-2.5 text-left text-[12px] transition ${next === s ? (s === "cancelled" ? "border-[#8A2E2E] bg-[#8A2E2E] text-white" : "border-[#792D49] bg-[#792D49] text-white") : "border-[#D6C4AD] bg-white hover:border-[#792D49]"}`}
+                      className={`border px-3 py-2.5 text-left text-[14px] transition ${next === s ? (s === "cancelled" ? "border-[#8A2E2E] bg-[#8A2E2E] text-white" : "border-[#792D49] bg-[#792D49] text-white") : "border-[#D6C4AD] bg-white hover:border-[#792D49]"}`}
                     >
                       {ORDER_STATUS_LABEL[s]}
                     </button>
                   ))}
                 </div>
-                <input value={note} onChange={(e) => setNote(e.target.value)} maxLength={300} placeholder="Note (optional) — e.g. tracking number" className="w-full border border-[#D6C4AD] bg-white px-3 py-2.5 text-[13px] outline-none focus:border-[#B28B4E]" />
+                <input value={note} onChange={(e) => setNote(e.target.value)} maxLength={300} placeholder="Note (optional) — e.g. tracking number" className="w-full border border-[#D6C4AD] bg-white px-3 py-2.5 text-[15px] outline-none focus:border-[#B28B4E]" />
                 <Button onClick={update} loading={busy} disabled={!next} className="w-full">{next ? `MARK AS ${ORDER_STATUS_LABEL[next].toUpperCase()}` : "CHOOSE A STATUS"}</Button>
               </div>
             )}
           </Card>
 
-          <Card className="p-5 text-[13px] leading-6">
+          <Card className="p-5 text-[15px] leading-6">
             <p className="font-serif text-2xl">Customer</p>
             <p className="mt-2 font-medium">{o.customer_name}</p>
             <p><a className="text-[#792D49] hover:underline" href={`mailto:${o.customer_email}`}>{o.customer_email}</a></p>
             <p><a className="text-[#792D49] hover:underline" href={`tel:+91${o.customer_phone}`}>+91 {o.customer_phone}</a></p>
-            {o.user_id && <Link href={`/admin/customers/${o.user_id}`} className="mt-2 inline-block text-[11px] text-[#792D49] hover:underline">View customer profile →</Link>}
+            {o.user_id && <Link href={`/admin/customers/${o.user_id}`} className="mt-2 inline-block text-[13px] text-[#792D49] hover:underline">View customer profile →</Link>}
           </Card>
 
-          <Card className="p-5 text-[13px] leading-6">
+          <Card className="p-5 text-[15px] leading-6">
             <div className="flex items-center justify-between">
               <p className="font-serif text-2xl">Delivery address</p>
-              <button onClick={() => { navigator.clipboard.writeText(address); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="inline-flex items-center gap-1 text-[11px] text-[#792D49]">
+              <button onClick={() => { navigator.clipboard.writeText(address); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="inline-flex items-center gap-1 text-[13px] text-[#792D49]">
                 {copied ? <Check size={12} /> : <Copy size={12} />} {copied ? "Copied" : "Copy"}
               </button>
             </div>
@@ -151,13 +151,13 @@ export default function AdminOrderDetail() {
             {o.notes && <p className="mt-3 border-t border-[#EEE5D9] pt-3 text-[#806D60]">Customer note: {o.notes}</p>}
           </Card>
 
-          <Card className="p-5 text-[13px]">
+          <Card className="p-5 text-[15px]">
             <p className="font-serif text-2xl">Payment</p>
             <p className="mt-2 text-[#806D60]">Method: {o.payment_method} · Status: <PaymentStatusBadge status={o.payment_status} /></p>
             {data.payments.length === 0 ? (
-              <p className="mt-3 text-[12px] text-[#9A8777]">No payment attempts recorded. Payment status changes only when a verified gateway confirmation arrives.</p>
+              <p className="mt-3 text-[14px] text-[#9A8777]">No payment attempts recorded. Payment status changes only when a verified gateway confirmation arrives.</p>
             ) : (
-              <ul className="mt-3 space-y-1 text-[12px]">
+              <ul className="mt-3 space-y-1 text-[14px]">
                 {data.payments.map((p) => <li key={p.id}>{p.provider} · {p.provider_payment_id ?? "—"} · {formatINR(p.amount_paise)} · {p.status}</li>)}
               </ul>
             )}

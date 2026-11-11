@@ -73,8 +73,8 @@ export default function AdminOrders() {
         sub="Live list of every order. New orders and status changes appear automatically."
         action={
           <div className="flex gap-2">
-            <button onClick={() => reload()} className="inline-flex items-center gap-2 border border-[#D6C4AD] bg-white px-4 py-2.5 text-[11px] hover:border-[#792D49]"><RefreshCw size={13} /> Refresh</button>
-            <button onClick={exportCsv} disabled={!rows.length} className="inline-flex items-center gap-2 bg-[#792D49] px-4 py-2.5 text-[11px] text-white disabled:opacity-50"><Download size={13} /> Export CSV</button>
+            <button onClick={() => reload()} className="inline-flex items-center gap-2 border border-[#D6C4AD] bg-white px-4 py-2.5 text-[13px] hover:border-[#792D49]"><RefreshCw size={13} /> Refresh</button>
+            <button onClick={exportCsv} disabled={!rows.length} className="inline-flex items-center gap-2 bg-[#792D49] px-4 py-2.5 text-[13px] text-white disabled:opacity-50"><Download size={13} /> Export CSV</button>
           </div>
         }
       />
@@ -82,31 +82,31 @@ export default function AdminOrders() {
       <Card className="mb-4 space-y-3 p-4">
         <label className="flex items-center gap-2 border border-[#D6C4AD] bg-white px-3">
           <Search size={15} className="text-[#9A8777]" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search order no., customer, email, phone, city, pincode…" className="w-full bg-transparent py-2.5 text-[13px] outline-none" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search order no., customer, email, phone, city, pincode…" className="w-full bg-transparent py-2.5 text-[15px] outline-none" />
         </label>
         <div className="flex flex-wrap items-end gap-3">
-          <label className="text-[10px] uppercase tracking-[0.14em] text-[#9A8070]">
+          <label className="text-[12px] uppercase tracking-[0.14em] text-[#9A8070]">
             Payment
-            <select value={payment} onChange={(e) => setPayment(e.target.value as PaymentStatus | "all")} className="mt-1 block border border-[#D6C4AD] bg-white px-3 py-2 text-[12px] normal-case tracking-normal text-[#3B2028]">
+            <select value={payment} onChange={(e) => setPayment(e.target.value as PaymentStatus | "all")} className="mt-1 block border border-[#D6C4AD] bg-white px-3 py-2 text-[14px] normal-case tracking-normal text-[#3B2028]">
               {PAYMENT_FILTERS.map((p) => (
                 <option key={p} value={p}>{p === "all" ? "All payments" : PAYMENT_STATUS_LABEL[p]}</option>
               ))}
             </select>
           </label>
-          <label className="text-[10px] uppercase tracking-[0.14em] text-[#9A8070]">
+          <label className="text-[12px] uppercase tracking-[0.14em] text-[#9A8070]">
             From
-            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="mt-1 block border border-[#D6C4AD] bg-white px-3 py-2 text-[12px] text-[#3B2028]" />
+            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="mt-1 block border border-[#D6C4AD] bg-white px-3 py-2 text-[14px] text-[#3B2028]" />
           </label>
-          <label className="text-[10px] uppercase tracking-[0.14em] text-[#9A8070]">
+          <label className="text-[12px] uppercase tracking-[0.14em] text-[#9A8070]">
             To
-            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="mt-1 block border border-[#D6C4AD] bg-white px-3 py-2 text-[12px] text-[#3B2028]" />
+            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="mt-1 block border border-[#D6C4AD] bg-white px-3 py-2 text-[14px] text-[#3B2028]" />
           </label>
           {filtered && (
-            <button onClick={() => { setStatus("all"); setPayment("all"); setFrom(""); setTo(""); setQ(""); }} className="inline-flex items-center gap-1 px-2 py-2 text-[11px] text-[#792D49] hover:underline">
+            <button onClick={() => { setStatus("all"); setPayment("all"); setFrom(""); setTo(""); setQ(""); }} className="inline-flex items-center gap-1 px-2 py-2 text-[13px] text-[#792D49] hover:underline">
               <X size={12} /> Clear filters
             </button>
           )}
-          <p className="ml-auto text-[12px] text-[#806D60]">
+          <p className="ml-auto text-[14px] text-[#806D60]">
             {rows.length} order{rows.length === 1 ? "" : "s"} · {formatINR(total)}
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function AdminOrders() {
             <button
               key={s}
               onClick={() => setStatus(s)}
-              className={`shrink-0 border px-3 py-2 text-[11px] transition ${status === s ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white hover:border-[#792D49]"}`}
+              className={`shrink-0 border px-3 py-2 text-[13px] transition ${status === s ? "border-[#792D49] bg-[#792D49] text-white" : "border-[#D6C4AD] bg-white hover:border-[#792D49]"}`}
             >
               {s === "all" ? "All" : ORDER_STATUS_LABEL[s]} <span className="opacity-60">{counts[s] ?? 0}</span>
             </button>
@@ -127,8 +127,8 @@ export default function AdminOrders() {
         <Card>
           {rows.length === 0 ? <Empty>{data?.length ? "No orders match these filters." : "No orders yet. They appear here the moment a customer checks out."}</Empty> : (
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[1150px] text-left text-[13px]">
-                <thead className="bg-[#F8F2EA] text-[10px] uppercase tracking-[0.14em] text-[#9A8070]">
+              <table className="w-full min-w-[1150px] text-left text-[15px]">
+                <thead className="bg-[#F8F2EA] text-[12px] uppercase tracking-[0.14em] text-[#9A8070]">
                   <tr>
                     <th className="px-5 py-3 font-medium">Order / date</th>
                     <th className="px-3 py-3 font-medium">Customer</th>
@@ -143,20 +143,20 @@ export default function AdminOrders() {
                   {rows.map((o) => (
                     <tr key={o.id} className="border-t border-[#EEE5D9] align-top transition hover:bg-[#FBF7F1]">
                       <td className="px-5 py-3">
-                        <Link href={`/admin/orders/${o.id}`} className="font-mono text-[12px] text-[#792D49] hover:underline">{o.order_number}</Link>
-                        <p className="mt-0.5 text-[11px] text-[#806D60]">{formatDate(o.created_at, true)}</p>
+                        <Link href={`/admin/orders/${o.id}`} className="font-mono text-[14px] text-[#792D49] hover:underline">{o.order_number}</Link>
+                        <p className="mt-0.5 text-[13px] text-[#806D60]">{formatDate(o.created_at, true)}</p>
                       </td>
                       <td className="px-3 py-3">
                         <p>{o.customer_name}</p>
-                        <p className="text-[11px] text-[#806D60]">{o.customer_email}</p>
-                        <p className="text-[11px] text-[#806D60]">+91 {o.customer_phone}</p>
+                        <p className="text-[13px] text-[#806D60]">{o.customer_email}</p>
+                        <p className="text-[13px] text-[#806D60]">+91 {o.customer_phone}</p>
                       </td>
-                      <td className="px-3 py-3 text-[12px]">
+                      <td className="px-3 py-3 text-[14px]">
                         {(o.order_items ?? []).map((i, k) => (
                           <p key={k}>{i.product_name} <span className="text-[#806D60]">× {i.quantity}</span></p>
                         ))}
                       </td>
-                      <td className="max-w-[260px] px-3 py-3 text-[12px] leading-5 text-[#5E4A44]">
+                      <td className="max-w-[260px] px-3 py-3 text-[14px] leading-5 text-[#5E4A44]">
                         {o.ship_full_name}, {o.ship_house_number}, {o.ship_street_locality}
                         {o.ship_landmark ? `, near ${o.ship_landmark}` : ""}, {o.ship_city}, {o.ship_state} – <strong>{o.ship_pincode}</strong>
                       </td>

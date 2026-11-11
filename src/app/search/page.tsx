@@ -54,7 +54,7 @@ export default function SearchPage() {
       <SiteHeader />
       <main className="min-h-[70vh] overflow-x-clip bg-[#F8F1E7] px-5 py-16 text-[#481D30] md:px-10 md:py-24">
         <div className="mx-auto max-w-3xl">
-          <p className="text-[9px] tracking-[0.34em] text-[#A77B4D]">SEARCH SEVOURA</p>
+          <p className="text-[11px] tracking-[0.34em] text-[#A77B4D]">SEARCH SEVOURA</p>
           <label className="mt-6 flex items-center gap-4 border-b-2 border-[#792D49]/70 pb-4 focus-within:border-[#B28B4E]">
             <Search size={26} strokeWidth={1.2} className="text-[#A77B4D]" />
             <input
@@ -67,7 +67,7 @@ export default function SearchPage() {
           </label>
           <div className="mt-6 flex flex-wrap gap-2">
             {["Rose", "Vanilla", "Moon", "Alcohol-free", "Shipping", "Gift"].map((s) => (
-              <button key={s} onClick={() => setQ(s)} className="border border-[#D6BE99] px-3 py-1.5 text-[11px] text-[#806D60] transition hover:border-[#792D49] hover:text-[#792D49]">
+              <button key={s} onClick={() => setQ(s)} className="border border-[#D6BE99] px-3 py-1.5 text-[13px] text-[#806D60] transition hover:border-[#792D49] hover:text-[#792D49]">
                 {s}
               </button>
             ))}
@@ -79,7 +79,7 @@ export default function SearchPage() {
                   <Link href={r.href} className="group flex items-start justify-between gap-6 py-5">
                     <div>
                       <p className="font-serif text-2xl transition group-hover:text-[#792D49]">{r.title}</p>
-                      <p className="mt-1 text-sm leading-6 text-[#806D60]">{r.text}</p>
+                      <p className="mt-1 text-[15px] leading-6 text-[#806D60]">{r.text}</p>
                     </div>
                     <div className="flex shrink-0 items-center gap-3">
                       {"price" in r && typeof r.price === "number" && <span className="font-serif text-xl text-[#792D49]">{formatINR(r.price)}</span>}
@@ -90,7 +90,7 @@ export default function SearchPage() {
               ))}
             </AnimatePresence>
           </ul>
-          {q && !results.length && <p className="mt-10 text-sm text-[#806D60]">No results for “{q}”.</p>}
+          {q && !results.length && <p className="mt-10 text-[15px] text-[#806D60]">No results for “{q}”.</p>}
         </div>
       </main>
       <SiteFooter />

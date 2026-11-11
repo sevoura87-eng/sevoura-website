@@ -97,13 +97,13 @@ export default function LoginPrompt() {
             <span className="relative inline-flex text-[#D6A64F]">
               <Ornament size={22} />
             </span>
-            <p className="relative mt-4 text-[9px] tracking-[0.34em] text-[#D6A64F]">WELCOME TO SEVOURA</p>
+            <p className="relative mt-4 text-[11px] tracking-[0.34em] text-[#D6A64F]">WELCOME TO SEVOURA</p>
             <h2 id="login-prompt-title" className="relative mt-3 font-display text-[34px] leading-[1.05]">
               Sign in to begin
               <br />
               <span className="italic text-[#F0D69A]">your ritual.</span>
             </h2>
-            <p className="relative mx-auto mt-4 max-w-[300px] text-[13px] leading-6 text-[#E2CBB8]">
+            <p className="relative mx-auto mt-4 max-w-[300px] text-[15px] leading-6 text-[#E2CBB8]">
               Save your bag, check out faster and follow every order from your account.
             </p>
 
@@ -111,18 +111,18 @@ export default function LoginPrompt() {
               <Link
                 href={`/login?next=${next}`}
                 onClick={() => setOpen(false)}
-                className="bg-[#D6A64F] px-6 py-4 text-[11px] font-semibold tracking-[0.2em] text-[#26000D] transition-colors hover:bg-[#F0D69A]"
+                className="bg-[#D6A64F] px-6 py-4 text-[13px] font-semibold tracking-[0.2em] text-[#26000D] transition-colors hover:bg-[#F0D69A]"
               >
                 SIGN IN
               </Link>
               <Link
                 href={`/signup?next=${next}`}
                 onClick={() => setOpen(false)}
-                className="border border-[#D6A64F]/50 px-6 py-4 text-[11px] tracking-[0.2em] text-[#F0D69A] transition-colors hover:border-[#F0D69A] hover:bg-white/5"
+                className="border border-[#D6A64F]/50 px-6 py-4 text-[13px] tracking-[0.2em] text-[#F0D69A] transition-colors hover:border-[#F0D69A] hover:bg-white/5"
               >
                 CREATE AN ACCOUNT
               </Link>
-              <button type="button" onClick={close} className="mt-1 text-[11px] tracking-[0.12em] text-[#BFA295] underline-offset-4 hover:text-[#F7F0E6] hover:underline">
+              <button type="button" onClick={close} className="mt-1 text-[13px] tracking-[0.12em] text-[#BFA295] underline-offset-4 hover:text-[#F7F0E6] hover:underline">
                 Continue browsing
               </button>
             </div>

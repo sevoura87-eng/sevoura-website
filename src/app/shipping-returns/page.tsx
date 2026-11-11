@@ -170,7 +170,7 @@ export default function ShippingReturnsPage() {
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
-            className="mb-12 flex items-center gap-3 text-[10px] tracking-[0.25em] text-[#E5C38B]"
+            className="mb-12 flex items-center gap-3 text-[12px] tracking-[0.25em] text-[#E5C38B]"
           >
             <Link href="/" className="transition hover:text-white">HOME</Link>
             <span>›</span>
@@ -181,7 +181,7 @@ export default function ShippingReturnsPage() {
             initial={reduce ? false : { opacity: 0, letterSpacing: "0.1em" }}
             animate={{ opacity: 1, letterSpacing: "0.35em" }}
             transition={{ duration: 1.1, delay: 0.2 }}
-            className="mb-7 text-[10px] text-[#D9B77C] md:text-[11px]"
+            className="mb-7 text-[12px] text-[#D9B77C] md:text-[13px]"
           >
             A THOUGHTFUL JOURNEY, FROM US TO YOU
           </motion.p>
@@ -220,7 +220,7 @@ export default function ShippingReturnsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.25 }}
-            className="mt-6 text-[10px] tracking-[0.25em] text-[#E5C38B]"
+            className="mt-6 text-[12px] tracking-[0.25em] text-[#E5C38B]"
           >
             CAREFULLY PACKED. THOUGHTFULLY DELIVERED.
           </motion.p>
@@ -228,7 +228,7 @@ export default function ShippingReturnsPage() {
           <motion.div
             animate={reduce ? {} : { y: [0, 9, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="mt-14 flex items-center gap-3 text-[9px] tracking-[0.25em] text-[#D9B77C]/80"
+            className="mt-14 flex items-center gap-3 text-[11px] tracking-[0.25em] text-[#D9B77C]/80"
           >
             <span className="h-9 w-px bg-[#D9B77C]" />
             SCROLL TO EXPLORE
@@ -240,7 +240,7 @@ export default function ShippingReturnsPage() {
       <section className="mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-28">
         <div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-20">
           <Reveal>
-            <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+            <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
               SHIPPING INFORMATION
             </p>
             <h2 className="mt-5 font-serif text-4xl leading-tight md:text-6xl">
@@ -297,7 +297,7 @@ export default function ShippingReturnsPage() {
                   >
                     <Icon size={25} strokeWidth={1.3} />
                   </motion.div>
-                  <span className="text-[9px] tracking-[0.2em] text-[#A66C35]">
+                  <span className="text-[11px] tracking-[0.2em] text-[#A66C35]">
                     {item.detail}
                   </span>
                 </div>
@@ -305,7 +305,7 @@ export default function ShippingReturnsPage() {
                 <h3 className="relative mt-10 font-serif text-2xl">
                   {item.title}
                 </h3>
-                <p className="relative mt-4 text-sm leading-7 text-[#74636A]">
+                <p className="relative mt-4 text-[15px] leading-7 text-[#74636A]">
                   {item.text}
                 </p>
 
@@ -324,7 +324,7 @@ export default function ShippingReturnsPage() {
         <Reveal delay={0.1}>
           <div className="mt-8 flex gap-5 border-l-2 border-[#B17B42] bg-[#F0E8DC] px-7 py-6">
             <ShieldCheck className="mt-1 shrink-0 text-[#A66C35]" size={23} />
-            <p className="text-sm leading-7 text-[#74636A]">
+            <p className="text-[15px] leading-7 text-[#74636A]">
               Once your order is dispatched, you will receive a tracking link
               via email/SMS/WhatsApp. Delivery timelines may vary for remote
               locations, weekends, public holidays, or circumstances beyond
@@ -340,7 +340,7 @@ export default function ShippingReturnsPage() {
 
         <div className="relative mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-28">
           <Reveal>
-            <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+            <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
               RETURNS & CUSTOMER CARE
             </p>
             <h2 className="mt-5 max-w-[750px] font-serif text-4xl leading-tight md:text-6xl">
@@ -348,7 +348,7 @@ export default function ShippingReturnsPage() {
               <br />
               <span className="text-[#A66C35]">need us.</span>
             </h2>
-            <p className="mt-5 max-w-[600px] text-sm leading-7 text-[#78656A]">
+            <p className="mt-5 max-w-[600px] text-[15px] leading-7 text-[#78656A]">
               Please review the following information for order changes,
               damaged deliveries and product-related concerns.
             </p>
@@ -389,7 +389,7 @@ export default function ShippingReturnsPage() {
                   {section.title}
                 </h3>
 
-                <div className="space-y-5 text-sm leading-8 text-[#74636A]">
+                <div className="space-y-5 text-[15px] leading-8 text-[#74636A]">
                   {section.paragraphs.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                   ))}
@@ -435,7 +435,7 @@ export default function ShippingReturnsPage() {
 
             <div className="relative grid items-center gap-10 md:grid-cols-[1fr_auto]">
               <div>
-                <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+                <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
                   WE ARE HERE TO HELP
                 </p>
                 <h2 className="mt-5 font-serif text-4xl leading-tight text-[#542038] md:text-6xl">
@@ -443,13 +443,13 @@ export default function ShippingReturnsPage() {
                   <br />
                   assistance?
                 </h2>
-                <p className="mt-5 max-w-[500px] text-sm leading-7 text-[#78656A]">
+                <p className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#78656A]">
                   For cancellation requests, damaged deliveries or any
                   questions about your order, get in touch with our team.
                 </p>
                 <a
                   href="mailto:hello@sevoura.com"
-                  className="mt-5 inline-flex items-center gap-3 text-sm text-[#542038] transition hover:text-[#A66C35]"
+                  className="mt-5 inline-flex items-center gap-3 text-[15px] text-[#542038] transition hover:text-[#A66C35]"
                 >
                   <Mail size={16} />
                   hello@sevoura.com
@@ -462,7 +462,7 @@ export default function ShippingReturnsPage() {
                 rel="noreferrer"
                 whileHover={reduce ? {} : { scale: 1.055, y: -5 }}
                 whileTap={{ scale: 0.97 }}
-                className="relative inline-flex min-h-[60px] items-center justify-center gap-4 overflow-hidden bg-[#481B30] px-8 text-[10px] font-semibold tracking-[0.15em] text-white shadow-lg transition-shadow duration-500 hover:shadow-[0_15px_40px_rgba(72,27,48,0.35)]"
+                className="relative inline-flex min-h-[60px] items-center justify-center gap-4 overflow-hidden bg-[#481B30] px-8 text-[12px] font-semibold tracking-[0.15em] text-white shadow-lg transition-shadow duration-500 hover:shadow-[0_15px_40px_rgba(72,27,48,0.35)]"
               >
                 <motion.span
                   initial={{ x: "-120%" }}

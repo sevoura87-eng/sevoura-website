@@ -58,7 +58,7 @@ const personalParagraphs = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-center gap-4 text-[9px] font-semibold uppercase tracking-[0.38em] text-[#98754D]">
+    <div className="flex items-center justify-center gap-4 text-[11px] font-semibold uppercase tracking-[0.38em] text-[#98754D]">
       <span className="h-px w-7 bg-[#B28B4E]/70" />
       {children}
       <span className="h-px w-7 bg-[#B28B4E]/70" />
@@ -169,7 +169,7 @@ export default function OurStoryPage() {
                 <div className="absolute left-5 top-5 h-7 w-7 rounded-full bg-white/40 blur-md" />
               </div>
             </div>
-            <p className="mt-4 text-center text-[9px] uppercase tracking-[0.35em] text-[#98754D]">THE ORBIT</p>
+            <p className="mt-4 text-center text-[11px] uppercase tracking-[0.35em] text-[#98754D]">THE ORBIT</p>
           </motion.div>
 
           {/* RIGHT PLANET — golden planet */}
@@ -182,7 +182,7 @@ export default function OurStoryPage() {
               <div className="absolute left-6 top-5 h-9 w-9 rounded-full bg-white/50 blur-lg" />
               <div className="absolute bottom-5 right-6 h-5 w-5 rounded-full bg-[#8D6338]/20 blur-sm" />
             </div>
-            <p className="mt-5 text-center text-[9px] uppercase tracking-[0.35em] text-[#98754D]">THE RADIANCE</p>
+            <p className="mt-5 text-center text-[11px] uppercase tracking-[0.35em] text-[#98754D]">THE RADIANCE</p>
           </motion.div>
 
           {/* Small floating moons */}
@@ -227,7 +227,7 @@ export default function OurStoryPage() {
               <Sparkles size={17} />
             </motion.div>
 
-            <div className="flex items-center justify-center gap-4 text-[9px] font-semibold uppercase tracking-[0.35em] text-[#98754D]">
+            <div className="flex items-center justify-center gap-4 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#98754D]">
               <span className="h-px w-7 bg-[#B28B4E]" />
               THE STORY BEHIND SEVOURA
               <span className="h-px w-7 bg-[#B28B4E]" />
@@ -241,14 +241,14 @@ export default function OurStoryPage() {
               <span className="italic text-[#782C49]">in Curiosity.</span>
             </h1>
 
-            <p className="mt-7 max-w-md text-sm leading-7 text-[#705B4B] md:text-base">
+            <p className="mt-7 max-w-md text-[15px] leading-7 text-[#705B4B] md:text-base">
               One personal discovery. Seven planetary inspirations.
               A new expression of fragrance.
             </p>
 
             <Link
               href="/the-seven"
-              className="group mt-9 inline-flex items-center gap-5 bg-[#782C49] px-8 py-4 text-[9px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_30px_rgba(120,44,73,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] hover:shadow-[0_18px_40px_rgba(120,44,73,0.3)]"
+              className="group mt-9 inline-flex items-center gap-5 bg-[#782C49] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_12px_30px_rgba(120,44,73,0.2)] transition-all duration-500 hover:-translate-y-1 hover:bg-[#5D2037] hover:shadow-[0_18px_40px_rgba(120,44,73,0.3)]"
             >
               EXPLORE THE SEVEN BLENDS
               <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-2" />
@@ -256,7 +256,7 @@ export default function OurStoryPage() {
           </motion.div>
 
           {/* Bottom label */}
-          <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap text-[8px] uppercase tracking-[0.4em] text-[#98754D]">
+          <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap text-[10px] uppercase tracking-[0.4em] text-[#98754D]">
             SEVEN INSPIRATIONS · ONE PERSONAL JOURNEY
           </div>
 
@@ -282,7 +282,7 @@ export default function OurStoryPage() {
               />
               <div className="absolute bottom-6 left-6 z-20 bg-[#F5EFE5]/90 px-5 py-3 backdrop-blur-sm">
                 <p className="font-serif text-xl text-[#782C49]">The Founder</p>
-                <p className="mt-1 text-[8px] uppercase tracking-[0.2em] text-[#98754D]">THE MIND BEHIND SEVOURA</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#98754D]">THE MIND BEHIND SEVOURA</p>
               </div>
             </motion.div>
 
@@ -296,21 +296,21 @@ export default function OurStoryPage() {
               <div className="pointer-events-none absolute inset-3 border border-[#E9D1A7]/35" />
 
               <div className="relative">
-                <p className="text-[9px] uppercase tracking-[0.32em] text-[#E9D1A7]">THE PERSON BEHIND THE VISION</p>
+                <p className="text-[11px] uppercase tracking-[0.32em] text-[#E9D1A7]">THE PERSON BEHIND THE VISION</p>
                 <h2 className="mt-6 font-serif text-4xl md:text-5xl">Dr. Jasleen Bhatti</h2>
-                <p className="mt-3 font-serif text-sm italic tracking-[0.12em] text-[#E9D1A7]">Founder, Sevoura</p>
+                <p className="mt-3 font-serif text-[15px] italic tracking-[0.12em] text-[#E9D1A7]">Founder, Sevoura</p>
 
                 <div className="my-8 h-px w-16 bg-[#E9D1A7]/70" />
 
-                <p className="text-sm leading-8 text-[#F8EEE7]/90">
+                <p className="text-[15px] leading-8 text-[#F8EEE7]/90">
                   My fascination with fragrance grew into a curiosity about tradition, symbolism and the rituals that make everyday moments meaningful.
                 </p>
 
-                <p className="mt-5 text-sm leading-8 text-[#F8EEE7]/90">
+                <p className="mt-5 text-[15px] leading-8 text-[#F8EEE7]/90">
                   During my office days in central Delhi, the evocative aromas around temples and fragrance shops deepened this curiosity. I began to wonder how these age-old inspirations could find a place in contemporary life—not simply as traditions to admire, but as personal experiences to make our own.
                 </p>
 
-                <p className="mt-5 text-sm leading-8 text-[#F8EEE7]/90">
+                <p className="mt-5 text-[15px] leading-8 text-[#F8EEE7]/90">
                   That curiosity inspired a distinctive vision: seven planetary inspirations, expressed through seven thoughtfully composed fragrances.
                 </p>
 
@@ -331,7 +331,7 @@ export default function OurStoryPage() {
             variants={{ visible: { transition: { staggerChildren: 0.16 } } }}
             className="mx-auto max-w-[780px] text-center"
           >
-            <motion.p variants={fadeUp} className="text-[11px] uppercase tracking-[0.32em] text-[#782C49]">
+            <motion.p variants={fadeUp} className="text-[13px] uppercase tracking-[0.32em] text-[#782C49]">
               THE BEGINNING
             </motion.p>
 
@@ -353,7 +353,7 @@ export default function OurStoryPage() {
               <motion.p
                 variants={fadeUp}
                 key={index}
-                className="mt-7 text-sm leading-8 text-[#544542] md:text-[15px]"
+                className="mt-7 text-[15px] leading-8 text-[#544542] md:text-[15px]"
               >
                 {paragraph}
               </motion.p>
@@ -375,7 +375,7 @@ export default function OurStoryPage() {
             variants={{ visible: { transition: { staggerChildren: 0.14 } } }}
             className="mx-auto max-w-[790px] text-center"
           >
-            <motion.p variants={fadeUp} className="text-[10px] uppercase tracking-[0.36em] text-[#782C49]">
+            <motion.p variants={fadeUp} className="text-[12px] uppercase tracking-[0.36em] text-[#782C49]">
               THE IDEA BEHIND SEVEN FRAGRANCES
             </motion.p>
 
@@ -385,7 +385,7 @@ export default function OurStoryPage() {
               Considered Collection.
             </motion.h2>
 
-            <motion.p variants={fadeUp} className="mt-5 text-xs tracking-[0.05em] text-[#987D6B]">
+            <motion.p variants={fadeUp} className="mt-5 text-[13px] tracking-[0.05em] text-[#987D6B]">
               A contemporary interpretation of traditional planetary symbolism, expressed through fragrance.
             </motion.p>
 
@@ -393,7 +393,7 @@ export default function OurStoryPage() {
               <motion.p
                 variants={fadeUp}
                 key={index}
-                className="mt-8 text-sm leading-8 text-[#544542] md:text-[15px]"
+                className="mt-8 text-[15px] leading-8 text-[#544542] md:text-[15px]"
               >
                 {paragraph}
               </motion.p>
@@ -417,17 +417,17 @@ export default function OurStoryPage() {
               >
                 <span className="flex justify-center text-[#B28B4E]"><Ornament size={14} /></span>
                 <h3 className="mt-4 font-serif text-xl text-[#76563D]">{item.title}</h3>
-                <p className="mt-3 text-xs leading-6 text-[#766866]">{item.description}</p>
+                <p className="mt-3 text-[13px] leading-6 text-[#766866]">{item.description}</p>
               </motion.div>
             ))}
           </div>
 
           <div className="mx-auto max-w-3xl px-6 pb-12 pt-20 text-center md:pb-16">
-            <p className="text-[9px] uppercase tracking-[0.4em] text-[#98754D]">THE INSPIRATION</p>
+            <p className="text-[11px] uppercase tracking-[0.4em] text-[#98754D]">THE INSPIRATION</p>
             <h3 className="mt-6 font-serif text-2xl leading-relaxed text-[#782C49] md:text-3xl">
               Seven Planetary Inspirations. Seven Fragrance Identities. One Weekly Ritual.
             </h3>
-            <p className="mx-auto mt-5 max-w-xl text-xs leading-7 text-[#766866]">
+            <p className="mx-auto mt-5 max-w-xl text-[13px] leading-7 text-[#766866]">
               A contemporary ritual to bring balance, intention and a sense of elevated well-being into everyday life.
             </p>
           </div>
@@ -454,7 +454,7 @@ export default function OurStoryPage() {
         {/* 06 — THE VISION */}
         <section className="relative overflow-hidden bg-[#F4E9DA]">
           <div className="relative z-10 py-16 text-center md:py-24">
-            <p className="text-[9px] uppercase tracking-[0.4em] text-[#98754D]">THE VISION</p>
+            <p className="text-[11px] uppercase tracking-[0.4em] text-[#98754D]">THE VISION</p>
             <h2 className="mt-5 font-serif text-3xl text-[#782C49] md:text-5xl">
               A Thoughtful Journey from
               <br />
@@ -507,7 +507,7 @@ export default function OurStoryPage() {
             variants={{ visible: { transition: { staggerChildren: 0.14 } } }}
             className="mx-auto max-w-[770px] text-center"
           >
-            <motion.p variants={fadeUp} className="text-[10px] uppercase tracking-[0.35em] text-[#782C49]">
+            <motion.p variants={fadeUp} className="text-[12px] uppercase tracking-[0.35em] text-[#782C49]">
               FROM CURIOSITY TO CREATION
             </motion.p>
 
@@ -521,7 +521,7 @@ export default function OurStoryPage() {
               <motion.p
                 key={index}
                 variants={fadeUp}
-                className="mt-7 text-sm leading-8 text-[#544542] md:text-[15px]"
+                className="mt-7 text-[15px] leading-8 text-[#544542] md:text-[15px]"
               >
                 {paragraph}
               </motion.p>
@@ -544,7 +544,7 @@ export default function OurStoryPage() {
             variants={{ visible: { transition: { staggerChildren: 0.13 } } }}
             className="mx-auto max-w-[760px] text-center"
           >
-            <motion.p variants={fadeUp} className="text-[10px] uppercase tracking-[0.35em] text-[#782C49]">
+            <motion.p variants={fadeUp} className="text-[12px] uppercase tracking-[0.35em] text-[#782C49]">
               A BEGINNING, NOT A BOUNDARY
             </motion.p>
 
@@ -558,7 +558,7 @@ export default function OurStoryPage() {
               <motion.p
                 key={index}
                 variants={fadeUp}
-                className="mt-7 text-sm leading-8 text-[#544542] md:text-[15px]"
+                className="mt-7 text-[15px] leading-8 text-[#544542] md:text-[15px]"
               >
                 {paragraph}
               </motion.p>
@@ -580,7 +580,7 @@ export default function OurStoryPage() {
           >
             <Sparkles size={28} className="mx-auto text-[#E9D1A7]" strokeWidth={1.2} />
 
-            <p className="mt-8 text-[9px] uppercase tracking-[0.4em] text-[#E9D1A7]">
+            <p className="mt-8 text-[11px] uppercase tracking-[0.4em] text-[#E9D1A7]">
               WELCOME TO SEVOURA
             </p>
 
@@ -590,7 +590,7 @@ export default function OurStoryPage() {
               <span className="italic text-[#E9D1A7]">Your Own Ritual.</span>
             </h2>
 
-            <p className="mx-auto mt-8 max-w-xl text-sm leading-8 text-[#F5EBDD]/75">
+            <p className="mx-auto mt-8 max-w-xl text-[15px] leading-8 text-[#F5EBDD]/75">
               The planetary associations draw from traditional astrological symbolism;
               the meaning you attach to each fragrance is personal.
             </p>
@@ -601,7 +601,7 @@ export default function OurStoryPage() {
 
             <Link
               href="/the-seven"
-              className="group mt-10 inline-flex items-center gap-4 bg-[#E9D1A7] px-9 py-5 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#782C49] transition-all duration-500 hover:-translate-y-1 hover:bg-[#F5EBDD] hover:shadow-xl"
+              className="group mt-10 inline-flex items-center gap-4 bg-[#E9D1A7] px-9 py-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#782C49] transition-all duration-500 hover:-translate-y-1 hover:bg-[#F5EBDD] hover:shadow-xl"
             >
               DISCOVER THE COLLECTION
               <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

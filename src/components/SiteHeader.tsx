@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -26,7 +27,7 @@ function CountBadge({ count }: { count: number }) {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.3, opacity: 0 }}
           transition={{ type: "spring", stiffness: 500, damping: 18 }}
-          className="absolute -right-2.5 -top-2 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#792D49] px-1 text-[9px] font-semibold leading-none text-white"
+          className="absolute -right-2.5 -top-2 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#792D49] px-1 text-[10px] font-semibold leading-none text-white"
         >
           {count}
         </motion.span>
@@ -68,6 +69,7 @@ const navigation = [
   {
     name: "THE SEVEN",
     href: "/the-seven",
+    match: ["/the-seven", "/ritual-finder"],
     eyebrow: "SEVEN DAYS. SEVEN EXPRESSIONS.",
     pages: [
       {
@@ -97,18 +99,58 @@ const navigation = [
   {
     name: "JOURNAL",
     href: "/journal",
-    eyebrow: "STORIES · BLOGS · EDITORIAL",
+    eyebrow: "COMMUNITY · STORIES · EDITORIAL",
     pages: [
+      {
+        title: "The Community",
+        description: "Questions, answers and experiences from SEVOURA lovers.",
+        href: "/journal",
+      },
+      {
+        title: "Ask a Question",
+        description: "Ask the community and the SEVOURA team.",
+        href: "/journal/ask",
+      },
       {
         title: "Stories & Editorial",
         description: "Ideas, inspiration and the world of SEVOURA.",
-        href: "/journal",
+        href: "/journal/editorial",
       },
     ],
   },
 ];
 
+type NavItem = (typeof navigation)[number] & { match?: string[] };
+
+function under(path: string | null, prefix: string) {
+  if (!path) return false;
+  return path === prefix || path.startsWith(prefix + "/");
+}
+
+/** Which top-level section the current route belongs to. */
+function sectionActive(item: NavItem, path: string | null) {
+  return (item.match ?? [item.href]).some((m) => under(path, m));
+}
+
+/** Exact page match inside a dropdown (the deepest matching link wins). */
+function pageActive(pages: { href: string }[], href: string, path: string | null) {
+  if (!under(path, href)) return false;
+  return !pages.some((p) => p.href !== href && p.href.length > href.length && under(path, p.href));
+}
+
+function SiteHeaderWithPath() {
+  return <SiteHeaderInner pathname={usePathname()} />;
+}
+
 export default function SiteHeader() {
+  return (
+    <Suspense fallback={<SiteHeaderInner pathname={null} />}>
+      <SiteHeaderWithPath />
+    </Suspense>
+  );
+}
+
+function SiteHeaderInner({ pathname }: { pathname: string | null }) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -160,6 +202,7 @@ export default function SiteHeader() {
           <nav className="hidden h-full items-center gap-6 xl:flex 2xl:gap-9">
             {navigation.map((item) => {
               const isOpen = activeMenu === item.name;
+              const current = sectionActive(item as NavItem, pathname);
 
               return (
                 <div
@@ -172,16 +215,17 @@ export default function SiteHeader() {
                       href={item.href}
                       prefetch
                       onFocus={() => setActiveMenu(item.name)}
-                      className={`relative py-3 text-[10px] font-medium tracking-[1.3px] transition-colors duration-300 2xl:text-[11px] ${
-                        isOpen
+                      aria-current={current ? "page" : undefined}
+                      className={`relative py-3 text-[12px] font-medium tracking-[0.16em] transition-colors duration-300 2xl:text-[13px] ${
+                        isOpen || current
                           ? "text-[#792D49]"
                           : "text-[#392823] hover:text-[#792D49]"
                       }`}
                     >
                       {item.name}
                       <span
-                        className={`absolute bottom-0 left-0 h-px bg-[#792D49] transition-all duration-300 ${
-                          isOpen ? "w-full" : "w-0"
+                        className={`absolute bottom-0 left-0 transition-all duration-300 ${
+                          current ? "h-[2px] w-full bg-[#B28B4E]" : isOpen ? "h-px w-full bg-[#792D49]" : "h-px w-0 bg-[#792D49]"
                         }`}
                       />
                     </Link>
@@ -189,14 +233,14 @@ export default function SiteHeader() {
                     <ChevronDown
                       size={11}
                       className={`transition-all duration-300 ${
-                        isOpen ? "rotate-180 text-[#792D49]" : "text-[#A77A3E]"
+                        isOpen ? "rotate-180 text-[#792D49]" : current ? "text-[#792D49]" : "text-[#A77A3E]"
                       }`}
                     />
                   </div>
 
                   {/* COMPACT LUXURY DROPDOWN */}
                   <div
-                    className={`absolute left-1/2 top-full z-[120] w-[350px] -translate-x-1/2 pt-3 transition-all duration-300 ${
+                    className={`absolute left-1/2 top-full z-[120] w-[380px] -translate-x-1/2 pt-3 transition-all duration-300 ${
                       isOpen
                         ? "visible translate-y-0 opacity-100"
                         : "invisible -translate-y-2 opacity-0"
@@ -207,25 +251,28 @@ export default function SiteHeader() {
 
                       <div className="relative mb-3 flex items-center gap-2">
                         <span className="h-px w-6 bg-[#B28B4E]" />
-                        <span className="text-[8px] font-medium uppercase tracking-[0.28em] text-[#A47A40]">
+                        <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-[#A47A40]">
                           {item.eyebrow}
                         </span>
                       </div>
 
                       <div className="relative">
-                        {item.pages.map((page, index) => (
+                        {item.pages.map((page) => {
+                          const here = pageActive(item.pages, page.href, pathname);
+                          return (
                           <Link
                             key={page.href}
                             href={page.href}
                             prefetch
                             onClick={() => setActiveMenu(null)}
-                            className="group flex items-center justify-between gap-3 border-b border-[#D9C9B5]/70 px-3 py-4 transition-colors duration-300 last:border-0 hover:bg-[#792D49]"
+                            aria-current={here ? "page" : undefined}
+                            className={`group flex items-center justify-between gap-3 border-b border-l-2 border-[#D9C9B5]/70 px-3 py-4 transition-colors duration-300 last:border-b-0 hover:bg-[#792D49] ${here ? "border-l-[#B28B4E] bg-[#792D49]/[0.06]" : "border-l-transparent"}`}
                           >
                             <div>
-                              <h3 className="font-serif text-[19px] leading-tight text-[#782C49] transition-colors duration-300 group-hover:text-[#FFF6E9]">
+                              <h3 className="font-display text-[22px] leading-tight text-[#782C49] transition-colors duration-300 group-hover:text-[#FFF6E9]">
                                 {page.title}
                               </h3>
-                              <p className="mt-1.5 text-[10px] leading-5 text-[#806D5D] transition-colors duration-300 group-hover:text-[#F0DCD4]">
+                              <p className="mt-1.5 text-[12px] leading-5 text-[#806D5D] transition-colors duration-300 group-hover:text-[#F0DCD4]">
                                 {page.description}
                               </p>
                             </div>
@@ -235,14 +282,15 @@ export default function SiteHeader() {
                               className="shrink-0 text-[#A47A40] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#E5C48B]"
                             />
                           </Link>
-                        ))}
+                          );
+                        })}
                       </div>
 
                       <div className="relative mt-3 flex items-center justify-between border-t border-[#D9C9B5]/60 pt-3">
-                        <span className="font-serif text-sm tracking-[0.2em] text-[#782C49]">
+                        <span className="font-display text-[15px] tracking-[0.2em] text-[#782C49]">
                           SEVOURA
                         </span>
-                        <span className="text-[7px] uppercase tracking-[0.2em] text-[#A47A40]">
+                        <span className="text-[9px] uppercase tracking-[0.2em] text-[#A47A40]">
                           Cleanse. Elevate. Radiate.
                         </span>
                       </div>
@@ -257,21 +305,23 @@ export default function SiteHeader() {
           <div className="hidden shrink-0 items-center gap-5 md:flex">
             <Link
               href="/search"
-              className="flex flex-col items-center gap-1 transition-colors hover:text-[#792D49]"
+              aria-current={under(pathname, "/search") ? "page" : undefined}
+              className={`flex flex-col items-center gap-1 transition-colors hover:text-[#792D49] ${under(pathname, "/search") ? "text-[#792D49]" : ""}`}
             >
               <Search size={17} strokeWidth={1.3} className="transition-transform duration-300 hover:-translate-y-0.5" />
-              <span className="text-[9px]">Search</span>
+              <span className="text-[11px] tracking-[0.04em]">Search</span>
             </Link>
 
             <Link
               href="/account"
-              className="group flex flex-col items-center gap-1 transition-colors hover:text-[#792D49]"
+              aria-current={under(pathname, "/account") ? "page" : undefined}
+              className={`group flex flex-col items-center gap-1 transition-colors hover:text-[#792D49] ${under(pathname, "/account") ? "text-[#792D49]" : ""}`}
             >
               <span className="relative">
                 <UserRound size={17} strokeWidth={1.3} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
                 {user && <span className="absolute -right-1 -top-0.5 h-[7px] w-[7px] rounded-full border border-[#F7F0E6] bg-[#B28B4E]" />}
               </span>
-              <span className="max-w-[70px] truncate text-[9px]">{user ? firstName || "Account" : "Account"}</span>
+              <span className="max-w-[76px] truncate text-[11px] tracking-[0.04em]">{user ? firstName || "Account" : "Account"}</span>
             </Link>
 
             <button
@@ -284,7 +334,7 @@ export default function SiteHeader() {
                 <ShoppingCart size={17} strokeWidth={1.3} className="transition-transform duration-300 group-hover:-translate-y-0.5" />
                 <CountBadge count={count} />
               </span>
-              <span className="text-[9px]">Cart</span>
+              <span className="text-[11px] tracking-[0.04em]">Cart</span>
             </button>
           </div>
 
@@ -328,6 +378,7 @@ export default function SiteHeader() {
         <nav className="px-6 py-4">
           {navigation.map((item, index) => {
             const expanded = mobileExpanded === item.name;
+            const current = sectionActive(item as NavItem, pathname);
 
             return (
               <div
@@ -344,8 +395,10 @@ export default function SiteHeader() {
                     href={item.href}
                     prefetch
                     onClick={closeAll}
-                    className="text-[11px] font-medium tracking-[1.4px]"
+                    aria-current={current ? "page" : undefined}
+                    className={`inline-flex items-center gap-3 text-[14px] font-medium tracking-[0.16em] ${current ? "text-[#792D49]" : ""}`}
                   >
+                    {current && <span aria-hidden className="h-[2px] w-5 bg-[#B28B4E]" />}
                     {item.name}
                   </Link>
 
@@ -376,22 +429,26 @@ export default function SiteHeader() {
                 >
                   <div className="overflow-hidden">
                     <div className="mb-4 ml-2 border-l border-[#B28B4E] pl-4">
-                      {item.pages.map((page) => (
+                      {item.pages.map((page) => {
+                        const here = pageActive(item.pages, page.href, pathname);
+                        return (
                         <Link
                           key={page.href}
                           href={page.href}
                           prefetch
                           onClick={closeAll}
+                          aria-current={here ? "page" : undefined}
                           className="block py-3"
                         >
-                          <span className="font-serif text-lg text-[#782C49]">
+                          <span className={`font-display text-[22px] ${here ? "text-[#792D49] underline decoration-[#B28B4E] decoration-1 underline-offset-[6px]" : "text-[#782C49]"}`}>
                             {page.title}
                           </span>
-                          <span className="mt-1 block text-[10px] leading-5 text-[#806D5D]">
+                          <span className="mt-1 block text-[13px] leading-5 text-[#806D5D]">
                             {page.description}
                           </span>
                         </Link>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -399,7 +456,7 @@ export default function SiteHeader() {
             );
           })}
 
-          <div className="flex gap-8 pt-6 text-xs">
+          <div className="flex gap-8 pt-6 text-[14px]">
             <Link href="/search" onClick={closeAll}>Search</Link>
             <Link href="/account" onClick={closeAll}>{user ? "My Account" : "Sign In"}</Link>
             <Link href="/cart" onClick={closeAll}>Cart{count > 0 ? ` (${count})` : ""}</Link>

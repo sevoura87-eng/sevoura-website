@@ -48,7 +48,7 @@ export default function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-[#DCCAB5] px-6 py-5">
               <div>
-                <p className="text-[9px] tracking-[0.3em] text-[#A77B4D]">YOUR BAG</p>
+                <p className="text-[11px] tracking-[0.3em] text-[#A77B4D]">YOUR BAG</p>
                 <p className="mt-1 font-serif text-2xl">
                   {count} {count === 1 ? "item" : "items"}
                 </p>
@@ -82,13 +82,13 @@ export default function CartDrawer() {
                     <ShoppingBag size={28} strokeWidth={1.2} className="text-[#A77B4D]" />
                   </motion.div>
                   <p className="mt-6 font-serif text-2xl">Your bag is empty.</p>
-                  <p className="mt-2 max-w-[260px] text-xs leading-6 text-[#806D60]">
+                  <p className="mt-2 max-w-[260px] text-[13px] leading-6 text-[#806D60]">
                     Begin your seven-day ritual with the complete SEVOURA collection.
                   </p>
                   {featured && (
                     <button
                       onClick={() => add(featured.id)}
-                      className="mt-7 inline-flex items-center gap-3 bg-[#792D49] px-6 py-4 text-[10px] tracking-[0.2em] text-white transition hover:bg-[#501D32]"
+                      className="mt-7 inline-flex items-center gap-3 bg-[#792D49] px-6 py-4 text-[12px] tracking-[0.2em] text-white transition hover:bg-[#501D32]"
                     >
                       ADD THE COLLECTION · {formatINR(featured.price_paise)}
                     </button>
@@ -114,7 +114,7 @@ export default function CartDrawer() {
                         </div>
                         <div className="flex min-w-0 flex-1 flex-col">
                           <p className="font-serif text-[17px] leading-tight">{line.product.name}</p>
-                          {line.product.subtitle && <p className="mt-1 text-[10px] text-[#806D60]">{line.product.subtitle}</p>}
+                          {line.product.subtitle && <p className="mt-1 text-[12px] text-[#806D60]">{line.product.subtitle}</p>}
                           <div className="mt-auto flex items-center justify-between gap-2 pt-2">
                             <div className="flex items-center border border-[#D6BE99]">
                               <button
@@ -124,7 +124,7 @@ export default function CartDrawer() {
                               >
                                 <Minus size={13} />
                               </button>
-                              <span className="w-7 text-center text-xs tabular-nums">{line.quantity}</span>
+                              <span className="w-7 text-center text-[13px] tabular-nums">{line.quantity}</span>
                               <button
                                 aria-label="Increase quantity"
                                 disabled={line.quantity >= Math.min(MAX_QTY, line.product.stock)}
@@ -153,15 +153,15 @@ export default function CartDrawer() {
 
             {lines.length > 0 && (
               <div className="border-t border-[#DCCAB5] bg-[#F3E8DA] px-6 py-5">
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center justify-between text-[15px]">
                   <span className="text-[#806D60]">Subtotal</span>
                   <span className="font-serif text-2xl tabular-nums">{formatINR(subtotal)}</span>
                 </div>
-                <p className="mt-1 text-[10px] tracking-wide text-[#A77B4D]">FREE SHIPPING · FINAL TOTAL CONFIRMED AT CHECKOUT</p>
+                <p className="mt-1 text-[12px] tracking-wide text-[#A77B4D]">FREE SHIPPING · FINAL TOTAL CONFIRMED AT CHECKOUT</p>
                 <Link
                   href="/checkout"
                   onClick={closeDrawer}
-                  className="group mt-5 flex w-full items-center justify-center gap-4 bg-[#792D49] px-6 py-4 text-[10px] tracking-[0.22em] text-[#FFF6E9] transition hover:bg-[#501D32]"
+                  className="group mt-5 flex w-full items-center justify-center gap-4 bg-[#792D49] px-6 py-4 text-[12px] tracking-[0.22em] text-[#FFF6E9] transition hover:bg-[#501D32]"
                 >
                   PROCEED TO CHECKOUT
                   <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -169,7 +169,7 @@ export default function CartDrawer() {
                 <Link
                   href="/cart"
                   onClick={closeDrawer}
-                  className="mt-3 block text-center text-[10px] tracking-[0.2em] text-[#792D49] underline-offset-4 hover:underline"
+                  className="mt-3 block text-center text-[12px] tracking-[0.2em] text-[#792D49] underline-offset-4 hover:underline"
                 >
                   VIEW FULL BAG
                 </Link>

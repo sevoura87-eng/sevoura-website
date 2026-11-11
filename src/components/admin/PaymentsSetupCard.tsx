@@ -20,7 +20,7 @@ const EXPECTED_PROJECT = "igvkiplyqcookmgjqnus";
 
 function Row({ ok, label, detail }: { ok: boolean | null; label: string; detail: string }) {
   return (
-    <li className="flex items-start gap-3 py-2.5 text-[13px]">
+    <li className="flex items-start gap-3 py-2.5 text-[15px]">
       {ok ? (
         <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-[#3E7A4A]" aria-label="OK" />
       ) : (
@@ -28,7 +28,7 @@ function Row({ ok, label, detail }: { ok: boolean | null; label: string; detail:
       )}
       <div>
         <p className="text-[#3B2028]">{label}</p>
-        <p className="text-[11px] text-[#9A8777]">{detail}</p>
+        <p className="text-[13px] text-[#9A8777]">{detail}</p>
       </div>
     </li>
   );
@@ -67,13 +67,13 @@ export default function PaymentsSetupCard() {
       <div className="flex items-center justify-between">
         <div>
           <p className="font-serif text-2xl">Payments setup</p>
-          <p className="text-[11px] text-[#9A8777]">Razorpay configuration on this deployment. No secrets are shown.</p>
+          <p className="text-[13px] text-[#9A8777]">Razorpay configuration on this deployment. No secrets are shown.</p>
         </div>
-        <button onClick={run} disabled={busy} className="inline-flex items-center gap-1.5 text-[11px] text-[#792D49] hover:underline disabled:opacity-50">
+        <button onClick={run} disabled={busy} className="inline-flex items-center gap-1.5 text-[13px] text-[#792D49] hover:underline disabled:opacity-50">
           <RefreshCw size={12} className={busy ? "animate-spin" : ""} /> Re-check
         </button>
       </div>
-      {err && !c && <p className="mt-4 text-[12px] text-[#A33B3B]">{err === "server_not_configured" ? "The Supabase server key (SEVOURA_SUPABASE_SERVICE_ROLE_KEY) is not set in Vercel." : err}</p>}
+      {err && !c && <p className="mt-4 text-[14px] text-[#A33B3B]">{err === "server_not_configured" ? "The Supabase server key (SEVOURA_SUPABASE_SERVICE_ROLE_KEY) is not set in Vercel." : err}</p>}
       {c && (
         <ul className="mt-3 divide-y divide-[#EEE5D9]">
           <Row ok={c.mode !== null} label={`Razorpay mode: ${c.mode ? c.mode.toUpperCase() : "not set"}`} detail={c.key_id_hint ? `Key ${c.key_id_hint}` : "RAZORPAY_KEY_ID is missing"} />

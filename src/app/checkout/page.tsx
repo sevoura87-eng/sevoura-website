@@ -159,7 +159,7 @@ function CheckoutInner() {
     return (
       <div className="mx-auto max-w-lg py-24 text-center">
         <p className="font-serif text-3xl">Your bag is empty.</p>
-        <Link href="/shop" className="mt-6 inline-block text-[11px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
+        <Link href="/shop" className="mt-6 inline-block text-[13px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
           RETURN TO THE SHOP
         </Link>
       </div>
@@ -172,12 +172,12 @@ function CheckoutInner() {
         <Step title="Contact" icon={Check}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="border border-[#E3D5C3] bg-[#F8F1E7] px-4 py-3">
-              <p className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]">Signed in as</p>
-              <p className="mt-1 truncate text-sm">{profile?.full_name || "—"}</p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-[#A77B4D]">Signed in as</p>
+              <p className="mt-1 truncate text-[15px]">{profile?.full_name || "—"}</p>
             </div>
             <div className="border border-[#E3D5C3] bg-[#F8F1E7] px-4 py-3">
-              <p className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]">Email</p>
-              <p className="mt-1 truncate text-sm">{user?.email}</p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-[#A77B4D]">Email</p>
+              <p className="mt-1 truncate text-[15px]">{user?.email}</p>
             </div>
           </div>
         </Step>
@@ -191,7 +191,7 @@ function CheckoutInner() {
                     type="button"
                     key={a.id}
                     onClick={() => setSelected(a.id)}
-                    className={`relative border p-4 text-left text-[12px] leading-5 transition-all duration-300 ${
+                    className={`relative border p-4 text-left text-[14px] leading-5 transition-all duration-300 ${
                       selected === a.id ? "border-[#792D49] bg-white shadow-[0_10px_30px_rgba(121,45,73,.12)]" : "border-[#DCCAB5] hover:border-[#B28B4E]"
                     }`}
                   >
@@ -210,7 +210,7 @@ function CheckoutInner() {
                 <button
                   type="button"
                   onClick={() => setSelected("new")}
-                  className={`border border-dashed p-4 text-[12px] transition ${selected === "new" ? "border-[#792D49] bg-white text-[#792D49]" : "border-[#C9B496] text-[#806D60] hover:border-[#792D49]"}`}
+                  className={`border border-dashed p-4 text-[14px] transition ${selected === "new" ? "border-[#792D49] bg-white text-[#792D49]" : "border-[#C9B496] text-[#806D60] hover:border-[#792D49]"}`}
                 >
                   + Deliver to a new address
                 </button>
@@ -227,7 +227,7 @@ function CheckoutInner() {
                 <SelectField label="State" options={INDIAN_STATES} value={addr.state} onChange={set("state")} error={errors.state} />
                 <Field label="Pincode" inputMode="numeric" autoComplete="postal-code" value={addr.pincode} onChange={set("pincode")} error={errors.pincode} />
                 <Field label="Landmark (optional)" value={addr.landmark} onChange={set("landmark")} error={errors.landmark} />
-                <label className="flex cursor-pointer items-center gap-3 text-[12px] text-[#6B5650] sm:col-span-2">
+                <label className="flex cursor-pointer items-center gap-3 text-[14px] text-[#6B5650] sm:col-span-2">
                   <input type="checkbox" checked={save} onChange={(e) => setSave(e.target.checked)} className="h-4 w-4 accent-[#792D49]" />
                   Save this address for next time
                 </label>
@@ -235,7 +235,7 @@ function CheckoutInner() {
             )}
 
             <div className="mt-5">
-              <label className="text-[9px] uppercase tracking-[0.2em] text-[#A77B4D]" htmlFor="notes">Order note (optional)</label>
+              <label className="text-[11px] uppercase tracking-[0.2em] text-[#A77B4D]" htmlFor="notes">Order note (optional)</label>
               <textarea
                 id="notes"
                 maxLength={500}
@@ -243,7 +243,7 @@ function CheckoutInner() {
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}
                 placeholder="Gift message or delivery instructions"
-                className="mt-2 w-full border border-[#DCCAB5] bg-[#FCF8F1] px-4 py-3 text-sm outline-none transition focus:border-[#B28B4E] focus:bg-white"
+                className="mt-2 w-full border border-[#DCCAB5] bg-[#FCF8F1] px-4 py-3 text-[15px] outline-none transition focus:border-[#B28B4E] focus:bg-white"
               />
             </div>
           </Step>
@@ -281,23 +281,23 @@ function CheckoutInner() {
         transition={{ duration: 0.8, delay: 0.15, ease }}
         className="h-fit border border-[#DCCAB5] bg-[#F3E8DA] p-6 sm:p-8 lg:sticky lg:top-28"
       >
-        <p className="text-[9px] tracking-[0.3em] text-[#A77B4D]">ORDER SUMMARY</p>
+        <p className="text-[11px] tracking-[0.3em] text-[#A77B4D]">ORDER SUMMARY</p>
         <ul className="mt-5 space-y-4">
           {lines.map((l) => (
             <li key={l.productId} className="flex gap-4">
               <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-[#EFE3D3]">
                 {l.product.image_url && <Image src={l.product.image_url} alt="" fill sizes="64px" className="object-cover" />}
-                <span className="absolute -right-0 -top-0 flex h-5 min-w-5 items-center justify-center bg-[#792D49] px-1 text-[10px] text-white">{l.quantity}</span>
+                <span className="absolute -right-0 -top-0 flex h-5 min-w-5 items-center justify-center bg-[#792D49] px-1 text-[12px] text-white">{l.quantity}</span>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="font-serif text-[16px] leading-tight">{l.product.name}</p>
-                <p className="text-[11px] text-[#806D60]">{formatINR(l.product.price_paise)} × {l.quantity}</p>
+                <p className="text-[13px] text-[#806D60]">{formatINR(l.product.price_paise)} × {l.quantity}</p>
               </div>
-              <p className="text-sm tabular-nums">{formatINR(l.lineTotal)}</p>
+              <p className="text-[15px] tabular-nums">{formatINR(l.lineTotal)}</p>
             </li>
           ))}
         </ul>
-        <dl className="mt-6 space-y-2 border-t border-[#DCCAB5] pt-5 text-sm">
+        <dl className="mt-6 space-y-2 border-t border-[#DCCAB5] pt-5 text-[15px]">
           <div className="flex justify-between"><dt className="text-[#806D60]">Subtotal</dt><dd className="tabular-nums">{formatINR(subtotal)}</dd></div>
           <div className="flex justify-between"><dt className="text-[#806D60]">Shipping</dt><dd className="text-[#3E5B2E]">Free</dd></div>
         </dl>
@@ -310,7 +310,7 @@ function CheckoutInner() {
           <Lock size={14} />{" "}
           {stage === "saving" ? "SAVING ORDER…" : stage === "paying" ? "COMPLETE PAYMENT IN THE WINDOW…" : stage === "verifying" ? "CONFIRMING…" : payments?.enabled ? `PLACE ORDER & PAY ${formatINR(subtotal)}` : payments === null ? "LOADING…" : "ONLINE PAYMENT UNAVAILABLE"}
         </Button>
-        <p className="mt-4 text-center text-[10px] leading-5 text-[#9A8777]">
+        <p className="mt-4 text-center text-[12px] leading-5 text-[#9A8777]">
           The final amount is calculated securely on our server. By placing the order you agree to our{" "}
           <Link href="/terms" className="underline">Terms</Link> and{" "}
           <Link href="/shipping-returns" className="underline">Shipping &amp; Returns</Link>.
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
       <SiteHeader />
       <main className="min-h-[70vh] overflow-x-clip bg-[#F8F1E7] px-5 py-14 text-[#481D30] md:px-10 md:py-20">
         <div className="mx-auto max-w-[1200px]">
-          <Link href="/cart" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] text-[#806D60] hover:text-[#792D49]">
+          <Link href="/cart" className="inline-flex items-center gap-2 text-[12px] tracking-[0.2em] text-[#806D60] hover:text-[#792D49]">
             <ArrowLeft size={13} /> BACK TO BAG
           </Link>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }} className="mb-10 mt-5 font-serif text-5xl md:text-6xl">

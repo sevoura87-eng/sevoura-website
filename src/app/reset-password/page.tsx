@@ -72,7 +72,7 @@ export default function ResetPasswordPage() {
       ) : ready === "invalid" ? (
         <div className="space-y-5">
           <Notice tone="error">This reset link is invalid or has expired. Please request a new one.</Notice>
-          <Link href="/forgot-password" className="inline-block text-[11px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
+          <Link href="/forgot-password" className="inline-block text-[13px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
             REQUEST A NEW LINK
           </Link>
         </div>

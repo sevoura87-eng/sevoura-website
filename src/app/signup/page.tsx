@@ -73,11 +73,11 @@ function SignupForm() {
       <div className="border border-[#DCCAB5] bg-[#FCF7EF] p-8 text-center">
         <MailCheck size={34} strokeWidth={1.2} className="mx-auto text-[#A77B4D]" />
         <p className="mt-5 font-serif text-2xl">Check your inbox</p>
-        <p className="mt-3 text-sm leading-7 text-[#806D60]">
+        <p className="mt-3 text-[15px] leading-7 text-[#806D60]">
           We sent a confirmation link to <strong className="text-[#481D30]">{sentTo}</strong>. Open it to activate your account —
           you&apos;ll be signed in automatically.
         </p>
-        <Link href="/login" className="mt-6 inline-block text-[11px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
+        <Link href="/login" className="mt-6 inline-block text-[13px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">
           BACK TO SIGN IN
         </Link>
       </div>
@@ -106,12 +106,12 @@ function SignupForm() {
       <Button type="submit" loading={busy} className="w-full">
         CREATE ACCOUNT
       </Button>
-      <p className="text-center text-[10px] leading-5 text-[#A08A79]">
+      <p className="text-center text-[12px] leading-5 text-[#A08A79]">
         By creating an account you agree to our{" "}
         <Link href="/terms" className="underline">Terms</Link> and{" "}
         <Link href="/privacy-policy" className="underline">Privacy Policy</Link>.
       </p>
-      <p className="pt-2 text-center text-[13px] text-[#806D60]">
+      <p className="pt-2 text-center text-[15px] text-[#806D60]">
         Already have an account?{" "}
         <Link href={`/login${next !== "/account" ? `?next=${encodeURIComponent(next)}` : ""}`} className="font-medium text-[#792D49] underline underline-offset-4">
           Sign in

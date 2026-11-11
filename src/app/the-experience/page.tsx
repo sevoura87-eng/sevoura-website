@@ -117,7 +117,7 @@ function Eyebrow({
 }) {
   return (
     <div
-      className={`mb-6 flex items-center justify-center gap-3 text-[9px] uppercase tracking-[0.34em] ${
+      className={`mb-6 flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.34em] ${
         light ? "text-[#F8EBDD]/75" : "text-[#A47A40]"
       }`}
     >
@@ -175,7 +175,7 @@ function GoldOrbitArtwork() {
       </motion.div>
       <div className="absolute bottom-[9%] text-center">
         <p className="font-serif text-2xl tracking-[0.28em] text-[#782C49] md:text-3xl">SEVOURA</p>
-        <p className="mt-2 text-[8px] uppercase tracking-[0.4em] text-[#98754D]">THE ART OF RITUAL</p>
+        <p className="mt-2 text-[10px] uppercase tracking-[0.4em] text-[#98754D]">THE ART OF RITUAL</p>
       </div>
     </div>
   );
@@ -207,7 +207,7 @@ function NumberedMoment({
           <Icon size={21} strokeWidth={1.1} />
         </div>
       </div>
-      <p className="mt-5 max-w-md text-sm leading-7 text-[#756253]">{copy}</p>
+      <p className="mt-5 max-w-md text-[15px] leading-7 text-[#756253]">{copy}</p>
     </motion.article>
   );
 }
@@ -235,7 +235,7 @@ function ExperiencePillar({
         <Icon size={25} strokeWidth={1} className="text-[#E8C99A]" />
       </div>
       <h3 className="relative mt-12 font-serif text-3xl text-[#F8EBDD]">{title}</h3>
-      <p className="relative mt-5 text-sm leading-7 text-[#F8EBDD]/70">{copy}</p>
+      <p className="relative mt-5 text-[15px] leading-7 text-[#F8EBDD]/70">{copy}</p>
       <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#E8C99A] transition-all duration-700 group-hover:w-full" />
     </motion.article>
   );
@@ -304,19 +304,19 @@ export default function TheExperiencePage() {
               <br />
               <span className="italic">a fragrance.</span>
             </h1>
-            <p className="mx-auto mt-8 max-w-2xl text-sm leading-8 text-[#F8EBDD]/85 md:text-base">
+            <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-8 text-[#F8EBDD]/85 md:text-base">
               A thoughtful approach to fragrance. Discover the details, rituals
               and little moments that turn an everyday routine into something
               truly personal.
             </p>
             <Link
               href="#the-ritual"
-              className="group mt-10 inline-flex items-center gap-5 bg-[#F8EBDD] px-9 py-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#782C49] shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#F1DCCB]"
+              className="group mt-10 inline-flex items-center gap-5 bg-[#F8EBDD] px-9 py-5 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#782C49] shadow-xl transition-all duration-500 hover:-translate-y-1 hover:bg-[#F1DCCB]"
             >
               DISCOVER THE EXPERIENCE
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
             </Link>
-            <div className="mt-12 flex items-center justify-center gap-3 text-[8px] uppercase tracking-[0.35em] text-[#F8EBDD]/80">
+            <div className="mt-12 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[#F8EBDD]/80">
               <span className="h-px w-8 bg-[#F8EBDD]/70" />
               SENSE · FEEL · REMEMBER
               <span className="h-px w-8 bg-[#F8EBDD]/70" />
@@ -327,7 +327,7 @@ export default function TheExperiencePage() {
             transition={{ duration: 2.5, repeat: Infinity }}
             className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[#F8EBDD]/80"
           >
-            <span className="text-[8px] tracking-[0.3em]">SCROLL TO EXPERIENCE</span>
+            <span className="text-[10px] tracking-[0.3em]">SCROLL TO EXPERIENCE</span>
             <ArrowDown size={15} />
           </motion.div>
         </section>
@@ -351,7 +351,7 @@ export default function TheExperiencePage() {
                 <span className="italic">in-between.</span>
               </p>
               <div className="mt-9 h-px w-20 bg-[#B28B4E]" />
-              <p className="mt-6 text-[9px] uppercase tracking-[0.3em] text-[#98754D]">
+              <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-[#98754D]">
                 SLOW DOWN · TUNE IN · FEEL MORE
               </p>
             </motion.div>
@@ -365,12 +365,12 @@ export default function TheExperiencePage() {
               <p className="font-serif text-3xl leading-relaxed text-[#51372F] md:text-5xl">
                 We believe the everyday deserves a little ceremony.
               </p>
-              <p className="mt-8 max-w-2xl text-sm leading-8 text-[#756253] md:text-base">
+              <p className="mt-8 max-w-2xl text-[15px] leading-8 text-[#756253] md:text-base">
                 A familiar morning. A quiet evening. The pause before you step
                 into a new day. These moments may seem small, but they are
                 often the ones that shape how we feel.
               </p>
-              <p className="mt-5 max-w-2xl text-sm leading-8 text-[#756253] md:text-base">
+              <p className="mt-5 max-w-2xl text-[15px] leading-8 text-[#756253] md:text-base">
                 SEVOURA brings fragrance into these spaces—not as another task
                 on your list, but as an invitation to be present. To choose a
                 feeling, follow your own rhythm and make an ordinary moment
@@ -378,7 +378,7 @@ export default function TheExperiencePage() {
               </p>
               <Link
                 href="/our-story"
-                className="group mt-9 inline-flex items-center gap-4 border-b border-[#782C49] pb-3 text-[10px] uppercase tracking-[0.2em] text-[#782C49]"
+                className="group mt-9 inline-flex items-center gap-4 border-b border-[#782C49] pb-3 text-[12px] uppercase tracking-[0.2em] text-[#782C49]"
               >
                 THE STORY BEHIND SEVOURA
                 <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
@@ -442,20 +442,20 @@ export default function TheExperiencePage() {
                 <span className="italic">uniquely yours.</span>
               </h2>
               <div className="my-8 h-px w-20 bg-[#B28B4E]" />
-              <p className="text-sm leading-8 text-[#756253] md:text-base">
+              <p className="text-[15px] leading-8 text-[#756253] md:text-base">
                 Inspired by the rhythm of the week and the symbolism
                 traditionally associated with the planets, the SEVOURA world
                 invites you to find a fragrance expression that feels connected
                 to your own pace and personality.
               </p>
-              <p className="mt-5 text-sm leading-8 text-[#756253] md:text-base">
+              <p className="mt-5 text-[15px] leading-8 text-[#756253] md:text-base">
                 There is no one perfect way to experience a ritual. It can be
                 grounding, uplifting, reflective or simply a beautiful pause.
                 The meaning comes from the intention you bring to it.
               </p>
               <Link
                 href="/the-seven"
-                className="group mt-9 inline-flex items-center gap-4 border-b border-[#782C49] pb-3 text-[10px] uppercase tracking-[0.2em] text-[#782C49]"
+                className="group mt-9 inline-flex items-center gap-4 border-b border-[#782C49] pb-3 text-[12px] uppercase tracking-[0.2em] text-[#782C49]"
               >
                 EXPLORE THE SEVEN
                 <ArrowRight size={15} className="transition-transform group-hover:translate-x-2" />
@@ -490,7 +490,7 @@ export default function TheExperiencePage() {
                 <br />
                 <span className="italic text-[#E8C99A]">Personal by design.</span>
               </h2>
-              <p className="mt-7 max-w-xl text-sm leading-8 text-[#F8EBDD]/75 md:text-base">
+              <p className="mt-7 max-w-xl text-[15px] leading-8 text-[#F8EBDD]/75 md:text-base">
                 The SEVOURA experience is built around a few simple ideas:
                 intention, discovery, personal expression and the joy of
                 making time for yourself.
@@ -528,14 +528,14 @@ export default function TheExperiencePage() {
                   <br />
                   to feel.
                 </h2>
-                <p className="mt-8 text-sm leading-8 text-[#756253] md:text-base">
+                <p className="mt-8 text-[15px] leading-8 text-[#756253] md:text-base">
                   Each day carries its own traditional planetary symbolism and
                   mood. Explore the collection as a personal journey through
                   seven distinct fragrance identities.
                 </p>
                 <Link
                   href="/the-seven"
-                  className="group mt-8 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-1 hover:bg-[#572036]"
+                  className="group mt-8 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-1 hover:bg-[#572036]"
                 >
                   MEET THE SEVEN
                   <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -561,11 +561,11 @@ export default function TheExperiencePage() {
                     transition={{ delay: index * 0.07, duration: 0.65 }}
                     className="group relative flex items-center gap-6 border-b border-[#DCCBB3] py-5 md:gap-9 md:py-6"
                   >
-                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#B28B4E] bg-[#F8F0E5] text-[10px] text-[#A47A40] transition-all duration-500 group-hover:bg-[#782C49] group-hover:text-[#F8EBDD] md:h-14 md:w-14">
+                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#B28B4E] bg-[#F8F0E5] text-[12px] text-[#A47A40] transition-all duration-500 group-hover:bg-[#782C49] group-hover:text-[#F8EBDD] md:h-14 md:w-14">
                       <Ornament size={12} />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-[8px] uppercase tracking-[0.3em] text-[#A47A40]">{day} · {planet}</p>
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-[#A47A40]">{day} · {planet}</p>
                       <h3 className="mt-1 font-serif text-2xl text-[#782C49] md:text-3xl">{mood}</h3>
                     </div>
                     <ArrowUpRight size={17} className="text-[#A47A40] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
@@ -599,7 +599,7 @@ export default function TheExperiencePage() {
               <br />
               <span className="italic">make every moment count.</span>
             </p>
-            <p className="mx-auto mt-8 max-w-2xl text-sm leading-8 text-[#756253] md:text-base">
+            <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-8 text-[#756253] md:text-base">
               Sometimes it is enough to simply notice it. A breath. A familiar
               scent. A few minutes that are entirely your own.
             </p>
@@ -621,21 +621,21 @@ export default function TheExperiencePage() {
                 <br />
                 <span className="italic">own kind of ritual.</span>
               </h2>
-              <p className="mt-7 text-sm leading-8 text-[#756253] md:text-base">
+              <p className="mt-7 text-[15px] leading-8 text-[#756253] md:text-base">
                 You might be drawn to a feeling of calm, a moment of confidence
                 or the promise of a fresh start. Explore the seven fragrance
                 identities and discover the one that resonates with you today.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 {["CALM", "CLARITY", "COURAGE", "LOVE", "RADIANCE"].map((word) => (
-                  <span key={word} className="border border-[#D2B995] px-4 py-2 text-[8px] tracking-[0.2em] text-[#98754D]">
+                  <span key={word} className="border border-[#D2B995] px-4 py-2 text-[10px] tracking-[0.2em] text-[#98754D]">
                     {word}
                   </span>
                 ))}
               </div>
               <Link
                 href="/ritual-finder"
-                className="group mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-1 hover:bg-[#572036]"
+                className="group mt-9 inline-flex items-center gap-4 bg-[#782C49] px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-white transition-all hover:-translate-y-1 hover:bg-[#572036]"
               >
                 FIND YOUR RITUAL
                 <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -664,7 +664,7 @@ export default function TheExperiencePage() {
                   <Stars size={40} strokeWidth={1} />
                 </div>
                 <p className="relative z-10 mt-8 font-serif text-3xl tracking-[0.2em] text-[#782C49]">SEVOURA</p>
-                <p className="relative z-10 mt-2 text-[8px] uppercase tracking-[0.35em] text-[#98754D]">SEVEN DAYS · SEVEN EXPRESSIONS</p>
+                <p className="relative z-10 mt-2 text-[10px] uppercase tracking-[0.35em] text-[#98754D]">SEVEN DAYS · SEVEN EXPRESSIONS</p>
               </div>
             </motion.div>
           </div>
@@ -685,7 +685,7 @@ export default function TheExperiencePage() {
                 <br />
                 <span className="italic">you may wonder.</span>
               </h2>
-              <p className="mt-7 max-w-sm text-sm leading-8 text-[#756253]">
+              <p className="mt-7 max-w-sm text-[15px] leading-8 text-[#756253]">
                 A little more about the ideas behind the SEVOURA experience.
               </p>
             </motion.div>
@@ -714,7 +714,7 @@ export default function TheExperiencePage() {
                           transition={{ duration: 0.35 }}
                           className="overflow-hidden"
                         >
-                          <p className="max-w-2xl pb-7 pr-10 text-sm leading-7 text-[#756253]">{item.a}</p>
+                          <p className="max-w-2xl pb-7 pr-10 text-[15px] leading-7 text-[#756253]">{item.a}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -753,12 +753,12 @@ export default function TheExperiencePage() {
               <span className="italic text-[#E8C99A]">of your own ritual.</span>
             </p>
             <div className="mx-auto my-9 h-px w-20 bg-[#E8C99A]" />
-            <p className="text-[9px] uppercase tracking-[0.35em] text-[#F8EBDD]/75">
+            <p className="text-[11px] uppercase tracking-[0.35em] text-[#F8EBDD]/75">
               CLEANSE. ELEVATE. RADIATE.
             </p>
             <Link
               href="/shop"
-              className="group mt-9 inline-flex items-center gap-4 bg-[#F8EBDD] px-8 py-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#782C49] transition-all hover:-translate-y-1 hover:bg-[#F1DCCB]"
+              className="group mt-9 inline-flex items-center gap-4 bg-[#F8EBDD] px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#782C49] transition-all hover:-translate-y-1 hover:bg-[#F1DCCB]"
             >
               DISCOVER SEVOURA
               <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

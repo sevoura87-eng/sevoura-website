@@ -36,7 +36,7 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
         />
         <label
           htmlFor={id}
-          className="pointer-events-none absolute left-4 top-2 text-[9px] font-medium uppercase tracking-[0.2em] text-[#A77B4D] transition-all duration-300 peer-placeholder-shown:top-[17px] peer-placeholder-shown:text-[12px] peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-[#9A8777] peer-focus:top-2 peer-focus:text-[9px] peer-focus:uppercase peer-focus:tracking-[0.2em] peer-focus:text-[#A77B4D]"
+          className="pointer-events-none absolute left-4 top-2 text-[11px] font-medium uppercase tracking-[0.2em] text-[#A77B4D] transition-all duration-300 peer-placeholder-shown:top-[17px] peer-placeholder-shown:text-[14px] peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-[#9A8777] peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-[0.2em] peer-focus:text-[#A77B4D]"
         >
           {label}
         </label>
@@ -52,11 +52,11 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
         )}
       </div>
       {error ? (
-        <p id={`${id}-err`} className="mt-1.5 text-[11px] text-[#A23B52]">
+        <p id={`${id}-err`} className="mt-1.5 text-[13px] text-[#A23B52]">
           {error}
         </p>
       ) : hint ? (
-        <p className="mt-1.5 text-[11px] text-[#9A8777]">{hint}</p>
+        <p className="mt-1.5 text-[13px] text-[#9A8777]">{hint}</p>
       ) : null}
     </div>
   );
@@ -88,12 +88,12 @@ export function SelectField({ label, error, options, className = "", ...rest }: 
             </option>
           ))}
         </select>
-        <label htmlFor={id} className="pointer-events-none absolute left-4 top-2 text-[9px] font-medium uppercase tracking-[0.2em] text-[#A77B4D]">
+        <label htmlFor={id} className="pointer-events-none absolute left-4 top-2 text-[11px] font-medium uppercase tracking-[0.2em] text-[#A77B4D]">
           {label}
         </label>
-        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-[#A77B4D]">▾</span>
+        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[12px] text-[#A77B4D]">▾</span>
       </div>
-      {error && <p className="mt-1.5 text-[11px] text-[#A23B52]">{error}</p>}
+      {error && <p className="mt-1.5 text-[13px] text-[#A23B52]">{error}</p>}
     </div>
   );
 }

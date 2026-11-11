@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const Eyebrow = ({ children, light = false }: { children: React.ReactNode; light?: boolean }) => (
-  <p className={`text-[10px] tracking-[0.36em] ${light ? "text-[#E5C48B]" : "text-[#A77B4D]"}`}>{children}</p>
+  <p className={`text-[12px] tracking-[0.36em] ${light ? "text-[#E5C48B]" : "text-[#A77B4D]"}`}>{children}</p>
 );
 
 /* ───────────── PRODUCT SHOWCASE / OFFER ───────────── */
@@ -54,7 +54,7 @@ export function Showcase() {
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -bottom-8 -right-3 flex h-28 w-28 items-center justify-center rounded-full border border-[#E5C48B]/60 bg-[#F8F1E7] text-center text-[#792D49] shadow-2xl sm:-right-8"
           >
-            <span className="text-[8px] tracking-[0.2em]">SAVE<span className="block font-display text-3xl tracking-normal"><LivePrice fallback="₹700" kind="saving" /></span></span>
+            <span className="text-[10px] tracking-[0.2em]">SAVE<span className="block font-display text-3xl tracking-normal"><LivePrice fallback="₹700" kind="saving" /></span></span>
           </motion.div>
         </motion.div>
 
@@ -65,12 +65,12 @@ export function Showcase() {
             <br />
             <span className="italic text-[#E5C48B]">Fragrance Ritual.</span>
           </motion.h2>
-          <motion.p variants={up} className="mt-6 max-w-lg text-sm leading-8 text-[#EAD8CF]">
+          <motion.p variants={up} className="mt-6 max-w-lg text-[15px] leading-8 text-[#EAD8CF]">
             Discover seven distinct fragrance inspirations in one thoughtfully curated collection. Seven individual identities come together through one connected idea: the relationship between time, intention and personal expression.
           </motion.p>
           <motion.ul variants={up} className="mt-8 grid gap-3 sm:grid-cols-2">
             {features.map((f) => (
-              <li key={f} className="flex gap-3 text-[13px] leading-6 text-[#F0DCD4]">
+              <li key={f} className="flex gap-3 text-[15px] leading-6 text-[#F0DCD4]">
                 <Check size={15} className="mt-1 shrink-0 text-[#E5C48B]" /> {f}
               </li>
             ))}
@@ -78,15 +78,15 @@ export function Showcase() {
           <motion.div variants={up} className="mt-10 flex flex-wrap items-end gap-x-6 gap-y-2 border-y border-[#D9B77D]/30 py-6">
             <span className="font-display text-7xl leading-none text-[#F4D79C]"><LivePrice fallback="₹1,799" /></span>
             <span className="pb-2 font-display text-2xl text-[#E9D8CE] line-through decoration-[#D8B77C]"><LivePrice fallback="₹2,499" kind="mrp" /></span>
-            <span className="w-full text-[10px] tracking-[0.22em] text-[#EAD9CD]">INTRODUCTORY COLLECTION OFFER · PREPAID · FREE SHIPPING</span>
+            <span className="w-full text-[12px] tracking-[0.22em] text-[#EAD9CD]">INTRODUCTORY COLLECTION OFFER · PREPAID · FREE SHIPPING</span>
           </motion.div>
           <motion.div variants={up} className="mt-8 flex flex-wrap gap-4">
             <Magnetic>
-              <AddToCartButton className="group inline-flex items-center gap-4 bg-[#F3E5D2] px-9 py-5 text-[10px] font-semibold tracking-[0.22em] text-[#792D49] transition-colors duration-500 hover:bg-[#E5C48B]">
+              <AddToCartButton className="group inline-flex items-center gap-4 bg-[#F3E5D2] px-9 py-5 text-[12px] font-semibold tracking-[0.22em] text-[#792D49] transition-colors duration-500 hover:bg-[#E5C48B]">
                 <ShoppingBag size={16} /> ADD TO BAG
               </AddToCartButton>
             </Magnetic>
-            <Link href="/shop" className="group inline-flex items-center gap-4 border border-[#D9B77D]/70 px-8 py-5 text-[10px] tracking-[0.22em] transition-colors duration-500 hover:bg-[#D9B77D] hover:text-[#46182D]">
+            <Link href="/shop" className="group inline-flex items-center gap-4 border border-[#D9B77D]/70 px-8 py-5 text-[12px] tracking-[0.22em] transition-colors duration-500 hover:bg-[#D9B77D] hover:text-[#46182D]">
               VIEW DETAILS <ArrowUpRight size={15} className="transition-transform group-hover:rotate-45" />
             </Link>
           </motion.div>
@@ -127,7 +127,7 @@ export function Founder() {
               {/* name plate */}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2E0F1D]/85 via-[#2E0F1D]/45 to-transparent px-6 pb-6 pt-20 md:px-8 md:pb-8">
                 <p className="font-display text-[28px] leading-none text-[#FBF0E4] md:text-[34px]">Dr. Jasleen Bhatti</p>
-                <p className="mt-2 flex items-center gap-3 text-[9px] tracking-[0.3em] text-[#E5C48B] md:text-[10px]">
+                <p className="mt-2 flex items-center gap-3 text-[11px] tracking-[0.3em] text-[#E5C48B] md:text-[12px]">
                   <span className="h-px w-6 bg-[#E5C48B]" /> FOUNDER, SEVOURA
                 </p>
               </div>
@@ -145,7 +145,7 @@ export function Founder() {
             <div className="pointer-events-none absolute inset-2 border border-[#E9D1A7]/45" />
             <div className="relative">
               <h3 className="font-display text-[44px] font-medium leading-none md:text-[52px]">Dr. Jasleen Bhatti</h3>
-              <p className="mt-3 font-display text-sm italic tracking-[0.12em] text-[#E9D1A7]">Founder, Sevoura</p>
+              <p className="mt-3 font-display text-[15px] italic tracking-[0.12em] text-[#E9D1A7]">Founder, Sevoura</p>
               <div className="my-7 h-px w-14 bg-[#E9D1A7]/80" />
               <p className="text-[15px] leading-8 text-[#F8EEE7]">
                 My fascination with fragrance grew into a curiosity about tradition, symbolism and the rituals that make everyday moments meaningful.
@@ -157,7 +157,7 @@ export function Founder() {
                 That curiosity inspired a distinctive vision: seven planetary inspirations, expressed through seven thoughtfully composed fragrances.
               </p>
               <p className="mt-7 font-display text-xl italic tracking-[0.08em] text-[#E9D1A7]">Cleanse. Elevate. Radiate.</p>
-              <Link href="/our-story" className="group mt-8 inline-flex items-center gap-3 border-b border-[#E9D1A7]/70 pb-1.5 text-[9px] tracking-[0.24em] text-[#F5EFE5]">
+              <Link href="/our-story" className="group mt-8 inline-flex items-center gap-3 border-b border-[#E9D1A7]/70 pb-1.5 text-[11px] tracking-[0.24em] text-[#F5EFE5]">
                 READ OUR STORY <ArrowUpRight size={14} className="transition-transform group-hover:rotate-45" />
               </Link>
             </div>
@@ -233,7 +233,7 @@ export function Steps() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease }} className="mx-auto max-w-3xl text-center">
           <Eyebrow light>THE BEAUTY OF INTENTION</Eyebrow>
           <h2 className="mt-6 font-display text-[clamp(2.6rem,5.5vw,5rem)] font-medium leading-none">Make Every Day Your Own.</h2>
-          <p className="mt-6 text-sm leading-8 text-[#EBD9D4]">A seven-day collection inspired by seven planetary identities. A contemporary way to bring intention into everyday moments.</p>
+          <p className="mt-6 text-[15px] leading-8 text-[#EBD9D4]">A seven-day collection inspired by seven planetary identities. A contemporary way to bring intention into everyday moments.</p>
         </motion.div>
         <div className="relative mt-20 grid gap-12 md:grid-cols-3 md:gap-8">
           <motion.div
@@ -256,12 +256,12 @@ export function Steps() {
                 <Ornament size={20} />
               </span>
               <h3 className="mt-8 font-display text-3xl">{s.title}</h3>
-              <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-[#EBD9D4]">{s.text}</p>
+              <p className="mx-auto mt-4 max-w-xs text-[15px] leading-7 text-[#EBD9D4]">{s.text}</p>
             </motion.div>
           ))}
         </div>
         <div className="mt-16 text-center">
-          <Link href="/ritual-finder" className="group inline-flex items-center gap-4 border border-[#D9B77D] px-8 py-4 text-[10px] tracking-[0.22em] transition-colors duration-500 hover:bg-[#D9B77D] hover:text-[#2E0F1D]">
+          <Link href="/ritual-finder" className="group inline-flex items-center gap-4 border border-[#D9B77D] px-8 py-4 text-[12px] tracking-[0.22em] transition-colors duration-500 hover:bg-[#D9B77D] hover:text-[#2E0F1D]">
             FIND YOUR RITUAL <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
@@ -292,7 +292,7 @@ export function Destinations() {
             <Eyebrow>STEP INTO OUR WORLD</Eyebrow>
             <h2 className="mt-5 font-display text-[clamp(2.6rem,5.5vw,5rem)] font-medium leading-none text-[#46182D]">A World of Meaning.</h2>
           </div>
-          <p className="max-w-sm text-sm leading-7 text-[#806D60]">Discover the different dimensions of SEVOURA, from the inspiration behind the collection to the rituals that make it personal.</p>
+          <p className="max-w-sm text-[15px] leading-7 text-[#806D60]">Discover the different dimensions of SEVOURA, from the inspiration behind the collection to the rituals that make it personal.</p>
         </div>
         <ul className="mt-14 border-t border-[#D8C5A7]" onPointerLeave={() => setHover(null)}>
           {DESTINATIONS.map((d, i) => (
@@ -308,7 +308,7 @@ export function Destinations() {
                   <Image src={d.image} alt="" fill sizes="56px" className="object-cover" />
                 </div>
                 <span className="relative flex-1 font-display text-3xl text-[#46182D] transition-all duration-500 group-hover:translate-x-3 group-hover:text-[#FBF0E4] md:text-6xl">{d.title}</span>
-                <span className="relative hidden text-[9px] tracking-[0.3em] text-[#A77B4D] transition-colors group-hover:text-[#E5C48B] md:block">{d.subtitle}</span>
+                <span className="relative hidden text-[11px] tracking-[0.3em] text-[#A77B4D] transition-colors group-hover:text-[#E5C48B] md:block">{d.subtitle}</span>
                 <span className="relative mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#792D49]/30 text-[#792D49] transition-all duration-500 group-hover:rotate-45 group-hover:border-[#E5C48B] group-hover:text-[#E5C48B] md:mr-4">
                   <ArrowUpRight size={17} />
                 </span>
@@ -370,7 +370,7 @@ export function Promise() {
                 <it.icon size={26} strokeWidth={1.2} className="text-[#B28A56] group-hover:text-[#E5C48B]" />
               </span>
               <h3 className="mt-5 font-display text-2xl text-[#46182D] group-hover:text-[#FBF0E4]">{it.title}</h3>
-              <p className="mt-2 text-xs leading-6 text-[#806D60] group-hover:text-[#EBD9D4]">{it.sub}</p>
+              <p className="mt-2 text-[13px] leading-6 text-[#806D60] group-hover:text-[#EBD9D4]">{it.sub}</p>
             </motion.div>
           ))}
         </div>
@@ -399,23 +399,23 @@ export function Finale() {
       </motion.p>
       <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 1.1, ease }} className="relative z-10 mx-auto max-w-4xl">
         <Sparkles className="mx-auto text-[#E5C48B]" size={28} />
-        <p className="mt-6 text-[10px] tracking-[0.36em] text-[#E5C48B]">THE SEVOURA EXPERIENCE</p>
+        <p className="mt-6 text-[12px] tracking-[0.36em] text-[#E5C48B]">THE SEVOURA EXPERIENCE</p>
         <h2 className="mt-8 font-display text-[clamp(3rem,8vw,7.5rem)] font-medium leading-[0.92]">
           Beyond Fragrance.
           <br />
           <span className="italic text-[#E5C48B]">A Way of Expression.</span>
         </h2>
-        <p className="mx-auto mt-9 max-w-2xl text-sm leading-8 text-[#EAD8CF]">
+        <p className="mx-auto mt-9 max-w-2xl text-[15px] leading-8 text-[#EAD8CF]">
           Rooted in traditional symbolism. Inspired by seven planetary identities. Created for the beauty of everyday rituals.
         </p>
         <div className="mt-12">
           <Magnetic strength={0.45}>
-            <Link href="/shop" className="sev-shine group inline-flex items-center gap-5 bg-[#F6EBDD] px-11 py-6 text-[10px] tracking-[0.22em] text-[#792D49] transition-colors duration-500 hover:bg-[#E5C48B]">
+            <Link href="/shop" className="sev-shine group inline-flex items-center gap-5 bg-[#F6EBDD] px-11 py-6 text-[12px] tracking-[0.22em] text-[#792D49] transition-colors duration-500 hover:bg-[#E5C48B]">
               BEGIN YOUR SEVOURA JOURNEY <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </Magnetic>
         </div>
-        <p className="mt-16 text-[9px] tracking-[0.4em] text-[#E5C48B]">CLEANSE. ELEVATE. RADIATE.</p>
+        <p className="mt-16 text-[11px] tracking-[0.4em] text-[#E5C48B]">CLEANSE. ELEVATE. RADIATE.</p>
       </motion.div>
     </section>
   );

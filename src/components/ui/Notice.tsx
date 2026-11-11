@@ -9,7 +9,7 @@ export default function Notice({ tone = "info", children }: { tone?: "info" | "e
   }[tone];
   const Icon = tone === "error" ? AlertCircle : tone === "success" ? CheckCircle2 : Info;
   return (
-    <div role={tone === "error" ? "alert" : "status"} className={`flex gap-3 border px-4 py-3 text-[13px] leading-6 ${styles}`}>
+    <div role={tone === "error" ? "alert" : "status"} className={`flex gap-3 border px-4 py-3 text-[15px] leading-6 ${styles}`}>
       <Icon size={17} className="mt-0.5 shrink-0" />
       <div>{children}</div>
     </div>

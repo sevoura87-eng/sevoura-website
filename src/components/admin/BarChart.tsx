@@ -28,7 +28,7 @@ export default function BarChart({
   return (
     <div className="relative">
       <div className="flex gap-2" style={{ height }}>
-        <div className="flex w-14 shrink-0 flex-col justify-between pb-6 text-right text-[10px] tabular-nums text-[#9A8777]">
+        <div className="flex w-14 shrink-0 flex-col justify-between pb-6 text-right text-[12px] tabular-nums text-[#9A8777]">
           {[...ticks].reverse().map((t) => (
             <span key={t} className="-translate-y-1/2">{format(t)}</span>
           ))}
@@ -54,7 +54,7 @@ export default function BarChart({
                   className={`w-full rounded-t-[4px] ${hover === i ? "bg-[#501D32]" : "bg-[#792D49]"} ${d.value === 0 ? "min-h-[1px] bg-[#D9C7B4]" : ""}`}
                 />
                 {hover === i && (
-                  <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap border border-[#E2D5C3] bg-white px-3 py-2 text-[11px] shadow-lg">
+                  <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap border border-[#E2D5C3] bg-white px-3 py-2 text-[13px] shadow-lg">
                     <p className="font-medium text-[#3B2028]">{d.full}</p>
                     <p className="tabular-nums text-[#3B2028]">{format(d.value)}</p>
                     {d.secondary && <p className="text-[#9A8777]">{d.secondary}</p>}
@@ -63,14 +63,14 @@ export default function BarChart({
               </div>
             ))}
           </div>
-          <div className="absolute inset-x-0 bottom-0 flex h-5 gap-[2px] text-[9px] text-[#9A8777]">
+          <div className="absolute inset-x-0 bottom-0 flex h-5 gap-[2px] text-[11px] text-[#9A8777]">
             {data.map((d, i) => (
               <span key={d.full} className="flex-1 truncate text-center">{i % step === 0 ? d.label : ""}</span>
             ))}
           </div>
         </div>
       </div>
-      <details className="mt-3 text-[11px] text-[#806D60]">
+      <details className="mt-3 text-[13px] text-[#806D60]">
         <summary className="cursor-pointer select-none">View as table</summary>
         <table className="mt-2 w-full text-left">
           <tbody>

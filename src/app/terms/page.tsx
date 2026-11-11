@@ -175,7 +175,7 @@ export default function TermsPage() {
             initial={reduceMotion ? false : { opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-12 flex items-center gap-3 text-[10px] tracking-[0.25em] text-[#E5C38B]"
+            className="mb-12 flex items-center gap-3 text-[12px] tracking-[0.25em] text-[#E5C38B]"
           >
             <Link href="/" className="transition hover:text-white">HOME</Link>
             <span>›</span>
@@ -187,7 +187,7 @@ export default function TermsPage() {
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.8 }}
-              className="mb-7 text-[11px] tracking-[0.35em] text-[#D9B77C]"
+              className="mb-7 text-[13px] tracking-[0.35em] text-[#D9B77C]"
             >
               THE DETAILS THAT MATTER
             </motion.p>
@@ -222,7 +222,7 @@ export default function TermsPage() {
               initial={reduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.8 }}
-              className="mt-6 text-[10px] tracking-[0.25em] text-[#E5C38B]"
+              className="mt-6 text-[12px] tracking-[0.25em] text-[#E5C38B]"
             >
               YOUR EXPERIENCE. OUR COMMITMENT.
             </motion.p>
@@ -234,7 +234,7 @@ export default function TermsPage() {
       <section className="mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-28">
         <div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-20">
           <Reveal>
-            <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+            <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
               IMPORTANT INFORMATION
             </p>
             <h2 className="mt-5 font-serif text-4xl leading-tight md:text-5xl">
@@ -264,13 +264,13 @@ export default function TermsPage() {
       <section className="border-y border-[#E3D5C4] bg-[#F0E8DC]">
         <div className="mx-auto max-w-[1150px] px-6 py-20 md:px-12 md:py-28">
           <Reveal className="mb-16 max-w-[650px]">
-            <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+            <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
               THE GUIDELINES
             </p>
             <h2 className="mt-5 font-serif text-4xl leading-tight md:text-5xl">
               Everything you need to know.
             </h2>
-            <p className="mt-5 text-sm leading-7 text-[#78656A]">
+            <p className="mt-5 text-[15px] leading-7 text-[#78656A]">
               The following sections outline the terms that apply when
               using the SEVOURA website and exploring our offerings.
             </p>
@@ -301,7 +301,7 @@ export default function TermsPage() {
                   {section.title}
                 </h3>
 
-                <p className="text-sm leading-8 text-[#74636A]">
+                <p className="text-[15px] leading-8 text-[#74636A]">
                   {section.content}
                 </p>
               </motion.article>
@@ -325,13 +325,13 @@ export default function TermsPage() {
 
               <div className="relative grid items-center gap-10 md:grid-cols-[1fr_auto]">
                 <div>
-                  <p className="text-[10px] tracking-[0.3em] text-[#A66C35]">
+                  <p className="text-[12px] tracking-[0.3em] text-[#A66C35]">
                     NEED MORE INFORMATION?
                   </p>
                   <h2 className="mt-5 font-serif text-4xl leading-tight text-[#542038] md:text-5xl">
                     We are here to help.
                   </h2>
-                  <p className="mt-5 max-w-[500px] text-sm leading-7 text-[#78656A]">
+                  <p className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#78656A]">
                     Have a question about these terms, an order or your
                     experience with SEVOURA? Our team would be happy to help.
                   </p>
@@ -343,7 +343,7 @@ export default function TermsPage() {
                   rel="noreferrer"
                   whileHover={reduceMotion ? undefined : { scale: 1.04, y: -4 }}
                   whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-                  className="inline-flex min-h-[58px] items-center justify-center gap-4 bg-[#481B30] px-8 text-[10px] font-semibold tracking-[0.2em] text-white transition-colors duration-300 hover:bg-[#782C49]"
+                  className="inline-flex min-h-[58px] items-center justify-center gap-4 bg-[#481B30] px-8 text-[12px] font-semibold tracking-[0.2em] text-white transition-colors duration-300 hover:bg-[#782C49]"
                 >
                   <MessageCircle size={17} />
                   CONTACT ON WHATSAPP
@@ -354,7 +354,7 @@ export default function TermsPage() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div className="mt-12 flex flex-col gap-5 border-t border-[#DCCDBB] pt-8 text-sm text-[#6E5860] md:flex-row md:items-center md:justify-between">
+            <div className="mt-12 flex flex-col gap-5 border-t border-[#DCCDBB] pt-8 text-[15px] text-[#6E5860] md:flex-row md:items-center md:justify-between">
               <p>We would love to hear from you.</p>
               <a
                 href="mailto:hello@sevoura.com"

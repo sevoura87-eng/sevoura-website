@@ -112,7 +112,7 @@ const rise = {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[9px] font-medium tracking-[0.34em] text-[#A88762] md:text-[10px]">
+    <p className="text-[11px] font-medium tracking-[0.34em] text-[#A88762] md:text-[12px]">
       {children}
     </p>
   );
@@ -219,7 +219,7 @@ export default function AstrologyBehindRitualsPage() {
 
           <motion.p
             variants={rise}
-            className="mx-auto mt-6 max-w-xl text-xs leading-7 text-[#E4D4C7] md:text-sm"
+            className="mx-auto mt-6 max-w-xl text-[13px] leading-7 text-[#E4D4C7] md:text-[15px]"
           >
             An ancient planetary order. Reimagined through the art of fragrance.
           </motion.p>
@@ -227,7 +227,7 @@ export default function AstrologyBehindRitualsPage() {
           <motion.div variants={rise}>
             <Link
               href="#ancient-connection"
-              className="mt-12 inline-flex border border-[#D3B68C]/60 px-9 py-4 text-[9px] tracking-[0.25em] text-[#E9D6B8] transition-all duration-500 hover:bg-[#E9D6B8] hover:text-[#5B2038]"
+              className="mt-12 inline-flex border border-[#D3B68C]/60 px-9 py-4 text-[11px] tracking-[0.25em] text-[#E9D6B8] transition-all duration-500 hover:bg-[#E9D6B8] hover:text-[#5B2038]"
             >
               DISCOVER THE STORY ↓
             </Link>
@@ -255,14 +255,14 @@ export default function AstrologyBehindRitualsPage() {
 
           <div className="mx-auto mt-9 h-px w-20 bg-[#B99B76]" />
 
-          <p className="mt-9 text-sm leading-8 text-[#705C52] md:text-base md:leading-9">
+          <p className="mt-9 text-[15px] leading-8 text-[#705C52] md:text-base md:leading-9">
             In Indian astrological tradition, the seven days of the week are
             associated with seven celestial rulers—Surya (Sun), Chandra (Moon),
             Mangala (Mars), Budha (Mercury), Guru (Jupiter), Shukra (Venus), and
             Shani (Saturn).
           </p>
 
-          <p className="mt-7 text-sm leading-8 text-[#705C52] md:text-base md:leading-9">
+          <p className="mt-7 text-[15px] leading-8 text-[#705C52] md:text-base md:leading-9">
             Known through the tradition of <i>Vara</i> (weekday) associations,
             this ancient cycle connects the passage of time with distinct
             planetary symbolism.
@@ -292,7 +292,7 @@ export default function AstrologyBehindRitualsPage() {
             </h2>
           </div>
 
-          <div className="mt-12 space-y-7 text-[13px] leading-8 text-[#705C52] md:text-sm md:leading-9">
+          <div className="mt-12 space-y-7 text-[15px] leading-8 text-[#705C52] md:text-[15px] md:leading-9">
             <p>
               For centuries, the rhythm of the seven days has been intertwined
               with the symbolism of the celestial bodies in Indian astrological
@@ -351,7 +351,7 @@ export default function AstrologyBehindRitualsPage() {
               A Cycle. A Meaning. A Ritual.
             </h2>
 
-            <p className="mt-8 text-xs leading-7 text-[#E4D2C5] md:text-sm md:leading-8">
+            <p className="mt-8 text-[13px] leading-7 text-[#E4D2C5] md:text-[15px] md:leading-8">
               In Indian astrological tradition, each day of the week is
               associated with a different planetary ruler—each carrying its
               own symbolism and distinctive identity. This timeless connection
@@ -359,13 +359,13 @@ export default function AstrologyBehindRitualsPage() {
               very essence of SEVOURA.
             </p>
 
-            <p className="mt-6 text-xs leading-7 text-[#E4D2C5] md:text-sm md:leading-8">
+            <p className="mt-6 text-[13px] leading-7 text-[#E4D2C5] md:text-[15px] md:leading-8">
               Not seven fragrances brought together by chance, but seven
               expressions of one connected idea: the relationship between
               the day, its planetary symbolism, and the fragrance it inspires.
             </p>
 
-            <p className="mt-6 text-xs leading-7 text-[#E4D2C5] md:text-sm md:leading-8">
+            <p className="mt-6 text-[13px] leading-7 text-[#E4D2C5] md:text-[15px] md:leading-8">
               A concept where ancient tradition meets modern self-expression—and
               every day becomes an opportunity to embrace a different feeling.
             </p>
@@ -403,10 +403,10 @@ export default function AstrologyBehindRitualsPage() {
               >
                 <span className="flex justify-center text-[#D7B98E]"><Ornament size={18} /></span>
                 <h3 className="mt-5 font-serif text-2xl">{item.title}</h3>
-                <p className="mt-4 text-[10px] font-semibold text-[#E7CBA8]">
+                <p className="mt-4 text-[12px] font-semibold text-[#E7CBA8]">
                   {item.sub}
                 </p>
-                <p className="mt-4 text-xs leading-6 text-[#E8D9CE]">
+                <p className="mt-4 text-[13px] leading-6 text-[#E8D9CE]">
                   {item.text}
                 </p>
               </motion.div>
@@ -433,7 +433,7 @@ export default function AstrologyBehindRitualsPage() {
             <h2 className="mt-5 font-serif text-4xl leading-tight md:text-6xl">
               Seven Days. Seven Energies.
             </h2>
-            <p className="mt-7 text-sm leading-8 text-[#705C52]">
+            <p className="mt-7 text-[15px] leading-8 text-[#705C52]">
               Each day carries a different traditional symbolism. Explore the
               seven inspirations behind the SEVOURA collection and discover
               the intention that speaks to your day.
@@ -459,19 +459,19 @@ export default function AstrologyBehindRitualsPage() {
                   >
                     {item.symbol}
                   </motion.div>
-                  <p className="relative mt-5 text-[9px] tracking-[0.3em] text-[#E1C8A3]">
+                  <p className="relative mt-5 text-[11px] tracking-[0.3em] text-[#E1C8A3]">
                     {item.day}
                   </p>
                   <p className="relative mt-2 font-serif text-lg">
                     {item.planet}
                   </p>
-                  <p className="relative mt-1 text-[9px] tracking-[0.2em] text-[#D7C0AE]">
+                  <p className="relative mt-1 text-[11px] tracking-[0.2em] text-[#D7C0AE]">
                     {item.hindi}
                   </p>
                 </div>
 
                 <div className="flex flex-col justify-center p-7 md:p-11">
-                  <p className="text-[9px] tracking-[0.28em] text-[#A88762]">
+                  <p className="text-[11px] tracking-[0.28em] text-[#A88762]">
                     THE {item.planet} INSPIRATION
                   </p>
                   <h3 className="mt-3 font-serif text-3xl md:text-4xl">
@@ -480,13 +480,13 @@ export default function AstrologyBehindRitualsPage() {
                   <p className="mt-3 font-serif text-base italic text-[#9B7C62]">
                     {item.subtitle}
                   </p>
-                  <p className="mt-5 max-w-2xl text-xs leading-7 text-[#705C52] md:text-sm md:leading-8">
+                  <p className="mt-5 max-w-2xl text-[13px] leading-7 text-[#705C52] md:text-[15px] md:leading-8">
                     {item.description}
                   </p>
 
                   <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-[#DED1C1] pt-5">
                     <div>
-                      <p className="text-[9px] tracking-[0.2em] text-[#A88762]">
+                      <p className="text-[11px] tracking-[0.2em] text-[#A88762]">
                         YOUR DAILY INTENTION
                       </p>
                       <p className="mt-2 font-serif text-base italic">
@@ -494,10 +494,10 @@ export default function AstrologyBehindRitualsPage() {
                       </p>
                     </div>
                     <div className="max-w-[230px] text-left md:text-right">
-                      <p className="text-[9px] tracking-[0.2em] text-[#A88762]">
+                      <p className="text-[11px] tracking-[0.2em] text-[#A88762]">
                         FRAGRANCE NOTES
                       </p>
-                      <p className="mt-2 text-[11px] leading-5 text-[#705C52]">
+                      <p className="mt-2 text-[13px] leading-5 text-[#705C52]">
                         {item.notes}
                       </p>
                     </div>
@@ -531,18 +531,18 @@ export default function AstrologyBehindRitualsPage() {
             <PlanetArtwork />
 
             <div>
-              <p className="text-[9px] tracking-[0.3em] text-[#A88762]">
+              <p className="text-[11px] tracking-[0.3em] text-[#A88762]">
                 A MODERN INTERPRETATION
               </p>
               <h3 className="mt-5 font-serif text-3xl leading-tight md:text-4xl">
                 Inspired by tradition. Created for today.
               </h3>
-              <p className="mt-7 text-sm leading-8 text-[#705C52]">
+              <p className="mt-7 text-[15px] leading-8 text-[#705C52]">
                 SEVOURA reimagines traditional planetary associations through
                 the art of attar, translating celestial symbolism into a
                 distinctive fragrance experience.
               </p>
-              <p className="mt-6 text-sm leading-8 text-[#705C52]">
+              <p className="mt-6 text-[15px] leading-8 text-[#705C52]">
                 Each blend becomes a personal signature—a sensory expression
                 of the qualities you choose to embrace and carry into your day.
               </p>
@@ -576,7 +576,7 @@ export default function AstrologyBehindRitualsPage() {
             <span className="italic text-[#D8B88A]">Your Own Ritual.</span>
           </h2>
 
-          <p className="mx-auto mt-9 max-w-2xl text-sm leading-8 text-[#E4D2C5]">
+          <p className="mx-auto mt-9 max-w-2xl text-[15px] leading-8 text-[#E4D2C5]">
             A fragrance can become a small moment of pause in a busy day.
             A familiar scent, a personal intention, a little space to reconnect
             with yourself. SEVOURA brings these ideas together through seven
@@ -598,8 +598,8 @@ export default function AstrologyBehindRitualsPage() {
                 className="border-t border-[#B99B76]/40 px-4 pt-7"
               >
                 <span className="block text-[#D8B88A]"><Ornament size={16} /></span>
-                <h3 className="mt-3 text-xs tracking-[0.25em]">{title}</h3>
-                <p className="mt-3 text-xs leading-6 text-[#DCC9BB]">{text}</p>
+                <h3 className="mt-3 text-[13px] tracking-[0.25em]">{title}</h3>
+                <p className="mt-3 text-[13px] leading-6 text-[#DCC9BB]">{text}</p>
               </motion.div>
             ))}
           </div>
@@ -623,7 +623,7 @@ export default function AstrologyBehindRitualsPage() {
             Cleanse. Elevate. Radiate.
           </p>
           <div className="mx-auto mt-10 h-px w-24 bg-[#B99B76]" />
-          <p className="mx-auto mt-9 max-w-2xl text-sm leading-8 text-[#705C52]">
+          <p className="mx-auto mt-9 max-w-2xl text-[15px] leading-8 text-[#705C52]">
             Inspired by traditional astrological symbolism, SEVOURA brings
             together fragrance, personal expression and the rhythm of seven
             days. A thoughtful reminder that every day can hold a different
@@ -644,11 +644,11 @@ export default function AstrologyBehindRitualsPage() {
           <h2 className="font-serif text-3xl tracking-[0.28em] md:text-4xl">
             SEVOURA
           </h2>
-          <p className="mt-3 text-[9px] tracking-[0.3em] text-[#A88762]">
+          <p className="mt-3 text-[11px] tracking-[0.3em] text-[#A88762]">
             CLEANSE. ELEVATE. RADIATE.
           </p>
 
-          <p className="mx-auto mt-8 max-w-xl text-xs leading-7 text-[#705C52] md:text-sm">
+          <p className="mx-auto mt-8 max-w-xl text-[13px] leading-7 text-[#705C52] md:text-[15px]">
             Inspired by traditional astrological symbolism, SEVOURA offers a
             personal fragrance and ritual experience—an expression of
             intention, not a promise of outcomes.
@@ -656,7 +656,7 @@ export default function AstrologyBehindRitualsPage() {
 
           <Link
             href="/the-seven"
-            className="mt-10 inline-flex border border-[#8C624D] px-10 py-4 text-[9px] tracking-[0.25em] transition-all duration-500 hover:bg-[#5B2038] hover:text-[#F7EEE2]"
+            className="mt-10 inline-flex border border-[#8C624D] px-10 py-4 text-[11px] tracking-[0.25em] transition-all duration-500 hover:bg-[#5B2038] hover:text-[#F7EEE2]"
           >
             EXPLORE THE SEVEN →
           </Link>

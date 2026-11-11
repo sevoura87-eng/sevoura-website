@@ -94,13 +94,13 @@ export function Manifesto() {
         <div className="absolute inset-12 rounded-full border border-dashed border-[#C49A59]/30" />
       </div>
       <div className="relative mx-auto max-w-[1150px]">
-        <p className="text-[10px] tracking-[0.36em] text-[#A77B4D]">THE ART OF FRAGRANCE</p>
+        <p className="text-[12px] tracking-[0.36em] text-[#A77B4D]">THE ART OF FRAGRANCE</p>
         <p className="manifesto-text mt-8 font-display text-[clamp(2.1rem,5vw,4.6rem)] font-medium leading-[1.08] text-[#46182D]">
           More than a fragrance — <em className="text-[#9C6D55]">a feeling.</em> Fragrance has the power to make ordinary moments feel personal. It can become a memory, a signature and a small expression of individuality.
         </p>
         <div className="mt-12 flex flex-col gap-8 border-t border-[#DCCAB5] pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-md text-sm leading-8 text-[#806D60]">SEVOURA brings this idea into a seven-day ritual inspired by traditional planetary symbolism.</p>
-          <Link href="/our-story/astrology-behind-rituals" className="group inline-flex items-center gap-4 text-[10px] tracking-[0.22em] text-[#792D49]">
+          <p className="max-w-md text-[15px] leading-8 text-[#806D60]">SEVOURA brings this idea into a seven-day ritual inspired by traditional planetary symbolism.</p>
+          <Link href="/our-story/astrology-behind-rituals" className="group inline-flex items-center gap-4 text-[12px] tracking-[0.22em] text-[#792D49]">
             THE ASTROLOGY BEHIND THE RITUALS
             <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#792D49]/40 transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#792D49] group-hover:text-white">
               <ArrowUpRight size={16} />
@@ -138,21 +138,21 @@ function SevenCard({ s, i, today }: { s: (typeof SEVEN)[number]; i: number; toda
         <Image src={s.image} alt={`SEVOURA ${s.day} — ${s.fragrance}`} fill sizes="(max-width:640px) 78vw, 360px" className="object-cover object-[50%_35%] transition-transform duration-[1.4s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-110" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2E0F1D]/60 via-transparent to-transparent" />
         <motion.div style={{ left: glareX }} className="pointer-events-none absolute -top-1/4 h-[150%] w-24 -translate-x-1/2 rotate-12 bg-white/20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-        <span className="absolute left-1/2 top-6 -translate-x-1/2 bg-[#702943] px-3 py-1.5 text-[9px] font-semibold tracking-[0.22em] text-white">{s.day.toUpperCase()}</span>
-        {today && <span className="absolute right-5 top-[22%] rounded-full bg-[#E5C48B] px-2.5 py-1 text-[8px] font-bold tracking-[0.2em] text-[#46182D]">TODAY</span>}
+        <span className="absolute left-1/2 top-6 -translate-x-1/2 bg-[#702943] px-3 py-1.5 text-[11px] font-semibold tracking-[0.22em] text-white">{s.day.toUpperCase()}</span>
+        {today && <span className="absolute right-5 top-[22%] bg-[#E5C48B] px-2.5 py-1 text-[10px] font-bold tracking-[0.2em] text-[#46182D]">TODAY</span>}
         <span className="absolute bottom-4 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full border border-[#F4D79C]/70 bg-[#2E0F1D]/40 font-display text-2xl text-[#F4D79C] backdrop-blur transition-transform duration-700 group-hover:scale-110">
           <Ornament size={18} />
         </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center gap-3">
-          <p className="text-[9px] font-bold tracking-[0.24em] text-[#A57C43]">{s.day.toUpperCase()} BLEND</p>
+          <p className="text-[11px] font-bold tracking-[0.24em] text-[#A57C43]">{s.day.toUpperCase()} BLEND</p>
           <span className="h-px flex-1 bg-[#D8C5A7]" />
-          <span className="text-[10px] text-[#9A8777]">{s.quality}</span>
+          <span className="text-[12px] text-[#9A8777]">{s.quality}</span>
         </div>
         <h3 className="mt-3 font-display text-4xl font-medium text-[#481D30]">{s.fragrance}</h3>
-        <p className="mt-1 text-xs text-[#806D60]">{s.notes}</p>
-        <p className="mt-4 border-t border-[#E2D4C1] pt-4 text-[13px] font-medium text-[#642B40]">{s.intention}</p>
+        <p className="mt-1 text-[13px] text-[#806D60]">{s.notes}</p>
+        <p className="mt-4 border-t border-[#E2D4C1] pt-4 text-[15px] font-medium text-[#642B40]">{s.intention}</p>
       </div>
     </motion.article>
   );
@@ -204,32 +204,32 @@ export function SevenJourney() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,#F8EEDF,transparent_60%)]" />
       <div className="relative flex h-full flex-col justify-center py-20 lg:py-0">
           <div className="mb-10 px-6 md:px-12 lg:hidden">
-            <p className="text-[10px] tracking-[0.36em] text-[#A77B4D]">THE IDEA BEHIND THE COLLECTION</p>
+            <p className="text-[12px] tracking-[0.36em] text-[#A77B4D]">THE IDEA BEHIND THE COLLECTION</p>
             <h2 className="mt-6 font-display text-[clamp(3rem,6vw,5.6rem)] font-medium leading-[0.95] text-[#46182D]">
               Seven Days.
               <br />
               <span className="italic text-[#792D49]">Seven Inspirations.</span>
             </h2>
-            <p className="mt-6 max-w-sm text-sm leading-8 text-[#806D60]">
+            <p className="mt-6 max-w-sm text-[15px] leading-8 text-[#806D60]">
               An ancient planetary cycle, reimagined as a contemporary fragrance story. Every day brings a different symbolic identity and a new opportunity for personal expression.
             </p>
-            <p className="mt-6 text-[10px] tracking-[0.3em] text-[#A77B4D]">SWIPE TO EXPLORE →</p>
+            <p className="mt-6 text-[12px] tracking-[0.3em] text-[#A77B4D]">SWIPE TO EXPLORE →</p>
           </div>
         <div
           ref={track}
           className="flex snap-x snap-mandatory scroll-px-6 items-center gap-5 overflow-x-auto px-6 pb-6 [scrollbar-width:none] md:scroll-px-12 md:px-12 lg:snap-none lg:gap-6 lg:overflow-visible lg:px-16 lg:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           <div className="hidden shrink-0 pr-4 lg:block lg:w-[460px]">
-            <p className="text-[10px] tracking-[0.36em] text-[#A77B4D]">THE IDEA BEHIND THE COLLECTION</p>
+            <p className="text-[12px] tracking-[0.36em] text-[#A77B4D]">THE IDEA BEHIND THE COLLECTION</p>
             <h2 className="mt-6 font-display text-[clamp(3rem,6vw,5.6rem)] font-medium leading-[0.95] text-[#46182D]">
               Seven Days.
               <br />
               <span className="italic text-[#792D49]">Seven Inspirations.</span>
             </h2>
-            <p className="mt-6 max-w-sm text-sm leading-8 text-[#806D60]">
+            <p className="mt-6 max-w-sm text-[15px] leading-8 text-[#806D60]">
               An ancient planetary cycle, reimagined as a contemporary fragrance story. Every day brings a different symbolic identity and a new opportunity for personal expression.
             </p>
-            <p className="mt-8 hidden items-center gap-3 text-[10px] tracking-[0.3em] text-[#A77B4D] lg:flex">
+            <p className="mt-8 hidden items-center gap-3 text-[12px] tracking-[0.3em] text-[#A77B4D] lg:flex">
               SCROLL TO JOURNEY <ArrowRight size={14} />
             </p>
           </div>
@@ -238,18 +238,18 @@ export function SevenJourney() {
           ))}
           <div className="hidden w-[340px] shrink-0 flex-col items-start justify-center gap-6 lg:flex">
             <p className="font-display text-4xl italic leading-tight text-[#46182D]">The stars inspire.<br />Your intention defines.</p>
-            <Link href="/the-seven" className="sev-shine inline-flex items-center gap-4 bg-[#792D49] px-8 py-4 text-[10px] tracking-[0.2em] text-white transition hover:bg-[#501D32]">
+            <Link href="/the-seven" className="sev-shine inline-flex items-center gap-4 bg-[#792D49] px-8 py-4 text-[12px] tracking-[0.2em] text-white transition hover:bg-[#501D32]">
               EXPLORE THE SEVEN <ArrowUpRight size={15} />
             </Link>
-            <Link href="/ritual-finder" className="text-[10px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">FIND YOUR RITUAL</Link>
+            <Link href="/ritual-finder" className="text-[12px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">FIND YOUR RITUAL</Link>
           </div>
         </div>
           <div className="mt-10 flex flex-col items-start gap-6 px-6 md:px-12 lg:hidden">
             <p className="font-display text-4xl italic leading-tight text-[#46182D]">The stars inspire.<br />Your intention defines.</p>
-            <Link href="/the-seven" className="sev-shine inline-flex items-center gap-4 bg-[#792D49] px-8 py-4 text-[10px] tracking-[0.2em] text-white transition hover:bg-[#501D32]">
+            <Link href="/the-seven" className="sev-shine inline-flex items-center gap-4 bg-[#792D49] px-8 py-4 text-[12px] tracking-[0.2em] text-white transition hover:bg-[#501D32]">
               EXPLORE THE SEVEN <ArrowUpRight size={15} />
             </Link>
-            <Link href="/ritual-finder" className="text-[10px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">FIND YOUR RITUAL</Link>
+            <Link href="/ritual-finder" className="text-[12px] tracking-[0.2em] text-[#792D49] underline underline-offset-4">FIND YOUR RITUAL</Link>
           </div>
         <div className="mx-auto mt-6 hidden h-px w-[min(600px,60vw)] bg-[#DCCAB5] lg:block">
           <div className="seven-progress h-full origin-left scale-x-0 bg-[#792D49]" />
