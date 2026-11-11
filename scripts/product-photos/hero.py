@@ -18,6 +18,9 @@ P = {
     "radiate": dict(w0="#6A1B38", w1="#2A0310", n0="#7A2444", n1="#33061A", edge="#2E0F1D", line=(240, 214, 154), dust=True, out="plate_radiate.jpg",
                     sunr=0.22, orbits_on=False),
 }[VAR]
+import os, json
+LAYERS = os.environ.get("LAYERS") == "1"      # export base + separate sun / leaf-shadow layers for animation
+LEAF_LAYER = os.environ.get("LEAF") == "1"
 W, H = 1500, 1800
 S = 2  # supersampling for line art
 
@@ -71,7 +74,9 @@ frond(-120, 120, 0.62, 22, 980)
 frond(W + 60, 260, math.pi - 0.95, 18, 760)
 m = m.filter(ImageFilter.GaussianBlur(9))
 leafsh = np.asarray(m, np.float32) / 255
-img *= (1 - 0.5 * leafsh * (0.4 + 0.6 * pool))[..., None]
+leaf_alpha = 0.5 * leafsh * (0.4 + 0.6 * pool)
+if not LEAF_LAYER:
+    img *= (1 - leaf_alpha)[..., None]
 
 # ---- travertine plinth (two steps) ----
 def block(x0, x1, top, depth, face_h, seed, light=1.0):
@@ -194,16 +199,30 @@ def composite(layer):
     al = a[..., 3:4] / 255
     img = img * (1 - al) + a[..., :3] * al
 
-if ORB:
-    composite(orbit_layer(False))
-    for px, py, r in planets(False):
-        sphere(px, py, r * 0.85, P.get("planet", "#C9974E"), spec=40)
-if SUN:
+if LAYERS:
+    before = img.copy()
     sphere(sun_cx, sun_cy, sunr, P.get("sun", "#E6B866"), spec=45, rim=P.get("rim", "#E9B98A"))
-if ORB:
-    composite(orbit_layer(True))
-    for px, py, r in planets(True):
-        sphere(px, py, r, P.get("planet", "#E2B464"), spec=40)
+    m = int(sunr + 4)
+    x0, y0 = int(sun_cx - m), int(sun_cy - m)
+    rgb = img[y0:y0 + 2 * m, x0:x0 + 2 * m]
+    Xs = np.arange(2 * m)[None, :] - (sun_cx - x0); Ys = np.arange(2 * m)[:, None] - (sun_cy - y0)
+    al = np.clip((sunr - np.sqrt(Xs ** 2 + Ys ** 2)) / 1.2, 0, 1)
+    sun_png = np.dstack([np.clip(rgb, 0, 255), al * 255]).astype(np.uint8)
+    Image.fromarray(sun_png, "RGBA").save(P["out"].replace(".jpg", "-sun.png"), optimize=True)
+    img = before
+    json.dump({"W": W, "H": H, "sun": [sun_cx, sun_cy, sunr], "orbits": [[rx, ry, t, a] for rx, ry, t, a in ORBITS]}, open(P["out"].replace(".jpg", ".json"), "w"))
+else:
+    if ORB:
+        composite(orbit_layer(False))
+        for px, py, r in planets(False):
+            sphere(px, py, r * 0.85, P.get("planet", "#C9974E"), spec=40)
+    if SUN:
+        sphere(sun_cx, sun_cy, sunr, P.get("sun", "#E6B866"), spec=45, rim=P.get("rim", "#E9B98A"))
+    if ORB:
+        composite(orbit_layer(True))
+        for px, py, r in planets(True):
+            sphere(px, py, r, P.get("planet", "#E2B464"), spec=40)
+
 if P.get("pearl"):
     pr = W * 0.05
     cs = np.zeros((H, W), np.float32)
@@ -233,5 +252,9 @@ edge = np.clip(np.sqrt(((xx - 0.5) * 1.5) ** 2 + ((yy - 0.46) * 1.15) ** 2), 0, 
 fall = np.clip((edge - 0.55) / 0.45, 0, 1) ** 1.4
 img = img * (1 - fall[..., None]) + hexc(P["edge"]) * fall[..., None]
 img += rng.standard_normal((H, W, 1)).astype(np.float32) * 2.4
-Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)).save(P["out"], quality=88, optimize=True, progressive=True)
+if LEAF_LAYER:
+    la = np.clip(leaf_alpha * (1 - fall), 0, 1)
+    sh = np.dstack([np.full((H, W), 52), np.full((H, W), 34), np.full((H, W), 24), la * 255]).astype(np.uint8)
+    Image.fromarray(sh, "RGBA").resize((W // 2, H // 2), Image.LANCZOS).save(P["out"].replace(".jpg", "-leaves.png"), optimize=True)
+Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)).save(P["out"].replace(".jpg", "-base.jpg") if (LAYERS or LEAF_LAYER) else P["out"], quality=88, optimize=True, progressive=True)
 print("ok")

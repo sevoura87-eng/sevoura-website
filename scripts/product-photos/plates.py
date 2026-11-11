@@ -5,6 +5,16 @@ from PIL import Image, ImageDraw, ImageFilter
 from compose import fbm, hexc, lerp, tex_travertine
 
 S = 2  # supersampling for line art
+import os
+LAYER_MODE = os.environ.get("LAYERS") == "1"   # export animatable layers instead of baking them in
+EXTRA = {}                              # name -> RGBA uint8 array
+
+
+def rgba(color, alpha, scale=1):
+    H, W = alpha.shape
+    arr = np.dstack([np.full((H, W), color[0]), np.full((H, W), color[1]), np.full((H, W), color[2]), np.clip(alpha, 0, 1) * 255]).astype(np.uint8)
+    im = Image.fromarray(arr, "RGBA")
+    return im.resize((W // scale, H // scale), Image.LANCZOS) if scale > 1 else im
 
 
 def grid(W, H):
@@ -103,13 +113,19 @@ def colonnade(tone="ivory", start=0.38, count=4):
         pts = np.array([[ax + aw * 0.1, horizon], [ax + aw * 0.95, horizon], [ax + aw * 0.95 - 520, H + 40], [ax + aw * 0.1 - 760, H + 40]], np.int32)
         cv2.fillConvexPoly(beam, pts, 1.0)
     beam = cv2.GaussianBlur(beam, (0, 0), 22) * fm
-    img += (beam * pal["beam"] * 1.6)[..., None] * np.array([1, 0.9, 0.72], np.float32)
+    if LAYER_MODE:
+        EXTRA["beams"] = rgba((255, 236, 205), beam * pal["beam"] * 1.6 / 160, 2)
+    else:
+        img += (beam * pal["beam"] * 1.6)[..., None] * np.array([1, 0.9, 0.72], np.float32)
     # atmospheric glow from the openings
     glow = cv2.GaussianBlur(open_m, (0, 0), 90)
     img += (glow * 30)[..., None] * np.array([1, 0.85, 0.6], np.float32)
     # a palm outside the third arch casts its shadow into the light on the floor
     fr = frond_mask(W, H, [(x0 + 2 * (aw + gap) - 200, horizon + 40, 2.6, 18, 900, 300)], 10, 9)
-    img *= (1 - 0.32 * fr * fm)[..., None]
+    if LAYER_MODE:
+        EXTRA["palm"] = rgba((60, 42, 30), 0.32 * fr * fm, 2)
+    else:
+        img *= (1 - 0.32 * fr * fm)[..., None]
     # cornice: gold hairline + soft shadow
     cy = int(atop - 40)
     img *= (1 - 0.12 * np.exp(-((Y - cy - 10) / 18) ** 2) * (X > x0 - 60))[..., None]
@@ -142,7 +158,7 @@ def sphere(img, cx, cy, r, base, env_top="#F4DDA6", env_bot="#3A0E14"):
     return img * (1 - msk[..., None]) + col * msk[..., None]
 
 
-def astrolabe():
+def astrolabe(base_only=False):
     W, H = 1500, 1800
     yy, xx, X, Y = grid(W, H)
     img = lerp(hexc("#5E1832"), hexc("#200009"), np.broadcast_to(np.clip(np.sqrt((xx - 0.5) ** 2 * 1.2 + (yy - 0.45) ** 2) * 1.4, 0, 1), (H, W)))
@@ -154,6 +170,10 @@ def astrolabe():
     # warm halo
     r0 = np.sqrt((X - cx) ** 2 + (Y - cy) ** 2)
     img += (np.exp(-((r0 / 520) ** 2)) * 26)[..., None] * np.array([1, 0.7, 0.45], np.float32)
+    if LAYER_MODE:  # rings, planets and the sun are drawn live in SVG
+        return finish(img, 33, "#26000D", 0.55)
+    if base_only:
+        return finish(img, 33, "#26000D", 0.55)
     lay = Image.new("RGBA", (W * S, H * S), (0, 0, 0, 0))
     d = ImageDraw.Draw(lay)
     gold = (226, 190, 120)
@@ -190,7 +210,7 @@ def astrolabe():
 
 
 # ---------------------------------------------------------------- window light (The Experience)
-def window():
+def window(leaf_layer=False):
     W, H = 2400, 1200
     yy, xx, X, Y = grid(W, H)
     img = lerp(hexc("#D9BE97"), hexc("#7A4A3A"), np.broadcast_to(np.clip(np.abs(xx - 0.62) * 1.5 + yy * 0.35, 0, 1), (H, W)))
@@ -207,8 +227,13 @@ def window():
     lm = lm.transform((W, H), Image.AFFINE, (1, 0.32, -260, 0, 1, 0), resample=Image.BICUBIC).filter(ImageFilter.GaussianBlur(5))
     light = np.asarray(lm, np.float32) / 255
     fr = frond_mask(W, H, [(W * 0.88, -60, 2.3, 20, 900, 300)], 8, 5)
-    light = light * (1 - 0.85 * fr)
-    img = img * (1 + 0.55 * light)[..., None] + (light * 22)[..., None] * np.array([1, 0.9, 0.7], np.float32)
+    if LAYER_MODE:
+        EXTRA["light"] = rgba((255, 236, 200), light * 0.62, 2)
+        EXTRA["leaves"] = rgba((90, 52, 40), light * fr * 0.55, 2)
+        light = light * (1 - 0.85 * fr)
+    else:
+        light = light * (1 - 0.85 * fr)
+        img = img * (1 + 0.55 * light)[..., None] + (light * 22)[..., None] * np.array([1, 0.9, 0.7], np.float32)
     # a low travertine ledge
     ledge = int(H * 0.8)
     tex = tex_travertine(W, H - ledge, 8, "#E9D6B8", "#B89C76")
@@ -226,7 +251,7 @@ def window():
 
 
 # ---------------------------------------------------------------- botanical folio (Journal)
-def folio():
+def folio(leaf_layer=False):
     W, H = 1600, 1100
     yy, xx, X, Y = grid(W, H)
     img = lerp(hexc("#F4EADB"), hexc("#E2CFB3"), np.broadcast_to(np.clip(np.sqrt((xx - 0.3) ** 2 + (yy - 0.3) ** 2), 0, 1), (H, W)))
@@ -234,7 +259,13 @@ def folio():
     sun = np.exp(-(((xx - 0.35) / 0.35) ** 2 + ((yy - 0.35) / 0.4) ** 2))
     img *= (0.88 + 0.2 * sun)[..., None]
     fr = frond_mask(W, H, [(W + 80, -60, 2.25, 22, 1300, 360), (-60, H + 40, -0.75, 18, 900, 260)], 6, 12)
-    img *= (1 - 0.42 * fr)[..., None]
+    if LAYER_MODE:
+        EXTRA["leaves"] = rgba((70, 52, 36), 0.42 * fr, 2)
+        return finish(img, 55)
+    if leaf_layer:
+        Image.fromarray(np.dstack([np.full((H, W), 70), np.full((H, W), 52), np.full((H, W), 36), np.clip(fr * 0.42, 0, 1) * 255]).astype(np.uint8), "RGBA").resize((W // 2, H // 2), Image.LANCZOS).save("plates/hero-folio-leaves.png", optimize=True)
+    else:
+        img *= (1 - 0.42 * fr)[..., None]
     lay = Image.new("RGBA", (W * S, H * S), (0, 0, 0, 0))
     d = ImageDraw.Draw(lay)
     d.ellipse([(W * 0.62 - 210) * S, (H * 0.5 - 210) * S, (W * 0.62 + 210) * S, (H * 0.5 + 210) * S], outline=(167, 123, 61, 150), width=S)
@@ -248,6 +279,11 @@ if __name__ == "__main__":
     out = sys.argv[1]
     which = sys.argv[2:] or ["colonnade", "colonnade_dusk", "astrolabe", "window", "folio"]
     for w in which:
-        im = {"colonnade": lambda: colonnade("ivory", 0.52, 3), "colonnade_dusk": lambda: colonnade("dusk"), "astrolabe": astrolabe, "window": window, "folio": folio}[w]()
-        im.save(f"{out}/hero-{w}.jpg", quality=86, optimize=True, progressive=True)
+        im = {"colonnade": lambda: colonnade("ivory", 0.52, 3), "colonnade_dusk": lambda: colonnade("dusk"), "astrolabe": astrolabe, "window": window, "folio": folio,
+              "astrolabe_base": lambda: astrolabe(True), "window_base": lambda: window(True), "folio_base": lambda: folio(True)}[w]()
+        suffix = "-base" if LAYER_MODE else ""
+        im.save(f"{out}/hero-{w}{suffix}.jpg", quality=86, optimize=True, progressive=True)
+        for k, v in EXTRA.items():
+            v.save(f"{out}/hero-{w}-{k}.png", optimize=True)
+        EXTRA.clear()
         print("wrote", w, im.size)

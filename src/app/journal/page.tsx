@@ -104,7 +104,7 @@ function Feed() {
         }
         intro="A considered space for the SEVOURA community — ask about the seven blends, share how a ritual made you feel, and learn from one another."
       >
-        <form onSubmit={onSearch} className="mt-10 flex max-w-[640px] items-stretch border border-[#D6A64F]/40 bg-[#26000D]/40 backdrop-blur">
+        <form onSubmit={onSearch} className="mt-10 flex max-w-[640px] lg:mt-[4svh] items-stretch border border-[#D6A64F]/40 bg-[#26000D]/40 backdrop-blur">
           <Search size={18} className="ml-5 mt-[18px] shrink-0 text-[#D6A64F]" />
           <input
             value={search}
@@ -117,7 +117,7 @@ function Feed() {
             SEARCH
           </button>
         </form>
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="mt-8 flex flex-wrap gap-4 lg:mt-[3svh]">
           <Link href="/journal/ask" className="inline-flex items-center gap-3 bg-[#F7F0E6] px-7 py-4 text-[12px] font-semibold tracking-[0.22em] text-[#390014] transition-colors hover:bg-[#F0D69A]">
             <PenLine size={16} /> ASK A QUESTION
           </Link>

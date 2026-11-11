@@ -1,6 +1,7 @@
 'use client';
 
 import SiteHeader from "@/components/SiteHeader";
+import LightArt from "@/components/art/LightArt";
 import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
@@ -158,8 +159,7 @@ export default function TermsPage() {
         title="Terms &"
         accent="conditions."
         intro={<>A little clarity goes a long way. Please take a moment to understand the terms that guide your experience with SEVOURA.</>}
-        art="/images/hero-colonnade_dusk.jpg"
-        artPosition="82% 45%"
+        artNode={<LightArt scene="colonnade_dusk" priority position="82% 45%" />}
       />
 
       {/* INTRO */}

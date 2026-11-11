@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -11,6 +10,7 @@ import { useGSAP } from "@gsap/react";
 import { ArrowRight, ArrowUpRight, Droplets, Layers, Truck } from "lucide-react";
 import { SEVEN, todayIndex } from "./data";
 import Magnetic from "./Magnetic";
+import OrbitArt from "@/components/art/OrbitArt";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -82,6 +82,8 @@ export default function Hero({ ready }: { ready: boolean }) {
   const sy = useSpring(my, { stiffness: 40, damping: 18 });
   const backX = useTransform(sx, (v) => v * -6);
   const backY = useTransform(sy, (v) => v * -6);
+  const midX = useTransform(sx, (v) => v * -12);
+  const midY = useTransform(sy, (v) => v * -10);
   const frontX = useTransform(sx, (v) => v * -30);
   const frontY = useTransform(sy, (v) => v * -24);
 
@@ -124,7 +126,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         mx.set(e.clientX / window.innerWidth - 0.5);
         my.set(e.clientY / window.innerHeight - 0.5);
       }}
-      className={`relative isolate overflow-hidden bg-[#26000D] ${ready ? "hero-ready" : "[&_.hero-anim]:invisible"}`}
+      className={`relative isolate flex flex-col overflow-hidden bg-[#26000D] lg:h-[calc(100svh-var(--header-h))] lg:min-h-[600px] ${ready ? "hero-ready" : "[&_.hero-anim]:invisible"}`}
     >
       {/* one continuous sky: deep burgundy with light gathering behind the artwork */}
       <div aria-hidden className="absolute inset-0 -z-20 bg-[radial-gradient(120%_95%_at_70%_45%,#70243F_0%,#390014_45%,#26000D_100%)]" />
@@ -170,10 +172,10 @@ export default function Hero({ ready }: { ready: boolean }) {
         ))}
       </svg>
 
-      <div className="mx-auto grid min-h-[calc(100svh-78px-104px)] max-w-[1440px] items-center gap-14 px-6 pb-20 pt-14 md:px-12 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:px-16 lg:pb-16 lg:pt-12">
+      <div className="mx-auto grid w-full max-w-[1440px] items-center gap-14 px-6 pb-20 pt-14 md:px-12 lg:min-h-0 lg:flex-1 lg:grid-cols-[1fr_1fr] lg:gap-10 lg:px-16 lg:py-0">
         {/* COPY */}
         <div className="hero-copy-wrap hero-anim relative z-10">
-          <h1 className="hero-title font-display text-[clamp(3.8rem,9.2vw,9rem)] font-medium leading-[0.9] tracking-[-0.015em] text-[#F7F0E6]">
+          <h1 className="hero-title font-display text-[clamp(3.6rem,min(9.2vw,11.6svh),9rem)] font-medium leading-[0.9] tracking-[-0.015em] text-[#F7F0E6]">
             Cleanse.
             <br />
             Elevate.
@@ -181,14 +183,14 @@ export default function Hero({ ready }: { ready: boolean }) {
             <span className="italic text-[#D6A64F]">Radiate.</span>
           </h1>
           <div className="hero-copy">
-            <p className="mt-8 max-w-[500px] text-[15px] leading-8 text-[#E8D3C3]/85 md:text-base">
+            <p className="mt-8 max-w-[500px] text-[15px] leading-8 text-[#E8D3C3]/85 md:text-base lg:mt-[3svh] lg:leading-[1.75]">
               SEVOURA is a collection of seven alcohol-free fragrance blends — one for every day of the week — thoughtfully composed to bring a moment of intention into modern routines.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-4 lg:mt-[3.6svh]">
               <Magnetic>
                 <Link
                   href="/shop"
-                  className="sev-shine group inline-flex items-center gap-5 bg-[#D6A64F] px-9 py-[18px] text-[13px] font-semibold tracking-[0.18em] text-[#26000D] shadow-[0_18px_44px_rgba(214,166,79,.28)] transition-colors duration-500 hover:bg-[#F0D69A]"
+                  className="sev-shine group inline-flex items-center gap-4 bg-[#D6A64F] px-9 py-[18px] text-[13px] lg:px-7 xl:px-9 lg:py-[min(18px,2.2svh)] font-semibold tracking-[0.18em] text-[#26000D] shadow-[0_18px_44px_rgba(214,166,79,.28)] transition-colors duration-500 hover:bg-[#F0D69A]"
                 >
                   SHOP THE COLLECTION
                   <ArrowRight size={16} className="transition-transform duration-500 group-hover:translate-x-1" />
@@ -196,13 +198,13 @@ export default function Hero({ ready }: { ready: boolean }) {
               </Magnetic>
               <Link
                 href="/the-seven"
-                className="group inline-flex items-center gap-3 border border-[#D6A64F]/45 px-7 py-[17px] text-[13px] font-medium tracking-[0.18em] text-[#F0D69A] transition-colors duration-500 hover:border-[#F0D69A] hover:bg-[#F0D69A]/10"
+                className="group inline-flex items-center gap-3 border border-[#D6A64F]/45 px-7 py-[17px] text-[13px] lg:px-6 xl:px-7 lg:py-[min(17px,2.1svh)] font-medium tracking-[0.18em] text-[#F0D69A] transition-colors duration-500 hover:border-[#F0D69A] hover:bg-[#F0D69A]/10"
               >
                 EXPLORE THE BLENDS
                 <ArrowUpRight size={15} className="transition-transform duration-500 group-hover:rotate-45" />
               </Link>
             </div>
-            <ul className="mt-11 grid max-w-[520px] grid-cols-3 gap-3 border-t border-[#D6A64F]/25 pt-6">
+            <ul className="hero-stats mt-11 grid max-w-[520px] grid-cols-3 gap-3 border-t border-[#D6A64F]/25 pt-6 lg:mt-[4svh] lg:pt-[2.4svh]">
               {[
                 { icon: Layers, k: "7", v: "Distinct compositions" },
                 { icon: Droplets, k: "0%", v: "Alcohol in every blend" },
@@ -219,26 +221,17 @@ export default function Hero({ ready }: { ready: boolean }) {
           </div>
         </div>
 
-        {/* VISUAL — campaign art: the seven-day orbit (no product) */}
-        <div className="hero-visual hero-anim relative mx-auto w-full max-w-[440px] sm:max-w-[520px] lg:max-w-[600px]">
-          <div className="hero-art relative aspect-[5/6] w-full">
-            <motion.div style={{ x: backX, y: backY }} className="absolute inset-[-3%]">
-              <Image
-                src="/images/sevoura-orbit.jpg"
-                alt=""
-                fill
-                priority
-                sizes="(min-width:1024px) 600px, 90vw"
-                className="object-cover [mask-image:radial-gradient(ellipse_72%_78%_at_50%_48%,#000_62%,transparent_100%)]"
-              />
-            </motion.div>
-            {/* a slow, fine orbit drawn over the art so the scene breathes */}
-            <motion.svg aria-hidden viewBox="0 0 600 720" style={{ x: frontX, y: frontY }} className="absolute inset-0 h-full w-full text-[#F0D69A]">
-              <g className="sev-rotate" style={{ transformOrigin: "300px 410px" }}>
-                <ellipse cx="300" cy="410" rx="286" ry="286" fill="none" stroke="currentColor" strokeOpacity=".16" strokeWidth=".7" strokeDasharray="1 7" />
-                <circle cx="300" cy="124" r="2.6" fill="currentColor" fillOpacity=".75" />
-              </g>
-            </motion.svg>
+        {/* VISUAL — campaign art: the seven-day orbit (no product), built from moving layers */}
+        <div className="hero-visual hero-anim relative mx-auto flex w-full max-w-[440px] items-center justify-center sm:max-w-[520px] lg:h-full lg:max-w-none lg:py-[2.5svh]">
+          <div className="hero-art relative aspect-[5/6] w-full lg:h-full lg:w-auto lg:max-w-full">
+            <OrbitArt
+              variant="gold"
+              priority
+              back={{ x: backX, y: backY }}
+              mid={{ x: midX, y: midY }}
+              front={{ x: frontX, y: frontY }}
+              className="h-full [mask-image:radial-gradient(ellipse_72%_78%_at_50%_48%,#000_62%,transparent_100%)]"
+            />
           </div>
         </div>
       </div>

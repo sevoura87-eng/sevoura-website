@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  --header-h: 80px; /* measured header height (bar + border) */
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -170,3 +171,52 @@ input[type="number"]::-webkit-outer-spin-button {
   .scent .sc-float, .scent .sc-sway, .scent .sc-tumble, .scent .sc-spin, .scent .sc-drift, .scent .sc-rise, .cx-twinkle { animation: none; }
 }
 
+
+/* ───────── Hero art motion (transform / opacity only) ───────── */
+@keyframes art-spin { to { transform: rotate(360deg); } }
+@keyframes art-sheen {
+  0%, 100% { transform: translate(0%, 0%) scale(1); opacity: .85; }
+  50%      { transform: translate(34%, 26%) scale(1.15); opacity: 1; }
+}
+.art-sheen { animation: art-sheen 11s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform; }
+@keyframes art-sheen-svg {
+  0%, 100% { transform: translate(0, 0); opacity: .8; }
+  50%      { transform: translate(22px, 18px); opacity: 1; }
+}
+.art-sheen-svg { animation: art-sheen-svg 9s cubic-bezier(.45, 0, .55, 1) infinite; }
+@keyframes art-beams {
+  0%, 100% { transform: translateX(-1.4%) skewX(0deg); opacity: .78; }
+  50%      { transform: translateX(1.4%) skewX(-1.5deg); opacity: 1; }
+}
+.art-beams { animation: art-beams 16s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform, opacity; }
+@keyframes art-sway {
+  0%, 100% { transform: rotate(-1.1deg) translate3d(0, 0, 0); }
+  50%      { transform: rotate(1.3deg) translate3d(.6%, -.4%, 0); }
+}
+.art-sway { animation: art-sway 9s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform; }
+.art-sway-slow { animation: art-sway 14s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform; }
+@keyframes art-breathe {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: .82; }
+  50%      { transform: translate3d(-1%, .6%, 0); opacity: 1; }
+}
+.art-breathe { animation: art-breathe 12s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform, opacity; }
+@keyframes art-mote {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  20%  { opacity: .9; }
+  80%  { opacity: .7; }
+  100% { transform: translate3d(-40px, 60px, 0); opacity: 0; }
+}
+.art-mote { animation: art-mote 13s linear infinite; box-shadow: 0 0 6px 1px rgba(255, 233, 194, .7); }
+@keyframes art-drift {
+  0%, 100% { transform: scale(1.02) translate3d(0, 0, 0); }
+  50%      { transform: scale(1.07) translate3d(-1.2%, -.8%, 0); }
+}
+.art-drift { animation: art-drift 26s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform; }
+@media (prefers-reduced-motion: reduce) {
+  .art-sheen, .art-sheen-svg, .art-beams, .art-sway, .art-sway-slow, .art-breathe, .art-mote, .art-drift { animation: none !important; }
+}
+
+/* on short desktop screens the hero keeps headline, copy and actions; the small stats row steps aside */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .hero-stats { display: none; }
+}

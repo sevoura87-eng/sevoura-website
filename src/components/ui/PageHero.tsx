@@ -33,6 +33,7 @@ export default function PageHero({
   layout = "split",
   reverse = false,
   index,
+  artNode,
   children,
 }: {
   eyebrow: string;
@@ -42,7 +43,9 @@ export default function PageHero({
   primary?: Cta;
   secondary?: Cta;
   tone?: "dark" | "light";
-  art: string;
+  art?: string;
+  /** a live, layered artwork (components/art) used instead of a still image */
+  artNode?: ReactNode;
   artAlt?: string;
   artPosition?: string;
   footnote?: ReactNode;
@@ -74,7 +77,7 @@ export default function PageHero({
           <span className={`h-px w-10 ${goldBg}`} />
           {eyebrow}
         </p>
-        <h1 className={`mt-8 font-display font-medium leading-[0.96] tracking-[-0.015em] ${ink} ${layout === "band" ? "text-[clamp(2.8rem,5.4vw,5rem)]" : "text-[clamp(3.1rem,6.6vw,6.4rem)]"}`}>
+        <h1 className={`mt-8 font-display font-medium leading-[0.96] tracking-[-0.015em] lg:mt-[3.2svh] ${ink} ${layout === "band" ? "text-[clamp(2.8rem,min(5.4vw,9svh),5rem)]" : "text-[clamp(3rem,min(6.6vw,10.6svh),6.4rem)]"}`}>
           {title}
           {accent && (
             <>
@@ -85,12 +88,12 @@ export default function PageHero({
         </h1>
       </motion.div>
       {intro && (
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.25 }} className={`mt-8 max-w-[520px] text-[17px] leading-8 ${body}`}>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.25 }} className={`mt-8 max-w-[520px] text-[17px] leading-8 lg:mt-[3svh] ${body}`}>
           {intro}
         </motion.div>
       )}
       {(primary || secondary) && (
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.4 }} className="mt-10 flex flex-wrap items-center gap-4">
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.4 }} className="mt-10 flex flex-wrap items-center gap-4 lg:mt-[4svh]">
           {primary && (
             <Link
               href={primary.href}
@@ -119,7 +122,7 @@ export default function PageHero({
           {children}
         </motion.div>
       )}
-      {footnote && <p className={`mt-12 text-[12px] tracking-[0.3em] ${gold}`}>{footnote}</p>}
+      {footnote && <p className={`mt-12 text-[12px] tracking-[0.3em] lg:mt-[4.5svh] ${gold}`}>{footnote}</p>}
     </motion.div>
   );
 
@@ -131,11 +134,11 @@ export default function PageHero({
     return (
       <section ref={root} className={`relative isolate overflow-hidden ${dark ? "bg-[#26000D]" : "bg-[#F3EADD]"}`}>
         <motion.div style={{ y: artY }} initial={{ opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 2.2, ease }} className="absolute inset-0 -z-10 max-md:relative max-md:h-[62vw] max-md:min-h-[260px]">
-          <Image src={art} alt={artAlt} fill priority sizes="100vw" style={{ objectPosition: artPosition }} className="object-cover" />
+          {artNode ?? (art && <Image src={art} alt={artAlt} fill priority sizes="100vw" style={{ objectPosition: artPosition }} className="object-cover" />)}
         </motion.div>
         <div aria-hidden className={`absolute inset-0 -z-10 max-md:hidden ${wash}`} />
         <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-28 max-md:hidden" style={{ background: `linear-gradient(transparent, ${bg})` }} />
-        <div className="mx-auto flex max-w-[1440px] items-center px-6 pb-16 pt-12 md:min-h-[min(780px,calc(100svh-78px))] md:px-12 md:py-20 lg:px-16">{copy}</div>
+        <div className="mx-auto flex max-w-[1440px] items-center px-6 pb-16 pt-12 md:min-h-[min(780px,calc(100svh-var(--header-h)))] md:px-12 md:py-20 lg:h-[calc(100svh-var(--header-h))] lg:min-h-[560px] lg:px-16 lg:py-[5svh]">{copy}</div>
       </section>
     );
   }
@@ -147,7 +150,7 @@ export default function PageHero({
       {dark && <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(110%_90%_at_75%_40%,#4A1028_0%,#33000F_45%,#26000D_100%)]" />}
       <div
         className={`mx-auto grid max-w-[1440px] items-center gap-10 px-6 pb-14 pt-12 md:px-12 lg:gap-16 lg:px-16 ${
-          band ? "lg:min-h-[520px] lg:grid-cols-[1.25fr_1fr] lg:py-14" : "lg:min-h-[min(780px,calc(100svh-78px))] lg:grid-cols-[1.05fr_1fr] lg:py-16"
+          band ? "lg:min-h-[480px] lg:grid-cols-[1.25fr_1fr] lg:py-[6svh]" : "lg:h-[calc(100svh-var(--header-h))] lg:min-h-[560px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:py-[5svh]"
         }`}
       >
         <div className={reverse ? "lg:order-2" : ""}>{copy}</div>
@@ -156,13 +159,15 @@ export default function PageHero({
           initial={{ opacity: 0, y: 30, clipPath: "inset(12% 0 0 0)" }}
           animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
           transition={{ duration: 1.6, ease, delay: 0.1 }}
-          className={`relative mx-auto w-full ${band ? "max-w-[560px]" : "max-w-[420px] sm:max-w-[500px] lg:max-w-[560px]"} ${reverse ? "lg:order-1" : ""}`}
+          className={`relative mx-auto w-full ${band ? "max-w-[560px]" : "max-w-[420px] sm:max-w-[500px] lg:flex lg:h-full lg:max-w-full lg:items-center lg:justify-center"} ${reverse ? "lg:order-1" : ""}`}
         >
-          <div className={`relative w-full overflow-hidden ${band ? "aspect-[16/11]" : "aspect-[5/6]"}`}>
-            <Image src={art} alt={artAlt} fill priority sizes="(min-width:1024px) 560px, 92vw" style={{ objectPosition: artPosition }} className="object-cover" />
+          <div data-hero-art className={`relative ${band ? "aspect-[16/11] w-full" : "aspect-[5/6] w-full lg:h-[min(100%,680px,calc((min(100vw,1440px)-12rem)*0.585))] lg:w-auto"}`}>
+            <div className="absolute inset-0 overflow-hidden">
+              {artNode ?? (art && <Image src={art} alt={artAlt} fill priority sizes="(min-width:1024px) 560px, 92vw" style={{ objectPosition: artPosition }} className="art-drift object-cover" />)}
+            </div>
+            {/* a fine gold frame offset from the plate */}
+            <div aria-hidden className={`pointer-events-none absolute border ${dark ? "border-[#D6A64F]/35" : "border-[#A77B4D]/35"} ${reverse ? "-bottom-3 -left-3 right-3 top-3" : "-bottom-3 -right-3 left-3 top-3"}`} />
           </div>
-          {/* a fine gold frame offset from the plate */}
-          <div aria-hidden className={`pointer-events-none absolute border ${dark ? "border-[#D6A64F]/35" : "border-[#A77B4D]/35"} ${reverse ? "-bottom-4 -left-4 right-4 top-4" : "-bottom-4 -right-4 left-4 top-4"}`} />
         </motion.div>
       </div>
     </section>

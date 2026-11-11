@@ -14,19 +14,20 @@ import ProductPhoto from "@/components/ProductPhoto";
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 /* ───────────── MARQUEE + VALUES ───────────── */
-const WORDS = ["Cleanse", "Elevate", "Radiate", "Seven Days", "Seven Blends", "Alcohol-free", "Thoughtfully Composed"];
+const LINE = "Written in the Stars. Worn as Your Signature";
 
 export function Marquee() {
   const { scrollY } = useScroll();
   const v = useVelocity(scrollY);
   const smooth = useSpring(v, { damping: 40, stiffness: 300 });
   const skew = useTransform(smooth, [-2500, 0, 2500], [6, 0, -6], { clamp: true });
-  const row = [...WORDS, ...WORDS];
+  /* one half of the track holds three copies; the track is two identical halves, so -50% loops seamlessly */
+  const half = [LINE, LINE, LINE];
   return (
     <section className="relative overflow-hidden bg-[#792D49] py-7 text-[#F8EDDF] md:py-9">
       <motion.div style={{ skewX: skew }} className="flex w-max" aria-hidden>
-        <div className="flex shrink-0 items-center gap-10 pr-10 md:gap-14 md:pr-14" style={{ animation: "sev-marquee 38s linear infinite" }}>
-          {[...row, ...row].map((w, i) => (
+        <div className="flex shrink-0 items-center gap-10 pr-10 md:gap-14 md:pr-14" style={{ animation: "sev-marquee 90s linear infinite" }}>
+          {[...half, ...half].map((w, i) => (
             <span key={i} className="flex items-center gap-10 whitespace-nowrap font-display text-4xl italic md:gap-14 md:text-6xl">
               {w}
               <span className="text-xl not-italic text-[#E5C48B] md:text-2xl">✦</span>
@@ -34,7 +35,7 @@ export function Marquee() {
           ))}
         </div>
       </motion.div>
-      <p className="sr-only">Cleanse. Elevate. Radiate.</p>
+      <p className="sr-only">{LINE}</p>
     </section>
   );
 }

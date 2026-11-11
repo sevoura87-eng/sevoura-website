@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import LightArt from "@/components/art/LightArt";
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -377,34 +377,33 @@ export function JournalMasthead({ active, eyebrow, title, intro, children }: { a
   return (
     <section className="relative overflow-hidden bg-[#26000D] text-[#F7F0E6]">
       <div aria-hidden className="absolute inset-0 bg-[radial-gradient(80%_100%_at_15%_0%,#4A1028_0%,#33000F_50%,#26000D_100%)]" />
-      <div className="relative mx-auto max-w-[1320px] px-6 pb-14 pt-8 md:px-12 md:pb-20 md:pt-10">
+      <div className="relative mx-auto flex max-w-[1320px] flex-col px-6 pb-14 pt-8 md:px-12 md:pb-20 md:pt-10 lg:h-[calc(100svh-var(--header-h))] lg:max-h-[860px] lg:min-h-[560px] lg:pb-[5svh] lg:pt-[3svh]">
         {/* masthead line */}
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-b border-[#D6A64F]/30 pb-4">
           <JournalNav active={active} />
-          <p className="hidden font-display text-[15px] italic tracking-[0.12em] text-[#D6A64F] md:block">Nº 01 · Est. MMXXVI</p>
+          <p className="hidden font-display text-[15px] italic tracking-[0.12em] text-[#D6A64F] md:block">Community · Stories · Editorial</p>
         </div>
-        <div className="mt-12 grid items-end gap-12 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16">
+        <div className="mt-12 grid items-end gap-12 lg:mt-0 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease }} className="min-w-0">
             <p className="flex items-center gap-4 text-[12px] font-semibold tracking-[0.32em] text-[#D6A64F]">
               <span className="h-px w-10 bg-[#D6A64F]" /> {eyebrow}
             </p>
-            <h1 className="mt-6 font-display text-[clamp(3rem,7vw,6.6rem)] font-medium leading-[0.94] tracking-[-0.015em]">{title}</h1>
-            {intro && <p className="mt-7 max-w-[600px] text-[17px] leading-8 text-[#E8D3C3]/90">{intro}</p>}
+            <h1 className="mt-6 font-display text-[clamp(3rem,min(7vw,10.5svh),6.6rem)] font-medium leading-[0.94] tracking-[-0.015em] lg:mt-[3svh]">{title}</h1>
+            {intro && <p className="mt-7 max-w-[600px] text-[17px] leading-8 text-[#E8D3C3]/90 lg:mt-[3svh]">{intro}</p>}
             {children}
           </motion.div>
           <motion.figure
             initial={{ opacity: 0, y: 30, clipPath: "inset(14% 0 0 0)" }}
             animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
             transition={{ duration: 1.5, ease, delay: 0.15 }}
-            className="relative mx-auto hidden w-full max-w-[380px] sm:block"
+            className="relative mx-auto hidden w-full max-w-[380px] sm:block lg:w-[min(380px,calc((100svh-var(--header-h)-170px)*0.8))]"
           >
             <div className="relative aspect-[4/5] overflow-hidden">
-              <Image src="/images/hero-folio.jpg" alt="" fill priority sizes="380px" className="object-cover object-[40%_50%]" />
+              <LightArt scene="folio" priority />
             </div>
             <span aria-hidden className="absolute -right-3 top-6 origin-top-right translate-x-full rotate-90 whitespace-nowrap text-[11px] tracking-[0.4em] text-[#D6A64F]/80">THE SEVOURA JOURNAL</span>
             <figcaption className="mt-4 flex items-baseline justify-between gap-4 border-t border-[#D6A64F]/30 pt-3 text-[13px] text-[#E2CBB8]">
-              <span className="font-display italic">Plate I — morning light through palm leaves</span>
-              <span className="text-[11px] tracking-[0.24em] text-[#D6A64F]">I/VII</span>
+              <span className="font-display italic">Morning light through palm leaves</span>
             </figcaption>
           </motion.figure>
         </div>

@@ -2,6 +2,7 @@
 "use client";
 
 import SiteHeader from "@/components/SiteHeader";
+import LightArt from "@/components/art/LightArt";
 import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import { motion } from "framer-motion";
@@ -105,8 +106,7 @@ export default function PrivacyPolicyPage() {
           title="Privacy"
           accent="policy."
           intro={<>Your trust is an essential part of our journey. Discover how we respect, protect and handle the information you share with SEVOURA.</>}
-          art="/images/hero-folio.jpg"
-          artPosition="70% 40%"
+          artNode={<LightArt scene="folio" priority />}
           footnote="YOUR PRIVACY · OUR RESPONSIBILITY"
         />
 

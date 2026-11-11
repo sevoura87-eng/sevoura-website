@@ -27,7 +27,7 @@ export default function AuthShell({
     <>
       <SiteHeader />
       <main className="overflow-x-clip bg-[#F8F1E7] text-[#481D30]">
-        <section className="mx-auto grid min-h-[calc(100vh-78px)] max-w-[1450px] lg:grid-cols-[1fr_1.05fr]">
+        <section className="mx-auto grid min-h-[calc(100svh-var(--header-h))] max-w-[1450px] lg:grid-cols-[1fr_1.05fr]">
           {/* Visual panel */}
           <motion.div
             initial={{ clipPath: "inset(0 100% 0 0)" }}

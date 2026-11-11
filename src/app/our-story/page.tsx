@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import OrbitArt from "@/components/art/OrbitArt";
 import PageHero from "@/components/ui/PageHero";
 import ProductPhoto from "@/components/ProductPhoto";
 import { SEVEN } from "@/components/home/data";
@@ -86,7 +87,7 @@ export default function OurStoryPage() {
           intro={<>One personal discovery. Seven planetary inspirations. A new expression of fragrance.</>}
           primary={{ label: "EXPLORE THE SEVEN BLENDS", href: "/the-seven" }}
           footnote="SEVEN INSPIRATIONS · ONE PERSONAL JOURNEY"
-          art="/images/sevoura-orbit-ivory.jpg"
+          artNode={<OrbitArt variant="ivory" leaves orbits={false} priority className="h-full" />}
           reverse
         />
 

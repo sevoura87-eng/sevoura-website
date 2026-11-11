@@ -19,6 +19,7 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ProductPhoto from "@/components/ProductPhoto";
+import LightArt from "@/components/art/LightArt";
 import PageHero from "@/components/ui/PageHero";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
@@ -185,8 +186,7 @@ export default function ShopPage() {
       <PageHero
         layout="panorama"
         tone="light"
-        art="/images/hero-colonnade-v2.jpg"
-        artPosition="100% 50%"
+        artNode={<LightArt scene="colonnade" priority position="100% 50%" />}
         eyebrow="SEVOURA · THE COMPLETE COLLECTION"
         title="Seven days."
         accent="One complete ritual."
@@ -382,7 +382,6 @@ export default function ShopPage() {
                   <div className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] text-[#A57C43]">
                     <span>{blend.planet.toUpperCase()}</span>
                     <span className="h-px flex-1 bg-[#E2D4C1]" />
-                    <span>N° {blend.number}</span>
                   </div>
                   <h3 className="mt-4 font-display text-[34px] font-medium leading-none text-[#481D30]">{blend.fragrance}</h3>
                   <p className="mt-2 text-[14px] tracking-[0.04em] text-[#806D60]">{blend.notes}</p>

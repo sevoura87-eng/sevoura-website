@@ -12,21 +12,18 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const CHAPTERS = [
   {
     word: "Cleanse",
-    roman: "I",
     label: "THE PAUSE",
     text: "Create a moment of pause. Step away from the noise and return to what feels meaningful.",
     img: "/images/ritual-cleanse.jpg",
   },
   {
     word: "Elevate",
-    roman: "II",
     label: "THE INTENTION",
     text: "Bring intention to the everyday. Let your personal rituals become expressions of who you are.",
     img: "/images/ritual-elevate.jpg",
   },
   {
     word: "Radiate",
-    roman: "III",
     label: "THE EXPRESSION",
     text: "Carry your individuality with confidence. Celebrate the qualities that make your expression your own.",
     img: "/images/ritual-radiate.jpg",
@@ -70,9 +67,6 @@ function Stage() {
           </motion.div>
           {/* the image dissolves into the page instead of ending in a hard edge */}
           <motion.div aria-hidden className="absolute inset-y-0 right-0 w-1/3" style={{ background: fade }} />
-          <motion.span style={{ color: gold }} className="absolute bottom-10 left-10 font-display text-[15px] italic tracking-[0.2em]">
-            {CHAPTERS[active].roman} / III
-          </motion.span>
         </div>
 
         {/* the words */}
@@ -103,7 +97,7 @@ function Stage() {
             <AnimatePresence mode="wait">
               <motion.div key={active} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.6, ease }}>
                 <motion.p style={{ color: gold }} className="text-[12px] font-semibold tracking-[0.3em]">
-                  {CHAPTERS[active].roman} — {CHAPTERS[active].label}
+                  {CHAPTERS[active].label}
                 </motion.p>
                 <motion.p style={{ color: soft }} className="mt-4 text-[18px] leading-8">
                   {CHAPTERS[active].text}
@@ -148,7 +142,7 @@ function Chapters() {
               </div>
               <div className={`mt-5 max-w-[460px] px-6 md:px-12 ${right ? "" : "ml-auto text-right"}`}>
                 <p className={`text-[12px] font-semibold tracking-[0.3em] ${last ? "text-[#D6A64F]" : "text-[#A77B4D]"}`}>
-                  {c.roman} — {c.label}
+                  {c.label}
                 </p>
                 <p className={`mt-3 text-[17px] leading-8 ${last ? "text-[#E8D3C3]" : "text-[#5E4A44]"}`}>{c.text}</p>
               </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import SiteHeader from "@/components/SiteHeader";
+import AstrolabeArt from "@/components/art/AstrolabeArt";
 import PageHero from "@/components/ui/PageHero";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
@@ -115,8 +116,7 @@ export default function FAQPage() {
         title="Frequently"
         accent="asked questions."
         intro={<>Everything you would like to know about our fragrances, the seven-day ritual and the SEVOURA experience.</>}
-        art="/images/hero-astrolabe.jpg"
-        artPosition="50% 46%"
+        artNode={<AstrolabeArt priority fit="cover" />}
       />
 
       {/* INTRO */}

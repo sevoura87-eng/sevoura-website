@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import LightArt from "@/components/art/LightArt";
 import PageHero from "@/components/ui/PageHero";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -138,8 +139,7 @@ export default function ContactPage() {
           primary={{ label: "EMAIL US", href: "mailto:hello@sevoura.com" }}
           secondary={{ label: "CALL +91 92118 77712", href: "tel:+919211877712" }}
           footnote="MONDAY – SUNDAY · 10:00 AM – 6:00 PM IST"
-          art="/images/hero-colonnade_dusk.jpg"
-          artPosition="78% 50%"
+          artNode={<LightArt scene="colonnade_dusk" priority position="78% 50%" />}
           reverse
         />
 

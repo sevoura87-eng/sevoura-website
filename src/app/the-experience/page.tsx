@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import LightArt from "@/components/art/LightArt";
 import PageHero from "@/components/ui/PageHero";
 import ProductPhoto from "@/components/ProductPhoto";
 import Link from "next/link";
@@ -215,9 +216,8 @@ export default function TheExperiencePage() {
           primary={{ label: "DISCOVER THE EXPERIENCE", href: "#the-ritual" }}
           secondary={{ label: "FIND YOUR RITUAL", href: "/ritual-finder" }}
           footnote="SENSE · FEEL · REMEMBER"
-          art="/images/hero-window.jpg"
+          artNode={<LightArt scene="window" priority position="70% 50%" />}
           layout="panorama"
-          artPosition="70% 50%"
         />
 
         {/* INTRO — asymmetric editorial layout */}

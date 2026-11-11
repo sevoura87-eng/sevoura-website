@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import OrbitArt from "@/components/art/OrbitArt";
 import PageHero from "@/components/ui/PageHero";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -142,7 +143,7 @@ export default function AstrologyBehindRitualsPage() {
         intro={<>An ancient planetary order, reimagined through the art of fragrance.</>}
         primary={{ label: "DISCOVER THE STORY", href: "#ancient-connection" }}
         secondary={{ label: "MEET THE SEVEN", href: "/the-seven" }}
-        art="/images/sevoura-orbit-moon.jpg"
+        artNode={<OrbitArt variant="pearl" speed={0.6} priority className="h-full" />}
         reverse
       />
 

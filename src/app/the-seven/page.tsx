@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import AstrolabeArt from "@/components/art/AstrolabeArt";
 import PageHero from "@/components/ui/PageHero";
 import ProductPhoto from "@/components/ProductPhoto";
 import { AnimatePresence, motion } from "framer-motion";
@@ -124,8 +125,7 @@ export default function TheSevenPage() {
         primary={{ label: "EXPLORE THE SEVEN", href: "#seven-blends" }}
         secondary={{ label: "SHOP THE COLLECTION", href: "/shop" }}
         footnote="DISCOVER · EXPERIENCE · EMBODY"
-        art="/images/hero-astrolabe.jpg"
-        index="VII"
+        artNode={<AstrolabeArt priority fit="cover" />}
       />
 
       {/* 02 — THE IDEA */}
