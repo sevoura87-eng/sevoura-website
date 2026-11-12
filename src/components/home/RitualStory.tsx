@@ -128,23 +128,24 @@ function Chapters() {
           A ritual, rooted <span className="italic">in meaning.</span>
         </h2>
       </div>
-      <div className="mt-14 space-y-20">
+      {/* each chapter is a plain vertical flow — image, then word, then label and text — so nothing ever sits on the photograph */}
+      <div className="mt-14 space-y-16 md:space-y-24">
         {CHAPTERS.map((c, i) => {
           const right = i % 2 === 1;
           const last = i === 2;
           return (
-            <motion.article key={c.word} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 1, ease }} className="relative">
-              <div className={`relative aspect-[4/5] overflow-hidden ${right ? "ml-[14%] md:ml-[30%]" : "mr-[14%] md:mr-[30%]"}`}>
-                <Image src={c.img} alt="" fill sizes="(min-width:768px) 70vw, 86vw" className="object-cover" />
+            <motion.article key={c.word} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1, ease }} className="flex flex-col">
+              <div className={`relative aspect-[4/5] overflow-hidden md:aspect-[4/3] ${right ? "ml-[10%] md:ml-[24%]" : "mr-[10%] md:mr-[24%]"}`}>
+                <Image src={c.img} alt="" fill sizes="(min-width:768px) 76vw, 90vw" className="object-cover" />
               </div>
-              <div className={`relative -mt-[0.55em] px-6 font-display text-[clamp(4.2rem,19vw,8rem)] font-medium italic leading-none md:px-12 ${right ? "text-left" : "text-right"} ${last ? "text-[#E2B45E]" : "text-[#3A1626]"}`}>
-                {c.word}.
-              </div>
-              <div className={`mt-5 max-w-[460px] px-6 md:px-12 ${right ? "" : "ml-auto text-right"}`}>
-                <p className={`text-[12px] font-semibold tracking-[0.3em] ${last ? "text-[#D6A64F]" : "text-[#A77B4D]"}`}>
-                  {c.label}
-                </p>
-                <p className={`mt-3 text-[17px] leading-8 ${last ? "text-[#E8D3C3]" : "text-[#5E4A44]"}`}>{c.text}</p>
+              <div className={`px-6 pt-6 md:px-12 md:pt-8 ${right ? "text-left" : "text-right"}`}>
+                <h3 className={`font-display text-[clamp(3.4rem,15vw,6.5rem)] font-medium italic leading-[1.05] tracking-[-0.01em] ${last ? "text-[#E2B45E]" : "text-[#3A1626]"}`}>
+                  {c.word}.
+                </h3>
+                <div className={`mt-4 max-w-[460px] ${right ? "" : "ml-auto"}`}>
+                  <p className={`text-[12px] font-semibold tracking-[0.3em] ${last ? "text-[#D6A64F]" : "text-[#A77B4D]"}`}>{c.label}</p>
+                  <p className={`mt-3 text-[16px] leading-7 md:text-[17px] md:leading-8 ${last ? "text-[#E8D3C3]" : "text-[#5E4A44]"}`}>{c.text}</p>
+                </div>
               </div>
             </motion.article>
           );

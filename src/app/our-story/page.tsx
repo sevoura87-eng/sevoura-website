@@ -109,7 +109,7 @@ export default function OurStoryPage() {
                 alt="Dr. Jasleen Bhatti, Founder of Sevoura"
                 className="h-full min-h-[424px] w-full object-cover object-center md:min-h-[574px]"
               />
-              <div className="absolute bottom-6 left-6 z-20 bg-[#F5EFE5]/90 px-5 py-3 backdrop-blur-sm">
+              <div className="absolute bottom-6 left-6 z-20 bg-[#F5EFE5]/90 px-5 py-3 backdrop-blur-sm max-md:static max-md:bg-transparent max-md:px-3 max-md:pb-2 max-md:pt-4 max-md:backdrop-blur-none">
                 <p className="font-serif text-xl text-[#782C49]">The Founder</p>
                 <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-[#98754D]">THE MIND BEHIND SEVOURA</p>
               </div>

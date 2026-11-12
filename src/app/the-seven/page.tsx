@@ -1,6 +1,7 @@
 
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import AstrolabeArt from "@/components/art/AstrolabeArt";
 import PageHero from "@/components/ui/PageHero";
@@ -469,35 +470,34 @@ export default function TheSevenPage() {
         <div className="absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full border border-[#E8C58D]/20" />
         <div className="absolute -right-20 -top-20 h-[350px] w-[350px] rounded-full border border-dashed border-[#E8C58D]/20" />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -55, scale: 0.94 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="group relative mx-auto w-full max-w-[620px] overflow-hidden rounded-lg border border-[#E7C99B]/60 bg-[#EBD9C4] p-2 shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)]"
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 md:gap-16 lg:grid-cols-2">
+          <motion.figure
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto w-full max-w-[560px]"
           >
-            <motion.img
-              src="/sevoura-bottle.jpeg"
-              alt="SEVOURA complete seven-bottle planetary fragrance collection"
-              className="block h-auto w-full rounded object-contain"
-              whileHover={{ scale: 1.025 }}
-              transition={{ duration: 0.9, ease: "easeOut" }}
-            />
-
-            <div className="pointer-events-none absolute inset-5 rounded-sm border border-white/60" />
-
-            <motion.div
-              className="pointer-events-none absolute inset-2 rounded-sm bg-gradient-to-tr from-transparent via-white/20 to-transparent"
-              animate={{ opacity: [0.04, 0.28, 0.04], x: ["-8%", "8%", "-8%"] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            />
-
-            <div className="absolute bottom-6 left-6 bg-[#501D32]/95 px-5 py-3 text-[#F8EBDD] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] backdrop-blur-md sm:bottom-7 sm:left-7">
-              <p className="text-[11px] tracking-[0.25em]">SEVEN DAY RITUAL</p>
-              <p className="mt-1 font-serif text-lg sm:text-xl">Seven fragrances · One collection</p>
+            <div className="relative border border-[#E7C99B]/60 bg-[#EBD9C4] p-2 shadow-[0_40px_80px_-40px_rgba(20,4,10,.6)]">
+              <div className="group relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/images/sevoura-seven-collection.jpg"
+                  alt="The seven SEVOURA fragrance bottles, Monday to Sunday, standing together on a stone plinth"
+                  fill
+                  sizes="(min-width:768px) 560px, 92vw"
+                  className="object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.025]"
+                />
+              </div>
+              <div aria-hidden className="pointer-events-none absolute inset-4 border border-white/50" />
             </div>
-          </motion.div>
+            <figcaption className="mt-6 flex items-center gap-4 text-[#F8EBDD]">
+              <span className="h-px w-10 shrink-0 bg-[#E8C58D]" />
+              <span>
+                <span className="block text-[11px] tracking-[0.25em] text-[#E7C68E]">SEVEN DAY RITUAL</span>
+                <span className="mt-1 block font-serif text-lg sm:text-xl">Seven fragrances · One collection</span>
+              </span>
+            </figcaption>
+          </motion.figure>
 
           <motion.div
             initial={{ opacity: 0, x: 55 }}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
@@ -57,10 +57,20 @@ export default function PageHero({
 }) {
   const dark = tone === "dark";
   const root = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
+  const prefersReduced = useReducedMotion();
+  /* on phones the panorama stacks (art above text); parallax there would slide the two into each other */
+  const [stacked, setStacked] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const on = () => setStacked(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  const reduce = prefersReduced || (layout === "panorama" && stacked);
   const { scrollYProgress } = useScroll({ target: root, offset: ["start start", "end start"] });
-  const artY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["0%", "12%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["0%", "-10%"]);
+  const artY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
   const ink = dark ? "text-[#F7F0E6]" : "text-[#2E1A20]";
   const accentInk = dark ? "text-[#D6A64F]" : "text-[#792D49]";
@@ -70,7 +80,7 @@ export default function PageHero({
   const bg = dark ? "#26000D" : "#F3EADD";
 
   const copy = (
-    <motion.div style={{ y: textY }} className="relative z-10 max-w-[640px]">
+    <motion.div style={{ y: reduce ? 0 : textY }} className="relative z-10 max-w-[640px]">
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease }}>
         <p className={`flex items-center gap-4 text-[12px] font-medium tracking-[0.34em] ${gold}`}>
           {index && <span className="font-display text-[15px] italic tracking-[0.1em]">{index}</span>}
@@ -133,7 +143,7 @@ export default function PageHero({
       : "bg-[linear-gradient(90deg,#F3EADD_0%,rgba(243,234,221,.9)_30%,rgba(243,234,221,.15)_60%,rgba(243,234,221,0)_78%)]";
     return (
       <section ref={root} className={`relative isolate overflow-hidden ${dark ? "bg-[#26000D]" : "bg-[#F3EADD]"}`}>
-        <motion.div style={{ y: artY }} initial={{ opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 2.2, ease }} className="absolute inset-0 -z-10 max-md:relative max-md:h-[62vw] max-md:min-h-[260px]">
+        <motion.div style={{ y: reduce ? 0 : artY }} initial={{ opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 2.2, ease }} className="absolute inset-0 -z-10 max-md:relative max-md:h-[62vw] max-md:min-h-[260px]">
           {artNode ?? (art && <Image src={art} alt={artAlt} fill priority sizes="100vw" style={{ objectPosition: artPosition }} className="object-cover" />)}
         </motion.div>
         <div aria-hidden className={`absolute inset-0 -z-10 max-md:hidden ${wash}`} />
@@ -155,7 +165,7 @@ export default function PageHero({
       >
         <div className={reverse ? "lg:order-2" : ""}>{copy}</div>
         <motion.div
-          style={{ y: artY }}
+          style={{ y: reduce ? 0 : artY }}
           initial={{ opacity: 0, y: 30, clipPath: "inset(12% 0 0 0)" }}
           animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
           transition={{ duration: 1.6, ease, delay: 0.1 }}

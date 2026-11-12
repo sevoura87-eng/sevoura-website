@@ -52,7 +52,7 @@ export function Showcase() {
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-8 -right-3 flex h-28 w-28 items-center justify-center rounded-full border border-[#E5C48B]/60 bg-[#F8F1E7] text-center text-[#792D49] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] sm:-right-8"
+            className="absolute -bottom-8 -right-3 flex h-28 w-28 max-lg:static max-lg:ml-auto max-lg:mt-8 items-center justify-center rounded-full border border-[#E5C48B]/60 bg-[#F8F1E7] text-center text-[#792D49] shadow-[0_30px_60px_-32px_rgba(46,10,25,.35)] sm:-right-8"
           >
             <span className="text-[10px] tracking-[0.2em]">SAVE<span className="block font-display text-3xl tracking-normal"><LivePrice fallback="₹700" kind="saving" /></span></span>
           </motion.div>
@@ -114,9 +114,9 @@ export function Founder() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 1, ease }}
-            className="group relative min-h-[460px] overflow-hidden border border-[#C9AE84] bg-[#E8DCCB] p-[6px] shadow-[0_25px_55px_rgba(65,43,32,0.12)] md:min-h-[560px]"
+            className="group relative overflow-hidden border border-[#C9AE84] bg-[#E8DCCB] p-[6px] shadow-[0_25px_55px_rgba(65,43,32,0.12)] md:min-h-[560px]"
           >
-            <div className="relative h-full min-h-[446px] w-full overflow-hidden md:min-h-[546px]">
+            <div className="relative h-[420px] w-full overflow-hidden md:h-full md:min-h-[546px]">
               <Image
                 src="/images/founder-jasleen.jpg"
                 alt="Dr. Jasleen Bhatti, Founder of SEVOURA"
@@ -124,13 +124,13 @@ export function Founder() {
                 sizes="(max-width: 768px) 100vw, 560px"
                 className="object-cover object-[50%_25%] transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.03]"
               />
-              {/* name plate */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2E0F1D]/85 via-[#2E0F1D]/45 to-transparent px-6 pb-6 pt-20 md:px-8 md:pb-8">
-                <p className="font-display text-[28px] leading-none text-[#FBF0E4] md:text-[34px]">Dr. Jasleen Bhatti</p>
-                <p className="mt-2 flex items-center gap-3 text-[11px] tracking-[0.3em] text-[#E5C48B] md:text-[12px]">
-                  <span className="h-px w-6 bg-[#E5C48B]" /> FOUNDER, SEVOURA
-                </p>
-              </div>
+            </div>
+            {/* name plate: over the portrait on larger screens, beneath it on phones */}
+            <div className="px-4 pb-3 pt-5 md:absolute md:inset-x-[6px] md:bottom-[6px] md:bg-gradient-to-t md:from-[#2E0F1D]/85 md:via-[#2E0F1D]/45 md:to-transparent md:px-8 md:pb-8 md:pt-20">
+              <p className="font-display text-[28px] leading-none text-[#46182D] md:text-[34px] md:text-[#FBF0E4]">Dr. Jasleen Bhatti</p>
+              <p className="mt-2 flex items-center gap-3 text-[11px] tracking-[0.3em] text-[#A77B4D] md:text-[12px] md:text-[#E5C48B]">
+                <span className="h-px w-6 bg-current" /> FOUNDER, SEVOURA
+              </p>
             </div>
             <div className="pointer-events-none absolute inset-[6px] border border-[#C9AE84]/70" />
           </motion.div>
