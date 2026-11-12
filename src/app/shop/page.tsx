@@ -19,8 +19,7 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ProductPhoto from "@/components/ProductPhoto";
-import CollectionArt from "@/components/art/CollectionArt";
-import PageHero from "@/components/ui/PageHero";
+import TodaySkyHero from "@/components/shop/TodaySkyHero";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
 import Ornament from "@/components/ui/Ornament";
@@ -182,17 +181,8 @@ export default function ShopPage() {
     <main className="overflow-x-clip bg-[#F5EFE4] text-[#481D30]">
       <SiteHeader />
 
-      {/* HERO — the seven, gathered beneath a gilded arch on burgundy */}
-      <PageHero
-        layout="split"
-        tone="dark"
-        artFirstOnMobile
-        artNode={<CollectionArt priority />}
-        eyebrow="SEVOURA · THE COMPLETE COLLECTION"
-        title="Seven days."
-        accent="One complete ritual."
-        intro={<>Seven planetary inspirations, seven alcohol-free fragrance expressions — gathered into one collection for every day of the week.</>}
-      >
+      {/* HERO — Today's Sky: the day's ruling planet in the light of the hour (no product photography) */}
+      <TodaySkyHero>
         <div className="mt-9 border-t border-[#D6A64F]/30 pt-7 lg:mt-[3.4svh] lg:pt-[3svh]">
           <div className="flex flex-wrap items-end gap-x-5 gap-y-2">
             <span className="font-display text-[44px] leading-none text-[#F7F0E6]">
@@ -217,7 +207,7 @@ export default function ShopPage() {
           </div>
           <p className="mt-5 text-[12px] tracking-[0.04em] text-[#C9AFA0]">Limited introductory pricing · Secure online payment</p>
         </div>
-      </PageHero>
+      </TodaySkyHero>
 
       {/* INTRODUCTION */}
       <section className="relative bg-[#F9F3E9] px-6 py-28 lg:px-16">
