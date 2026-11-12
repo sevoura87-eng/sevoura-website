@@ -481,8 +481,8 @@ export default function TheSevenPage() {
             <div className="relative border border-[#E7C99B]/60 bg-[#EBD9C4] p-2 shadow-[0_40px_80px_-40px_rgba(20,4,10,.6)]">
               <div className="group relative aspect-square w-full overflow-hidden">
                 <Image
-                  src="/images/sevoura-seven-collection.jpg"
-                  alt="The seven SEVOURA fragrance bottles, Monday to Sunday, standing together on a stone plinth"
+                  src="/images/sevoura-seven-planets.jpg"
+                  alt="The seven SEVOURA fragrance bottles, Monday to Sunday, beneath an arc of their seven planets"
                   fill
                   sizes="(min-width:768px) 560px, 92vw"
                   className="object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.025]"

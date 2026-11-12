@@ -245,7 +245,7 @@ export function Destinations() {
         </div>
         <ul className="mt-14 border-t border-[#D8C5A7]" onPointerLeave={() => setHover(null)}>
           {DESTINATIONS.map((d, i) => (
-            <motion.li key={d.no} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.8, ease }}>
+            <motion.li key={d.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08, duration: 0.8, ease }}>
               <Link
                 href={d.href}
                 onPointerEnter={() => setHover(i)}
@@ -253,8 +253,8 @@ export function Destinations() {
               >
                 <span className="absolute inset-0 origin-bottom scale-y-0 bg-[#792D49] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-y-100" />
                 <span className="relative pl-1 text-[#A77B4D] transition-colors group-hover:text-[#E5C48B] md:pl-4"><Ornament size={12} /></span>
-                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full md:hidden">
-                  <Image src={d.image} alt="" fill sizes="56px" className="object-cover" />
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-1 ring-[#C9AE84] ring-offset-2 ring-offset-[#F8F1E7] md:hidden">
+                  <Image src={d.image} alt="" fill sizes="64px" quality={85} className="object-cover" />
                 </div>
                 <span className="relative flex-1 font-display text-3xl text-[#46182D] transition-all duration-500 group-hover:translate-x-3 group-hover:text-[#FBF0E4] md:text-6xl">{d.title}</span>
                 <span className="relative hidden text-[11px] tracking-[0.3em] text-[#A77B4D] transition-colors group-hover:text-[#E5C48B] md:block">{d.subtitle}</span>

@@ -47,42 +47,56 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           initial={{ clipPath: "inset(0 0 0% 0)" }}
           transition={{ duration: 0.95, ease }}
         >
-          <div className="relative text-center">
+          {/* One composition sized to the ring: every element is measured in the ring's own width (cqw), so the
+              wordmark, divider and tagline keep their proportions and stay centred inside it at any screen size. */}
+          <div className="relative grid aspect-square w-[min(84vw,420px)] place-items-center [container-type:inline-size]">
             <motion.div
-              initial={{ scale: 0.6, opacity: 0, rotate: -40 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E5C48B]/30"
+              aria-hidden
+              initial={{ scale: 0.82, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 rounded-full border border-[#E5C48B]/35"
             />
-            <div className="overflow-hidden">
-              <div className="flex justify-center font-display text-[13vw] leading-none tracking-[0.18em] sm:text-7xl">
-                {"SEVOURA".split("").map((c, k) => (
-                  <motion.span
-                    key={k}
-                    initial={{ y: "110%" }}
-                    animate={{ y: 0 }}
-                    transition={{ delay: 0.15 + k * 0.06, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                    className="inline-block"
-                  >
-                    {c}
-                  </motion.span>
-                ))}
+            <motion.div
+              aria-hidden
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.15, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-[4.5%] rounded-full border border-[#E5C48B]/12"
+            />
+            <div className="relative flex w-[74%] flex-col items-center text-center">
+              <div className="overflow-hidden">
+                {/* padding-left equals the letter-spacing so the trailing space after the last letter doesn't shift the word */}
+                <div role="heading" aria-level={2} className="flex justify-center pl-[0.2em] font-display text-[11cqw] font-normal leading-[1.1] tracking-[0.2em]">
+                  {"SEVOURA".split("").map((c, k) => (
+                    <motion.span
+                      key={k}
+                      initial={{ y: "110%" }}
+                      animate={{ y: 0 }}
+                      transition={{ delay: 0.2 + k * 0.06, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                      className="inline-block"
+                    >
+                      {c}
+                    </motion.span>
+                  ))}
+                </div>
               </div>
+              <motion.span
+                aria-hidden
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.65, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-[5cqw] block h-px w-[46cqw] origin-center bg-[#E5C48B]"
+              />
+              <motion.p
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.95, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-[5cqw] whitespace-nowrap pl-[0.3em] text-[max(9px,2.65cqw)] font-medium tracking-[0.3em] text-[#E5C48B]"
+              >
+                CLEANSE · ELEVATE · RADIATE
+              </motion.p>
             </div>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.6, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-6 h-px w-48 origin-left bg-[#E5C48B]"
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.8 }}
-              className="mt-6 text-[12px] tracking-[0.4em] text-[#E5C48B]"
-            >
-              CLEANSE · ELEVATE · RADIATE
-            </motion.p>
           </div>
         </motion.div>
       )}

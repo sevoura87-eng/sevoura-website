@@ -19,7 +19,7 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ProductPhoto from "@/components/ProductPhoto";
-import LightArt from "@/components/art/LightArt";
+import CollectionArt from "@/components/art/CollectionArt";
 import PageHero from "@/components/ui/PageHero";
 import AddToCartButton from "@/components/shop/AddToCartButton";
 import { LivePrice } from "@/components/shop/ProductPrice";
@@ -182,39 +182,40 @@ export default function ShopPage() {
     <main className="overflow-x-clip bg-[#F5EFE4] text-[#481D30]">
       <SiteHeader />
 
-      {/* HERO — the colonnade: an architectural introduction, no product photography */}
+      {/* HERO — the seven, gathered beneath a gilded arch on burgundy */}
       <PageHero
-        layout="panorama"
-        tone="light"
-        artNode={<LightArt scene="colonnade" priority position="100% 50%" />}
+        layout="split"
+        tone="dark"
+        artFirstOnMobile
+        artNode={<CollectionArt priority />}
         eyebrow="SEVOURA · THE COMPLETE COLLECTION"
         title="Seven days."
         accent="One complete ritual."
         intro={<>Seven planetary inspirations, seven alcohol-free fragrance expressions — gathered into one collection for every day of the week.</>}
       >
-        <div className="mt-10 border-t border-[#A77B4D]/30 pt-8">
+        <div className="mt-9 border-t border-[#D6A64F]/30 pt-7 lg:mt-[3.4svh] lg:pt-[3svh]">
           <div className="flex flex-wrap items-end gap-x-5 gap-y-2">
-            <span className="font-display text-[44px] leading-none text-[#481D30]">
+            <span className="font-display text-[44px] leading-none text-[#F7F0E6]">
               <LivePrice fallback="₹1,799" />
             </span>
-            <span className="pb-1 text-[16px] text-[#9C8B7A] line-through">
+            <span className="pb-1 text-[16px] text-[#C9AFA0] line-through">
               <LivePrice fallback="₹2,499" kind="mrp" />
             </span>
-            <span className="pb-1.5 text-[12px] font-semibold tracking-[0.2em] text-[#792D49]">
+            <span className="pb-1.5 text-[12px] font-semibold tracking-[0.2em] text-[#E5C48B]">
               FESTIVE OFFER · SAVE <LivePrice fallback="₹700" kind="saving" />
             </span>
           </div>
-          <p className="mt-3 text-[14px] tracking-wide text-[#6B5650]">7 × 4 ml alcohol-free fragrance blends · Prepaid · Free shipping across India</p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <AddToCartButton className="group inline-flex items-center gap-4 bg-[#481D30] px-8 py-[18px] text-[12px] font-semibold tracking-[0.22em] text-[#FFF6E9] transition-colors duration-500 hover:bg-[#792D49]">
+          <p className="mt-3 text-[14px] tracking-wide text-[#E8D3C3]/85">7 × 4 ml alcohol-free fragrance blends · Prepaid · Free shipping across India</p>
+          <div className="mt-8 flex flex-wrap gap-4 lg:mt-[3.4svh]">
+            <AddToCartButton className="group inline-flex items-center gap-4 bg-[#D6A64F] px-8 py-[18px] text-[12px] font-semibold tracking-[0.22em] text-[#26000D] transition-colors duration-500 hover:bg-[#F0D69A]">
               ADD TO BAG
               <ArrowRight size={16} className="transition-transform duration-500 group-hover:translate-x-1" />
             </AddToCartButton>
-            <Link href="#meet-your-seven" className="inline-flex items-center gap-3 border border-[#481D30]/40 px-7 py-[17px] text-[12px] font-medium tracking-[0.22em] text-[#481D30] transition-colors duration-500 hover:border-[#481D30] hover:bg-[#481D30]/5">
+            <Link href="#meet-your-seven" className="inline-flex items-center gap-3 border border-[#D6A64F]/45 px-7 py-[17px] text-[12px] font-medium tracking-[0.22em] text-[#F0D69A] transition-colors duration-500 hover:border-[#F0D69A] hover:bg-[#F0D69A]/10">
               MEET THE SEVEN
             </Link>
           </div>
-          <p className="mt-5 text-[12px] tracking-[0.04em] text-[#9A8777]">Limited introductory pricing · Secure online payment</p>
+          <p className="mt-5 text-[12px] tracking-[0.04em] text-[#C9AFA0]">Limited introductory pricing · Secure online payment</p>
         </div>
       </PageHero>
 

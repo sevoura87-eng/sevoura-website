@@ -32,8 +32,8 @@ export default function PageHero({
   footnote,
   layout = "split",
   reverse = false,
-  index,
   artNode,
+  artFirstOnMobile = false,
   children,
 }: {
   eyebrow: string;
@@ -51,23 +51,23 @@ export default function PageHero({
   footnote?: ReactNode;
   layout?: "split" | "panorama" | "band";
   reverse?: boolean;
-  /** small chapter marker shown above the eyebrow, e.g. "II" */
-  index?: string;
+  /** split layout: show the art above the copy when stacked on phones and tablets */
+  artFirstOnMobile?: boolean;
   children?: ReactNode;
 }) {
   const dark = tone === "dark";
   const root = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
-  /* on phones the panorama stacks (art above text); parallax there would slide the two into each other */
+  /* when the art stacks above the text (phones), parallax would slide the two into each other */
   const [stacked, setStacked] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
+    const mq = window.matchMedia(layout === "panorama" ? "(max-width: 767px)" : "(max-width: 1023px)");
     const on = () => setStacked(mq.matches);
     on();
     mq.addEventListener("change", on);
     return () => mq.removeEventListener("change", on);
-  }, []);
-  const reduce = prefersReduced || (layout === "panorama" && stacked);
+  }, [layout]);
+  const reduce = prefersReduced || (stacked && (layout === "panorama" || artFirstOnMobile));
   const { scrollYProgress } = useScroll({ target: root, offset: ["start start", "end start"] });
   const artY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
@@ -83,7 +83,6 @@ export default function PageHero({
     <motion.div style={{ y: reduce ? 0 : textY }} className="relative z-10 max-w-[640px]">
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease }}>
         <p className={`flex items-center gap-4 text-[12px] font-medium tracking-[0.34em] ${gold}`}>
-          {index && <span className="font-display text-[15px] italic tracking-[0.1em]">{index}</span>}
           <span className={`h-px w-10 ${goldBg}`} />
           {eyebrow}
         </p>
@@ -163,13 +162,13 @@ export default function PageHero({
           band ? "lg:min-h-[480px] lg:grid-cols-[1.25fr_1fr] lg:py-[6svh]" : "lg:h-[calc(100svh-var(--header-h))] lg:min-h-[560px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:py-[5svh]"
         }`}
       >
-        <div className={reverse ? "lg:order-2" : ""}>{copy}</div>
+        <div className={`${artFirstOnMobile ? "order-2" : ""} ${reverse ? "lg:order-2" : "lg:order-1"}`}>{copy}</div>
         <motion.div
           style={{ y: reduce ? 0 : artY }}
           initial={{ opacity: 0, y: 30, clipPath: "inset(12% 0 0 0)" }}
           animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0 0)" }}
           transition={{ duration: 1.6, ease, delay: 0.1 }}
-          className={`relative mx-auto w-full ${band ? "max-w-[560px]" : "max-w-[420px] sm:max-w-[500px] lg:flex lg:h-full lg:max-w-full lg:items-center lg:justify-center"} ${reverse ? "lg:order-1" : ""}`}
+          className={`relative mx-auto w-full ${band ? "max-w-[560px]" : "max-w-[420px] sm:max-w-[500px] lg:flex lg:h-full lg:max-w-full lg:items-center lg:justify-center"} ${artFirstOnMobile ? "order-1" : ""} ${reverse ? "lg:order-1" : "lg:order-2"}`}
         >
           <div data-hero-art className={`relative ${band ? "aspect-[16/11] w-full" : "aspect-[5/6] w-full lg:h-[min(100%,680px,calc((min(100vw,1440px)-12rem)*0.585))] lg:w-auto"}`}>
             <div className="absolute inset-0 overflow-hidden">

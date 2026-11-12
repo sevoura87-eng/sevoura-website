@@ -212,7 +212,14 @@ input[type="number"]::-webkit-outer-spin-button {
   50%      { transform: scale(1.07) translate3d(-1.2%, -.8%, 0); }
 }
 .art-drift { animation: art-drift 26s cubic-bezier(.45, 0, .55, 1) infinite; will-change: transform; }
+@keyframes art-glint {
+  0%, 55%  { transform: translateX(0); opacity: 0; }
+  62%      { opacity: 1; }
+  85%, 100% { transform: translateX(400%); opacity: 0; }
+}
+.art-glint { animation: art-glint 9s cubic-bezier(.45, 0, .55, 1) infinite; }
 @media (prefers-reduced-motion: reduce) {
+  .art-glint,
   .art-sheen, .art-sheen-svg, .art-beams, .art-sway, .art-sway-slow, .art-breathe, .art-mote, .art-drift { animation: none !important; }
 }
 

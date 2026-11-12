@@ -16,9 +16,9 @@ export function todayIndex(): number {
 }
 
 export const DESTINATIONS = [
-  { no: "01", title: "The Collection", subtitle: "DISCOVER THE SEVEN", href: "/shop", image: "/sevoura-bottle.jpeg" },
-  { no: "02", title: "Our Story", subtitle: "THE SOUL OF SEVOURA", href: "/our-story", image: "/images/founder-jasleen.jpg" },
-  { no: "03", title: "The Seven", subtitle: "PLANETARY INSPIRATIONS", href: "/the-seven", image: "/images/products/wednesday.jpg" },
-  { no: "04", title: "The Experience", subtitle: "A PERSONAL RITUAL", href: "/the-experience", image: "/images/products/friday.jpg" },
-  { no: "05", title: "The Journal", subtitle: "THOUGHTS & STORIES", href: "/journal", image: "/images/products/saturday.jpg" },
+  { title: "The Collection", subtitle: "DISCOVER THE SEVEN", href: "/shop", image: "/sevoura-bottle.jpeg" },
+  { title: "Our Story", subtitle: "THE SOUL OF SEVOURA", href: "/our-story", image: "/images/founder-jasleen.jpg" },
+  { title: "The Seven", subtitle: "PLANETARY INSPIRATIONS", href: "/the-seven", image: "/images/sevoura-seven-planets.jpg" },
+  { title: "The Experience", subtitle: "A PERSONAL RITUAL", href: "/the-experience", image: "/images/nav-experience-wrist.jpg" },
+  { title: "The Journal", subtitle: "THOUGHTS & STORIES", href: "/journal", image: "/images/nav-journal-notebook.jpg" },
 ];
