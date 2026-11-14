@@ -4,9 +4,8 @@
  * Then paste each file into Supabase → Authentication → Emails → Templates (subjects listed in README there).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
-import { confirmSignupTemplate, resetPasswordTemplate } from "../src/lib/email/authTemplates";
+import { confirmSignupTemplate, resetPasswordTemplate } from "./auth-email-templates.ts";
 
-process.env.NEXT_PUBLIC_SITE_URL ||= "https://www.sevoura.com";
 mkdirSync("supabase/templates", { recursive: true });
 const out = [
   ["confirm-signup.html", confirmSignupTemplate()],

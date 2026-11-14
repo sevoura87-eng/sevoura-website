@@ -3,7 +3,7 @@
  * Table-based with inline styles so it renders in Gmail, Outlook, Apple Mail and on phones.
  */
 
-export const SITE = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.sevoura.com").replace(/\/$/, "");
+export const SITE = "https://www.sevoura.com";
 
 export const C = {
   ivory: "#F8F1E7",
@@ -58,7 +58,7 @@ export function layout({ preheader, body }: { preheader: string; body: string })
     <!-- burgundy band with the wordmark -->
     <tr><td bgcolor="${C.burgundy}" align="center" style="background:${C.burgundy};padding:34px 24px 30px;border-top:3px solid ${C.goldSoft};">
       <a href="${SITE}" target="_blank" style="text-decoration:none;">
-        <img src="${SITE}/email/sevoura-logo-email.png" width="200" alt="SEVOURA" style="display:block;width:200px;max-width:60%;height:auto;border:0;margin:0 auto;">
+        <img src="${SITE}/_next/image?url=%2Fsevoura-logo.png&amp;w=640&amp;q=75" width="200" alt="SEVOURA" style="display:block;width:200px;max-width:60%;height:auto;border:0;margin:0 auto;">
       </a>
       <p style="margin:16px 0 0;font-family:${SANS};font-size:10px;letter-spacing:4px;color:${C.goldSoft};">CLEANSE &nbsp;·&nbsp; ELEVATE &nbsp;·&nbsp; RADIATE</p>
     </td></tr>

@@ -1,4 +1,4 @@
-import { C, SANS, SERIF, SITE, button, divider, esc, layout } from "./layout";
+import { C, SANS, SERIF, SITE, button, divider, esc, layout } from "./layout.ts";
 
 export type ConfirmationOrder = {
   id: string;

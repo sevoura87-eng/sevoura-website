@@ -1,10 +1,11 @@
-import { C, SANS, SERIF, button, divider, layout } from "./layout";
+import { C, SANS, SERIF, button, divider, layout } from "../supabase/functions/order-confirmation/layout.ts";
 
 /**
  * Supabase Auth email templates (Dashboard → Authentication → Emails → Templates).
  * They keep Supabase's own variables — {{ .ConfirmationURL }} — so the existing verification
  * and password-reset flows are untouched; only the look and wording change.
  * Generated into supabase/templates/*.html by scripts/build-email-templates.ts.
+ * (The shared layout lives with the order-confirmation Edge Function so both use one design.)
  */
 
 const p = (t: string) => `<p style="margin:18px auto 0;max-width:440px;font-family:${SANS};font-size:15px;line-height:25px;color:${C.body};text-align:center;">${t}</p>`;
