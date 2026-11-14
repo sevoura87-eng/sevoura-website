@@ -1,3 +1,5 @@
+import { after } from "next/server";
+import { sendOrderConfirmation } from "@/lib/email/orderConfirmation";
 import { getServiceSupabase } from "@/lib/supabase/admin";
 import { fetchRazorpayPayment, verifyWebhookSignature } from "@/lib/payments/razorpay";
 import { errorCode, json } from "@/lib/payments/server";
@@ -56,7 +58,7 @@ export async function POST(req: Request) {
       case "payment.captured":
       case "order.paid": {
         if (!p?.order_id) break;
-        const { error } = await sb.rpc("rzp_mark_paid", {
+        const { data: paid, error } = await sb.rpc("rzp_mark_paid", {
           p_rzp_order_id: p.order_id,
           p_rzp_payment_id: p.id,
           p_amount_paise: p.amount,
@@ -65,6 +67,10 @@ export async function POST(req: Request) {
           p_raw: summary,
         });
         if (error && !/payment_not_found/.test(error.message)) throw error;
+        // backup path for the thank-you email (e.g. the customer closed the page before verification);
+        // the email_log guard makes sure only one copy is ever sent
+        const paidOrderId = (paid as { order_id?: string } | null)?.order_id;
+        if (!error && paidOrderId) after(() => sendOrderConfirmation(sb, paidOrderId));
         break;
       }
       case "payment.authorized":

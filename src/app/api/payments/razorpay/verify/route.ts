@@ -1,3 +1,5 @@
+import { after } from "next/server";
+import { sendOrderConfirmation } from "@/lib/email/orderConfirmation";
 import { captureRazorpayPayment, fetchRazorpayPayment, verifyPaymentSignature } from "@/lib/payments/razorpay";
 import { errorCode, json, ownedPayment, paymentContext } from "@/lib/payments/server";
 
@@ -52,6 +54,8 @@ export async function POST(req: Request) {
         p_raw: { id: payment.id, status: payment.status, method: payment.method ?? null, amount: payment.amount },
       });
       if (error) throw error;
+      // thank-you email after the response; sent at most once per order (see lib/email)
+      after(() => sendOrderConfirmation(sb, row.order_id));
       return json({ status: "paid", order_id: row.order_id });
     }
 
